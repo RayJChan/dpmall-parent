@@ -1,0 +1,90 @@
+package com.dpmall.api.bean;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 销售线索
+ * @author river
+ * @since 2017-07-10
+ */
+public class SaleLeadsModel  implements Serializable {
+	private static final long serialVersionUID = 2413878781664810236L;
+
+	/**留资订单ID*/
+	public Long id;
+	
+	/**客户姓名*/
+	public String clientName;
+	
+	/**客户电话**/
+	public String clientTel;	
+	
+	/**客户地址*/
+	public String clientAddr;
+	
+	/**客户备注**/
+	public String clientRemark;
+	
+	/**服务地址*/
+	public String serviceAddress;
+	
+	/**服务品类*/
+	public String serviceCatelog;
+	
+	/**服务摘要*/
+	public String serviceTitle;
+	
+	/**预计服务时间*/
+	public Date service;
+	
+	/**风格偏好*/
+	public String style;
+	
+	/**客户预算*/
+	public Double budget;
+	
+	/**客服电话*/
+	public String callServiceTel;
+	
+	/**客服备注*/
+	public String callServiceRemark;
+	
+	/**销售线索订单状态*/
+	public String saleLeadsStatus;
+	
+	/**下派时间*/
+	public Date distributeTime;
+	
+	/**经销商Id*/
+	public Long distributorId;
+	
+	/**经销商操作时间*/
+	public Date distributorOperateTime;
+	
+	/**经销商用户名*/
+	public String distributorUserName;
+	
+	/**建议店铺ID*/
+	public Long recommendstoreId;
+	
+	/**建议店铺名称*/
+	public String recommendstoreName;
+	
+	/**店铺接单时间*/
+	public Date storeAcceptTime;
+	
+	/**预约到店时间*/
+	public Date appointmentTime;
+	
+	/**结单时间*/
+	public Date closeTime;
+	
+	/**成单金额*/
+	public Double total;
+	
+	/**成交商品列表*/
+	public List<SaleLeadsGoodsModel> orderItemList;
+	
+}

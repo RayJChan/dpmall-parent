@@ -327,6 +327,7 @@
 		<module>dpmall-db</module>
 		<module>dpmall-datasvr</module>
 		<module>dpmall-web</module>
+		<module>dpmall-test</module>
 	</modules>
 	<build>
 		<defaultGoal>package</defaultGoal>

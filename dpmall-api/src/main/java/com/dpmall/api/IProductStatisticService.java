@@ -1,0 +1,25 @@
+package com.dpmall.api;
+
+import java.util.List;
+
+import com.dpmall.api.bean.ProductStatisticModel;
+
+
+
+
+/**
+ * 
+ * @author river
+ * @since 2017-06-30
+ */
+public interface IProductStatisticService {
+	/**
+	 * <p>
+	 * 根据模板查询
+	 * @param template
+	 * @param page
+	 * @return
+	 */
+    public List<ProductStatisticModel> search(String productCode,String fromTime, String endTime, int start, int pageSize);
+
+}
