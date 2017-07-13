@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.common.SpringTestCase;
+import com.dpmall.db.bean.BlacklistEntity;
 import com.dpmall.db.bean.ProductStatisticEntity;
+import com.dpmall.db.dao.BlacklistDao;
 import com.dpmall.db.dao.ProductStatisticDao;
 
 public class ProductStatisticDaoTestCase extends SpringTestCase {
@@ -19,6 +21,9 @@ public class ProductStatisticDaoTestCase extends SpringTestCase {
     
     @Autowired
     private ProductStatisticDao productStatisticDao;
+    
+    @Autowired
+    private BlacklistDao blacklistDao;
     
     
     @Test
@@ -36,6 +41,13 @@ public class ProductStatisticDaoTestCase extends SpringTestCase {
     	prod.updateTime = new Date();
     	
     	productStatisticDao.insert(prod);
+    }
+    
+    @Test
+    public void testBlacklistSeach(){
+    	for(BlacklistEntity blacklistEntity:blacklistDao.getByPK(25L)){
+    		System.out.println("查看"+blacklistEntity.toString());
+    	}
     }
     
     @Test

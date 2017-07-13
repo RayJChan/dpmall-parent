@@ -5,6 +5,5 @@ import java.util.Date;
 public class TimeScope {
     public Date begin;
     
-    public Date end;
-    
+    public Date end; 
 }

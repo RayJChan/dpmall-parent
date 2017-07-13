@@ -34,7 +34,7 @@ public interface IOrderService {
      * @param distributorId 经销商ID
      * @param orderCode 订单编码
      * @param storeId 店铺ID
-     * @return
+     * @return 成功返回200
      */
     public int distribute(String distributorId,String orderCode, String storeId);
     
@@ -45,7 +45,7 @@ public interface IOrderService {
      * @param orderCode 销售线索ID
      * @param rejectType 拒单类型
      * @param rejectRemark 拒单备注
-     * @return
+     * @return 成功返回200
      */
     public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark);
     
@@ -55,7 +55,7 @@ public interface IOrderService {
 	 * @param distributorId 经销商Id
 	 * @param startItemId 上一次加载的最后项ID
 	 * @param pageSize 页的大小
-     * @return
+     * @return 经销商待跟进的一页实物订单数据
      */
     public List<OrderModel> getOnePage4Followup(String distributorId,String startItemId, Integer pageSize);
     
@@ -69,7 +69,7 @@ public interface IOrderService {
      * @param clientTel
      * @param startNum
      * @param pageSize
-     * @return
+     * @return 根据条件查询已发货的实物订单
      */
     public List<OrderModel> getOnePageClosedOrder(String distributorId,TimeScope distributeTime, String storeId,String orderCode, String clientName,String clientTel,Integer startNum, Integer pageSize);
     
@@ -96,14 +96,14 @@ public interface IOrderService {
      * 导购员接单
      * @param acceptorId 导购员ID
      * @param orderCode 订单编码
-     * @return
+     * @return 成功返回200
      */
     public int accept(String acceptorId, String orderCode);
     
     /**
      * 确认发货
      * @param model
-     * @return
+     * @return 成功返回200
      */
     public int deliver(String orderCode);
  
@@ -113,7 +113,7 @@ public interface IOrderService {
      * @param acceptorId 导购员ID
      * @param startItemId 上一次加载的最后项ID
      * @param pageSize 页大小
-     * @return
+     * @return 导购员已接单的一页实物订单信息
      */
     public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId,String startItemId, Integer pageSize);
     
@@ -122,7 +122,7 @@ public interface IOrderService {
      * @param acceptorId 导购员ID
      * @param startItemId 上一次加载的最后项ID
      * @param pageSize 页大小
-     * @return
+     * @return 导购员已结单的一页实物订单信息
      */
     public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId,String startItemId, Integer pageSize);
 }
