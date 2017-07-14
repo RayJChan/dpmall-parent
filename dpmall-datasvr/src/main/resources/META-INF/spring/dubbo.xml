@@ -19,4 +19,8 @@
 	<!-- <dubbo:protocol id="http" name="${http.protocol.name}" port="${http.protocol.port}" /> -->
 
 	<dubbo:service interface="com.dpmall.api.IProductStatisticService" ref="ProductStatisticServiceFacade" />
+	<dubbo:service interface="com.dpmall.api.IStoreService" ref="StoreServiceFacade" />
+	<dubbo:service interface="com.dpmall.api.ISaleLeadsService" ref="SaleLeadsServiceFacade" />
+	<dubbo:service interface="com.dpmall.api.IOrderService" ref="OrderServiceFacade" />
+	<dubbo:service interface="com.dpmall.api.IPrepayService" ref="PrepayServiceFacade" />
 </beans>

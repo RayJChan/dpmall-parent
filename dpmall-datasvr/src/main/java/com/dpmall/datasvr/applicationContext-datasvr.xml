@@ -11,4 +11,21 @@
 	<bean id ="productStatisticService" class="com.dpmall.datasvr.service.ProductStatisticServiceImpl">
 	    <property name="productStatisticDao" ref="productStatisticDao"/>
 	</bean>
+	
+	
+	<bean id="OrderServiceFacade" class="com.dpmall.datasvr.facade.OrderServiceFacade"></bean>
+	
+	<bean id ="orderService" class="com.dpmall.datasvr.service.OrderServiceImpl"></bean>
+	
+	<bean id="PrepayServiceFacade" class="com.dpmall.datasvr.facade.PrepayServiceFacade"></bean>
+	
+	<bean id ="prepayService" class="com.dpmall.datasvr.service.PrepayServiceImpl"></bean>
+	
+	<bean id="StoreServiceFacade" class="com.dpmall.datasvr.facade.StoreServiceFacade"></bean>
+	
+	<bean id ="storeService" class="com.dpmall.datasvr.service.StoreServiceImpl"></bean>
+	
+	<bean id="SaleLeadsServiceFacade" class="com.dpmall.datasvr.facade.SaleLeadsServiceFacade"></bean>
+	
+	<bean id ="saleLeadsService" class="com.dpmall.datasvr.service.SaleLeadsServiceImpl"></bean>
 </beans>
