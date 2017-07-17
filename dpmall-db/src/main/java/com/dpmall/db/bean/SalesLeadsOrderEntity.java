@@ -110,7 +110,7 @@ public class SalesLeadsOrderEntity  {
     /**关闭原因**/
     public String closereason;
     
-    /**客服电话**/   
+    /**客服电话 **/   
     public Long serveTel;
 
     
