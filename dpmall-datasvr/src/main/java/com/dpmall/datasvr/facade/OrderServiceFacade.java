@@ -13,7 +13,7 @@ import com.dpmall.api.common.TimeScope;
  */
 public class OrderServiceFacade implements IOrderService {
 
-	public List<OrderModel> getOnePage4Distribute(String distributorId, String startItemId, Integer pageSize) {
+	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -33,7 +33,7 @@ public class OrderServiceFacade implements IOrderService {
 		return 0;
 	}
 
-	public List<OrderModel> getOnePage4Followup(String distributorId, String startItemId, Integer pageSize) {
+	public List<OrderModel> getOnePage4Followup(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -44,7 +44,7 @@ public class OrderServiceFacade implements IOrderService {
 		return null;
 	}
 
-	public List<OrderModel> getOnePage4Accept(String storeId, String startItemId, Integer pageSize) {
+	public List<OrderModel> getOnePage4Accept(String storeId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -64,14 +64,14 @@ public class OrderServiceFacade implements IOrderService {
 		return 0;
 	}
 
-	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, String startItemId, Integer pageSize) {
+	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId, String startItemId, Integer pageSize) {
+	public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

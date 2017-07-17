@@ -14,11 +14,11 @@ public interface IOrderService {
 	/**
 	 * 经销商获取待分配的实物订单
 	 * @param distributorId 经销商Id
-	 * @param startItemId 上一次加载的最后项ID
+	 * @param offset 上一次加载的最后项offset
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的实物订单列表
 	 */
-    public List<OrderModel> getOnePage4Distribute(String distributorId,String startItemId, Integer pageSize);
+    public List<OrderModel> getOnePage4Distribute(String distributorId,Integer offset, Integer pageSize);
     
     /**
      * 获取经销商待分配的实物订单数
@@ -57,7 +57,7 @@ public interface IOrderService {
 	 * @param pageSize 页的大小
      * @return 经销商待跟进的一页实物订单数据
      */
-    public List<OrderModel> getOnePage4Followup(String distributorId,String startItemId, Integer pageSize);
+    public List<OrderModel> getOnePage4Followup(String distributorId,Integer offset, Integer pageSize);
     
     /**
      * 根据条件查询已发货的实物订单
@@ -77,11 +77,11 @@ public interface IOrderService {
 	/**
 	 * 店铺获取待接单的实物订单
 	 * @param storeId 店铺ID
-	 * @param startItemId 上一次加载的最后项ID
+	 * @param offset 上一次加载的位移
 	 * @param pageSize 页的大小
 	 * @return 店铺获取待接单的实物订单列表
 	 */
-    public List<OrderModel> getOnePage4Accept(String storeId,String startItemId, Integer pageSize);
+    public List<OrderModel> getOnePage4Accept(String storeId,Integer offset, Integer pageSize);
     
     /**
      * 获取店铺待接单的实物订单数
@@ -115,7 +115,7 @@ public interface IOrderService {
      * @param pageSize 页大小
      * @return 导购员已接单的一页实物订单信息
      */
-    public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId,String startItemId, Integer pageSize);
+    public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId,Integer offset, Integer pageSize);
     
     /**
      * 获取导购员已结单的一页实物订单信息
@@ -124,5 +124,5 @@ public interface IOrderService {
      * @param pageSize 页大小
      * @return 导购员已结单的一页实物订单信息
      */
-    public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId,String startItemId, Integer pageSize);
+    public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId,Integer offset, Integer pageSize);
 }

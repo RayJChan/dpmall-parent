@@ -8,7 +8,7 @@ import com.dpmall.api.common.TimeScope;
 
 public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
-	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, String startItemId, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -28,7 +28,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return 0;
 	}
 
-	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, String startItemId, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,7 +40,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return null;
 	}
 
-	public List<SaleLeadsModel> getOnePage4Accept(String storeId, String startItemId, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePage4Accept(String storeId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,14 +60,14 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return 0;
 	}
 
-	public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId, String startItemId, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, String startItemId, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }
