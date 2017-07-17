@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dpmall.db.dao.SalesLeadsOrderDao">
+	<resultMap type="com.dpmall.db.bean.SalesLeadsOrderEntity" id="entity">
+		<result property="id" column="PK"/>
+		<result property="salesleads" column="P_SALESLEADS"/>
+		<result property="agency" column="P_AGENCY"/>
+		<result property="status" column="P_STATUS"/>
+		<result property="resolved" column="P_RESOLVED"/>
+		<result property="distributedate" column="P_DISTRIBUTEDATE"/>
+		<result property="distributer" column="P_DISTRIBUTER"/>
+		<result property="agencyacceptdate" column="P_AGENCYACCEPTDATE"/>
+		<result property="agencyaccept" column="P_AGENCYACCEPT"/>
+		<result property="refusedate" column="P_REFUSEDATE"/>
+		<result property="suggeststore" column="P_SUGGESTSTORE"/>
+		<result property="acceptstore" column="P_ACCEPTSTORE"/>
+		<result property="acceptreceivedby" column="P_ACCEPTRECEIVEDBY"/>
+		<result property="acceptdate" column="P_ACCEPTDATE"/>
+		<result property="appointmentdate" column="P_APPOINTMENTDATE"/>
+		<result property="actualdate" column="P_ACTUALDATE"/>
+		<result property="amount" column="P_AMOUNT"/>
+		<result property="orderpicture" column="P_ORDERPICTURE"/>
+		<result property="telephone" column="P_TELEPHONE"/>
+		<result property="nickname" column="P_NICKNAME"/>
+		<result property="name" column="P_NAME"/>
+		<result property="district" column="P_DISTRICT"/>
+		<result property="address" column="P_ADDRESS"/>
+		<result property="servedistrict" column="P_SERVEDISTRICT"/>
+		<result property="serveaddress" column="P_SERVEADDRESS"/>
+		<result property="sercerpurpose" column="P_SERCERPURPOSE"/>
+		<result property="fitmentdate" column="P_FITMENTDATE"/>
+		<result property="stylepreferences" column="P_STYLEPREFERENCES"/>
+		<result property="comment" column="P_COMMENT"/>
+		<result property="brandpreferences" column="P_BRANDPREFERENCES"/>
+		<result property="budget" column="P_BUDGET"/>
+		<result property="handler" column="P_HANDLER"/>
+		<result property="handlercomment" column="P_HANDLERCOMMENT"/>
+		<result property="closedate" column="P_CLOSEDATE"/>
+		<result property="closereason" column="P_CLOSEREASON"/>
+	</resultMap>
+	
+</mapper>
+
+<!-- PK
+P_SALESLEADS
+P_AGENCY
+P_STATUS
+P_RESOLVED
+ACLTS
+PROPTS
+P_DISTRIBUTEDATE
+P_DISTRIBUTER
+P_AGENCYACCEPTDATE
+P_AGENCYACCEPT
+P_REFUSEDATE
+P_SUGGESTSTORE
+P_ACCEPTSTORE
+P_ACCEPTRECEIVEDBY
+P_ACCEPTDATE
+P_APPOINTMENTDATE
+P_ACTUALDATE
+P_AMOUNT
+P_ORDERPICTURE
+P_TELEPHONE
+P_NICKNAME
+P_NAME
+P_DISTRICT
+P_ADDRESS
+P_SERVEDISTRICT
+P_SERVEADDRESS
+P_SERCERPURPOSE
+P_FITMENTDATE
+P_STYLEPREFERENCES
+P_COMMENT
+P_BRANDPREFERENCES
+P_BUDGET
+P_HANDLER
+P_HANDLERCOMMENT
+P_CLOSEDATE
+P_CLOSEREASON
+ -->
