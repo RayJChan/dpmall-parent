@@ -37,8 +37,62 @@
 		<result property="handlercomment" column="P_HANDLERCOMMENT"/>
 		<result property="closedate" column="P_CLOSEDATE"/>
 		<result property="closereason" column="P_CLOSEREASON"/>
+		<result property="serveTel" column="serveTel"/>
+		<result property="distributorOperateDate" column="distributorOperateDate"/>
+		<result property="distributorUserName" column="distributorUserName"/>
+		<result property="serviceTitle" column="serviceTitle"/>
+		<result property="serviceCatelog" column="serviceCatelog"/>
 	</resultMap>
 	
+	<select id="getOnePage4Acceptor2Followup" resultMap="entity">
+		select 
+				PK
+				P_SALESLEADS
+				P_AGENCY
+				P_STATUS
+				P_RESOLVED
+				P_DISTRIBUTEDATE
+				P_DISTRIBUTER
+				P_AGENCYACCEPTDATE
+				P_AGENCYACCEPT
+				P_REFUSEDATE
+				P_SUGGESTSTORE
+				P_ACCEPTSTORE
+				P_ACCEPTRECEIVEDBY
+				P_ACCEPTDATE
+				P_APPOINTMENTDATE
+				P_ACTUALDATE
+				P_AMOUNT
+				P_ORDERPICTURE
+				P_TELEPHONE
+				P_NICKNAME
+				P_NAME
+				P_DISTRICT
+				P_ADDRESS
+				P_SERVEDISTRICT
+				P_SERVEADDRESS
+				P_SERCERPURPOSE
+				P_FITMENTDATE
+				P_STYLEPREFERENCES
+				P_COMMENT
+				P_BRANDPREFERENCES
+				P_BUDGET
+				P_HANDLER
+				P_HANDLERCOMMENT
+				P_CLOSEDATE
+				P_CLOSEREASON
+			from SALESLEADSORDER  where P_STATUS='' 
+			<if test="acceptorId!=null">
+				and P_ACCEPTRECEIVEDBY=${acceptorId}
+			</if>
+			<if test="startItemId!=null">
+				and PK &gt; ${startItemId}
+			</if>
+			<if test="pageSize!=null">
+				and rownum &lt; ${pageSize} +1
+			</if>
+			order by PK
+	</select>
 </mapper>
 
 <!-- PK

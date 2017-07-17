@@ -15,11 +15,11 @@ public interface ISaleLeadsService {
 	/**
 	 * 经销商获取待分配的销售线索
 	 * @param distributorId 经销商Id
-	 * @param startNum 上一次加载的位移
+	 * @param startItemId 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的销售线索列表
 	 */
-    public List<SaleLeadsModel> getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePage4Distribute(String distributorId,String startItemId, Integer pageSize);
     
     /**
      * 获取经销商待分配的线索数
@@ -56,7 +56,7 @@ public interface ISaleLeadsService {
 	 * @param pageSize 页的大小
      * @return
      */
-    public List<SaleLeadsModel> getOnePage4Followup(String distributorId,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePage4Followup(String distributorId,String startItemId, Integer pageSize);
     
     /**
      * 根据条件查询已完结的销售线索订单
@@ -76,11 +76,11 @@ public interface ISaleLeadsService {
 	/**
 	 * 店铺获取待接单的销售线索
 	 * @param storeId 店铺ID
-	 * @param startNum 上一次加载的最后项位移
+	 * @param startItemId 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 店铺获取待接单的销售线索列表
 	 */
-    public List<SaleLeadsModel> getOnePage4Accept(String storeId,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePage4Accept(String storeId,String startItemId, Integer pageSize);
     
     /**
      * 获取店铺待接单的线索数
@@ -110,18 +110,18 @@ public interface ISaleLeadsService {
     /**
      * 获取导购员已接单的一页销售线索信息
      * @param acceptorId 导购员ID
-     * @param startNum 上一次加载的最后项位移
+     * @param startItemId 上一次加载的最后项ID
      * @param pageSize 页大小
      * @return
      */
-    public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId,String startItemId, Integer pageSize);
     
     /**
      * 获取导购员已结单的一页销售线索信息
      * @param acceptorId 导购员ID
-     * @param startItemId 上一次加载的最后项位移
+     * @param startItemId 上一次加载的最后项ID
      * @param pageSize 页大小
      * @return
      */
-    public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId,String startItemId, Integer pageSize);
 }

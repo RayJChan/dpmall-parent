@@ -24,7 +24,7 @@ public class SalesLeadsOrderEntity  {
     public Date distributedate;
     
     /**派单员**/
-    public Long distributer;
+    public String distributer; //
     
     /**经销商接单时间**/
     public Date agencyacceptdate;
@@ -36,13 +36,13 @@ public class SalesLeadsOrderEntity  {
     public Date refusedate;
     
     /**建议服务店铺**/
-    public Long suggeststore;
+    public String suggeststore;
     
     /**接单店铺**/
-    public Long acceptstore;
+    public String acceptstore;
     
-    /**P_ACCEPTRECEIVEDBY**/
-    public Long acceptreceivedby;
+    /**店铺接单人**/
+    public String  acceptreceivedby;
     
     /**店铺接单时间**/
     public Date acceptdate;
@@ -69,13 +69,13 @@ public class SalesLeadsOrderEntity  {
     public String name;
     
     /**客户区域**/
-    public Long district;
+    public String  district;
     
     /**客户地址**/
     public String address;
     
     /**服务区域**/
-    public Long servedistrict;
+    public String  servedistrict;
 
     /**服务地址**/
     public String serveaddress;
@@ -117,6 +117,12 @@ public class SalesLeadsOrderEntity  {
     /**经销商操作时间**/
     public Date distributorOperateDate;
 
-	
-
+	/**经销商用户名**/
+    public String distributorUserName;
+    
+    /**服务摘要**/
+    public String serviceTitle;
+    
+    /**服务种类**/
+    public String serviceCatelog;
 }

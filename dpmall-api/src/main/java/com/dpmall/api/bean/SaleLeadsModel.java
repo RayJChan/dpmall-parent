@@ -37,7 +37,7 @@ public class SaleLeadsModel  implements Serializable {
 	public String serviceTitle;
 	
 	/**预计服务时间*/
-	public Date serviceDate;
+	public Date service;
 	
 	/**风格偏好*/
 	public String style;
