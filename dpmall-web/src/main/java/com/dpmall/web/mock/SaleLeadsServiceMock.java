@@ -82,7 +82,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = null;
 			tmp.distributeTime = new Date();
-			tmp.distributorId = Long.valueOf(distributorId);
+			tmp.distributorId = distributorId == null? 123 : Long.valueOf(distributorId);
 			tmp.distributorOperateTime = tmp.distributeTime;
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
@@ -121,7 +121,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = new Date();
 			tmp.distributeTime = new Date();
-			tmp.distributorId = Long.valueOf(distributorId);
+			tmp.distributorId = distributorId == null? 123 : Long.valueOf(distributorId);
 			tmp.distributorOperateTime = tmp.distributeTime;
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
