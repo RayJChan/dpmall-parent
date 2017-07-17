@@ -1,13 +1,26 @@
 package com.dpmall.api.enums;
 
+/**
+ * <p>
+ * 销售线索状态
+ * @author river
+ * @date 2017-07-17
+ */
 public enum ESaleLeadsOrderStatus {
-	
+
+	/**待下派*/
 	DISTRIBUTE_PEND(0,"2distribute"),
+	/**拒单*/
 	REJECTED(5,"distributed"),
+	/**经销商已下派*/
 	DISTRIBUTED(10,"distributed"),
+	/**已接单*/
 	ACCEPTED(15,"accepted"),
+	/**已预约*/
 	APPOINTED(20,"appointed"),
-	SUCCESS(25,"appointed"),
+	/**已成交*/
+	SUCCESS(25,"sucess"),
+	/**已失败*/
 	FAILED(30,"failed");
 	
     

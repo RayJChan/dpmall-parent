@@ -2,14 +2,16 @@ package com.dpmall.web.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.err.ErrorCode;
+import com.dpmall.web.mock.SaleLeadsServiceMock;
 
 /**
  * 销售线索
@@ -19,19 +21,24 @@ import com.dpmall.api.err.ErrorCode;
 @Controller
 @RequestMapping("/saleLeads")
 public class SaleLeadsController {
+	
+	private ISaleLeadsService saleLeadsServiceMock = new SaleLeadsServiceMock();
+	
+	@Autowired
+	private ISaleLeadsService saleLeadsService;
 
 	
 	/**
 	 * 经销商获取待分配的销售线索
 	 * @param distributorId 经销商Id
-	 * @param startItemId 上一次加载的最后项ID
+	 * @param startNum 上一次加载的最后项偏移
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的销售线索列表
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<SaleLeadsModel> getOnePage4Distribute(String distributorId,String startItemId, Integer pageSize){
-    	return null;
+    public List<SaleLeadsModel> getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize){
+    	return saleLeadsServiceMock.getOnePage4Distribute(distributorId, startNum, pageSize);
     }
     
     /**
@@ -42,7 +49,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Integer get2DistributeCount(String distributorId){
-    	return 0;
+    	return saleLeadsServiceMock.get2DistributeCount(distributorId);
     }
     
     
@@ -56,7 +63,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public int distribute(String distributorId,String saleLeadsId, String shopId){
-		return 0;
+		return saleLeadsServiceMock.distribute(distributorId, saleLeadsId, shopId);
     }
     
     /**
@@ -70,7 +77,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark){
-		return 0;
+		return saleLeadsServiceMock.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
     }
     
     
@@ -83,8 +90,8 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<SaleLeadsModel> getOnePage4Followup(String distributorId,String startItemId, Integer pageSize){
-    	return null;
+    public List<SaleLeadsModel> getOnePage4Followup(String distributorId,Integer startNum, Integer pageSize){
+    	return saleLeadsServiceMock.getOnePage4Followup(distributorId, startNum, pageSize);
     }
     
     /**
@@ -102,7 +109,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/getOnePageClosedSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,Integer startNum, Integer pageSize){
-    	return null;
+    	return saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
     }
     
     
@@ -115,8 +122,8 @@ public class SaleLeadsController {
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<SaleLeadsModel> getOnePage4Accept(String storeId,String startItemId, Integer pageSize){
-    	return null;
+    public List<SaleLeadsModel> getOnePage4Accept(String storeId,Integer startNum, Integer pageSize){
+    	return saleLeadsServiceMock.getOnePage4Accept(storeId, startNum, pageSize);
     }
     
     /**
@@ -127,7 +134,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Integer get2AcceptCount(String storeId){
-    	return 15;
+    	return saleLeadsServiceMock.get2AcceptCount(storeId);
     }
     
     
@@ -141,7 +148,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public int accept(String acceptorId, String saleLeadsId){
-    	return ErrorCode.SUCCESS;
+    	return saleLeadsServiceMock.accept(acceptorId, saleLeadsId);
     }
     
     /**
@@ -152,7 +159,7 @@ public class SaleLeadsController {
     @RequestMapping(value="/edit",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public int edit(SaleLeadsModel model){
-    	return 0;
+    	return saleLeadsServiceMock.edit(model);
     }
  
     
@@ -165,8 +172,8 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getOnePage4Acceptor2Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId,String startItemId, Integer pageSize){
-    	return null;
+    public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize){
+    	return saleLeadsServiceMock.getOnePage4Acceptor2Followup(acceptorId, startNum, pageSize);
     }
     
     /**
@@ -178,8 +185,8 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getOnePage4AcceptorClosed",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId,String startItemId, Integer pageSize){
-    	return null;
+    public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize){
+    	return saleLeadsServiceMock.getOnePage4AcceptorClosed(acceptorId, startNum, pageSize);
     }
 
 }
