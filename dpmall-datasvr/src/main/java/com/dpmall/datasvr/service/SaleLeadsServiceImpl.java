@@ -16,77 +16,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	
 	@Autowired
 	private SalesLeadsOrderDao salesLeadsOrderDao;
-
-	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, String startItemId, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Integer get2DistributeCount(String distributorId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int distribute(String distributorId, String saleLeadsId, String shopId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, String startItemId, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
-			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
-			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List<SaleLeadsModel> getOnePage4Accept(String storeId, String startItemId, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public int accept(String acceptorId, String saleLeadsId) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int edit(SaleLeadsModel model) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId, String startItemId, Integer pageSize) {
-		List<SalesLeadsOrderEntity> in= salesLeadsOrderDao.getOnePage4Acceptor2Followup(StringUtils.isEmpty(acceptorId)?null:Long.parseLong(acceptorId), StringUtils.isEmpty(acceptorId)?null:Long.parseLong(startItemId), pageSize);
-		List<SaleLeadsModel> out = new ArrayList<SaleLeadsModel>(in.size());
-		return null;
-	}
-
-	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, String startItemId, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	private List<SaleLeadsModel> facede(List<SalesLeadsOrderEntity> in,List<SaleLeadsModel> out){
-		for(SalesLeadsOrderEntity entity: in) {
-			
-		}
-		return out;
-	}
-	
+	/**
+	 * 把entity转换成model
+	 * @param entity 需要转换的entity
+	 * @return 转化后的model
+	 */
 	private SaleLeadsModel entityToModel(SalesLeadsOrderEntity entity) {
 		SaleLeadsModel model=new SaleLeadsModel();
 		model.appointmentTime=entity.appointmentTime;
@@ -112,7 +47,80 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.style=entity.style;
 		model.total=entity.total.doubleValue();
 		
+		return model;
 		
-		
+	}
+
+	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2DistributeCount(String distributorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int distribute(String distributorId, String saleLeadsId, String shopId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, Integer startNum, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
+			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
+			Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<SaleLeadsModel> getOnePage4Accept(String storeId, Integer startNum, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2AcceptCount(String storeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int accept(String acceptorId, String saleLeadsId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int edit(SaleLeadsModel model) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	 /**
+     * 获取导购员已接单的一页销售线索信息
+     * @param acceptorId 导购员ID
+     * @param startNum 上一次加载的最后项位移
+     * @param pageSize 页大小
+     * @return
+     */
+	public List<SaleLeadsModel> getOnePage4Acceptor2Followup(String acceptorId, Integer startNum, Integer pageSize) {
+		List<SalesLeadsOrderEntity> searchResult = salesLeadsOrderDao.getOnePage4Acceptor2Followup(acceptorId, startNum, pageSize);
+		List<SaleLeadsModel> result = new ArrayList<SaleLeadsModel>(searchResult.size());
+		for(SalesLeadsOrderEntity entity:searchResult) {
+			result.add(entityToModel(entity));
+		}
+		return result;
+	}
+
+	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, Integer startNum, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -21,7 +21,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 
 	@Test
 	public void test() {
-		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4Acceptor2Followup(null, null, null) ) {
+		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4Acceptor2Followup("14", 1, 1) ) {
 			LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
 			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
 		}

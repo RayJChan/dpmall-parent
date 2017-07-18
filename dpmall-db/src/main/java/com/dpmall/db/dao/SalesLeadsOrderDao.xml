@@ -67,16 +67,13 @@
 		FROM
 			SALESLEADSORDER S
 			LEFT JOIN AGENCY A ON S.P_AGENCY = A .PK 
-			<!-- <if test="acceptorId!=null">
-				and P_ACCEPTRECEIVEDBY=${acceptorId}
+			<if test="acceptorId!=null">
+				where S.P_ACCEPTRECEIVEDBY=${acceptorId}
 			</if>
-			<if test="startItemId!=null">
-				and PK &gt; ${startItemId}
+			<if test="startNum!=null and pageSize!=null">			
+				and ${pageSize-1}*${startNum} &lt; ROWNUM AND ROWNUM &lt; ${pageSize}*${startNum}+1
 			</if>
-			<if test="pageSize!=null">
-				and rownum &lt; ${pageSize} +1
-			</if>
-			order by PK -->
+			
 	</select>
 	<select id="get2AcceptCount" resultType="int">
 		select count(1) from SALESLEADSORDER  where P_STATUS='15'
