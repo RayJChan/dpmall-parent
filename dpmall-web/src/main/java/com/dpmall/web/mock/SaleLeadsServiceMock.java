@@ -3,6 +3,7 @@ package com.dpmall.web.mock;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
@@ -308,6 +309,21 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	@Override
 	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
 		return 168.888;
+	}
+
+	@Override
+	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+		return ErrorCode.SUCCESS;
+	}
+
+	@Override
+	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
+		return ErrorCode.SUCCESS;
+	}
+
+	@Override
+	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
+		return ErrorCode.SUCCESS;
 	}
 
 }

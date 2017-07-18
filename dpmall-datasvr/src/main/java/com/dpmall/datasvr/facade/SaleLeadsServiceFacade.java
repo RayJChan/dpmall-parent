@@ -1,6 +1,7 @@
 package com.dpmall.datasvr.facade;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -119,6 +120,21 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 
