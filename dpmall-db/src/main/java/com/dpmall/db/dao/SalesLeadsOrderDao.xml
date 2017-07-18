@@ -122,6 +122,24 @@
 		</if>
 		AND  ROWNUM between ${startNum} and ${pageSize}
 	</select>
+	
+	<select id="getOnePage4Followup"  resultMap="SalesLeadsOrderEntity">
+		select 
+			PK,ROWNUM RN
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10' or P_SALESLEADSORDERSTATUS='15' or P_SALESLEADSORDERSTATUS='20'
+		<if test="agency != null">
+		    AND P_DISTRIBUTER = ${distributorId} 
+		</if>
+		AND  ROWNUM between ${startNum} and ${pageSize}
+	</select>
+	
+	<select id="get2AcceptCount" resultType="int">
+		select count(*) from SALESLEADSORDER  where P_STATUS='0'
+		<if test="P_DISTRIBUTER != null">
+				and P_DISTRIBUTER = ${distributorId}
+		</if>
+	</select>
+	
 
 </mapper>
 
