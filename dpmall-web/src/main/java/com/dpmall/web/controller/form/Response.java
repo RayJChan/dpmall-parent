@@ -15,5 +15,5 @@ public class Response {
     public String message;
     
     /**结果数据*/
-    public String Data;
+    public Object Data;
 }

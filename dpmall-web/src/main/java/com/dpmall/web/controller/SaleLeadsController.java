@@ -14,7 +14,6 @@ import com.alibaba.fastjson.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.mock.SaleLeadsServiceMock;
 
@@ -53,7 +52,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -74,7 +73,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -140,7 +139,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -168,7 +167,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -193,7 +192,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -215,7 +214,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -280,7 +279,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
@@ -304,7 +303,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = JSON.toJSONString(data);
+    	res.Data = data;
 
     	return res;
     }
