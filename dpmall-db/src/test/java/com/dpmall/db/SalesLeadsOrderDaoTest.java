@@ -18,14 +18,35 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 	
 	@Autowired
 	private SalesLeadsOrderDao salesLeadsOrderDao;
-
+	
+	/**
+	 * 测试导购员已接单的一页销售线索信息
+	 */
 	@Test
-	public void test() {
+	public void getOnePage4Acceptor2Followup() {
 		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4Acceptor2Followup("14", 1, 1) ) {
 			LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
 			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
 		}
 	}
+	
+	/**
+	 * 测试导购员已结单的一页销售线索信息
+	 */
+	@Test
+	public void getOnePage4AcceptorClosed() {
+		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4AcceptorClosed("14", 1, 1) ) {
+			LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
+			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
+		}
+	}
+	
+	/**测试分配店铺接口**/
+	@Test
+	public void distribute() {
+		LOG.info("result:"+salesLeadsOrderDao.distribute("1", "1"));
+	}
+	
 	@Test
 	public void testGet2AcceptCount() {
 		Integer count = salesLeadsOrderDao.get2AcceptCount("13");
