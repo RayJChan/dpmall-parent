@@ -27,5 +27,7 @@
 	
 	<bean id="SaleLeadsServiceFacade" class="com.dpmall.datasvr.facade.SaleLeadsServiceFacade"></bean>
 	
-	<bean id ="saleLeadsService" class="com.dpmall.datasvr.service.SaleLeadsServiceImpl"></bean>
+	<bean id ="saleLeadsService" class="com.dpmall.datasvr.service.SaleLeadsServiceImpl">
+	    <property name="salesLeadsOrderDao" ref="salesLeadsOrderDao"/>
+	</bean>
 </beans>
