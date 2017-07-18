@@ -27,12 +27,12 @@ public interface SalesLeadsOrderDao {
 	 * @param page
 	 * @return
 	 */
-    public List<SalesLeadsOrderEntity> getOnePage4Followup(@Param(value="distributorId")String distributorId,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
+    List<SalesLeadsOrderEntity> getOnePage4Followup(@Param(value="distributorId")String distributorId,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
     
     /**
      * 获取经销商待分配的线索数
      * @param distributorId 经销商ID
      * @return 经销商待分配的线索数
      */
-    public Integer get2DistributeCount(String distributorId);
+    Integer get2DistributeCount(@Param(value="distributorId")int distributorId);
 }

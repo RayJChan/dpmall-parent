@@ -37,7 +37,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.appointmentTime=entity.appointmentTime;
 		model.budget=entity.budget.doubleValue();
 		model.callServiceRemark=entity.callServiceRemark;
-		model.callServiceTel=entity.callServiceTel.toString();
+		model.callServiceTel=entity.callServiceTel!=null?entity.callServiceTel.toString():"";
 		model.clientAddr=entity.clientAddr;
 		model.clientName=entity.clientName;
 		model.clientTel=entity.clientTel;
@@ -90,7 +90,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public Integer get2DistributeCount(String distributorId) {
 		// TODO Auto-generated method stub
-		Integer result = salesLeadsOrderDao.get2DistributeCount(distributorId);
+		Integer result = salesLeadsOrderDao.get2DistributeCount(Integer.valueOf(distributorId));
 		return result;
 	}
 
