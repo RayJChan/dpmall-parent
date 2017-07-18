@@ -53,4 +53,13 @@ public interface SalesLeadsOrderDao {
      * @return 经销商待分配的线索数
      */
     Integer get2DistributeCount(@Param(value="distributorId")int distributorId);
+    
+    /**
+	 * 店铺获取待接单的销售线索
+	 * @param storeId 店铺ID
+	 * @param startNum 上一次加载的最后项位移
+	 * @param pageSize 页的大小
+	 * @return 店铺获取待接单的销售线索列表
+	 */
+    public List<SalesLeadsOrderEntity> getOnePage4Accept(@Param("storeId")String storeId,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
 }

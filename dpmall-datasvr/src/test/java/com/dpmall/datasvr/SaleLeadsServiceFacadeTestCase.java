@@ -32,4 +32,14 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	Integer result = saleLeadsService.get2DistributeCount("8");
         LOG.info("result:" + JSON.toJSONString(result));
     }
+    @Test
+    public void testGet2AcceptCount(){
+    	Integer result = saleLeadsService.get2AcceptCount("13");
+        LOG.info("result:" + result);
+    }
+    @Test
+    public void testGetOnePage4Accept(){
+    	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePage4Accept("1", 0, 5);
+        LOG.info("result:" + JSON.toJSONString(acceptModel));
+    }
 }
