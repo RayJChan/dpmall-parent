@@ -5,6 +5,7 @@ import java.util.List;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.param.SaleLeadStatisticForm;
 
 public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
@@ -66,6 +67,17 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	}
 
 	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, Integer startNum, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
+			Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}

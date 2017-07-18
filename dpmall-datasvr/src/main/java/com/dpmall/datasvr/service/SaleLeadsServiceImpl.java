@@ -3,12 +3,12 @@ package com.dpmall.datasvr.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
 
@@ -120,6 +120,17 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	}
 
 	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, Integer startNum, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
+			Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}

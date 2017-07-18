@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.param.SaleLeadStatisticForm;
 
 /**
  * 销售线索类服务接口
@@ -124,4 +125,23 @@ public interface ISaleLeadsService {
      * @return
      */
     public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize);
+    
+    /**
+     * 获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
+    public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize);
+    
+    
+    /**
+     * 获取根据form条件查询成功结单的金额
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
+    public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form,Integer startNum, Integer pageSize);
 }
