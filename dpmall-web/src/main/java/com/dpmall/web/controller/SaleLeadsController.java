@@ -1,6 +1,7 @@
 package com.dpmall.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.web.controller.form.AcceptBatchForm;
+import com.dpmall.web.controller.form.RejectBatchForm;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.mock.SaleLeadsServiceMock;
 
@@ -315,6 +318,8 @@ public class SaleLeadsController {
      * @param pageSize
      * @return
      */
+    @RequestMapping(value="/getOnePageSuccessOrders",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
     public Response getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize){
 
     	Response res = new Response();
@@ -339,6 +344,8 @@ public class SaleLeadsController {
      * @param pageSize
      * @return
      */
+    @RequestMapping(value="/getSuccessOrdersTtlAmount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
     public Response getSuccessOrdersTtlAmount(SaleLeadStatisticForm form){
     	Response res = new Response();
         try{
@@ -349,5 +356,66 @@ public class SaleLeadsController {
 
     	return res;
     }
+    
+    /**
+     * 经销商批量下派到店铺
+     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @return
+     */
+    @RequestMapping(value="/distributeBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId){
+    	Response res = new Response();
+        try{
+        	res.resultCode = saleLeadsServiceMock.distributeBatch(distributorId, saleLeadsId2shopId);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
 
+    	return res;
+    
+    }
+    
+    /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
+    @RequestMapping(value="/rejectBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public Response rejectBatch(RejectBatchForm form){
+    	Response res = new Response();
+    	
+        try{
+        	res.resultCode = saleLeadsServiceMock.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
+
+    	return res;
+    }
+
+    /**
+     * 导购员批量接单
+     * @param acceptorId 导购员ID
+     * @param saleLeadsId 线索ID
+     * @return
+     */
+    @RequestMapping(value="/acceptBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public Response acceptBatch(AcceptBatchForm form){
+    	Response res = new Response();
+    	
+        try{
+        	res.resultCode = saleLeadsServiceMock.acceptBatch(form.acceptorId, form.saleLeadsId);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
+
+    	return res;
+    
+    }
 }

@@ -1,6 +1,7 @@
 package com.dpmall.api;
 
 import java.util.List;
+import java.util.Map;
 
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
@@ -40,6 +41,13 @@ public interface ISaleLeadsService {
     public int distribute(String distributorId,String saleLeadsId, String shopId);
     
     /**
+     * 经销商批量下派到店铺
+     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @return
+     */
+    public int distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId);
+    
+    /**
      * 经销商拒单
      * @param distributorId 经销商ID
      * @param saleLeadsId 销售线索ID
@@ -48,6 +56,16 @@ public interface ISaleLeadsService {
      * @return
      */
     public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark);
+    
+    /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
+    public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark);
     
     
     /**
@@ -99,6 +117,14 @@ public interface ISaleLeadsService {
      * @return
      */
     public int accept(String acceptorId, String saleLeadsId);
+    
+    /**
+     * 导购员批量接单
+     * @param acceptorId 导购员ID
+     * @param saleLeadsId 线索ID
+     * @return
+     */
+    public int acceptBatch(String acceptorId, List<String> saleLeadsId);
     
     /**
      * 编辑销售线索订单信息
