@@ -37,7 +37,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.appointmentTime=entity.appointmentTime;
 		model.budget=entity.budget.doubleValue();
 		model.callServiceRemark=entity.callServiceRemark;
-		model.callServiceTel=entity.callServiceTel.toString();
+		model.callServiceTel=entity.callServiceTel!=null?entity.callServiceTel.toString():"";
 		model.clientAddr=entity.clientAddr;
 		model.clientName=entity.clientName;
 		model.clientTel=entity.clientTel;
@@ -90,7 +90,8 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public Integer get2DistributeCount(String distributorId) {
 		// TODO Auto-generated method stub
-		return null;
+		Integer result = salesLeadsOrderDao.get2DistributeCount(Integer.valueOf(distributorId));
+		return result;
 	}
 
 	public int distribute(String distributorId, String saleLeadsId, String shopId) {
@@ -103,9 +104,21 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return 0;
 	}
 
+	/**
+	 * author:daihx
+	 * 经销商 待分配 一页 订单数据
+	 */
 	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<SaleLeadsModel> out = null;
+
+		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getOnePage4Followup(distributorId, startNum, pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+		
+		out = this.entitysaleModel(outEntityList);
+		return out;
 	}
 
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,

@@ -36,4 +36,14 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getOnePage4Distribute(Long.parseLong("8"), 0,5);
     	LOG.info(JSON.toJSONString(result));
     }
+    @Test
+    public void testGetOnePage4Followup(){
+    	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getOnePage4Followup("8", 0,20);
+    	LOG.info(JSON.toJSONString(result));
+    }
+    @Test
+    public void testget2DistributeCount(){
+    	Integer result = salesLeadsOrderDao.get2DistributeCount(8);
+    	LOG.info(JSON.toJSONString(result));
+    }
 }

@@ -39,7 +39,12 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
 	public Integer get2DistributeCount(String distributorId) {
 		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::search',in:{distributorId:'" + distributorId +"'}}");
+		}
+		
+		Integer result = saleLeadsService.get2DistributeCount(distributorId);
+		return result;
 	}
 
 	public int distribute(String distributorId, String saleLeadsId, String shopId) {
@@ -54,7 +59,17 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
 	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::search',in:{distributorId:'" + distributorId + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<SaleLeadsModel> out = saleLeadsService.getOnePage4Followup(distributorId, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::search',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
