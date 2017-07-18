@@ -121,8 +121,8 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	}
 
 	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer count = salesLeadsOrderDao.get2AcceptCount(storeId);
+		return count;
 	}
 
 	public int accept(String acceptorId, String saleLeadsId) {
