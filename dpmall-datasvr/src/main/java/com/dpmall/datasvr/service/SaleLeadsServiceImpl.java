@@ -130,7 +130,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return null;
 	}
 
-	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form, Integer startNum, Integer pageSize) {
+	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
 		// TODO Auto-generated method stub
 		return null;
 	}

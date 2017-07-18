@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.mock.SaleLeadsServiceMock;
 
@@ -51,7 +52,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -72,7 +73,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -138,7 +139,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -166,7 +167,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -191,7 +192,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -213,7 +214,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -278,7 +279,7 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
 
     	return res;
     }
@@ -302,7 +303,49 @@ public class SaleLeadsController {
         	LOG.error(e.getMessage(),e);
     	}
     	
-    	res.Data = data;
+    	res.data = data;
+
+    	return res;
+    }
+    
+    /**
+     * 获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
+    public Response getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize){
+
+    	Response res = new Response();
+    	List<SaleLeadsModel> data = null;
+        try{
+    	    data = saleLeadsServiceMock.getOnePageSuccessOrders(form, startNum, pageSize);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
+    	
+    	res.data = data;
+
+    	return res;
+    	
+    }
+    
+    
+    /**
+     * 获取根据form条件查询成功结单的金额
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
+    public Response getSuccessOrdersTtlAmount(SaleLeadStatisticForm form){
+    	Response res = new Response();
+        try{
+        	res.data = saleLeadsServiceMock.getSuccessOrdersTtlAmount(form);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
 
     	return res;
     }

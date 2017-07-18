@@ -139,9 +139,7 @@ public interface ISaleLeadsService {
     /**
      * 获取根据form条件查询成功结单的金额
      * @param form
-     * @param startNum
-     * @param pageSize
      * @return
      */
-    public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form,Integer startNum, Integer pageSize);
+    public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form);
 }
