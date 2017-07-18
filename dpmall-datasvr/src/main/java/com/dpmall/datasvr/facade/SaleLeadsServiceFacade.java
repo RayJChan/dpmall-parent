@@ -7,9 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.dpmall.api.IProductStatisticService;
 import com.dpmall.api.ISaleLeadsService;
-import com.dpmall.api.bean.ProductStatisticModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticForm;
@@ -87,8 +85,19 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	}
 
 	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer count = 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::get2AcceptCount',in:{storeId:'" + storeId + "'}}");
+		}
+		try {
+			count = saleLeadsService.get2AcceptCount(storeId);
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::get2AcceptCount',out:"+count+"}");
+		}
+		return count;
 	}
 
 	public int accept(String acceptorId, String saleLeadsId) {
@@ -140,6 +149,11 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
 	public void setSaleLeadsService(ISaleLeadsService saleLeadsService) {
 		this.saleLeadsService = saleLeadsService;
+	}
+
+	public SaleLeadsModel getSaleLeads(String saleLeadsId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

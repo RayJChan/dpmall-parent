@@ -418,4 +418,23 @@ public class SaleLeadsController {
     	return res;
     
     }
+    
+	/**
+	 * <p>
+	 * 根据sealLeadsId 获取详情
+	 * @param saleLeadsId
+	 * @return
+	 */
+    @RequestMapping(value="/getSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+	public Response getSaleLeads(String saleLeadsId){
+    	Response res = new Response();
+        try{
+        	res.data = saleLeadsServiceMock.getSaleLeads(saleLeadsId);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
+
+    	return res;
+    }
 }

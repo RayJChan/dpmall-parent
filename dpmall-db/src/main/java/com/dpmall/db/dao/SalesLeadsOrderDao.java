@@ -9,6 +9,11 @@ import com.dpmall.db.bean.SalesLeadsOrderEntity;
 public interface SalesLeadsOrderDao {
 	List<SalesLeadsOrderEntity> getOnePage4Acceptor2Followup(@Param("acceptorId")String acceptorId,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
 	
+    /**
+     * 获取店铺待接单的线索数
+     * @param storeId 经销商ID
+     * @return 经销商待分配的线索数
+     */
 	Integer get2AcceptCount(@Param("storeId")String storeId);
 	
 	/**
