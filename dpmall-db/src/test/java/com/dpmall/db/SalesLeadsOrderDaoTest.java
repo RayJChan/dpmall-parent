@@ -67,4 +67,11 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     	Integer result = salesLeadsOrderDao.get2DistributeCount(8);
     	LOG.info(JSON.toJSONString(result));
     }
+    @Test
+    public void testGetOnePage4Accept(){
+    	for(SalesLeadsOrderEntity salesLeadsOrderEntity:salesLeadsOrderDao.getOnePage4Accept("13", 0, 5)){
+    		LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
+    		System.out.println("店铺获取待接单的销售线索============="+JSON.toJSONString(salesLeadsOrderEntity));
+    	}
+    }
 }

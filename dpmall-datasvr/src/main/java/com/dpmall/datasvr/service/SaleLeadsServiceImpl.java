@@ -123,10 +123,21 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	 /**
+		 * 店铺获取待接单的销售线索
+		 * @param storeId 店铺ID
+		 * @param startNum 上一次加载的最后项位移
+		 * @param pageSize 页的大小
+		 * @return 店铺获取待接单的销售线索列表
+		 */
 	public List<SaleLeadsModel> getOnePage4Accept(String storeId, Integer startNum, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SaleLeadsModel> accept = null;
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePage4Accept(storeId, startNum, pageSize);
+		if(acceptEntity.isEmpty()){
+			return null;
+		}
+		accept = this.entitysaleModel(acceptEntity);
+		return accept;
 	}
 
 	public Integer get2AcceptCount(String storeId) {
