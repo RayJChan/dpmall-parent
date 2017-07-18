@@ -26,5 +26,9 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
 		}
 	}
-
+	@Test
+	public void testGet2AcceptCount() {
+		Integer count = salesLeadsOrderDao.get2AcceptCount("13");
+		LOG.info("获取店铺待接单的线索数======================"+count);
+	}
 }

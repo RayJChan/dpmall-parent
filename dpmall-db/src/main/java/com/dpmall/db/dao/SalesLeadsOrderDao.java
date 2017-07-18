@@ -9,4 +9,5 @@ import com.dpmall.db.bean.SalesLeadsOrderEntity;
 public interface SalesLeadsOrderDao {
 	List<SalesLeadsOrderEntity> getOnePage4Acceptor2Followup(@Param("acceptorId")Long acceptorId,@Param("startItemId")Long startItemId, @Param("pageSize")Integer pageSize);
 	
+	Integer get2AcceptCount(@Param("storeId")String storeId);
 }

@@ -78,6 +78,12 @@
 			</if>
 			order by PK -->
 	</select>
+	<select id="get2AcceptCount" resultType="int">
+		select count(1) from SALESLEADSORDER  where P_STATUS='15'
+		<if test="storeId != null">
+				and P_ACCEPTSTORE=${storeId}
+		</if>
+	</select>
 
 </mapper>
 
