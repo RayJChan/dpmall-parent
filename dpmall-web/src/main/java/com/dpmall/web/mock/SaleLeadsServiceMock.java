@@ -326,4 +326,36 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 		return ErrorCode.SUCCESS;
 	}
 
+	@Override
+	public SaleLeadsModel getSaleLeads(String saleLeadsId) {
+
+		SaleLeadsModel tmp = new SaleLeadsModel();
+		tmp.appointmentTime = null;
+		tmp.budget = 10000.86;
+		tmp.callServiceRemark="购买花洒两件，设计服务";
+		tmp.callServiceTel = "18655645528";
+		tmp.clientAddr = "广东省佛山市江南区38路192花园";
+		tmp.clientName = "张三";
+		tmp.clientRemark = "希望设计师和我具体沟通";
+		tmp.clientTel = "18566754854";
+		tmp.closeTime = null;
+		tmp.distributeTime = null;
+		tmp.distributorId = null;
+		tmp.distributorOperateTime = null;
+		tmp.distributorUserName = null;
+		tmp.id = (long)(123456+142);
+		tmp.recommendstoreId = (long)(123456+142);
+		tmp.recommendstoreName = "广东省佛山市江南区直营店";
+		tmp.saleLeadsStatus = ESaleLeadsOrderStatus.DISTRIBUTE_PEND.getCode();
+		tmp.serviceAddress= "广东省佛山市江南区38路192花园";
+		tmp.serviceCatelog = "A1";
+		tmp.serviceDate = null;
+		tmp.serviceTitle = "购买花洒两件，设计服务";
+		tmp.storeAcceptTime = null;
+		tmp.style = "欧式";
+		tmp.total = 0.0;
+	
+		return tmp;
+	}
+
 }

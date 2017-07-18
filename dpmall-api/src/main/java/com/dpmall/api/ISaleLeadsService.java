@@ -15,6 +15,14 @@ import com.dpmall.api.param.SaleLeadStatisticForm;
 public interface ISaleLeadsService {
 	
 	/**
+	 * <p>
+	 * 根据sealLeadsId 获取详情
+	 * @param saleLeadsId
+	 * @return
+	 */
+	public SaleLeadsModel getSaleLeads(String saleLeadsId);
+	
+	/**
 	 * 经销商获取待分配的销售线索
 	 * @param distributorId 经销商Id
 	 * @param startNum 上一次加载的位移

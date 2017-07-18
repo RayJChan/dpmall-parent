@@ -186,4 +186,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	public void setSalesLeadsOrderDao(SalesLeadsOrderDao salesLeadsOrderDao) {
 		this.salesLeadsOrderDao = salesLeadsOrderDao;
 	}
+
+	public SaleLeadsModel getSaleLeads(String saleLeadsId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
