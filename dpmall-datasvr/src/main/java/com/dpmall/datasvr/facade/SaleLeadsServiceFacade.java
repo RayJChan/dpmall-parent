@@ -2,16 +2,40 @@ package com.dpmall.datasvr.facade;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSON;
+import com.dpmall.api.IProductStatisticService;
 import com.dpmall.api.ISaleLeadsService;
+import com.dpmall.api.bean.ProductStatisticModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticForm;
 
 public class SaleLeadsServiceFacade implements ISaleLeadsService {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(SaleLeadsServiceFacade.class);
+	
+	private ISaleLeadsService saleLeadsService;
 
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::search',in:{distributorId:'" + distributorId + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<SaleLeadsModel> out = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::search',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
+	}
+	
+	public void setISaleLeadsService(ISaleLeadsService saleLeadsService) {
+		this.saleLeadsService = saleLeadsService;
 	}
 
 	public Integer get2DistributeCount(String distributorId) {
@@ -81,5 +105,11 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
+	public void setSaleLeadsService(ISaleLeadsService saleLeadsService) {
+		this.saleLeadsService = saleLeadsService;
+	}
+
 	
 }
