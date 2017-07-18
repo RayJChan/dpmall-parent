@@ -3,45 +3,29 @@
 <mapper namespace="com.dpmall.db.dao.SalesLeadsOrderDao">
 	<resultMap type="com.dpmall.db.bean.SalesLeadsOrderEntity" id="SalesLeadsOrderEntity">
 		<result property="id" column="PK"/>
-		<result property="salesleads" column="P_SALESLEADS"/>
-		<result property="distributorId" column="P_AGENCY"/>
-		<result property="saleLeadsStatus" column="P_STATUS"/>
-		<result property="resolved" column="P_RESOLVED"/>
+		<result property="clientName" column="P_NAME"/>
+		<result property="clientTel" column="P_TELEPHONE"/>
+		<result property="clientAddr" column="P_CUSADDRESS"/>
+		<result property="clientRemark" column="P_COMMENT"/>
+		<result property="serviceAddress" column="P_SERVERADDRESS"/>
+		<result property="serviceCatelog" column="P_SERVERPURPOSE"/>
+		<result property="serviceTitle" column="P_SERVICETITLE"/>
+		<result property="serviceDate" column="P_FITMENTDATE"/>
+		<result property="style" column="P_STYLEPREFERENCE"/>
+		<result property="budget" column="P_BUDGET"/>
+		<result property="brand" column="P_BRANDPREFERENCE"/>
+		<result property="callServiceRemark" column="P_HANDLERCOMMENT"/>
+		<result property="saleLeadsStatus" column="P_SALESLEADSORDERSTATUS"/>
 		<result property="distributeTime" column="P_DISTRIBUTEDATE"/>
-		<result property="distributer" column="P_DISTRIBUTER"/>
-		<result property="agencyacceptdate" column="P_AGENCYACCEPTDATE"/>
-		<result property="agencyaccept" column="P_AGENCYACCEPT"/>
-		<result property="refusedate" column="P_REFUSEDATE"/>
+		<result property="distributorId" column="P_DISTRIBUTER"/>
+		<result property="distributorOperateTime" column="P_AGENCYOPERATEDATE"/>
+		<result property="distributorUserName" column="P_AGENCYACCEPT"/>
 		<result property="recommendstoreId" column="P_SUGGESTSTORE"/>
-		<result property="acceptstore" column="P_ACCEPTSTORE"/>
-		<result property="acceptreceivedby" column="P_ACCEPTRECEIVEDBY"/>
+		<result property="recommendstoreName" column="P_RECOMMENDSTORENAME"/>
 		<result property="storeAcceptTime" column="P_ACCEPTDATE"/>
 		<result property="appointmentTime" column="P_APPOINTMENTDATE"/>
-		<result property="actualdate" column="P_ACTUALDATE"/>
-		<result property="total" column="P_AMOUNT"/>
-		<result property="orderpicture" column="P_ORDERPICTURE"/>
-		<result property="clientTel" column="P_TELEPHONE"/>
-		<result property="nickname" column="P_NICKNAME"/>
-		<result property="clientName" column="P_NAME"/>
-		<result property="district" column="P_DISTRICT"/>
-		<result property="clientAddr" column="P_CUSADDRESS"/>
-		<result property="servedistrict" column="P_SERVEDISTRICT"/>
-		<result property="serviceAddress" column="P_SERVEADDRESS"/>
-		<result property="sercerpurpose" column="P_SERCERPURPOSE"/>
-		<result property="serviceDate" column="P_FITMENTDATE"/>
-		<result property="style" column="P_STYLEPREFERENCES"/>
-		<result property="comment" column="P_COMMENT"/>
-		<result property="brandpreferences" column="P_BRANDPREFERENCES"/>
-		<result property="budget" column="P_BUDGET"/>
-		<result property="handler" column="P_HANDLER"/>
-		<result property="callServiceRemark" column="P_HANDLERCOMMENT"/>
 		<result property="closeTime" column="P_CLOSEDATE"/>
-		<result property="closeReason" column="P_CLOSEREASON"/>
-		<result property="callServiceTel" column="serveTel"/>
-		<result property="distributorOperateTime" column="distributorOperateDate"/>
-		<result property="distributorUserName" column="distributorUserName"/>
-		<result property="serviceTitle" column="serviceTitle"/>
-		<result property="serviceCatelog" column="serviceCatelog"/>
+		<result property="total" column="P_AMOUNT"/>
 	</resultMap>
 	
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
@@ -58,11 +42,11 @@
 			A .P_NAME AS distributorUserName,
 			S.PK,
 			S.P_SUGGESTSTORE,
-			S.P_STATUS,
+			S.P_SALESLEADSORDERSTATUS,
 			S.P_FITMENTDATE,
 			S.P_SERVERADDRESS,
 			S.P_ACCEPTDATE,
-			S.P_STYLEPREFERENCES,
+			S.P_STYLEPREFERENCE,
 			S.P_AMOUNT
 		FROM
 			SALESLEADSORDER S
@@ -76,7 +60,7 @@
 			
 	</select>
 	<select id="get2AcceptCount" resultType="int">
-		select count(1) from SALESLEADSORDER  where P_STATUS='15'
+		select count(1) from SALESLEADSORDER  where P_SALESLEADSORDERSTATUS='15'
 		<if test="storeId != null">
 				and P_ACCEPTSTORE=${storeId}
 		</if>
@@ -87,10 +71,8 @@
 			PK,
 			P_SALESLEADS,
 			P_AGENCY,
-			P_STATUS,
+			P_SALESLEADSORDERSTATUS,
 			P_RESOLVED,
-			ACLTS,
-			PROPTS,
 			P_DISTRIBUTEDATE,
 			P_DISTRIBUTER,
 			P_AGENCYACCEPTDATE,
@@ -107,16 +89,16 @@
 			P_TELEPHONE,
 			P_NAME,
 			P_FITMENTDATE,
-			P_STYLEPREFERENCES,
+			P_STYLEPREFERENCE,
 			P_COMMENT,
-			P_BRANDPREFERENCES,
+			P_BRANDPREFERENCE,
 			P_BUDGET,
 			P_HANDLER,
 			P_HANDLERCOMMENT,
 			P_CLOSEDATE,
 			P_CLOSEREASON,
 			ROWNUM RN
-		from SALESLEADSORDER where 1= 1 AND P_STATUS='0'
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='0'
 		<if test="agency != null">
 		    AND P_AGENCY = ${agency} 
 		</if>
@@ -124,42 +106,3 @@
 	</select>
 
 </mapper>
-
-<!-- PK
-P_SALESLEADS
-P_AGENCY
-P_STATUS
-P_RESOLVED
-ACLTS
-PROPTS
-P_DISTRIBUTEDATE
-P_DISTRIBUTER
-P_AGENCYACCEPTDATE
-P_AGENCYACCEPT
-P_REFUSEDATE
-P_SUGGESTSTORE
-P_ACCEPTSTORE
-P_ACCEPTRECEIVEDBY
-P_ACCEPTDATE
-P_APPOINTMENTDATE
-P_ACTUALDATE
-P_AMOUNT
-P_ORDERPICTURE
-P_TELEPHONE
-P_NICKNAME
-P_NAME
-P_DISTRICT
-P_ADDRESS
-P_SERVEDISTRICT
-P_SERVEADDRESS
-P_SERCERPURPOSE
-P_FITMENTDATE
-P_STYLEPREFERENCES
-P_COMMENT
-P_BRANDPREFERENCES
-P_BUDGET
-P_HANDLER
-P_HANDLERCOMMENT
-P_CLOSEDATE
-P_CLOSEREASON
- -->
