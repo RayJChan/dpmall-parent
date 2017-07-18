@@ -3,6 +3,8 @@ package com.dpmall.datasvr.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dpmall.api.ISaleLeadsService;
@@ -14,15 +16,22 @@ import com.dpmall.db.dao.SalesLeadsOrderDao;
 
 public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	
+	private static Logger LOG = LoggerFactory.getLogger(SaleLeadsServiceImpl.class);
+	
 	@Autowired
 	private SalesLeadsOrderDao salesLeadsOrderDao;
-	
+
+
 	/**
 	 * 把entity转换成model
 	 * @param entity 需要转换的entity
 	 * @return 转化后的model
 	 */
 	private SaleLeadsModel entityToModel(SalesLeadsOrderEntity entity) {
+	    if(entity == null){
+			return null;
+		}
+		
 		SaleLeadsModel model=new SaleLeadsModel();
 		model.appointmentTime=entity.appointmentTime;
 		model.budget=entity.budget.doubleValue();
@@ -53,7 +62,29 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<SaleLeadsModel> out = null;
+
+		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getOnePage4Distribute(Long.valueOf(distributorId),startNum,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+		
+		out = this.entitysaleModel(outEntityList);
+		return out;
+	}
+	
+	private List<SaleLeadsModel> entitysaleModel(List<SalesLeadsOrderEntity> in){
+		if(in == null || in.isEmpty()){
+			return null;
+		}
+		
+		List<SaleLeadsModel> out = new ArrayList<SaleLeadsModel>();
+		for(SalesLeadsOrderEntity tmp : in){
+			out.add(entityToModel(tmp));
+		}
+		
+		return out;
+		
 	}
 
 	public Integer get2DistributeCount(String distributorId) {
@@ -133,5 +164,10 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	
+	public void setSalesLeadsOrderDao(SalesLeadsOrderDao salesLeadsOrderDao) {
+		this.salesLeadsOrderDao = salesLeadsOrderDao;
 	}
 }

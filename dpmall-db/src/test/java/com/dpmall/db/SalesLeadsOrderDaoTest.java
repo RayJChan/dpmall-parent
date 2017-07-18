@@ -2,6 +2,8 @@ package com.dpmall.db;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,4 +33,9 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 		Integer count = salesLeadsOrderDao.get2AcceptCount("13");
 		LOG.info("获取店铺待接单的线索数======================"+count);
 	}
+    @Test
+    public void testSearch(){
+    	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getOnePage4Distribute(Long.parseLong("8"), 0,5);
+    	LOG.info(JSON.toJSONString(result));
+    }
 }

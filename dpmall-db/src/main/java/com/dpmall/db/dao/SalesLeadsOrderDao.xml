@@ -81,6 +81,47 @@
 				and P_ACCEPTSTORE=${storeId}
 		</if>
 	</select>
+	
+		<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
+		select 
+			PK,
+			P_SALESLEADS,
+			P_AGENCY,
+			P_STATUS,
+			P_RESOLVED,
+			ACLTS,
+			PROPTS,
+			P_DISTRIBUTEDATE,
+			P_DISTRIBUTER,
+			P_AGENCYACCEPTDATE,
+			P_AGENCYACCEPT,
+			P_REFUSEDATE,
+			P_SUGGESTSTORE,
+			P_ACCEPTSTORE,
+			P_ACCEPTRECEIVEDBY,
+			P_ACCEPTDATE,
+			P_APPOINTMENTDATE,
+			P_ACTUALDATE,
+			P_AMOUNT,
+			P_ORDERPICTURE,
+			P_TELEPHONE,
+			P_NAME,
+			P_FITMENTDATE,
+			P_STYLEPREFERENCES,
+			P_COMMENT,
+			P_BRANDPREFERENCES,
+			P_BUDGET,
+			P_HANDLER,
+			P_HANDLERCOMMENT,
+			P_CLOSEDATE,
+			P_CLOSEREASON,
+			ROWNUM RN
+		from SALESLEADSORDER where 1= 1 AND P_STATUS='0'
+		<if test="agency != null">
+		    AND P_AGENCY = ${agency} 
+		</if>
+		AND  ROWNUM between ${startNum} and ${pageSize}
+	</select>
 
 </mapper>
 
