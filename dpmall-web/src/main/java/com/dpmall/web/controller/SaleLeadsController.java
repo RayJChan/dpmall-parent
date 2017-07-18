@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.mock.SaleLeadsServiceMock;
 
@@ -32,11 +33,12 @@ public class SaleLeadsController {
 	@Autowired
 	private ISaleLeadsService saleLeadsService;
 
+
 	
 	/**
 	 * 经销商获取待分配的销售线索
 	 * @param distributorId 经销商Id
-	 * @param startNum 上一次加载的最后项偏移
+	 * @param startItemId 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的销售线索列表
 	 */

@@ -6,8 +6,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 	
-	<import resource="applicationContext-mock.xml"/>
-	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -32,7 +30,5 @@
 	
 	<dubbo:registry address="${dubbo.registry.address}" />
 	<dubbo:application name="${dubbo.application.name}"  />
-	
 	<dubbo:reference id="productStatisticService" interface="com.dpmall.api.IProductStatisticService" />
-	<dubbo:reference id="saleLeadsService" interface="com.dpmall.api.ISaleLeadsService" />
 </beans>
