@@ -119,10 +119,14 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+    /**
+     * 获取店铺待接单的线索数
+     * @param storeId 经销商ID
+     * @return 经销商待分配的线索数
+     */
 	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer count = salesLeadsOrderDao.get2AcceptCount(storeId);
+		return count;
 	}
 
 	public int accept(String acceptorId, String saleLeadsId) {

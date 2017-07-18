@@ -70,8 +70,19 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	}
 
 	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer count = 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::get2AcceptCount',in:{storeId:'" + storeId + "'}}");
+		}
+		try {
+			count = saleLeadsService.get2AcceptCount(storeId);
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::get2AcceptCount',out:"+count+"}");
+		}
+		return count;
 	}
 
 	public int accept(String acceptorId, String saleLeadsId) {
