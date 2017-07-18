@@ -12,19 +12,19 @@ public class SalesLeadsOrderEntity  {
     public Long salesleads;
     
     /**经销商ID**/
-    public Long agency;
+    public Long distributorId;
     
     /**线索订单状态**/
-    public String status;
+    public String saleLeadsStatus;
     
     /**是否完成订单**/
     public String resolved;
 
     /**派单时间**/
-    public Date distributedate;
+    public Date distributeTime;
     
     /**派单员**/
-    public Long distributer;
+    public 	String distributer; //
     
     /**经销商接单时间**/
     public Date agencyacceptdate;
@@ -36,58 +36,58 @@ public class SalesLeadsOrderEntity  {
     public Date refusedate;
     
     /**建议服务店铺**/
-    public Long suggeststore;
+    public Long recommendstoreId;
     
     /**接单店铺**/
-    public Long acceptstore;
+    public String acceptstore;
     
-    /**P_ACCEPTRECEIVEDBY**/
-    public Long acceptreceivedby;
+    /**店铺接单人**/
+    public String  acceptreceivedby;
     
     /**店铺接单时间**/
-    public Date acceptdate;
+    public Date storeAcceptTime;
     
     /**预约时间**/
-    public Date appointmentdate;
+    public Date appointmentTime;
     
     /**客户到店时间**/
     public Date actualdate;
     
     /**完单金额**/
-    public BigDecimal amount;
+    public BigDecimal total;
 
     /**订单图片**/
     public String orderpicture;
 
     /**客户电话**/
-    public String telephone;
+    public String clientTel;
     
     /**客户昵称**/
     public String nickname;
     
     /**客户名称**/
-    public String name;
+    public String clientName;
     
     /**客户区域**/
-    public Long district;
+    public String  district;
     
     /**客户地址**/
-    public String address;
+    public String clientAddr;
     
     /**服务区域**/
-    public Long servedistrict;
+    public String  servedistrict;
 
     /**服务地址**/
-    public String serveaddress;
+    public String serviceAddress;
 
     /**服务意向**/
     public String sercerpurpose;
 
     /**装修时间**/
-    public Date fitmentdate;
+    public Date serviceDate;
 
     /**风格喜好**/
-    public String stylepreferences;
+    public String style;
 
     /**客户备注**/
     public String comment;
@@ -102,21 +102,27 @@ public class SalesLeadsOrderEntity  {
     public Long handler; //todo
 
     /**客服备注**/
-    public String handlercomment;
+    public String callServiceRemark;
 
     /**关闭时间**/
-    public Date closedate;
+    public Date closeTime;
 
     /**关闭原因**/
-    public String closereason;
+    public String closeReason;
     
-    /**客服电话**/   
-    public Long serveTel;
+    /**客服电话 **/   
+    public Long callServiceTel;
 
     
     /**经销商操作时间**/
-    public Date distributorOperateDate;
+    public Date distributorOperateTime;
 
-	
-
+	/**经销商用户名**/
+    public String distributorUserName;
+    
+    /**服务摘要**/
+    public String serviceTitle;
+    
+    /**服务种类**/
+    public String serviceCatelog;
 }

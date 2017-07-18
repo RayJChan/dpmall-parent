@@ -1,44 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dpmall.db.dao.SalesLeadsOrderDao">
-	<resultMap type="com.dpmall.db.bean.SalesLeadsOrderEntity" id="entity">
+	<resultMap type="com.dpmall.db.bean.SalesLeadsOrderEntity" id="SalesLeadsOrderEntity">
 		<result property="id" column="PK"/>
 		<result property="salesleads" column="P_SALESLEADS"/>
-		<result property="agency" column="P_AGENCY"/>
-		<result property="status" column="P_STATUS"/>
+		<result property="distributorId" column="P_AGENCY"/>
+		<result property="saleLeadsStatus" column="P_STATUS"/>
 		<result property="resolved" column="P_RESOLVED"/>
-		<result property="distributedate" column="P_DISTRIBUTEDATE"/>
+		<result property="distributeTime" column="P_DISTRIBUTEDATE"/>
 		<result property="distributer" column="P_DISTRIBUTER"/>
 		<result property="agencyacceptdate" column="P_AGENCYACCEPTDATE"/>
 		<result property="agencyaccept" column="P_AGENCYACCEPT"/>
 		<result property="refusedate" column="P_REFUSEDATE"/>
-		<result property="suggeststore" column="P_SUGGESTSTORE"/>
+		<result property="recommendstoreId" column="P_SUGGESTSTORE"/>
 		<result property="acceptstore" column="P_ACCEPTSTORE"/>
 		<result property="acceptreceivedby" column="P_ACCEPTRECEIVEDBY"/>
-		<result property="acceptdate" column="P_ACCEPTDATE"/>
-		<result property="appointmentdate" column="P_APPOINTMENTDATE"/>
+		<result property="storeAcceptTime" column="P_ACCEPTDATE"/>
+		<result property="appointmentTime" column="P_APPOINTMENTDATE"/>
 		<result property="actualdate" column="P_ACTUALDATE"/>
-		<result property="amount" column="P_AMOUNT"/>
+		<result property="total" column="P_AMOUNT"/>
 		<result property="orderpicture" column="P_ORDERPICTURE"/>
-		<result property="telephone" column="P_TELEPHONE"/>
+		<result property="clientTel" column="P_TELEPHONE"/>
 		<result property="nickname" column="P_NICKNAME"/>
-		<result property="name" column="P_NAME"/>
+		<result property="clientName" column="P_NAME"/>
 		<result property="district" column="P_DISTRICT"/>
-		<result property="address" column="P_ADDRESS"/>
+		<result property="clientAddr" column="P_CUSADDRESS"/>
 		<result property="servedistrict" column="P_SERVEDISTRICT"/>
-		<result property="serveaddress" column="P_SERVEADDRESS"/>
+		<result property="serviceAddress" column="P_SERVEADDRESS"/>
 		<result property="sercerpurpose" column="P_SERCERPURPOSE"/>
-		<result property="fitmentdate" column="P_FITMENTDATE"/>
-		<result property="stylepreferences" column="P_STYLEPREFERENCES"/>
+		<result property="serviceDate" column="P_FITMENTDATE"/>
+		<result property="style" column="P_STYLEPREFERENCES"/>
 		<result property="comment" column="P_COMMENT"/>
 		<result property="brandpreferences" column="P_BRANDPREFERENCES"/>
 		<result property="budget" column="P_BUDGET"/>
 		<result property="handler" column="P_HANDLER"/>
-		<result property="handlercomment" column="P_HANDLERCOMMENT"/>
-		<result property="closedate" column="P_CLOSEDATE"/>
-		<result property="closereason" column="P_CLOSEREASON"/>
+		<result property="callServiceRemark" column="P_HANDLERCOMMENT"/>
+		<result property="closeTime" column="P_CLOSEDATE"/>
+		<result property="closeReason" column="P_CLOSEREASON"/>
+		<result property="callServiceTel" column="serveTel"/>
+		<result property="distributorOperateTime" column="distributorOperateDate"/>
+		<result property="distributorUserName" column="distributorUserName"/>
+		<result property="serviceTitle" column="serviceTitle"/>
+		<result property="serviceCatelog" column="serviceCatelog"/>
 	</resultMap>
 	
+	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
+		SELECT
+			S.P_APPOINTMENTDATE,
+			S.P_BUDGET,
+			S.P_HANDLERCOMMENT,
+			S.P_CUSADDRESS,
+			S.P_NAME,
+			S.P_TELEPHONE,
+			S.P_CLOSEDATE,
+			S.P_DISTRIBUTEDATE,
+			S.P_AGENCY,
+			A .P_NAME AS distributorUserName,
+			S.PK,
+			S.P_SUGGESTSTORE,
+			S.P_STATUS,
+			S.P_FITMENTDATE,
+			S.P_SERVERADDRESS,
+			S.P_ACCEPTDATE,
+			S.P_STYLEPREFERENCES,
+			S.P_AMOUNT
+		FROM
+			SALESLEADSORDER S
+			LEFT JOIN AGENCY A ON S.P_AGENCY = A .PK 
+			<!-- <if test="acceptorId!=null">
+				and P_ACCEPTRECEIVEDBY=${acceptorId}
+			</if>
+			<if test="startItemId!=null">
+				and PK &gt; ${startItemId}
+			</if>
+			<if test="pageSize!=null">
+				and rownum &lt; ${pageSize} +1
+			</if>
+			order by PK -->
+	</select>
+
 </mapper>
 
 <!-- PK
