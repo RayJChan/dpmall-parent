@@ -18,14 +18,35 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 	
 	@Autowired
 	private SalesLeadsOrderDao salesLeadsOrderDao;
-
+	
+	/**
+	 * 测试导购员已接单的一页销售线索信息
+	 */
 	@Test
-	public void test() {
+	public void getOnePage4Acceptor2Followup() {
 		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4Acceptor2Followup("14", 1, 1) ) {
 			LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
 			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
 		}
 	}
+	
+	/**
+	 * 测试导购员已结单的一页销售线索信息
+	 */
+	@Test
+	public void getOnePage4AcceptorClosed() {
+		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4AcceptorClosed("14", 1, 1) ) {
+			LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
+			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
+		}
+	}
+	
+	/**测试分配店铺接口**/
+	@Test
+	public void distribute() {
+		LOG.info("result:"+salesLeadsOrderDao.distribute("1", "1"));
+	}
+	
 	@Test
 	public void testGet2AcceptCount() {
 		Integer count = salesLeadsOrderDao.get2AcceptCount("13");
@@ -45,5 +66,12 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     public void testget2DistributeCount(){
     	Integer result = salesLeadsOrderDao.get2DistributeCount(8);
     	LOG.info(JSON.toJSONString(result));
+    }
+    @Test
+    public void testGetOnePage4Accept(){
+    	for(SalesLeadsOrderEntity salesLeadsOrderEntity:salesLeadsOrderDao.getOnePage4Accept("13", 0, 5)){
+    		LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
+    		System.out.println("店铺获取待接单的销售线索============="+JSON.toJSONString(salesLeadsOrderEntity));
+    	}
     }
 }

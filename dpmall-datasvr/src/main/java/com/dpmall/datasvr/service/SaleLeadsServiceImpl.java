@@ -29,13 +29,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * @return 转化后的model
 	 */
 	private SaleLeadsModel entityToModel(SalesLeadsOrderEntity entity) {
-	    if(entity == null){
-			return null;
-		}
-		
 		SaleLeadsModel model=new SaleLeadsModel();
 		model.appointmentTime=entity.appointmentTime;
-		model.budget=entity.budget.doubleValue();
+		model.budget=entity.budget==null?null:entity.budget.doubleValue();
 		model.callServiceRemark=entity.callServiceRemark;
 		model.callServiceTel=entity.callServiceTel!=null?entity.callServiceTel.toString():"";
 		model.clientAddr=entity.clientAddr;
@@ -55,7 +51,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.serviceTitle=entity.serviceTitle;
 		model.storeAcceptTime=entity.storeAcceptTime;
 		model.style=entity.style;
-		model.total=entity.total.doubleValue();
+		model.total=entity.total==null?null:entity.total.doubleValue();
 		
 		return model;
 		
@@ -129,16 +125,23 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	 /**
+		 * 店铺获取待接单的销售线索
+		 * @param storeId 店铺ID
+		 * @param startNum 上一次加载的最后项位移
+		 * @param pageSize 页的大小
+		 * @return 店铺获取待接单的销售线索列表
+		 */
 	public List<SaleLeadsModel> getOnePage4Accept(String storeId, Integer startNum, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SaleLeadsModel> accept = null;
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePage4Accept(storeId, startNum, pageSize);
+		if(acceptEntity.isEmpty()){
+			return null;
+		}
+		accept = this.entitysaleModel(acceptEntity);
+		return accept;
 	}
-    /**
-     * 获取店铺待接单的线索数
-     * @param storeId 经销商ID
-     * @return 经销商待分配的线索数
-     */
+
 	public Integer get2AcceptCount(String storeId) {
 		Integer count = salesLeadsOrderDao.get2AcceptCount(storeId);
 		return count;
@@ -169,10 +172,21 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		}
 		return result;
 	}
-
+	
+	/**
+     * 获取导购员已结单的一页销售线索信息
+     * @param acceptorId 导购员ID
+     * @param startNum 上一次加载的最后项位移
+     * @param pageSize 页大小
+     * @return
+     */
 	public List<SaleLeadsModel> getOnePage4AcceptorClosed(String acceptorId, Integer startNum, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SalesLeadsOrderEntity> searchResult = salesLeadsOrderDao.getOnePage4AcceptorClosed(acceptorId, startNum, pageSize);
+		List<SaleLeadsModel> result = new ArrayList<SaleLeadsModel>(searchResult.size());
+		for(SalesLeadsOrderEntity entity:searchResult) {
+			result.add(entityToModel(entity));
+		}
+		return result;
 	}
 
 	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,

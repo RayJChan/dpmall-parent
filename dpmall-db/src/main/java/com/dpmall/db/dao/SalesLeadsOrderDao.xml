@@ -27,45 +27,6 @@
 		<result property="closeTime" column="P_CLOSEDATE"/>
 		<result property="total" column="P_AMOUNT"/>
 	</resultMap>
-	
-	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
-		SELECT
-			S.P_APPOINTMENTDATE,
-			S.P_BUDGET,
-			S.P_HANDLERCOMMENT,
-			S.P_CUSADDRESS,
-			S.P_NAME,
-			S.P_TELEPHONE,
-			S.P_CLOSEDATE,
-			S.P_DISTRIBUTEDATE,
-			S.P_AGENCY,
-			A .P_NAME AS distributorUserName,
-			S.PK,
-			S.P_SUGGESTSTORE,
-			S.P_SALESLEADSORDERSTATUS,
-			S.P_FITMENTDATE,
-			S.P_SERVERADDRESS,
-			S.P_ACCEPTDATE,
-			S.P_STYLEPREFERENCE,
-			S.P_AMOUNT
-		FROM
-			SALESLEADSORDER S
-			LEFT JOIN AGENCY A ON S.P_AGENCY = A .PK 
-			<if test="acceptorId!=null">
-				where S.P_ACCEPTRECEIVEDBY=${acceptorId}
-			</if>
-			<if test="startNum!=null and pageSize!=null">			
-				and ${pageSize-1}*${startNum} &lt; ROWNUM AND ROWNUM &lt; ${pageSize}*${startNum}+1
-			</if>
-			
-	</select>
-	<select id="get2AcceptCount" resultType="int">
-		select count(1) from SALESLEADSORDER  where P_SALESLEADSORDERSTATUS='15'
-		<if test="storeId != null">
-				and P_ACCEPTSTORE=${storeId}
-		</if>
-	</select>
-	
 		<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
 			PK,
@@ -151,5 +112,110 @@
 		</if>
 	</select>
 	
+	<select id="getOnePage4Accept"  resultMap="SalesLeadsOrderEntity">
+		select 
+			PK,
+			P_SALESLEADS,
+			P_AGENCY,
+			P_SALESLEADSORDERSTATUS,
+			P_RESOLVED,
+			P_DISTRIBUTEDATE,
+			P_DISTRIBUTER,
+			P_AGENCYACCEPTDATE,
+			P_AGENCYACCEPT,
+			P_REFUSEDATE,
+			P_SUGGESTSTORE,
+			P_ACCEPTSTORE,
+			P_ACCEPTRECEIVEDBY,
+			P_ACCEPTDATE,
+			P_APPOINTMENTDATE,
+			P_ACTUALDATE,
+			P_AMOUNT,
+			P_ORDERPICTURE,
+			P_TELEPHONE,
+			P_NAME,
+			P_FITMENTDATE,
+			P_STYLEPREFERENCE,
+			P_COMMENT,
+			P_BRANDPREFERENCE,
+			P_BUDGET,
+			P_HANDLER,
+			P_HANDLERCOMMENT,
+			P_CLOSEDATE,
+			P_CLOSEREASON,
+			ROWNUM RN
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10'
+		<if test="storeId != null">
+		    and P_ACCEPTSTORE=${storeId} 
+		</if>
+		AND  ROWNUM between ${startNum} and ${pageSize}
+	</select>
+
+	<sql id="baseSql">
+		SELECT
+			S.P_APPOINTMENTDATE,
+			S.P_BUDGET,
+			S.P_HANDLERCOMMENT,
+			S.P_CUSADDRESS,
+			S.P_NAME,
+			S.P_TELEPHONE,
+			S.P_CLOSEDATE,
+			S.P_DISTRIBUTEDATE,
+			S.P_AGENCY,
+			A .P_NAME AS distributorUserName,
+			S.PK,
+			S.P_SUGGESTSTORE,
+			S.P_SALESLEADSORDERSTATUS,
+			S.P_FITMENTDATE,
+			S.P_SERVERADDRESS,
+			S.P_ACCEPTDATE,
+			S.P_STYLEPREFERENCE,
+			S.P_AMOUNT,
+			P_CALLSERVICETEL,
+			P_SERVICETITLE,
+			P_SERVICECATELOG,
+			P_AGENCYOPERATEDATE,
+			P_AGENCYACCEPT,
+			P_COMMENT					
+		FROM
+			SALESLEADSORDER S
+	</sql>
+	
+	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
+			<include refid="baseSql"/>
+			left join agency a on s.p_agency = a .pk where 1=1 
+			<if test="acceptorId!=null">
+				 and s.p_acceptreceivedby=${acceptorId}
+			</if>
+			<if test="startNum!=null and pageSize!=null">			
+				and ${pageSize}*${startNum-1} &lt; rownum and rownum &lt; ${pageSize}*${startNum}+1
+			</if>
+			
+	</select>
+	
+	<select id="getOnePage4AcceptorClosed" resultMap="SalesLeadsOrderEntity">
+		<include refid="baseSql"/>
+			left join agency a on s.p_agency = a .pk where 1=1 
+		<if test="acceptorId!=null">
+			and s.p_acceptreceivedby=${acceptorId}
+		</if>
+		<if test="startNum!=null and pageSize!=null">			
+			and ${pageSize}*${startNum-1} &lt; rownum and rownum &lt; ${pageSize}*${startNum}+1
+		</if>
+	</select>
+	
+	<select id="get2AcceptCount" resultType="int">
+		select count(1) from SALESLEADSORDER  where P_SALESLEADSORDERSTATUS='10'
+		<if test="storeId != null">
+		    and P_ACCEPTSTORE=${storeId}
+		</if>
+	</select>
+	
+	<update id="distribute">
+	    update salesleadsorder set
+			p_suggeststore=${shopId},
+			p_distributedate=sysdate
+		where pk=${saleLeadsId}					
+	</update>
 
 </mapper>
