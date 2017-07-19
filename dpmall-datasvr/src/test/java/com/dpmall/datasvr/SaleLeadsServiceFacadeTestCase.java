@@ -67,4 +67,5 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	map.put("2", "22222222");
     	LOG.info("result:"+saleLeadsService.distributeBatch("", map));
     }
+ 
 }
