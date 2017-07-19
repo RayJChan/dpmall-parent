@@ -1,7 +1,5 @@
 package com.dpmall.api.param;
 
-import java.util.Date;
-
 /**
  * 统计参数
  * @author river
@@ -18,8 +16,8 @@ public class SaleLeadStatisticForm {
     public String productCatelog;
     
     /**统计开始时间*/
-    public Date fromTime;
+    public String fromTime;
     
     /**统计时间*/
-    public Date toTime;
+    public String toTime;
 }

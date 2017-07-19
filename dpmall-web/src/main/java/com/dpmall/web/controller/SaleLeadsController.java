@@ -161,9 +161,10 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getOnePageClosedSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,Integer startNum, Integer pageSize){
+    public Response getOnePageClosedSaleLeads(String distributorId,String distributeTimeBegin, String distributeTimeEnd,String storeId,String saleLeadId, String clientName,String clientTel,Integer startNum, Integer pageSize){
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
+    	TimeScope distributeTime = null;
         try{
     	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
         } catch(Throwable e){
