@@ -11,7 +11,7 @@ public enum ESaleLeadsOrderStatus {
 	/**待下派*/
 	DISTRIBUTE_PEND(0,"2distribute"),
 	/**拒单*/
-	REJECTED(5,"distributed"),
+	REJECTED(5,"rejected"),
 	/**经销商已下派*/
 	DISTRIBUTED(10,"distributed"),
 	/**已接单*/
