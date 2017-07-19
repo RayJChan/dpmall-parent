@@ -243,7 +243,15 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
 	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'accept',in:{acceptorId:'" + acceptorId  +"'}}");
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'::accept',out:{saleLeadsId:'" + saleLeadsId  +"'}}");
+		}
+		int result = saleLeadsService.acceptBatch(acceptorId, saleLeadsId);
+		
+		return result;
 	}
 
 	/**
