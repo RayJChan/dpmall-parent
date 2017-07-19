@@ -96,7 +96,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public int distribute(String distributorId, String saleLeadsId, String shopId) {
 		// TODO Auto-generated method stub
-		return 0;
+		int result = salesLeadsOrderDao.distribute(saleLeadsId, shopId);
+		LOG.info("result:"+JSON.toJSONString(result));
+		return result;
 	}
 
 	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
