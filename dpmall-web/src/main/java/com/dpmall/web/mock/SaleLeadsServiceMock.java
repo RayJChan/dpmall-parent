@@ -84,9 +84,9 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = null;
-			tmp.distributeTime = new Date();
+			tmp.distributeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorId = distributorId == null? 123 : Long.valueOf(distributorId);
-			tmp.distributorOperateTime = DateUtils.format(tmp.distributeTime,DateUtils.YYYY_MM_DD_HH_MM_SS);
+			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -123,7 +123,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.distributeTime = new Date();
+			tmp.distributeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorId = distributorId == null? 123 : Long.valueOf(distributorId);
 			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
@@ -160,7 +160,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.distributeTime = new Date();
+			tmp.distributeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorId = 123456l;
 			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
@@ -212,7 +212,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.distributeTime = new Date();
+			tmp.distributeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorId = 123456l;
 			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
@@ -249,7 +249,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.distributeTime = new Date();
+			tmp.distributeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorId = 123456l;
 			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
@@ -287,7 +287,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
 			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.distributeTime = new Date();
+			tmp.distributeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorId = 123456l;
 			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";

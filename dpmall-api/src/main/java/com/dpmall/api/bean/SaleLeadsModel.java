@@ -55,7 +55,7 @@ public class SaleLeadsModel  implements Serializable {
 	public String saleLeadsStatus;
 	
 	/**下派时间*/
-	public Date distributeTime;
+	public String distributeTime;
 	
 	/**经销商Id*/
 	public Long distributorId;

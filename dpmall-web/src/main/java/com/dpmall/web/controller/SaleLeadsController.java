@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +97,7 @@ public class SaleLeadsController {
     public Response distribute(String distributorId,String saleLeadsId, String shopId,String token){
     	Response res = new Response();
     	if (StringUtils.isEmpty(distributorId)||StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(shopId)) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
         else {
@@ -286,7 +286,7 @@ public class SaleLeadsController {
     public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize,String token){ 	
     	Response res = new Response();
     	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
     	else {
@@ -315,7 +315,7 @@ public class SaleLeadsController {
     public Response getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
     	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
     	else {
@@ -387,13 +387,13 @@ public class SaleLeadsController {
     public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token){
     	Response res = new Response();
     	if (StringUtils.isEmpty(distributorId)) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数distributorId错误";
 		}
     	else {
     		for(Entry<String, String> entity:saleLeadsId2shopId.entrySet()) {
     			if (StringUtils.isEmpty(entity.getKey())||StringUtils.isEmpty(entity.getValue())) {
-    				res.resultCode=ErrorCode.ERROR;
+    				res.resultCode=ErrorCode.INVALID_PARAM;
     				res.message="参数错误";
 				}
     			else {
