@@ -150,7 +150,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		out = this.entitysaleModel(outEntityList);
 		return out;
 	}
-
+	
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
 			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
 			Integer pageSize) {
@@ -258,8 +258,20 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		this.salesLeadsOrderDao = salesLeadsOrderDao;
 	}
 
+	/**
+	 * author:daihx
+	 * 根据sealLeadsId 获取详情
+	 * saleLeadsId
+	 */
 	public SaleLeadsModel getSaleLeads(String saleLeadsId) {
-		// TODO Auto-generated method stub
-		return null;
+		SaleLeadsModel out = null;
+
+		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+		
+		out = this.entitysaleModel(outEntityList).get(0);
+		return out;
 	}
 }

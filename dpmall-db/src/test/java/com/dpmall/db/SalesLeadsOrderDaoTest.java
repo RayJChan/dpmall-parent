@@ -75,6 +75,13 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     		System.out.println("店铺获取待接单的销售线索============="+JSON.toJSONString(salesLeadsOrderEntity));
     	}
     }
+    /**测试销售线索接口daihx**/
+    @Test
+    public void testgetSaleLeads(){
+    	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getSaleLeads("1");
+    	LOG.info("====================开始执行====================");
+    	LOG.info("\n\nresult:" +JSON.toJSONString(result)+"\n\n");
+    }
     /**
      * 测试编辑接口
      * **/

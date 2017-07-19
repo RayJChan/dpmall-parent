@@ -56,6 +56,15 @@ public interface SalesLeadsOrderDao {
     Integer get2DistributeCount(@Param(value="distributorId")int distributorId);
     
     /**
+	 * <p>
+	 * 根据sealLeadsId 获取详情
+	 * author daihx
+	 * @param saleLeadsId
+	 * @return
+	 */
+    List<SalesLeadsOrderEntity> getSaleLeads(@Param(value="saleLeadsId")String saleLeadsId);
+    
+    /**
 	 * 店铺获取待接单的销售线索
 	 * @param storeId 店铺ID
 	 * @param startNum 上一次加载的最后项位移
