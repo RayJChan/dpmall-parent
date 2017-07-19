@@ -1,7 +1,5 @@
 package com.dpmall.datasvr.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alibaba.dubbo.common.json.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.enums.ESaleLeadsOrderStatus;
 import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
