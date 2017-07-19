@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.alibaba.fastjson.JSON;
-import com.dpmall.api.IProductStatisticService;
 import com.dpmall.api.ISaleLeadsService;
-import com.dpmall.api.bean.ProductStatisticModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticForm;
@@ -124,10 +122,25 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	/**
+	 * @param model 传入的model
+	 * @return 1为更新成功， 0 为失败
+	 * **/
 	public int edit(SaleLeadsModel model) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::edit',in:{model:'" + JSON.toJSONString(model) + "'}}");
+		}
+		try {
+			result = saleLeadsService.edit(model);
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::edit',out:"+result+"}");
+		}
+		return result;
 	}
 	
 	/**

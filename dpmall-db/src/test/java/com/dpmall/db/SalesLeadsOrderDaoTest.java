@@ -1,7 +1,9 @@
 package com.dpmall.db;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -45,7 +47,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 	/**测试分配店铺接口**/
 	@Test
 	public void distribute() {
-		LOG.info("result:"+salesLeadsOrderDao.distribute("1", "1"));
+		LOG.info("result:"+salesLeadsOrderDao.distribute("1", "2"));
 	}
 	
 	@Test
@@ -84,5 +86,16 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     	entity.id=1L;
     	entity.budget=new BigDecimal("20170719");
     	LOG.info("result:"+salesLeadsOrderDao.edit(entity));
+    }
+    
+    /**
+     * 测试批量分配店铺接口
+     * **/
+    @Test
+    public void testDistributeBatch() {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("1", "1001");
+    	map.put("2", "1002");
+    	LOG.info("result:"+salesLeadsOrderDao.distributeBatch(map));
     }
 }

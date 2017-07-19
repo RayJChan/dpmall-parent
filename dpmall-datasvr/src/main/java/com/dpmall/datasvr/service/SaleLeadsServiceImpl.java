@@ -1,21 +1,18 @@
 package com.dpmall.datasvr.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alibaba.dubbo.common.json.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.enums.ESaleLeadsOrderStatus;
 import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
@@ -241,10 +238,21 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+     * 经销商批量分配店铺
+     * @param distributorId 经销商ID
+     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @return 分配的店铺数
+     */
 	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+		int result=0;
+		for(Entry<String, String> entity : saleLeadsId2shopId.entrySet()) {
+			salesLeadsOrderDao.distribute(entity.getKey(), entity.getValue());
+			result++;
+		}
 		// TODO Auto-generated method stub
-		return 0;
+		return result;
 	}
 
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {

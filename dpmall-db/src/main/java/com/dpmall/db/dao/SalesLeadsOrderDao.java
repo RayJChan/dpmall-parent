@@ -1,9 +1,9 @@
 package com.dpmall.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
-
 
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 
@@ -70,4 +70,11 @@ public interface SalesLeadsOrderDao {
      * @return 1为成功，0为失败
      */
      int edit(@Param("entity")SalesLeadsOrderEntity entity);
+     
+     /**
+      * 经销商批量下派到店铺
+      * @param 经销商ID=>shopId
+      * @return
+      */
+     int distributeBatch(@Param("map") Map<String,String> map);
 }

@@ -215,8 +215,21 @@
 	<update id="distribute">
 	    update salesleadsorder set
 			p_suggeststore=${shopId},
-			p_distributedate=sysdate
+			p_distributedate=sysdate,
+			p_salesleadsorderstatus='distributed'
 		where pk=${saleLeadsId}					
+	</update>
+	<update id="distributeBatch" >	 
+		<foreach collection="map" index="key"  item="value" open="begin" close="end;" separator=";" >	
+			 update salesleadsorder
+			 <set>		
+				p_suggeststore=${value},
+				p_distributedate=sysdate,
+				p_salesleadsorderstatus='distributed'
+			</set>				
+			where pk=${key}
+		</foreach>
+		
 	</update>
 	<update id="edit">
 		update salesleadsorder 
@@ -277,9 +290,6 @@
 			</if>
 			<if test="entity.recommendstoreId!=null">
 				P_SUGGESTSTORE=#{entity.recommendstoreId},
-			</if>
-			<if test="entity.recommendstoreName!=null">
-				P_RECOMMENDSTORENAME=#{entity.recommendstoreName},
 			</if>
 			<if test="entity.storeAcceptTime!=null">
 				P_ACCEPTDATE=#{entity.storeAcceptTime},
