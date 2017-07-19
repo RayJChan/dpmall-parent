@@ -75,12 +75,31 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		}
 		return out;
 	}
-
+	/**
+     * 根据条件查询已完结的销售线索订单
+     * @param distributorId 经销商Id
+     * @param distributeTime 订单下派时间
+     * @param storeId
+     * @param saleLeadId
+     * @param clientName
+     * @param clientTel
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
 			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',in:{distributorId:'" + distributorId + "',storeId:'" + storeId + "',saleLeadId:'" + saleLeadId + "',sclientName:'" + clientName + "',clientTel:'" + clientTel + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',out:"+JSON.toJSONString(acceptModel)+"}");
+		}
+		return acceptModel;
 	}
 	 /**
 		 * 店铺获取待接单的销售线索
