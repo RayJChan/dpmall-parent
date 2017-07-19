@@ -1,5 +1,8 @@
 package com.dpmall.datasvr.service;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,7 @@ import com.alibaba.dubbo.common.json.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.enums.ESaleLeadsOrderStatus;
 import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
@@ -34,7 +38,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.appointmentTime=entity.appointmentTime;
 		model.budget=entity.budget==null?null:entity.budget.doubleValue();
 		model.callServiceRemark=entity.callServiceRemark;
-		model.callServiceTel=entity.callServiceTel!=null?entity.callServiceTel.toString():"";
+		model.callServiceTel=entity.callServiceTel;
 		model.clientAddr=entity.clientAddr;
 		model.clientName=entity.clientName;
 		model.clientTel=entity.clientTel;
@@ -53,9 +57,40 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.storeAcceptTime=entity.storeAcceptTime;
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
-		
+
 		return model;
 		
+	}
+	
+	/**
+	 * 把model转换成entity
+	 * @param entity 需要转换的model
+	 * @return 转化后的entity
+	 */
+	private SalesLeadsOrderEntity modelToEntity(SaleLeadsModel model) {
+		SalesLeadsOrderEntity entity=new SalesLeadsOrderEntity();
+		entity.budget=model.budget==null?null:new BigDecimal(model.budget);
+		entity.callServiceRemark=model.callServiceRemark;
+		entity.callServiceTel=model.callServiceTel;
+		entity.clientAddr=model.clientAddr;
+		entity.clientName=model.clientName;
+		entity.clientTel=model.clientTel;
+		entity.closeTime=model.closeTime;
+		entity.distributeTime=model.distributeTime;
+		entity.distributorId=model.distributorId;
+		entity.distributorOperateTime=model.distributorOperateTime;
+		entity.distributorUserName=model.distributorUserName;
+		entity.id=model.id;
+		entity.recommendstoreId=model.recommendstoreId;
+		entity.saleLeadsStatus=model.saleLeadsStatus;
+		entity.serviceDate=model.serviceDate;
+		entity.serviceAddress=model.serviceAddress;
+		entity.serviceCatelog=model.serviceCatelog;
+		entity.serviceTitle=model.serviceTitle;
+		entity.storeAcceptTime=model.storeAcceptTime;
+		entity.style=model.style;
+		entity.total=model.total==null?null:new BigDecimal(model.total);
+		return entity;
 	}
 
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
@@ -152,10 +187,16 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	/**
+	 * @param model 传入的model
+	 * @return 1为更新成功， 0 为失败
+	 * **/
 	public int edit(SaleLeadsModel model) {
+		SalesLeadsOrderEntity entity = modelToEntity(model);
+		int result=salesLeadsOrderDao.edit(entity);	
 		// TODO Auto-generated method stub
-		return 0;
+		return result;
 	}
 	
 	 /**

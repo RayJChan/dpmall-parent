@@ -26,6 +26,7 @@
 		<result property="appointmentTime" column="P_APPOINTMENTDATE"/>
 		<result property="closeTime" column="P_CLOSEDATE"/>
 		<result property="total" column="P_AMOUNT"/>
+		<result property="callServiceTel" column="P_CALLSERVICETEL"/>
 	</resultMap>
 		<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
@@ -183,7 +184,7 @@
 	
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
 			<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where 1=1 
+			left join agency a on s.p_agency = a .pk where  P_SALESLEADSORDERSTATUS='accepted'
 			<if test="acceptorId!=null">
 				 and s.p_acceptreceivedby=${acceptorId}
 			</if>
@@ -195,7 +196,7 @@
 	
 	<select id="getOnePage4AcceptorClosed" resultMap="SalesLeadsOrderEntity">
 		<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where 1=1 
+			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='sucess' 
 		<if test="acceptorId!=null">
 			and s.p_acceptreceivedby=${acceptorId}
 		</if>
@@ -217,5 +218,82 @@
 			p_distributedate=sysdate
 		where pk=${saleLeadsId}					
 	</update>
-
+	<update id="edit">
+		update salesleadsorder 
+		<set>
+			<if test="entity.clientName!=null">
+				P_NAME=#{entity.clientName},
+			</if>
+			<if test="entity.clientTel!=null">
+				P_TELEPHONE=#{entity.clientTel},
+			</if>
+			<if test="entity.clientAddr!=null">
+				P_CUSADDRESS=#{entity.clientAddr},
+			</if>
+			<if test="entity.clientRemark!=null">
+				P_COMMENT=#{entity.clientRemark},
+			</if>
+			<if test="entity.serviceAddress!=null">
+				P_SERVERADDRESS=#{entity.serviceAddress},
+			</if>
+			<if test="entity.serviceCatelog!=null">
+				P_SERVERPURPOSE=#{entity.serviceCatelog},
+			</if>
+			<if test="entity.serviceTitle!=null">
+				P_SERVICETITLE=#{entity.serviceTitle},
+			</if>
+			<if test="entity.serviceDate!=null">
+				P_FITMENTDATE=#{entity.serviceDate},
+			</if>
+			<if test="entity.style!=null">
+				P_STYLEPREFERENCE=#{entity.style},
+			</if>
+			<if test="entity.brand!=null">
+				P_BRANDPREFERENCE=#{entity.brand},
+			</if>
+			<if test="entity.budget!=null">
+				P_BUDGET=#{entity.budget},
+			</if>
+			<if test="entity.callServiceTel!=null">
+				P_CALLSERVICETEL=#{entity.callServiceTel},
+			</if>
+			<if test="entity.callServiceRemark!=null">
+				P_HANDLERCOMMENT=#{entity.callServiceRemark},
+			</if>
+			<if test="entity.saleLeadsStatus!=null">
+				P_SALESLEADSORDERSTATUS=#{entity.saleLeadsStatus},
+			</if>
+			<if test="entity.distributeTime!=null">
+				P_DISTRIBUTEDATE=#{entity.distributeTime},
+			</if>
+			<if test="entity.distributorId!=null">
+				P_DISTRIBUTER=#{entity.distributorId},
+			</if>
+			<if test="entity.distributorOperateTime!=null">
+				P_AGENCYOPERATEDATE=#{entity.distributorOperateTime},
+			</if>
+			<if test="entity.distributorUserName!=null">
+				P_AGENCYACCEPT=#{entity.distributorUserName},
+			</if>
+			<if test="entity.recommendstoreId!=null">
+				P_SUGGESTSTORE=#{entity.recommendstoreId},
+			</if>
+			<if test="entity.recommendstoreName!=null">
+				P_RECOMMENDSTORENAME=#{entity.recommendstoreName},
+			</if>
+			<if test="entity.storeAcceptTime!=null">
+				P_ACCEPTDATE=#{entity.storeAcceptTime},
+			</if>
+			<if test="entity.appointmentTime!=null">
+				P_APPOINTMENTDATE=#{entity.appointmentTime},
+			</if>
+			<if test="entity.closeTime!=null">
+				P_CLOSEDATE=#{entity.closeTime},
+			</if>
+			<if test="entity.total!=null">
+				P_AMOUNT=#{entity.total},
+			</if>	
+		</set>
+		 	where PK=${entity.id}
+	</update>
 </mapper>

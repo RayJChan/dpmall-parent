@@ -1,5 +1,6 @@
 package com.dpmall.datasvr;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Test;
@@ -41,5 +42,14 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     public void testGetOnePage4Accept(){
     	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePage4Accept("1", 0, 5);
         LOG.info("result:" + JSON.toJSONString(acceptModel));
+    }
+    
+    @Test
+    public void testEdit() {
+    	SaleLeadsModel model=new SaleLeadsModel();
+    	model.id=1L;
+    	model.budget=22.22;
+    	LOG.info("result:"+saleLeadsService.edit(model));
+    	
     }
 }

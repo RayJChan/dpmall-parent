@@ -1,5 +1,6 @@
 package com.dpmall.db;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Test;
@@ -73,5 +74,15 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     		LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
     		System.out.println("店铺获取待接单的销售线索============="+JSON.toJSONString(salesLeadsOrderEntity));
     	}
+    }
+    /**
+     * 测试编辑接口
+     * **/
+    @Test
+    public void eidtTest() {
+    	SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
+    	entity.id=1L;
+    	entity.budget=new BigDecimal("20170719");
+    	LOG.info("result:"+salesLeadsOrderDao.edit(entity));
     }
 }

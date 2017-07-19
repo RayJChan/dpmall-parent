@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 
 public interface SalesLeadsOrderDao {
@@ -62,4 +63,11 @@ public interface SalesLeadsOrderDao {
 	 * @return 店铺获取待接单的销售线索列表
 	 */
     public List<SalesLeadsOrderEntity> getOnePage4Accept(@Param("storeId")String storeId,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
+    
+    /**
+     * 编辑销售线索订单信息
+     * @param entity
+     * @return 1为成功，0为失败
+     */
+     int edit(@Param("entity")SalesLeadsOrderEntity entity);
 }
