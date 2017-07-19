@@ -22,6 +22,7 @@
 		<result property="distributorUserName" column="P_AGENCYACCEPT"/>
 		<result property="recommendstoreId" column="P_SUGGESTSTORE"/>
 		<result property="recommendstoreName" column="P_RECOMMENDSTORENAME"/>
+		<result property="storeAcceptor" column="P_ACCEPTBY"/>
 		<result property="storeAcceptTime" column="P_ACCEPTDATE"/>
 		<result property="appointmentTime" column="P_APPOINTMENTDATE"/>
 		<result property="closeTime" column="P_CLOSEDATE"/>
@@ -42,8 +43,8 @@
 			P_REFUSEDATE,
 			P_SUGGESTSTORE,
 			P_ACCEPTSTORE,
-			P_ACCEPTRECEIVEDBY,
 			P_ACCEPTDATE,
+			P_ACCEPTBY,
 			P_APPOINTMENTDATE,
 			P_ACTUALDATE,
 			P_AMOUNT,
@@ -81,7 +82,7 @@
 			P_REFUSEDATE,
 			P_SUGGESTSTORE,
 			P_ACCEPTSTORE,
-			P_ACCEPTRECEIVEDBY,
+			P_ACCEPTBY,
 			P_ACCEPTDATE,
 			P_APPOINTMENTDATE,
 			P_ACTUALDATE,
@@ -127,7 +128,7 @@
 			P_REFUSEDATE,
 			P_SUGGESTSTORE,
 			P_ACCEPTSTORE,
-			P_ACCEPTRECEIVEDBY,
+			P_ACCEPTBY,
 			P_ACCEPTDATE,
 			P_APPOINTMENTDATE,
 			P_ACTUALDATE,
@@ -169,6 +170,7 @@
 			S.P_SALESLEADSORDERSTATUS,
 			S.P_FITMENTDATE,
 			S.P_SERVERADDRESS,
+			S.P_ACCEPTBY,
 			S.P_ACCEPTDATE,
 			S.P_STYLEPREFERENCE,
 			S.P_AMOUNT,
@@ -184,9 +186,9 @@
 	
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
 			<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where  P_SALESLEADSORDERSTATUS='accepted'
+			left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='accepted'
 			<if test="acceptorId!=null">
-				 and s.p_acceptreceivedby=${acceptorId}
+				 and s.p_acceptby=${acceptorId}
 			</if>
 			<if test="startNum!=null and pageSize!=null">			
 				and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
@@ -198,7 +200,7 @@
 		<include refid="baseSql"/>
 			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='sucess' 
 		<if test="acceptorId!=null">
-			and s.p_acceptreceivedby=${acceptorId}
+			and s.p_acceptby=${acceptorId}
 		</if>
 		<if test="startNum!=null and pageSize!=null">			
 			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
@@ -280,6 +282,9 @@
 			</if>
 			<if test="entity.recommendstoreName!=null">
 				P_RECOMMENDSTORENAME=#{entity.recommendstoreName},
+			</if>
+			<if test="entity.storeAcceptor!=null">
+				P_ACCEPTBY=#{entity.storeAcceptor},
 			</if>
 			<if test="entity.storeAcceptTime!=null">
 				P_ACCEPTDATE=#{entity.storeAcceptTime},

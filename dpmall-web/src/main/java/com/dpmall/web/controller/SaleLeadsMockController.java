@@ -40,7 +40,7 @@ public class SaleLeadsMockController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize){
+    public Response getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
         try{
@@ -61,7 +61,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response get2DistributeCount(String distributorId){
+    public Response get2DistributeCount(String distributorId,String token){
     	Response res = new Response();
     	Integer data = null;
         try{
@@ -85,7 +85,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distribute(String distributorId,String saleLeadsId, String shopId){
+    public Response distribute(String distributorId,String saleLeadsId, String shopId,String token){
     	Response res = new Response();
         try{
         	res.resultCode = saleLeadsServiceMock.distribute(distributorId, saleLeadsId, shopId);
@@ -106,7 +106,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark){
+    public Response reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String token){
     	Response res = new Response();
         try{
         	res.resultCode = saleLeadsServiceMock.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
@@ -127,7 +127,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Followup(String distributorId,Integer startNum, Integer pageSize){
+    public Response getOnePage4Followup(String distributorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
         try{
@@ -155,7 +155,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getOnePageClosedSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageClosedSaleLeads(String distributorId,String distributeTimeBegin, String distributeTimeEnd,String storeId,String saleLeadId, String clientName,String clientTel,Integer startNum, Integer pageSize){
+    public Response getOnePageClosedSaleLeads(String distributorId,String distributeTimeBegin, String distributeTimeEnd,String storeId,String saleLeadId, String clientName,String clientTel,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
     	TimeScope distributeTime = null;
@@ -180,7 +180,7 @@ public class SaleLeadsMockController {
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Accept(String storeId,Integer startNum, Integer pageSize){
+    public Response getOnePage4Accept(String storeId,Integer startNum, Integer pageSize,String token){
 
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
@@ -202,7 +202,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response get2AcceptCount(String storeId){
+    public Response get2AcceptCount(String storeId,String token){
 
     	Response res = new Response();
     	Integer data = null;
@@ -227,7 +227,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response accept(String acceptorId, String saleLeadsId){
+    public Response accept(String acceptorId, String saleLeadsId,String token){
 
     	Response res = new Response();
         try{
@@ -246,7 +246,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/edit",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response edit(SaleLeadsModel model){
+    public Response edit(SaleLeadsModel model,String token){
     	Response res = new Response();
         try{
         	res.resultCode = saleLeadsServiceMock.edit(model);
@@ -267,7 +267,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getOnePage4Acceptor2Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize){
+    public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize,String token){
 
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
@@ -291,7 +291,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getOnePage4AcceptorClosed",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize){
+    public Response getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize,String token){
 
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
@@ -315,7 +315,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getOnePageSuccessOrders",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize){
+    public Response getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize,String token){
 
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
@@ -341,7 +341,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getSuccessOrdersTtlAmount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getSuccessOrdersTtlAmount(SaleLeadStatisticForm form){
+    public Response getSuccessOrdersTtlAmount(SaleLeadStatisticForm form,String token){
     	Response res = new Response();
         try{
         	res.data = saleLeadsServiceMock.getSuccessOrdersTtlAmount(form);
@@ -359,7 +359,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/distributeBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId){
+    public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token){
     	Response res = new Response();
         try{
         	res.resultCode = saleLeadsServiceMock.distributeBatch(distributorId, saleLeadsId2shopId);
@@ -381,7 +381,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/rejectBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response rejectBatch(RejectBatchForm form){
+    public Response rejectBatch(RejectBatchForm form,String token){
     	Response res = new Response();
     	
         try{
@@ -401,7 +401,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/acceptBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response acceptBatch(AcceptBatchForm form){
+    public Response acceptBatch(AcceptBatchForm form,String token){
     	Response res = new Response();
     	
         try{
@@ -422,7 +422,7 @@ public class SaleLeadsMockController {
 	 */
     @RequestMapping(value="/getSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-	public Response getSaleLeads(String saleLeadsId){
+	public Response getSaleLeads(String saleLeadsId,String token){
     	Response res = new Response();
         try{
         	res.data = saleLeadsServiceMock.getSaleLeads(saleLeadsId);
