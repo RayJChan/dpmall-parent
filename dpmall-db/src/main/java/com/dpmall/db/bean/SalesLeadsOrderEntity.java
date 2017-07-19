@@ -83,4 +83,13 @@ public class SalesLeadsOrderEntity  {
 	/**成单金额*/
 	public BigDecimal total;
 	
+	/**拒单类型*/
+	public Integer rejectType;
+	
+	/**拒单原因*/
+	public String rejectRemark;
+	
+	/**拒单时间*/
+	public Date refuseTime;
+	
 }

@@ -87,6 +87,12 @@ public class SaleLeadsModel  implements Serializable {
 	/**成单金额*/
 	public Double total;
 	
+	/**拒单类型*/
+	public Integer rejectType;
+	
+	/**拒单原因*/
+	public String rejectRemark;
+	
 	/**成交商品列表*/
 	public List<SaleLeadsGoodsModel> orderItemList;
 	
