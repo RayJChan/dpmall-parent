@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -203,9 +204,24 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return count;
 	}
 
+	/**
+	 * author:daihx
+	 * accept方法
+	 * saleLeadsId
+	 */
 	public int accept(String acceptorId, String saleLeadsId) {
 		// TODO Auto-generated method stub
-		return 0;
+		SaleLeadsModel out = null;
+
+		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
+		
+		SalesLeadsOrderEntity entity = outEntityList.get(0);
+		entity.saleLeadsStatus = "15";
+		entity.storeAcceptTime = new Date();
+		entity.storeAcceptor = acceptorId;
+		int result=salesLeadsOrderDao.edit(entity);
+
+		return result;
 	}
 	
 	/**
