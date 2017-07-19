@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.dubbo.common.json.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
@@ -92,7 +93,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public int distribute(String distributorId, String saleLeadsId, String shopId) {
 		// TODO Auto-generated method stub
-		return 0;
+		int result = salesLeadsOrderDao.distribute(saleLeadsId, shopId);
+		LOG.info("result:"+result);
+		return result;
 	}
 
 	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
