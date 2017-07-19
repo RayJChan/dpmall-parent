@@ -188,7 +188,7 @@
 				 and s.p_acceptreceivedby=${acceptorId}
 			</if>
 			<if test="startNum!=null and pageSize!=null">			
-				and ${pageSize}*${startNum-1} &lt; rownum and rownum &lt; ${pageSize}*${startNum}+1
+				and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
 			</if>
 			
 	</select>
@@ -200,7 +200,7 @@
 			and s.p_acceptreceivedby=${acceptorId}
 		</if>
 		<if test="startNum!=null and pageSize!=null">			
-			and ${pageSize}*${startNum-1} &lt; rownum and rownum &lt; ${pageSize}*${startNum}+1
+			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
 		</if>
 	</select>
 	
