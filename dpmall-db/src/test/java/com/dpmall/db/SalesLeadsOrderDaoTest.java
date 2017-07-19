@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 	/**测试分配店铺接口**/
 	@Test
 	public void distribute() {
-		LOG.info("result:"+salesLeadsOrderDao.distribute("1", "1"));
+		LOG.info("result:"+salesLeadsOrderDao.distribute("1", "2"));
 	}
 	
 	@Test

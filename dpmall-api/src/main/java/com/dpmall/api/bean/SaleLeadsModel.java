@@ -37,7 +37,7 @@ public class SaleLeadsModel  implements Serializable {
 	public String serviceTitle;
 	
 	/**预计服务时间*/
-	public Date serviceDate;
+	public String serviceDate;
 	
 	/**风格偏好*/
 	public String style;
@@ -61,7 +61,7 @@ public class SaleLeadsModel  implements Serializable {
 	public Long distributorId;
 	
 	/**经销商操作时间*/
-	public Date distributorOperateTime;
+	public String distributorOperateTime;
 	
 	/**经销商用户名*/
 	public String distributorUserName;
@@ -76,13 +76,13 @@ public class SaleLeadsModel  implements Serializable {
 	public String storeAcceptor;
 	
 	/**店铺接单时间*/
-	public Date storeAcceptTime;
+	public String storeAcceptTime;
 	
 	/**预约到店时间*/
-	public Date appointmentTime;
+	public String appointmentTime;
 	
 	/**结单时间*/
-	public Date closeTime;
+	public String closeTime;
 	
 	/**成单金额*/
 	public Double total;

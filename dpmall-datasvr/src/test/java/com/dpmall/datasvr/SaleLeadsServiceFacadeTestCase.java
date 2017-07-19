@@ -1,7 +1,10 @@
 package com.dpmall.datasvr;
 
-import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -10,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.bean.SaleLeadsModel;
+import com.dpmall.api.common.TimeScope;
+import com.dpmall.common.DateUtils;
 import com.dpmall.common.SpringTestCase;
 
 public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
@@ -58,15 +63,21 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(acceptModel)+"\n\n");
     }
-    /**
-	 * author:daihx
-	 * accept方法
-	 * saleLeadsId
-	 */
+    
     @Test
-    public void testAccept(){
-    	int result = saleLeadsService.accept("14", "1");
-    	LOG.info("=======================开始执行=======================");
-        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    public void testDistributeBatch() {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("1", "1111111");
+    	map.put("2", "22222222");
+    	LOG.info("result:"+saleLeadsService.distributeBatch("", map));
+    }
+    @Test
+    public void testGetOnePageClosedSaleLeads() throws ParseException{
+    	TimeScope scope = new TimeScope();
+
+    	scope.begin = new Timestamp(DateUtils.parse("2017-07-18 00:00:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
+    	scope.end = new Timestamp(DateUtils.parse("2017-07-20 10:30:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
+    	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5);
+        LOG.info("result:" + JSON.toJSONString(acceptModel));
     }
 }

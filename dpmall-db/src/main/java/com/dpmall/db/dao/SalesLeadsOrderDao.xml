@@ -301,9 +301,11 @@
 	<update id="distribute">
 	    update salesleadsorder set
 			p_suggeststore=${shopId},
-			p_distributedate=sysdate
+			p_distributedate=sysdate,
+			p_salesleadsorderstatus='distributed'
 		where pk=${saleLeadsId}					
 	</update>
+
 	<update id="edit">
 		update salesleadsorder 
 		<set>
@@ -363,9 +365,6 @@
 			</if>
 			<if test="entity.recommendstoreId!=null">
 				P_SUGGESTSTORE=#{entity.recommendstoreId},
-			</if>
-			<if test="entity.recommendstoreName!=null">
-				P_RECOMMENDSTORENAME=#{entity.recommendstoreName},
 			</if>
 			<if test="entity.storeAcceptor!=null">
 				P_ACCEPTBY=#{entity.storeAcceptor},

@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.alibaba.fastjson.JSON;
-import com.dpmall.api.IProductStatisticService;
 import com.dpmall.api.ISaleLeadsService;
-import com.dpmall.api.bean.ProductStatisticModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticForm;
@@ -77,12 +75,31 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		}
 		return out;
 	}
-
+	/**
+     * 根据条件查询已完结的销售线索订单
+     * @param distributorId 经销商Id
+     * @param distributeTime 订单下派时间
+     * @param storeId
+     * @param saleLeadId
+     * @param clientName
+     * @param clientTel
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
 			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',in:{distributorId:'" + distributorId + "',storeId:'" + storeId + "',saleLeadId:'" + saleLeadId + "',sclientName:'" + clientName + "',clientTel:'" + clientTel + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',out:"+JSON.toJSONString(acceptModel)+"}");
+		}
+		return acceptModel;
 	}
 	 /**
 		 * 店铺获取待接单的销售线索
@@ -137,10 +154,25 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		
 		return result;
 	}
-
+	
+	/**
+	 * @param model 传入的model
+	 * @return 1为更新成功， 0 为失败
+	 * **/
 	public int edit(SaleLeadsModel model) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::edit',in:{model:'" + JSON.toJSONString(model) + "'}}");
+		}
+		try {
+			result = saleLeadsService.edit(model);
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::edit',out:"+result+"}");
+		}
+		return result;
 	}
 	
 	/**
@@ -184,10 +216,24 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+     * 经销商批量分配店铺
+     * @param distributorId 经销商ID
+     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @return 分配的店铺数
+     */
 	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::distributeBatch',in:{distributorId:'" + distributorId + "',saleLeadsId2shopId:'"
+					+ JSON.toJSONString(saleLeadsId2shopId) +"}}");
+		}
+		result=saleLeadsService.distributeBatch(distributorId, saleLeadsId2shopId);
+		if (LOG.isDebugEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::distributeBatch',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {

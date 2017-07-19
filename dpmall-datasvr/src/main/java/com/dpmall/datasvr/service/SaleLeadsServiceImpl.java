@@ -1,10 +1,13 @@
 package com.dpmall.datasvr.service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +17,7 @@ import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.common.DateUtils;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
 
@@ -32,26 +36,26 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 */
 	private SaleLeadsModel entityToModel(SalesLeadsOrderEntity entity) {
 		SaleLeadsModel model=new SaleLeadsModel();
-		model.appointmentTime=entity.appointmentTime;
+		model.appointmentTime=entity.appointmentTime == null?null:DateUtils.format(entity.appointmentTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.budget=entity.budget==null?null:entity.budget.doubleValue();
 		model.callServiceRemark=entity.callServiceRemark;
 		model.callServiceTel=entity.callServiceTel;
 		model.clientAddr=entity.clientAddr;
 		model.clientName=entity.clientName;
 		model.clientTel=entity.clientTel;
-		model.closeTime=entity.closeTime;
+		model.closeTime=entity.closeTime==null?null:DateUtils.format(entity.closeTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.distributeTime=entity.distributeTime;
 		model.distributorId=entity.distributorId;
-		model.distributorOperateTime=entity.distributorOperateTime;
+		model.distributorOperateTime=entity.distributorOperateTime==null?null:DateUtils.format(entity.distributorOperateTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.distributorUserName=entity.distributorUserName;
 		model.id=entity.id;
 		model.recommendstoreId=entity.recommendstoreId;
 		model.saleLeadsStatus=entity.saleLeadsStatus;
-		model.serviceDate=entity.serviceDate;
+		model.serviceDate=entity.serviceDate==null?null:DateUtils.format(entity.serviceDate, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.serviceAddress=entity.serviceAddress;
 		model.serviceCatelog=entity.serviceCatelog;
 		model.serviceTitle=entity.serviceTitle;
-		model.storeAcceptTime=entity.storeAcceptTime;
+		model.storeAcceptTime=entity.storeAcceptTime==null?null:DateUtils.format(entity.storeAcceptTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
 
@@ -63,8 +67,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * 把model转换成entity
 	 * @param entity 需要转换的model
 	 * @return 转化后的entity
+	 * @throws ParseException 
 	 */
-	private SalesLeadsOrderEntity modelToEntity(SaleLeadsModel model) {
+	private SalesLeadsOrderEntity modelToEntity(SaleLeadsModel model) throws ParseException {
 		SalesLeadsOrderEntity entity=new SalesLeadsOrderEntity();
 		entity.budget=model.budget==null?null:new BigDecimal(model.budget);
 		entity.callServiceRemark=model.callServiceRemark;
@@ -72,19 +77,19 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.clientAddr=model.clientAddr;
 		entity.clientName=model.clientName;
 		entity.clientTel=model.clientTel;
-		entity.closeTime=model.closeTime;
+		entity.closeTime=model.closeTime == null ? null : DateUtils.parse(model.closeTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.distributeTime=model.distributeTime;
 		entity.distributorId=model.distributorId;
-		entity.distributorOperateTime=model.distributorOperateTime;
+		entity.distributorOperateTime=model.distributorOperateTime == null ? null : DateUtils.parse(model.distributorOperateTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.distributorUserName=model.distributorUserName;
 		entity.id=model.id;
 		entity.recommendstoreId=model.recommendstoreId;
 		entity.saleLeadsStatus=model.saleLeadsStatus;
-		entity.serviceDate=model.serviceDate;
+		entity.serviceDate=model.serviceDate == null ? null : DateUtils.parse(model.serviceDate, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.serviceAddress=model.serviceAddress;
 		entity.serviceCatelog=model.serviceCatelog;
 		entity.serviceTitle=model.serviceTitle;
-		entity.storeAcceptTime=model.storeAcceptTime;
+		entity.storeAcceptTime=model.storeAcceptTime == null ? null : DateUtils.parse(model.storeAcceptTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.style=model.style;
 		entity.total=model.total==null?null:new BigDecimal(model.total);
 		return entity;
@@ -151,12 +156,31 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		out = this.entitysaleModel(outEntityList);
 		return out;
 	}
-	
+	/**
+     * 根据条件查询已完结的销售线索订单
+     * @param distributorId 经销商Id
+     * @param distributeTime 订单下派时间
+     * @param storeId
+     * @param saleLeadId
+     * @param clientName
+     * @param clientTel
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
 			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SaleLeadsModel> accept = null;
+		com.dpmall.common.TimeScope scopeInternal = new com.dpmall.common.TimeScope();
+		scopeInternal.begin = (Timestamp) distributeTime.begin;
+		scopeInternal.end = (Timestamp) distributeTime.end;
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		if(acceptEntity.isEmpty()){
+			return null;
+		}
+		accept = this.entitysaleModel(acceptEntity);
+		return accept;
 	}
 	 /**
 		 * 店铺获取待接单的销售线索
@@ -205,7 +229,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * @return 1为更新成功， 0 为失败
 	 * **/
 	public int edit(SaleLeadsModel model) {
-		SalesLeadsOrderEntity entity = modelToEntity(model);
+		SalesLeadsOrderEntity entity = null;
+		try {
+			entity = modelToEntity(model);
+		} catch (ParseException e) {
+			LOG.error(e.getMessage(),e);
+		}
 		int result=salesLeadsOrderDao.edit(entity);	
 		// TODO Auto-generated method stub
 		return result;
@@ -253,10 +282,21 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+     * 经销商批量分配店铺
+     * @param distributorId 经销商ID
+     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @return 分配的店铺数
+     */
 	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+		int result=0;
+		for(Entry<String, String> entity : saleLeadsId2shopId.entrySet()) {
+			salesLeadsOrderDao.distribute(entity.getKey(), entity.getValue());
+			result++;
+		}
 		// TODO Auto-generated method stub
-		return 0;
+		return result;
 	}
 
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {

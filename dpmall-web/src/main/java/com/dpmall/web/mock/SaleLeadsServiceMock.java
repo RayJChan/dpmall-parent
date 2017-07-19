@@ -11,6 +11,7 @@ import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.enums.ESaleLeadsOrderStatus;
 import com.dpmall.api.err.ErrorCode;
 import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.common.DateUtils;
 
 public class SaleLeadsServiceMock implements ISaleLeadsService {
 
@@ -85,7 +86,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.closeTime = null;
 			tmp.distributeTime = new Date();
 			tmp.distributorId = distributorId == null? 123 : Long.valueOf(distributorId);
-			tmp.distributorOperateTime = tmp.distributeTime;
+			tmp.distributorOperateTime = DateUtils.format(tmp.distributeTime,DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -121,10 +122,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientName = "张三";
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
-			tmp.closeTime = new Date();
+			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributeTime = new Date();
 			tmp.distributorId = distributorId == null? 123 : Long.valueOf(distributorId);
-			tmp.distributorOperateTime = tmp.distributeTime;
+			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -132,9 +133,9 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.saleLeadsStatus = ESaleLeadsOrderStatus.SUCCESS.getCode();
 			tmp.serviceAddress= "广东省佛山市江南区38路192花园";
 			tmp.serviceCatelog = "A1";
-			tmp.serviceDate =  new Date();
+			tmp.serviceDate =  DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.serviceTitle = "购买花洒两件，设计服务";
-			tmp.storeAcceptTime = new Date();
+			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.style = "欧式";
 			tmp.total = 0.0;
 			mockResults.add(tmp);
@@ -158,10 +159,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientName = "张三";
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
-			tmp.closeTime = new Date();
+			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributeTime = new Date();
 			tmp.distributorId = 123456l;
-			tmp.distributorOperateTime = tmp.distributeTime;
+			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -169,7 +170,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.saleLeadsStatus = ESaleLeadsOrderStatus.DISTRIBUTED.getCode();
 			tmp.serviceAddress= "广东省佛山市江南区38路192花园";
 			tmp.serviceCatelog = "A1";
-			tmp.serviceDate =  new Date();
+			tmp.serviceDate =  DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.serviceTitle = "购买花洒两件，设计服务";
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
@@ -210,10 +211,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientName = "张三";
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
-			tmp.closeTime = new Date();
+			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributeTime = new Date();
 			tmp.distributorId = 123456l;
-			tmp.distributorOperateTime = tmp.distributeTime;
+			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -221,7 +222,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.saleLeadsStatus = ESaleLeadsOrderStatus.DISTRIBUTED.getCode();
 			tmp.serviceAddress= "广东省佛山市江南区38路192花园";
 			tmp.serviceCatelog = "A1";
-			tmp.serviceDate =  new Date();
+			tmp.serviceDate =  DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.serviceTitle = "购买花洒两件，设计服务";
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
@@ -247,10 +248,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientName = "张三";
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
-			tmp.closeTime = new Date();
+			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributeTime = new Date();
 			tmp.distributorId = 123456l;
-			tmp.distributorOperateTime = tmp.distributeTime;
+			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -258,7 +259,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.saleLeadsStatus = ESaleLeadsOrderStatus.DISTRIBUTED.getCode();
 			tmp.serviceAddress= "广东省佛山市江南区38路192花园";
 			tmp.serviceCatelog = "A1";
-			tmp.serviceDate =  new Date();
+			tmp.serviceDate =  DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.serviceTitle = "购买花洒两件，设计服务";
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
@@ -285,10 +286,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.clientName = "张三";
 			tmp.clientRemark = "希望设计师和我具体沟通";
 			tmp.clientTel = "18566754854";
-			tmp.closeTime = new Date();
+			tmp.closeTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributeTime = new Date();
 			tmp.distributorId = 123456l;
-			tmp.distributorOperateTime = tmp.distributeTime;
+			tmp.distributorOperateTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.distributorUserName = "zhangsan";
 			tmp.id = (long)(123456+i);
 			tmp.recommendstoreId = (long)(123456+i);
@@ -296,7 +297,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.saleLeadsStatus = ESaleLeadsOrderStatus.DISTRIBUTED.getCode();
 			tmp.serviceAddress= "广东省佛山市江南区38路192花园";
 			tmp.serviceCatelog = "A1";
-			tmp.serviceDate =  new Date();
+			tmp.serviceDate =  DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.serviceTitle = "购买花洒两件，设计服务";
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";

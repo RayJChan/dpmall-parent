@@ -2,7 +2,9 @@ package com.dpmall.web.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.web.controller.form.AcceptBatchForm;
 import com.dpmall.web.controller.form.RejectBatchForm;
@@ -93,11 +96,18 @@ public class SaleLeadsController {
     @ResponseBody
     public Response distribute(String distributorId,String saleLeadsId, String shopId,String token){
     	Response res = new Response();
-        try{
-        	res.resultCode = saleLeadsServiceMock.distribute(distributorId, saleLeadsId, shopId);
-        } catch(Throwable e){
-        	LOG.error(e.getMessage(),e);
-    	}
+    	if (StringUtils.isEmpty(distributorId)||StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(shopId)) {
+			res.resultCode=ErrorCode.ERROR;
+			res.message="参数错误";
+		}
+        else {
+        	try{
+            	res.data = saleLeadsServiceMock.distribute(distributorId, saleLeadsId, shopId);
+            	res.resultCode=ErrorCode.SUCCESS;
+            } catch(Throwable e){
+            	LOG.error(e.getMessage(),e);
+        	}
+		}
         
     	return res;
     }
@@ -273,17 +283,22 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getOnePage4Acceptor2Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize,String token){
-
+    public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize,String token){ 	
     	Response res = new Response();
-    	List<SaleLeadsModel> data = null;
-        try{
-    	    data = saleLeadsServiceMock.getOnePage4Acceptor2Followup(acceptorId, startNum, pageSize);
-        } catch(Throwable e){
-        	LOG.error(e.getMessage(),e);
-    	}
-    	
-    	res.data = data;
+    	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
+			res.resultCode=ErrorCode.ERROR;
+			res.message="参数错误";
+		}
+    	else {
+    		List<SaleLeadsModel> data = null;
+            try{
+        	    data = saleLeadsService.getOnePage4Acceptor2Followup(acceptorId, startNum, pageSize);
+            } catch(Throwable e){
+            	LOG.error(e.getMessage(),e);
+        	}
+        	
+        	res.data = data;
+		}
 
     	return res;
     }
@@ -298,17 +313,21 @@ public class SaleLeadsController {
     @RequestMapping(value="/getOnePage4AcceptorClosed",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize,String token){
-
     	Response res = new Response();
-    	List<SaleLeadsModel> data = null;
-        try{
-    	    data = saleLeadsServiceMock.getOnePage4AcceptorClosed(acceptorId, startNum, pageSize);
-        } catch(Throwable e){
-        	LOG.error(e.getMessage(),e);
-    	}
-    	
-    	res.data = data;
-
+    	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
+			res.resultCode=ErrorCode.ERROR;
+			res.message="参数错误";
+		}
+    	else {
+    		List<SaleLeadsModel> data = null;
+            try{
+        	    data = saleLeadsService.getOnePage4AcceptorClosed(acceptorId, startNum, pageSize);
+            } catch(Throwable e){
+            	LOG.error(e.getMessage(),e);
+        	}
+        	
+        	res.data = data;
+		}
     	return res;
     }
     
@@ -367,11 +386,27 @@ public class SaleLeadsController {
     @ResponseBody
     public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token){
     	Response res = new Response();
-        try{
-        	res.resultCode = saleLeadsServiceMock.distributeBatch(distributorId, saleLeadsId2shopId);
-        } catch(Throwable e){
-        	LOG.error(e.getMessage(),e);
+    	if (StringUtils.isEmpty(distributorId)) {
+			res.resultCode=ErrorCode.ERROR;
+			res.message="参数distributorId错误";
+		}
+    	else {
+    		for(Entry<String, String> entity:saleLeadsId2shopId.entrySet()) {
+    			if (StringUtils.isEmpty(entity.getKey())||StringUtils.isEmpty(entity.getValue())) {
+    				res.resultCode=ErrorCode.ERROR;
+    				res.message="参数错误";
+				}
+    			else {
+    				try{
+    		        	res.data = saleLeadsService.distributeBatch(distributorId, saleLeadsId2shopId);
+    		        	res.resultCode=ErrorCode.SUCCESS;
+    		        } catch(Throwable e){
+    		        	LOG.error(e.getMessage(),e);
+    		    	}
+				}
+    		}
     	}
+        
 
     	return res;
     
