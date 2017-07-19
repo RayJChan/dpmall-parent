@@ -80,4 +80,15 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5);
         LOG.info("result:" + JSON.toJSONString(acceptModel));
     }
+    /**
+	 * author:daihx
+	 * accept方法
+	 * saleLeadsId
+	 */
+    @Test
+    public void testAccept(){
+    	int result = saleLeadsService.accept("14", "1");
+    	LOG.info("=======================开始执行=======================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    }
 }
