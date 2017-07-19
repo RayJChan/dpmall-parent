@@ -58,4 +58,15 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(acceptModel)+"\n\n");
     }
+    /**
+	 * author:daihx
+	 * accept方法
+	 * saleLeadsId
+	 */
+    @Test
+    public void testAccept(){
+    	int result = saleLeadsService.accept("14", "1");
+    	LOG.info("=======================开始执行=======================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    }
 }

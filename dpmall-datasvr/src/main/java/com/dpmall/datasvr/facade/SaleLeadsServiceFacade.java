@@ -120,9 +120,22 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		return count;
 	}
 
+	/**
+	 * author:daihx
+	 * accept方法
+	 * saleLeadsId
+	 */
 	public int accept(String acceptorId, String saleLeadsId) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'accept',in:{acceptorId:'" + acceptorId  +"'}}");
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'::accept',out:{acceptorId:'" + acceptorId  +"'}}");
+		}
+		int result = saleLeadsService.accept(acceptorId, saleLeadsId);
+		
+		return result;
 	}
 
 	public int edit(SaleLeadsModel model) {
