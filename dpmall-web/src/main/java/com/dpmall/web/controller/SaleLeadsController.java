@@ -265,7 +265,8 @@ public class SaleLeadsController {
     public Response edit(SaleLeadsModel model,String token){
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.edit(model);
+        	res.data = saleLeadsService.edit(model);
+        	res.resultCode=ErrorCode.SUCCESS;
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
