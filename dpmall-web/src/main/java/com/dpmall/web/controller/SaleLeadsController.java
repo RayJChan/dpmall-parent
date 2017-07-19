@@ -97,7 +97,7 @@ public class SaleLeadsController {
     public Response distribute(String distributorId,String saleLeadsId, String shopId,String token){
     	Response res = new Response();
     	if (StringUtils.isEmpty(distributorId)||StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(shopId)) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
         else {
@@ -265,7 +265,8 @@ public class SaleLeadsController {
     public Response edit(SaleLeadsModel model,String token){
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.edit(model);
+        	res.data = saleLeadsService.edit(model);
+        	res.resultCode=ErrorCode.SUCCESS;
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -286,7 +287,7 @@ public class SaleLeadsController {
     public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize,String token){ 	
     	Response res = new Response();
     	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
     	else {
@@ -315,7 +316,7 @@ public class SaleLeadsController {
     public Response getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
     	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
     	else {
@@ -387,7 +388,7 @@ public class SaleLeadsController {
     public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token){
     	Response res = new Response();
     	if (StringUtils.isEmpty(distributorId)) {
-			res.resultCode=ErrorCode.ERROR;
+			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数distributorId错误";
 		}
     	else {
