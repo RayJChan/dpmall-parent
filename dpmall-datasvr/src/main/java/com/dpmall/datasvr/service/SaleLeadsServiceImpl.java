@@ -44,7 +44,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.clientName=entity.clientName;
 		model.clientTel=entity.clientTel;
 		model.closeTime=entity.closeTime==null?null:DateUtils.format(entity.closeTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
-		model.distributeTime=entity.distributeTime;
+		model.distributeTime=entity.distributeTime==null?null:DateUtils.format(entity.distributeTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.distributorId=entity.distributorId;
 		model.distributorOperateTime=entity.distributorOperateTime==null?null:DateUtils.format(entity.distributorOperateTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.distributorUserName=entity.distributorUserName;
@@ -78,7 +78,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.clientName=model.clientName;
 		entity.clientTel=model.clientTel;
 		entity.closeTime=model.closeTime == null ? null : DateUtils.parse(model.closeTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
-		entity.distributeTime=model.distributeTime;
+		entity.distributeTime=model.distributeTime == null ? null : DateUtils.parse(model.distributeTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.distributorId=model.distributorId;
 		entity.distributorOperateTime=model.distributorOperateTime == null ? null : DateUtils.parse(model.distributorOperateTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.distributorUserName=model.distributorUserName;
