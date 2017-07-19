@@ -187,9 +187,22 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		return 0;
 	}
 
+	/**
+	 * author:daihx
+	 * 根据sealLeadsId 获取详情
+	 * saleLeadsId
+	 */
 	public SaleLeadsModel getSaleLeads(String saleLeadsId) {
 		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade:getSaleLeads',in:{saleLeadsId:'" + saleLeadsId  +"'}}");
+		}
+		SaleLeadsModel acceptModel = saleLeadsService.getSaleLeads(saleLeadsId);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::getSaleLeads',out:"+JSON.toJSONString(acceptModel)+"}");
+		}
+		return acceptModel;
 	}
 	
 }
