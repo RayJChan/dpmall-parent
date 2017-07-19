@@ -2,6 +2,7 @@ package com.dpmall.datasvr;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,6 +89,21 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     @Test
     public void testAccept(){
     	int result = saleLeadsService.accept("14", "1");
+    	LOG.info("=======================开始执行=======================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    }
+    /**
+	 * author:daihx
+	 * 导购员批量接单
+	 * saleLeadsId
+	 */
+    @Test
+    public void testAcceptBatch(){
+    	List<String> saleLeadsId = new ArrayList<String>();
+    	saleLeadsId.add("1");
+    	saleLeadsId.add("2");
+    	saleLeadsId.add("3");
+    	int result = saleLeadsService.acceptBatch("14", saleLeadsId);
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }

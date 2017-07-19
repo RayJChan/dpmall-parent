@@ -304,9 +304,37 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		return 0;
 	}
 
+	/**
+	 * author:daihx
+	 * 导购员批量接单
+	 * saleLeadsId
+	 */
 	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
 		// TODO Auto-generated method stub
-		return 0;
+		SaleLeadsModel out = null;
+		Boolean a = true;
+		int b;
+		//先for循环拿每一条去改状态，得到每一条的结果返回值
+		
+		for(String id : saleLeadsId){
+			List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(id);
+			SalesLeadsOrderEntity entity = outEntityList.get(0);
+			entity.saleLeadsStatus = "15";
+			entity.storeAcceptTime = new Date();
+			entity.storeAcceptor = acceptorId;
+			int result=salesLeadsOrderDao.edit(entity);
+			if(result==0){
+				a = false;
+				break;
+			}
+		}
+		if(a){
+			 b = 1;
+		}else{
+			 b = 0;
+		}
+
+		return b;
 	}
 	
 	
