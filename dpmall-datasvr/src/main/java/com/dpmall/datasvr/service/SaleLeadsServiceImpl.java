@@ -1,6 +1,7 @@
 package com.dpmall.datasvr.service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -154,12 +155,31 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		out = this.entitysaleModel(outEntityList);
 		return out;
 	}
-	
+	/**
+     * 根据条件查询已完结的销售线索订单
+     * @param distributorId 经销商Id
+     * @param distributeTime 订单下派时间
+     * @param storeId
+     * @param saleLeadId
+     * @param clientName
+     * @param clientTel
+     * @param startNum
+     * @param pageSize
+     * @return
+     */
 	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
 			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SaleLeadsModel> accept = null;
+		com.dpmall.common.TimeScope scopeInternal = new com.dpmall.common.TimeScope();
+		scopeInternal.begin = (Timestamp) distributeTime.begin;
+		scopeInternal.end = (Timestamp) distributeTime.end;
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		if(acceptEntity.isEmpty()){
+			return null;
+		}
+		accept = this.entitysaleModel(acceptEntity);
+		return accept;
 	}
 	 /**
 		 * 店铺获取待接单的销售线索
