@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-
+import com.dpmall.common.TimeScope;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 
 public interface SalesLeadsOrderDao {
@@ -79,4 +79,18 @@ public interface SalesLeadsOrderDao {
      * @return 1为成功，0为失败
      */
      int edit(@Param("entity")SalesLeadsOrderEntity entity);
+     
+     /**
+      * 根据条件查询已完结的销售线索订单
+      * @param distributorId 经销商Id
+      * @param distributeTime 订单下派时间
+      * @param storeId
+      * @param saleLeadId
+      * @param clientName
+      * @param clientTel
+      * @param startNum
+      * @param pageSize
+      * @return
+      */
+     public List<SalesLeadsOrderEntity> getOnePageClosedSaleLeads(@Param("distributorId")String distributorId,@Param("distributeTime")TimeScope  distributeTime,@Param("storeId") String storeId,@Param("saleLeadId")String saleLeadId,@Param("clientName") String clientName,@Param("clientTel")String clientTel,@Param("startNum")Integer startNum,@Param("pageSize") Integer pageSize);
 }

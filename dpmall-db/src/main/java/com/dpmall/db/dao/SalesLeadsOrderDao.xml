@@ -185,6 +185,56 @@
 			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
 		</if>
 	</select>
+	
+	<select id="getOnePageClosedSaleLeads"  resultMap="SalesLeadsOrderEntity">
+		select 
+			PK,
+			P_NAME,
+			P_TELEPHONE,
+			P_CUSADDRESS,
+			P_COMMENT,
+			P_SERVERADDRESS,
+			P_SERVERPURPOSE,
+			P_SERVICETITLE,
+			P_FITMENTDATE,
+			P_STYLEPREFERENCE,
+			P_BUDGET,
+			P_BRANDPREFERENCE,
+			P_HANDLERCOMMENT,
+			P_SALESLEADSORDERSTATUS,
+			P_DISTRIBUTEDATE,
+			P_DISTRIBUTER,
+			P_AGENCYOPERATEDATE,
+			P_AGENCYACCEPT,
+			P_SUGGESTSTORE,
+			P_ACCEPTDATE,
+			P_APPOINTMENTDATE,
+			P_CLOSEDATE,
+			P_AMOUNT,
+			P_CALLSERVICETEL
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='25'
+		<if test="distributorId != null">
+		    and P_DISTRIBUTER=${distributorId} 
+		</if>
+		<if test="distributeTime != null">
+		    and P_DISTRIBUTEDATE between #{distributeTime.begin} and #{distributeTime.end}
+		</if>
+		<if test="storeId != null">
+		    and P_ACCEPTSTORE=${storeId} 
+		</if>
+		<if test="saleLeadId != null">
+		    and P_SALESLEADS=${saleLeadId} 
+		</if>
+		<if test="clientName != null">
+		    and P_NAME=${clientName} 
+		</if>
+		<if test="clientTel != null">
+		    and P_TELEPHONE=${clientTel} 
+		</if>
+		<if test="startNum!=null and pageSize!=null">			
+			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
+		</if>
+	</select>
 
 	<sql id="baseSql">
 		SELECT
