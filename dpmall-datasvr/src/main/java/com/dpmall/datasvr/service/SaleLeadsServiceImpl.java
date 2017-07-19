@@ -134,10 +134,24 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		LOG.info("result:"+result);
 		return result;
 	}
-
+	 /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
 	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
+		Date date = new Date();
+		SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
+		entity.id = Long.valueOf(saleLeadsId);
+		entity.refuseTime = date;
+		entity.distributorOperateTime = date;
+		entity.rejectType = Integer.valueOf(rejectType);
+		entity.rejectRemark=rejectRemark;
+		entity.saleLeadsStatus="5";
+		return salesLeadsOrderDao.edit(entity);
 	}
 
 	/**
@@ -298,10 +312,33 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return result;
 	}
-
+	
+	/**
+     * 经销商批量拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
+		Integer temp = 1;
+		for (String saleLeadsId : saleLeadsIdList) {
+			Date date = new Date();
+			SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
+			entity.id = Long.valueOf(saleLeadsId);
+			entity.refuseTime = date;
+			entity.distributorOperateTime = date;
+			entity.rejectType = Integer.valueOf(rejectType);
+			entity.rejectRemark=rejectRemark;
+			entity.saleLeadsStatus="5";
+			Integer result = salesLeadsOrderDao.edit(entity);
+			LOG.info(result.toString());
+			if(result!=1){
+				temp=0;
+			}
+		}
+		return temp;
 	}
 
 	/**
