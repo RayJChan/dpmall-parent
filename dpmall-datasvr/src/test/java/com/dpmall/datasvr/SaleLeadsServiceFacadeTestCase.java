@@ -1,6 +1,8 @@
 package com.dpmall.datasvr;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -56,5 +58,13 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	SaleLeadsModel acceptModel = saleLeadsService.getSaleLeads("2");
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(acceptModel)+"\n\n");
+    }
+    
+    @Test
+    public void testDistributeBatch() {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("1", "1111111");
+    	map.put("2", "22222222");
+    	LOG.info("result:"+saleLeadsService.distributeBatch("", map));
     }
 }

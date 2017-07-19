@@ -184,10 +184,24 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+     * 经销商批量分配店铺
+     * @param distributorId 经销商ID
+     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @return 分配的店铺数
+     */
 	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result=0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::distributeBatch',in:{distributorId:'" + distributorId + "',saleLeadsId2shopId:'"
+					+ JSON.toJSONString(saleLeadsId2shopId) +"}}");
+		}
+		result=saleLeadsService.distributeBatch(distributorId, saleLeadsId2shopId);
+		if (LOG.isDebugEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::distributeBatch',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
