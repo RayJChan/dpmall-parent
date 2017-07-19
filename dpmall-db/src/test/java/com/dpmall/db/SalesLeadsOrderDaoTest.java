@@ -1,6 +1,8 @@
 package com.dpmall.db;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.List;
 
 import org.junit.Test;
@@ -9,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
+import com.dpmall.common.DateUtils;
 import com.dpmall.common.SpringTestCase;
+import com.dpmall.common.TimeScope;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
 
@@ -91,5 +95,15 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     	entity.id=1L;
     	entity.budget=new BigDecimal("20170719");
     	LOG.info("result:"+salesLeadsOrderDao.edit(entity));
+    }
+    @Test
+    public void testGetOnePageClosedSaleLeads() throws ParseException{
+    	TimeScope scope = new TimeScope();
+
+    	scope.begin = new Timestamp(DateUtils.parse("2017-07-18 00:00:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
+    	scope.end = new Timestamp(DateUtils.parse("2017-07-20 10:30:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
+    	for(SalesLeadsOrderEntity salesLeadsOrderEntity:salesLeadsOrderDao.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5)){
+    		LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
+    	}
     }
 }
