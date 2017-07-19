@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.dpmall.common.TimeScope;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 
 public interface SalesLeadsOrderDao {
@@ -56,6 +57,15 @@ public interface SalesLeadsOrderDao {
     Integer get2DistributeCount(@Param(value="distributorId")int distributorId);
     
     /**
+	 * <p>
+	 * 根据sealLeadsId 获取详情
+	 * author daihx
+	 * @param saleLeadsId
+	 * @return
+	 */
+    List<SalesLeadsOrderEntity> getSaleLeads(@Param(value="saleLeadsId")String saleLeadsId);
+    
+    /**
 	 * 店铺获取待接单的销售线索
 	 * @param storeId 店铺ID
 	 * @param startNum 上一次加载的最后项位移
@@ -72,9 +82,16 @@ public interface SalesLeadsOrderDao {
      int edit(@Param("entity")SalesLeadsOrderEntity entity);
      
      /**
-      * 经销商批量下派到店铺
-      * @param 经销商ID=>shopId
+      * 根据条件查询已完结的销售线索订单
+      * @param distributorId 经销商Id
+      * @param distributeTime 订单下派时间
+      * @param storeId
+      * @param saleLeadId
+      * @param clientName
+      * @param clientTel
+      * @param startNum
+      * @param pageSize
       * @return
       */
-     int distributeBatch(@Param("map") Map<String,String> map);
+     public List<SalesLeadsOrderEntity> getOnePageClosedSaleLeads(@Param("distributorId")String distributorId,@Param("distributeTime")TimeScope  distributeTime,@Param("storeId") String storeId,@Param("saleLeadId")String saleLeadId,@Param("clientName") String clientName,@Param("clientTel")String clientTel,@Param("startNum")Integer startNum,@Param("pageSize") Integer pageSize);
 }

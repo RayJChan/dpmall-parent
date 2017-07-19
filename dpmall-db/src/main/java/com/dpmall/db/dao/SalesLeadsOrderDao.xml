@@ -22,6 +22,7 @@
 		<result property="distributorUserName" column="P_AGENCYACCEPT"/>
 		<result property="recommendstoreId" column="P_SUGGESTSTORE"/>
 		<result property="recommendstoreName" column="P_RECOMMENDSTORENAME"/>
+		<result property="storeAcceptor" column="P_ACCEPTBY"/>
 		<result property="storeAcceptTime" column="P_ACCEPTDATE"/>
 		<result property="appointmentTime" column="P_APPOINTMENTDATE"/>
 		<result property="closeTime" column="P_CLOSEDATE"/>
@@ -42,8 +43,8 @@
 			P_REFUSEDATE,
 			P_SUGGESTSTORE,
 			P_ACCEPTSTORE,
-			P_ACCEPTRECEIVEDBY,
 			P_ACCEPTDATE,
+			P_ACCEPTBY,
 			P_APPOINTMENTDATE,
 			P_ACTUALDATE,
 			P_AMOUNT,
@@ -81,7 +82,7 @@
 			P_REFUSEDATE,
 			P_SUGGESTSTORE,
 			P_ACCEPTSTORE,
-			P_ACCEPTRECEIVEDBY,
+			P_ACCEPTBY,
 			P_ACCEPTDATE,
 			P_APPOINTMENTDATE,
 			P_ACTUALDATE,
@@ -113,7 +114,7 @@
 		</if>
 	</select>
 	
-	<select id="getOnePage4Accept"  resultMap="SalesLeadsOrderEntity">
+	<select id="getSaleLeads"  resultMap="SalesLeadsOrderEntity">
 		select 
 			PK,
 			P_SALESLEADS,
@@ -127,7 +128,7 @@
 			P_REFUSEDATE,
 			P_SUGGESTSTORE,
 			P_ACCEPTSTORE,
-			P_ACCEPTRECEIVEDBY,
+			P_ACCEPTBY,
 			P_ACCEPTDATE,
 			P_APPOINTMENTDATE,
 			P_ACTUALDATE,
@@ -145,11 +146,95 @@
 			P_CLOSEDATE,
 			P_CLOSEREASON,
 			ROWNUM RN
+		from SALESLEADSORDER where 1= 1
+		<if test="saleLeadsId != null">
+		    AND PK = ${saleLeadsId} 
+		</if>
+	</select>
+	
+	<select id="getOnePage4Accept"  resultMap="SalesLeadsOrderEntity">
+		select 
+			PK,
+			P_NAME,
+			P_TELEPHONE,
+			P_CUSADDRESS,
+			P_COMMENT,
+			P_SERVERADDRESS,
+			P_SERVERPURPOSE,
+			P_SERVICETITLE,
+			P_FITMENTDATE,
+			P_STYLEPREFERENCE,
+			P_BUDGET,
+			P_BRANDPREFERENCE,
+			P_HANDLERCOMMENT,
+			P_SALESLEADSORDERSTATUS,
+			P_DISTRIBUTEDATE,
+			P_DISTRIBUTER,
+			P_AGENCYOPERATEDATE,
+			P_AGENCYACCEPT,
+			P_SUGGESTSTORE,
+			P_ACCEPTDATE,
+			P_APPOINTMENTDATE,
+			P_CLOSEDATE,
+			P_AMOUNT,
+			P_CALLSERVICETEL
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10'
 		<if test="storeId != null">
 		    and P_ACCEPTSTORE=${storeId} 
 		</if>
-		AND  ROWNUM between ${startNum} and ${pageSize}
+		<if test="startNum!=null and pageSize!=null">			
+			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
+		</if>
+	</select>
+	
+	<select id="getOnePageClosedSaleLeads"  resultMap="SalesLeadsOrderEntity">
+		select 
+			PK,
+			P_NAME,
+			P_TELEPHONE,
+			P_CUSADDRESS,
+			P_COMMENT,
+			P_SERVERADDRESS,
+			P_SERVERPURPOSE,
+			P_SERVICETITLE,
+			P_FITMENTDATE,
+			P_STYLEPREFERENCE,
+			P_BUDGET,
+			P_BRANDPREFERENCE,
+			P_HANDLERCOMMENT,
+			P_SALESLEADSORDERSTATUS,
+			P_DISTRIBUTEDATE,
+			P_DISTRIBUTER,
+			P_AGENCYOPERATEDATE,
+			P_AGENCYACCEPT,
+			P_SUGGESTSTORE,
+			P_ACCEPTDATE,
+			P_APPOINTMENTDATE,
+			P_CLOSEDATE,
+			P_AMOUNT,
+			P_CALLSERVICETEL
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='25'
+		<if test="distributorId != null">
+		    and P_DISTRIBUTER=${distributorId} 
+		</if>
+		<if test="distributeTime != null">
+		    and P_DISTRIBUTEDATE between #{distributeTime.begin} and #{distributeTime.end}
+		</if>
+		<if test="storeId != null">
+		    and P_ACCEPTSTORE=${storeId} 
+		</if>
+		<if test="saleLeadId != null">
+		    and P_SALESLEADS=${saleLeadId} 
+		</if>
+		<if test="clientName != null">
+		    and P_NAME=${clientName} 
+		</if>
+		<if test="clientTel != null">
+		    and P_TELEPHONE=${clientTel} 
+		</if>
+		<if test="startNum!=null and pageSize!=null">			
+			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
+		</if>
 	</select>
 
 	<sql id="baseSql">
@@ -169,6 +254,7 @@
 			S.P_SALESLEADSORDERSTATUS,
 			S.P_FITMENTDATE,
 			S.P_SERVERADDRESS,
+			S.P_ACCEPTBY,
 			S.P_ACCEPTDATE,
 			S.P_STYLEPREFERENCE,
 			S.P_AMOUNT,
@@ -184,9 +270,9 @@
 	
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
 			<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where  P_SALESLEADSORDERSTATUS='accepted'
+			left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='accepted'
 			<if test="acceptorId!=null">
-				 and s.p_acceptreceivedby=${acceptorId}
+				 and s.p_acceptby=${acceptorId}
 			</if>
 			<if test="startNum!=null and pageSize!=null">			
 				and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
@@ -198,7 +284,7 @@
 		<include refid="baseSql"/>
 			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='sucess' 
 		<if test="acceptorId!=null">
-			and s.p_acceptreceivedby=${acceptorId}
+			and s.p_acceptby=${acceptorId}
 		</if>
 		<if test="startNum!=null and pageSize!=null">			
 			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
@@ -219,18 +305,7 @@
 			p_salesleadsorderstatus='distributed'
 		where pk=${saleLeadsId}					
 	</update>
-	<update id="distributeBatch" >	 
-		<foreach collection="map" index="key"  item="value" open="begin" close="end;" separator=";" >	
-			 update salesleadsorder
-			 <set>		
-				p_suggeststore=${value},
-				p_distributedate=sysdate,
-				p_salesleadsorderstatus='distributed'
-			</set>				
-			where pk=${key}
-		</foreach>
-		
-	</update>
+
 	<update id="edit">
 		update salesleadsorder 
 		<set>
@@ -290,6 +365,9 @@
 			</if>
 			<if test="entity.recommendstoreId!=null">
 				P_SUGGESTSTORE=#{entity.recommendstoreId},
+			</if>
+			<if test="entity.storeAcceptor!=null">
+				P_ACCEPTBY=#{entity.storeAcceptor},
 			</if>
 			<if test="entity.storeAcceptTime!=null">
 				P_ACCEPTDATE=#{entity.storeAcceptTime},

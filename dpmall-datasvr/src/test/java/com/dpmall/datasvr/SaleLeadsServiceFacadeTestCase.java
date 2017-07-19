@@ -51,4 +51,10 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	LOG.info("result:"+saleLeadsService.edit(model));
     	
     }
+    @Test
+    public void testGetSaleLeads(){
+    	SaleLeadsModel acceptModel = saleLeadsService.getSaleLeads("2");
+    	LOG.info("=======================开始执行=======================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(acceptModel)+"\n\n");
+    }
 }

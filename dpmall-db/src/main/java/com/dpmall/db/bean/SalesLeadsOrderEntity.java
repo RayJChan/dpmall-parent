@@ -67,6 +67,9 @@ public class SalesLeadsOrderEntity  {
 	
 	/**建议店铺名称*/
 	public String recommendstoreName;
+
+	/**店铺接单人*/
+	public String storeAcceptor;
 	
 	/**店铺接单时间*/
 	public Date storeAcceptTime;
