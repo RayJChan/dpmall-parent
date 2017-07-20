@@ -275,40 +275,37 @@
 			S.P_ACCEPTDATE,
 			S.P_STYLEPREFERENCE,
 			S.P_AMOUNT,
-			P_CALLSERVICETEL,
-			P_SERVICETITLE,
-			P_SERVICECATELOG,
-			P_AGENCYOPERATEDATE,
-			P_AGENCYACCEPT,
-			P_COMMENT,
-			P_REFUSEDATE,
-			P_REFUSETYPE,
-			P_REFUSEREASON				
+			S.P_CALLSERVICETEL,
+			S.P_SERVICETITLE,
+			S.P_SERVICECATELOG,
+			S.P_AGENCYOPERATEDATE,
+			S.P_AGENCYACCEPT,
+			S.P_COMMENT,
+			S.P_REFUSEDATE,
+			S.P_REFUSETYPE,
+			S.P_REFUSEREASON,	
+			rownum rn			
 		FROM
 			SALESLEADSORDER S
 	</sql>
 	
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
-			<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='15'
-			<if test="acceptorId!=null">
-				 and s.p_acceptby=${acceptorId}
-			</if>
-			<if test="startNum!=null and pageSize!=null">			
-				and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
-			</if>
-			
+		select * from (
+		<include refid="baseSql"/>
+		left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='15'
+		<if test="acceptorId!=null">
+			and s.p_acceptby=${acceptorId}
+		</if> and  rownum &lt;${startNum}+${pageSize}+1) P1 where P1.rn&gt;${startNum}
+		
 	</select>
 	
 	<select id="getOnePage4AcceptorClosed" resultMap="SalesLeadsOrderEntity">
+		select * from (
 		<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='25' 
+		left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='25'
 		<if test="acceptorId!=null">
 			and s.p_acceptby=${acceptorId}
-		</if>
-		<if test="startNum!=null and pageSize!=null">			
-			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
-		</if>
+		</if> and rownum &lt;${startNum}+${pageSize}+1) P1 where P1.rn&gt;${startNum}
 	</select>
 	
 	<select id="get2AcceptCount" resultType="int">

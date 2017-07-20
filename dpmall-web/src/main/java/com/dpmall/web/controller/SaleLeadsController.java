@@ -99,6 +99,7 @@ public class SaleLeadsController {
     	if (StringUtils.isEmpty(distributorId)||StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(shopId)) {
 			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
+			LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
 		}
         else {
         	try{
@@ -296,11 +297,13 @@ public class SaleLeadsController {
         	    data = saleLeadsService.getOnePage4Acceptor2Followup(acceptorId, startNum, pageSize);
             } catch(Throwable e){
             	LOG.error(e.getMessage(),e);
+            	System.out.println("发现异常");
+            	e.printStackTrace();
         	}
         	
         	res.data = data;
 		}
-
+    	LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
     	return res;
     }
     
@@ -324,9 +327,10 @@ public class SaleLeadsController {
             try{
         	    data = saleLeadsService.getOnePage4AcceptorClosed(acceptorId, startNum, pageSize);
             } catch(Throwable e){
+            	res.resultCode =ErrorCode.INTERNAL_ERR;
             	LOG.error(e.getMessage(),e);
         	}
-        	
+            LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
         	res.data = data;
 		}
     	return res;

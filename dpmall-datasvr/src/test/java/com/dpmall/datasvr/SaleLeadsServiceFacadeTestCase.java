@@ -31,9 +31,23 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     }
     @Test
     public void testOnePage4FollowupSearch(){
-    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Followup("8", 0, 20);
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Followup("310146", 0, 20);
         LOG.info("result:" + JSON.toJSONString(result));
     }
+    @Test
+    public void testGetOnePage4AcceptorClosed() {
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4AcceptorClosed("310146", 0, 3);
+    	LOG.info(JSON.toJSONString(result));
+    }
+    
+    
+    @Test
+    public void testGetOnePage4Acceptor2Followup() {
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Acceptor2Followup("310146", 0, 3);
+    	LOG.info(JSON.toJSONString(result));
+    }
+    
+   
     @Test
     public void testGet2DistributeCount(){
     	Integer result = saleLeadsService.get2DistributeCount("8");
@@ -43,6 +57,12 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     public void testGet2AcceptCount(){
     	Integer result = saleLeadsService.get2AcceptCount("13");
         LOG.info("result:" + result);
+    }
+    @Test
+    public void testDistribut() {
+    	
+    	int result = saleLeadsService.distribute("", "1", "12456");
+    	LOG.info(JSON.toJSONString("result:"+result));
     }
     @Test
     public void testGetOnePage4Accept(){
