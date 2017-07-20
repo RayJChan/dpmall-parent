@@ -18,6 +18,8 @@ public enum ESaleLeadsOrderStatus {
 	ACCEPTED(15,"accepted"),
 	/**已预约*/
 	APPOINTED(20,"appointed"),
+	/**已到店*/
+	VISITED(23,"visited"),
 	/**已成交*/
 	SUCCESS(25,"sucess"),
 	/**已失败*/

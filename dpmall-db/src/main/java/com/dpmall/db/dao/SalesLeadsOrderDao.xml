@@ -31,7 +31,7 @@
 		<result property="rejectType" column="P_REFUSETYPE"/>
 		<result property="rejectRemark" column="P_REFUSEREASON"/>
 	</resultMap>
-		<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
+	<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
 			PK,
 			P_SALESLEADS,
