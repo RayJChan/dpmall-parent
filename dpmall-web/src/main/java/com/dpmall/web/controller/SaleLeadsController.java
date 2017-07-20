@@ -102,7 +102,7 @@ public class SaleLeadsController {
 		}
         else {
         	try{
-            	res.data = saleLeadsServiceMock.distribute(distributorId, saleLeadsId, shopId);
+            	res.data = saleLeadsService.distribute(distributorId, saleLeadsId, shopId);
             	res.resultCode=ErrorCode.SUCCESS;
             } catch(Throwable e){
             	LOG.error(e.getMessage(),e);
