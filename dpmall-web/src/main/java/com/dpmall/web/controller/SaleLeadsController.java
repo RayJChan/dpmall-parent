@@ -84,7 +84,7 @@ public class SaleLeadsController {
 			LOG.info("{method:'SaleLeadsServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId +"'}}");
 		}
         try{
-    	    data = saleLeadsServiceMock.get2DistributeCount(distributorId);
+    	    data = saleLeadsService.get2DistributeCount(distributorId);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
