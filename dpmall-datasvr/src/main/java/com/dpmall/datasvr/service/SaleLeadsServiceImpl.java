@@ -222,8 +222,6 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * saleLeadsId
 	 */
 	public int accept(String acceptorId, String saleLeadsId) {
-		// TODO Auto-generated method stub
-		SaleLeadsModel out = null;
 
 		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
 		
@@ -390,10 +388,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * saleLeadsId
 	 */
 	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
-		// TODO Auto-generated method stub
-		SaleLeadsModel out = null;
+
 		Boolean a = true;
-		int b;
+		int b = 0;
 		//先for循环拿每一条去改状态，得到每一条的结果返回值
 		
 		for(String id : saleLeadsId){
