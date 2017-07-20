@@ -45,7 +45,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     
     @Test
     public void testGetOnePage4Acceptor2Followup() {
-    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Acceptor2Followup("310146", 0, 3);
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Acceptor2Followup("310146", 0, 11);
     	LOG.info(JSON.toJSONString(result));
     }
     
@@ -77,6 +77,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	SaleLeadsModel model=new SaleLeadsModel();
     	model.id=1L;
     	model.budget=22.22;
+    	model.saleLeadsStatus="23";
     	LOG.info("result:"+saleLeadsService.edit(model));
     	
     }
