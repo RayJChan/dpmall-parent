@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dpmall.db.dao.AppUserDao">
+	<resultMap id="AppUserResultMap" type="com.dpmall.db.bean.AppUserEntity">
+	    <id property="id" column="PK" />
+	    <result property="username" column="P_USERNAME" />
+	    <result property="password" column="P_PASSSWD" />
+	    <result property="cnName" column="P_CNNAME" />
+	    <result property="roleCode" column="P_ROLE" />
+	    <result property="agencyId" column="P_AGENCY" />
+	    <result property="storeId" column="P_STORE" />
+	</resultMap>
+	
+	<select id="login" resultMap="AppUserResultMap" >
+		select * from APPUSER where P_USERNAME=#{username} and P_PASSSWD=#{passwd}
+	</select>
+	
+	<insert id="createStoreUser">
+		insert into APPUSER (PK,P_USERNAME,P_PASSSWD,P_CNNAME,P_ROLE,P_AGENCY,P_STORE) values(${user.id},#{user.username},#{user.password},#{user.cnName},${user.roleCode},${user.agencyId},${user.storeId})
+	</insert>
+	
+	<update id="updateUser">
+		update APPUSER 
+		<set>
+			<if test="user.password!=null">
+				P_PASSSWD=#{user.password},
+			</if>
+			<if test="user.cnName!=null">
+				P_CNNAME=#{user.cnName},
+			</if>
+			<if test="user.roleCode!=null">
+				P_ROLE=${user.roleCode},
+			</if>
+			<if test="user.agencyId!=null">
+				P_AGENCY=${user.agencyId},
+			</if>
+			<if test="user.storeId!=null">
+				P_STORE=${user.storeId},
+			</if>
+			where pk=${user.id}
+		</set>
+	</update>
+	
+	<select id="getStoreAllUser" resultMap="AppUserResultMap">
+		select * from APPUSER where p_store=${storeId}
+	</select>
+</mapper>
