@@ -98,8 +98,10 @@ public class SalesLeadsOrderEntity  {
 	/**拒单时间*/
 	public Date refuseTime;
 	
-	
 	/**经销商备注*/
 	public String agencyRemark;
+	
+	/**订单编码*/
+	public String orderCode;
 	
 }

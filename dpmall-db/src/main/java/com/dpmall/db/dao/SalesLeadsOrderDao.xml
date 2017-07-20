@@ -30,7 +30,7 @@
 		<result property="callServiceTel" column="P_CALLSERVICETEL"/>
 		<result property="rejectType" column="P_REFUSETYPE"/>
 		<result property="rejectRemark" column="P_REFUSEREASON"/>
-		<result property="agencyRemark" column=""/>
+		<result property="agencyRemark" column="P_AGENCYREMARK"/>
 		<result property="storeAcceptorName" column="P_ACCEPTORNAME"/>
 		<result property="storeAcceptorRemark" column="P_STOREACCEPTORREMARK"/>
 	</resultMap>
@@ -68,6 +68,7 @@
 			P_REFUSEDATE,
 			P_REFUSETYPE,
 			P_REFUSEREASON,
+			P_AGENCYREMARK
 			ROWNUM RN
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='0'
 		<if test="agency != null">
@@ -110,6 +111,7 @@
 			P_REFUSEDATE,
 			P_REFUSETYPE,
 			P_REFUSEREASON,
+			P_AGENCYREMARK
 			ROWNUM RN
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS in ('10','15','20')
 		<if test="distributorId != null">
@@ -159,6 +161,7 @@
 			P_REFUSEDATE,
 			P_REFUSETYPE,
 			P_REFUSEREASON,
+			P_AGENCYREMARK
 			ROWNUM RN
 		from SALESLEADSORDER where 1= 1
 		<if test="saleLeadsId != null">
@@ -194,7 +197,8 @@
 			P_CALLSERVICETEL,
 			P_REFUSEDATE,
 			P_REFUSETYPE,
-			P_REFUSEREASON
+			P_REFUSEREASON,
+			P_AGENCYREMARK
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10'
 		<if test="storeId != null">
 		    and P_ACCEPTSTORE=${storeId} 
@@ -232,7 +236,8 @@
 			P_CALLSERVICETEL,
 			P_REFUSEDATE,
 			P_REFUSETYPE,
-			P_REFUSEREASON
+			P_REFUSEREASON,
+			P_AGENCYREMARK
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='25'
 		<if test="distributorId != null">
 		    and P_DISTRIBUTER=${distributorId} 
@@ -286,7 +291,8 @@
 			S.P_COMMENT,
 			S.P_REFUSEDATE,
 			S.P_REFUSETYPE,
-			S.P_REFUSEREASON,	
+			S.P_REFUSEREASON,
+			S.P_AGENCYREMARK,	
 			rownum rn			
 		FROM
 			SALESLEADSORDER S
@@ -345,7 +351,8 @@
 			S.P_CALLSERVICETEL,
 			S.P_REFUSEDATE,
 			S.P_REFUSETYPE,
-			S.P_REFUSEREASON
+			S.P_REFUSEREASON,
+			S.P_AGENCYREMARK
 		from SALESLEADSORDER S
 		<if test="acceptorName != null">
 		   , APPUSER AU  

@@ -16,4 +16,5 @@ public interface IStoreService {
      * @return
      */
     public List<StoreModel> listDistributorStores(String distributorId);
+
 }

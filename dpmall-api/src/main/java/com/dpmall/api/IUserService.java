@@ -1,5 +1,7 @@
 package com.dpmall.api;
 
+import java.util.List;
+
 import com.dpmall.api.bean.LoginResModel;
 import com.dpmall.api.bean.UserModel;
 
@@ -32,4 +34,12 @@ public interface IUserService {
      * @return
      */
     public int updateUser(UserModel usr);
+    
+    /**
+     * <p>
+     * 获取门店的所有用户
+     * @param storeId
+     * @return
+     */
+    public List<UserModel> getStoreAllUser(Long storeId);
 }
