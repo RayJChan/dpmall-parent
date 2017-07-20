@@ -371,7 +371,7 @@
 		    and S.P_ACCEPTSTORE=#{storeId} 
 		</if>
 		<if test="acceptorName != null">
-		    and S.P_ACCEPTBY =#{acceptorName} AND  S.P_ACCEPTBY = AU.P_USERNAME
+		    and S.P_ACCEPTBY =#{acceptorName} AND  S.P_ACCEPTBY = AU.PK
 		</if>
 		<if test="productCatelog != null">
 		    and SI.P_PRODUCTCATETORY = #{productCatelog} AND SI.P_SALESLEADSORDER = S.PK
@@ -399,7 +399,7 @@
 		    and S.P_ACCEPTSTORE=#{storeId} 
 		</if>
 		<if test="acceptorName != null">
-		    and S.P_ACCEPTBY =#{acceptorName} AND  S.P_ACCEPTBY = AU.P_USERNAME
+		    and S.P_ACCEPTBY =#{acceptorName} AND  S.P_ACCEPTBY = AU.PK
 		</if>
 		<if test="productCatelog != null">
 		    and SI.P_PRODUCTCATETORY = #{productCatelog} AND SI.P_SALESLEADSORDER = S.PK
