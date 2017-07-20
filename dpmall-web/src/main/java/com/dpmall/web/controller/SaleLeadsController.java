@@ -200,7 +200,7 @@ public class SaleLeadsController {
     	List<SaleLeadsModel> data = null;
     	TimeScope distributeTime = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, null,startNum, pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -296,10 +296,17 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/edit",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response edit(SaleLeadsModel model,String token){
+    public Response edit(String model,String token){
     	Response res = new Response();
-        try{
-        	res.data = saleLeadsService.edit(model);
+    	if(StringUtils.isEmpty(model)) {
+    		res.resultCode = ErrorCode.INVALID_PARAM;
+    		//TODO LOG
+    		return res;
+    	}
+
+    	try{
+    		SaleLeadsModel saleLeadsModel = JSON.parseObject(model, SaleLeadsModel.class);       
+        	res.data = saleLeadsService.edit(saleLeadsModel);
         	res.resultCode=ErrorCode.SUCCESS;
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);

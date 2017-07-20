@@ -19,10 +19,10 @@ import com.dpmall.web.controller.form.Response;
  * @since 2017-07-10
  */
 @Controller
-@RequestMapping("/store")
-public class StoreController {
+@RequestMapping("/storemock")
+public class StoreMockController {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(StoreController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StoreMockController.class);
 	
     /**
      * 获取经销商所有门店

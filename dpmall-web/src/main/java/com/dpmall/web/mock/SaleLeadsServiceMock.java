@@ -47,7 +47,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
 			tmp.total = 0.0;
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -101,7 +101,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
 			tmp.total = 0.0;
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -109,9 +109,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
-			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
-			Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
 		List<SaleLeadsModel> mockResults = new ArrayList<SaleLeadsModel>();
 		if(pageSize == null){
 			pageSize = 20;
@@ -146,7 +144,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptorName="zhangsan";
 			tmp.storeAcceptorRemark ="这个客户买了很多东西";
 			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -189,7 +187,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptorName="zhangsan";
 			tmp.storeAcceptorRemark ="这个客户买了很多东西";
 			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -247,7 +245,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptorName="zhangsan";
 			tmp.storeAcceptorRemark ="这个客户买了很多东西";
 			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -290,7 +288,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptorName="zhangsan";
 			tmp.storeAcceptorRemark ="这个客户买了很多东西";
 			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -334,7 +332,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptorName="zhangsan";
 			tmp.storeAcceptorRemark ="这个客户买了很多东西";
 			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-			tmp.brandPref="东鹏";
+			tmp.brand="东鹏";
 			tmp.agencyRemark="这个客户是VIP客户，请有待";
 			mockResults.add(tmp);
 		}
@@ -393,7 +391,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 		tmp.storeAcceptorName="zhangsan";
 		tmp.storeAcceptorRemark ="这个客户买了很多东西";
 		tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
-		tmp.brandPref="东鹏";
+		tmp.brand="东鹏";
 		tmp.agencyRemark="这个客户是VIP客户，请有待";
 		return tmp;
 	}

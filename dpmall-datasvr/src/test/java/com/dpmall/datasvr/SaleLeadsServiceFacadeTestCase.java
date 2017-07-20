@@ -45,7 +45,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     
     @Test
     public void testGetOnePage4Acceptor2Followup() {
-    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Acceptor2Followup("310146", 0, 3);
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Acceptor2Followup("310146", 0, 11);
     	LOG.info(JSON.toJSONString(result));
     }
     
@@ -77,6 +77,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	SaleLeadsModel model=new SaleLeadsModel();
     	model.id=1L;
     	model.budget=22.22;
+    	model.saleLeadsStatus="23";
     	LOG.info("result:"+saleLeadsService.edit(model));
     	
     }
@@ -100,7 +101,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
 
     	scope.begin = new Timestamp(DateUtils.parse("2017-07-18 00:00:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
     	scope.end = new Timestamp(DateUtils.parse("2017-07-20 10:30:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
-    	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5);
+    	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1",null, 0, 5);
         LOG.info("result:" + JSON.toJSONString(acceptModel));
     }
     /**

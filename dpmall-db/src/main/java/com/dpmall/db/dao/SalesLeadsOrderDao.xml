@@ -30,6 +30,9 @@
 		<result property="callServiceTel" column="P_CALLSERVICETEL"/>
 		<result property="rejectType" column="P_REFUSETYPE"/>
 		<result property="rejectRemark" column="P_REFUSEREASON"/>
+		<result property="agencyRemark" column=""/>
+		<result property="storeAcceptorName" column="P_ACCEPTORNAME"/>
+		<result property="storeAcceptorRemark" column="P_STOREACCEPTORREMARK"/>
 	</resultMap>
 	<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
@@ -292,7 +295,7 @@
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
 		select * from (
 		<include refid="baseSql"/>
-		left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='15'
+		left join agency a on s.p_agency = a .pk where  (P_SALESLEADSORDERSTATUS='15' OR P_SALESLEADSORDERSTATUS='20' OR P_SALESLEADSORDERSTATUS='23')
 		<if test="acceptorId!=null">
 			and s.p_acceptby=${acceptorId}
 		</if> and  rownum &lt;${startNum}+${pageSize}+1) P1 where P1.rn&gt;${startNum}
@@ -466,8 +469,11 @@
 			<if test="entity.storeAcceptTime!=null">
 				P_ACCEPTDATE=#{entity.storeAcceptTime},
 			</if>
-			<if test="entity.appointmentTime!=null">
-				P_APPOINTMENTDATE=#{entity.appointmentTime},
+			<if test='entity.saleLeadsStatus=="20"'>
+				P_APPOINTMENTDATE=sysdate,
+			</if>
+			<if test='entity.saleLeadsStatus=="23"'>
+				P_ACTUALDATE=sysdate,
 			</if>
 			<if test="entity.closeTime!=null">
 				P_CLOSEDATE=#{entity.closeTime},
@@ -482,7 +488,10 @@
 				P_REFUSEREASON=#{entity.rejectRemark},
 			</if>
 			<if test="entity.refuseTime!=null">
-				P_REFUSEDATE=#{entity.refuseTime}
+				P_REFUSEDATE=#{entity.refuseTime},
+			</if>
+			<if test="entity.agencyRemark!=null">
+				P_AGENCYREMARK=#{entity.agencyRemark}
 			</if>
 		</set>
 		 	where PK=${entity.id}
