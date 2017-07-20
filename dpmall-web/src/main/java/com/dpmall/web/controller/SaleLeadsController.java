@@ -52,12 +52,20 @@ public class SaleLeadsController {
     @ResponseBody
     public Response getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
+    	if (LOG.isInfoEnabled()) {
+    	     LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Distribute',in:{distributorId:'" + distributorId + "',startNum:'"
+				+ startNum + "',pageSize:'" + pageSize +"'}}");
+    	}
         try{
         	res.data = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
+        
+        if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(res.data)+"}");
+		}
     
     	return res;
     }
@@ -72,11 +80,18 @@ public class SaleLeadsController {
     public Response get2DistributeCount(String distributorId,String token){
     	Response res = new Response();
     	Integer data = null;
+    	if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId +"'}}");
+		}
         try{
     	    data = saleLeadsServiceMock.get2DistributeCount(distributorId);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
+        
+        if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::get2DistributeCount',data:"+ data +"}");
+		}
     	
     	res.data = data;
 
@@ -146,12 +161,20 @@ public class SaleLeadsController {
     public Response getOnePage4Followup(String distributorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
+    	if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Followup',in:{distributorId:'" + distributorId + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
         try{
     	    data = saleLeadsService.getOnePage4Followup(distributorId, startNum, pageSize);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
+        
+        if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Followup',out:"+ data +"}");
+		  }
     	
     	res.data = data;
 
@@ -247,12 +270,21 @@ public class SaleLeadsController {
     public Response accept(String acceptorId, String saleLeadsId,String token){
 
     	Response res = new Response();
+    	
+    	if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::accept',in:{acceptorId:'" + acceptorId + "',saleLeadsId:'"
+					+ saleLeadsId +"'}}");
+		}
         try{
         	res.resultCode = saleLeadsService.accept(acceptorId, saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
+        
+        if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::accept',out:"+JSON.toJSONString(res.resultCode)+"}");
+		 }
 
     	return res;
     }
@@ -471,6 +503,10 @@ public class SaleLeadsController {
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
+        
+        if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::acceptBatch',out:"+JSON.toJSONString(res.resultCode)+"}");
+		 }
 
     	return res;
     
@@ -486,12 +522,19 @@ public class SaleLeadsController {
     @ResponseBody
 	public Response getSaleLeads(String saleLeadsId,String token){
     	Response res = new Response();
+    	if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getSaleLeads',in:{saleLeadsId:'" + saleLeadsId +"'}}");
+		}
         try{
         	res.data = saleLeadsService.getSaleLeads(saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
+        
+        if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::getSaleLeads',out:"+JSON.toJSONString(res.data)+"}");
+		}
 
         LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
     	return res;
