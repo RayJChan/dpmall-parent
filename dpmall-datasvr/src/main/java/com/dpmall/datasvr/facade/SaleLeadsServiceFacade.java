@@ -24,7 +24,17 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::search',in:{distributorId:'" + distributorId + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<SaleLeadsModel> out = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::search',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public Integer get2DistributeCount(String distributorId) {

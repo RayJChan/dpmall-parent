@@ -26,8 +26,9 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     
     @Test
     public void testSearch(){
-    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Distribute("8", 0, 20);
-        LOG.info("result:" + JSON.toJSONString(result));
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Distribute("1", 0, 20);
+    	LOG.info("=====================daihx====================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
     @Test
     public void testOnePage4FollowupSearch(){
