@@ -107,4 +107,33 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
+    /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
+    @Test
+    public void testReject(){
+    	Integer reject = saleLeadsService.reject(null,"1","10","11sssssss");
+    	LOG.info("=======================拒单更新状态======================="+reject);
+    }
+    /**
+     * 经销商批量拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
+    @Test
+    public void testRejectBatch(){
+    	List<String> saleLeadsIdList = new ArrayList<String>();
+    	saleLeadsIdList.add("1");
+    	saleLeadsIdList.add("2");
+    	Integer reject = saleLeadsService.rejectBatch(null,saleLeadsIdList,"19","21ssaaaassss1111ssss");
+    	LOG.info("=======================拒单更新状态======================="+reject);
+    }
 }
