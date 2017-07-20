@@ -113,7 +113,7 @@
 			P_REFUSEREASON,
 			P_AGENCYREMARK,
 			ROWNUM RN
-		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS in ('10','15','20')
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS in ('10','15','20','23')
 		<if test="distributorId != null">
 		    AND P_DISTRIBUTER = #{distributorId} 
 		</if>
