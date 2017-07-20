@@ -19,9 +19,9 @@ import com.dpmall.web.mock.UserServiceMock;
  * @date 2017-07-19
  */
 @Controller
-@RequestMapping("/user/")
-public class UserController {
-	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+@RequestMapping("/usermock/")
+public class UserMockController {
+	private static final Logger LOG = LoggerFactory.getLogger(UserMockController.class);
 	
 	private IUserService userServiceMock = new UserServiceMock();
 	
@@ -99,5 +99,6 @@ public class UserController {
 
     	return res;
     }
+
 
 }
