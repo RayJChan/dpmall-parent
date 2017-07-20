@@ -108,7 +108,7 @@
 			P_REFUSETYPE,
 			P_REFUSEREASON,
 			ROWNUM RN
-		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10' or P_SALESLEADSORDERSTATUS='15' or P_SALESLEADSORDERSTATUS='20'
+		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS in ('10','15','20')
 		<if test="distributorId != null">
 		    AND P_DISTRIBUTER = #{distributorId} 
 		</if>
@@ -290,7 +290,7 @@
 	
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
 			<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='accepted'
+			left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='15'
 			<if test="acceptorId!=null">
 				 and s.p_acceptby=${acceptorId}
 			</if>
@@ -302,7 +302,7 @@
 	
 	<select id="getOnePage4AcceptorClosed" resultMap="SalesLeadsOrderEntity">
 		<include refid="baseSql"/>
-			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='sucess' 
+			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='25' 
 		<if test="acceptorId!=null">
 			and s.p_acceptby=${acceptorId}
 		</if>
@@ -322,7 +322,7 @@
 	    update salesleadsorder set
 			p_suggeststore=${shopId},
 			p_distributedate=sysdate,
-			p_salesleadsorderstatus='distributed'
+			p_salesleadsorderstatus='10'
 		where pk=${saleLeadsId}					
 	</update>
 
