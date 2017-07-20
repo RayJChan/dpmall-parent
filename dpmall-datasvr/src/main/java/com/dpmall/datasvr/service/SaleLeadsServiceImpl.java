@@ -295,13 +295,17 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		String productCatelog = form.productCatelog;
 		Date fromTime = null;
 		try {
-			fromTime = DateUtils.parse(form.fromTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
+			if(form.fromTime!=null){
+				fromTime = DateUtils.parse(form.fromTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		Date toTime = null;
 		try {
-			toTime = DateUtils.parse(form.toTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
+			if(form.toTime!=null){
+				toTime = DateUtils.parse(form.toTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
