@@ -65,8 +65,9 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     }
     @Test
     public void testGetOnePage4Followup(){
-    	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getOnePage4Followup("8", 0,20);
-    	LOG.info(JSON.toJSONString(result));
+    	LOG.info("===================开始执行daihx====================");
+    	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getOnePage4Followup("2", 0,20);
+    	LOG.info("\n\nresult:"+JSON.toJSONString(result)+"\n\n");
     }
     @Test
     public void testget2DistributeCount(){
