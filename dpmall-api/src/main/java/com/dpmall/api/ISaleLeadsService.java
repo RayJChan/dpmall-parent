@@ -50,7 +50,7 @@ public interface ISaleLeadsService {
     
     /**
      * 经销商批量下派到店铺
-     * @param saleLeadsId2shopId 经销商ID=>shopId
+     * @param saleLeadsId2shopId 线索ID=>shopId
      * @return
      */
     public int distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId);

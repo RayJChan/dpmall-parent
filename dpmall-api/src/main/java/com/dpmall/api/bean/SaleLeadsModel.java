@@ -99,6 +99,12 @@ public class SaleLeadsModel  implements Serializable {
 	/**拒单原因*/
 	public String rejectRemark;
 	
+	/**品牌编号*/
+	public String brandPref;
+	
+	/**经销商备注*/
+	public String agencyRemark;
+	
 	/**成交商品列表*/
 	public List<SaleLeadsGoodsModel> orderItemList;
 	
