@@ -113,7 +113,6 @@ public class UserController {
 		return res;
 	}
 
-    	return res;
-    }
+    	
 
 }
