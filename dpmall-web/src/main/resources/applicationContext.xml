@@ -32,4 +32,6 @@
 	<dubbo:application name="${dubbo.application.name}"  />
 	<dubbo:reference id="productStatisticService" interface="com.dpmall.api.IProductStatisticService" />
 	<dubbo:reference id="saleLeadsService" interface="com.dpmall.api.ISaleLeadsService" />
+	<dubbo:reference id="storeService" interface="com.dpmall.api.IStoreService" />
+	<dubbo:reference id="userService" interface="com.dpmall.api.IUserService" />
 </beans>

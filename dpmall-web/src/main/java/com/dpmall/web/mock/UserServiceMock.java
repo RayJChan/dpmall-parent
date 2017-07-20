@@ -1,5 +1,6 @@
 package com.dpmall.web.mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dpmall.api.IUserService;
@@ -28,8 +29,18 @@ public class UserServiceMock implements IUserService {
 
 	@Override
 	public List<UserModel> getStoreAllUser(Long storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<UserModel> out = new ArrayList<UserModel>();
+		for(int i = 0; i<20; i++){
+			UserModel tmp = new UserModel();
+			tmp.agencyId = 1l;
+			tmp.cnName = "张三";
+			tmp.id = 1l;
+			tmp.roleCode = "store_user";
+			tmp.storeId = 1l;
+			tmp.username = "zhangsan";
+			out.add(tmp);
+		}
+		return out;
 	}
 
 	@Override

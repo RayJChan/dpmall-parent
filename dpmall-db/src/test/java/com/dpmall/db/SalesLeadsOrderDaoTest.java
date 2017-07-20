@@ -85,7 +85,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     /**测试销售线索接口daihx**/
     @Test
     public void testgetSaleLeads(){
-    	List<SalesLeadsOrderEntity> result = salesLeadsOrderDao.getSaleLeads("1");
+    	SalesLeadsOrderEntity result = salesLeadsOrderDao.getSaleLeads("1");
     	LOG.info("====================开始执行====================");
     	LOG.info("\n\nresult:" +JSON.toJSONString(result)+"\n\n");
     }
