@@ -22,7 +22,7 @@
 		<result property="distributorUserName" column="P_AGENCYACCEPT"/>
 		<result property="recommendstoreId" column="P_SUGGESTSTORE"/>
 		<result property="recommendstoreName" column="P_RECOMMENDSTORENAME"/>
-		<result property="storeAcceptor" column="P_ACCEPTRECEIVEDBY"/>
+		<result property="storeAcceptor" column="P_ACCEPTBY"/>
 		<result property="storeAcceptTime" column="P_ACCEPTDATE"/>
 		<result property="appointmentTime" column="P_APPOINTMENTDATE"/>
 		<result property="closeTime" column="P_CLOSEDATE"/>
@@ -271,7 +271,7 @@
 			S.P_SALESLEADSORDERSTATUS,
 			S.P_FITMENTDATE,
 			S.P_SERVERADDRESS,
-			S.P_ACCEPTRECEIVEDBY,
+			S.P_ACCEPTBY,
 			S.P_ACCEPTDATE,
 			S.P_STYLEPREFERENCE,
 			S.P_AMOUNT,
@@ -292,7 +292,7 @@
 			<include refid="baseSql"/>
 			left join agency a on s.p_agency = a .pk where  p_salesleadsorderstatus='15'
 			<if test="acceptorId!=null">
-				 and s.p_acceptreceivedby=${acceptorId}
+				 and s.p_acceptby=${acceptorId}
 			</if>
 			<if test="startNum!=null and pageSize!=null">			
 				and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
@@ -304,7 +304,7 @@
 		<include refid="baseSql"/>
 			left join agency a on s.p_agency = a .pk where P_SALESLEADSORDERSTATUS='25' 
 		<if test="acceptorId!=null">
-			and s.p_acceptreceivedby=${acceptorId}
+			and s.p_acceptby=${acceptorId}
 		</if>
 		<if test="startNum!=null and pageSize!=null">			
 			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
