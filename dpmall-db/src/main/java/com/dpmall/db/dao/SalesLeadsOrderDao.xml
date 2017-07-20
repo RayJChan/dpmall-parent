@@ -110,7 +110,7 @@
 			ROWNUM RN
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10' or P_SALESLEADSORDERSTATUS='15' or P_SALESLEADSORDERSTATUS='20'
 		<if test="distributorId != null">
-		    AND P_DISTRIBUTER = ${distributorId} 
+		    AND P_DISTRIBUTER = #{distributorId} 
 		</if>
 		AND  ROWNUM between ${startNum} and ${pageSize}
 	</select>
