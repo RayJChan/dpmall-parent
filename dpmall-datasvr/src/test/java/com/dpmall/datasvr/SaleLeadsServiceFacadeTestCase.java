@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.common.DateUtils;
 import com.dpmall.common.SpringTestCase;
 
@@ -156,5 +157,40 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	saleLeadsIdList.add("2");
     	Integer reject = saleLeadsService.rejectBatch(null,saleLeadsIdList,"19","21ssaaaassss1111ssss");
     	LOG.info("=======================拒单更新状态======================="+reject);
+    }
+    /**
+     * 测试获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     * @throws ParseException 
+     */
+    @Test
+    public void testGetOnePageSuccessOrders(){
+    	SaleLeadStatisticForm from = new SaleLeadStatisticForm();
+    	from.storeId= 13L;
+    	from.acceptorName="310146";
+    	from.productCatelog="1111";
+    	from.fromTime="2016-07-19 10:30:00";
+    	from.toTime="2017-07-22 10:30:00";
+    	List<SaleLeadsModel> SuccessOrders = saleLeadsService.getOnePageSuccessOrders(from, 0, 5);
+    	LOG.info(JSON.toJSONString(SuccessOrders));
+    }
+    /**
+     * 测试获取根据form条件查询成功结单的金额
+     * @param form
+     * @return
+     */
+    @Test
+    public void testGetSuccessOrdersTtlAmount(){
+    	SaleLeadStatisticForm from = new SaleLeadStatisticForm();
+    	from.storeId= 13L;
+    	from.acceptorName="310146";
+    	from.productCatelog="1111";
+    	from.fromTime="2016-07-19 10:30:00";
+    	from.toTime="2017-07-22 10:30:00";
+    	Double TtlAmount = saleLeadsService.getSuccessOrdersTtlAmount(from);
+    	LOG.info("TtlAmount======="+TtlAmount);
     }
 }
