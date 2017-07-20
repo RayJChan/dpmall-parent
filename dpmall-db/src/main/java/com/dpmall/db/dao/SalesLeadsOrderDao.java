@@ -64,7 +64,7 @@ public interface SalesLeadsOrderDao {
 	 * @param saleLeadsId
 	 * @return
 	 */
-    List<SalesLeadsOrderEntity> getSaleLeads(@Param(value="saleLeadsId")String saleLeadsId);
+    SalesLeadsOrderEntity getSaleLeads(@Param(value="saleLeadsId")String saleLeadsId);
     
     /**
 	 * 店铺获取待接单的销售线索

@@ -13,5 +13,5 @@
 	<dubbo:application name="${dubbo.application.name}"  />
 <!-- 	<dubbo:protocol id="dubbo" name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" /> -->
 	<dubbo:reference id="productStatisticService" interface="com.dpmall.api.IProductStatisticService" />
-
+	<dubbo:reference id="saleLeadsService" interface="com.dpmall.api.ISaleLeadsService" />
 </beans>

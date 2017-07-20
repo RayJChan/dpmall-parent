@@ -223,13 +223,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 */
 	public int accept(String acceptorId, String saleLeadsId) {
 
-		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
+		SalesLeadsOrderEntity outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
 		
-		SalesLeadsOrderEntity entity = outEntityList.get(0);
-		entity.saleLeadsStatus = "15";
-		entity.storeAcceptTime = new Date();
-		entity.storeAcceptor = acceptorId;
-		int result=salesLeadsOrderDao.edit(entity);
+		outEntityList.saleLeadsStatus = "15";
+		outEntityList.storeAcceptTime = new Date();
+		outEntityList.storeAcceptor = acceptorId;
+		int result=salesLeadsOrderDao.edit(outEntityList);
 
 		return result;
 	}
@@ -394,12 +393,11 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		//先for循环拿每一条去改状态，得到每一条的结果返回值
 		
 		for(String id : saleLeadsId){
-			List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(id);
-			SalesLeadsOrderEntity entity = outEntityList.get(0);
-			entity.saleLeadsStatus = "15";
-			entity.storeAcceptTime = new Date();
-			entity.storeAcceptor = acceptorId;
-			int result=salesLeadsOrderDao.edit(entity);
+			SalesLeadsOrderEntity outEntityList = salesLeadsOrderDao.getSaleLeads(id);
+			outEntityList.saleLeadsStatus = "15";
+			outEntityList.storeAcceptTime = new Date();
+			outEntityList.storeAcceptor = acceptorId;
+			int result=salesLeadsOrderDao.edit(outEntityList);
 			if(result==0){
 				a = false;
 				break;
@@ -427,12 +425,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	public SaleLeadsModel getSaleLeads(String saleLeadsId) {
 		SaleLeadsModel out = null;
 
-		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
-		if(outEntityList == null || outEntityList.isEmpty()){
+		SalesLeadsOrderEntity outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
+		if(outEntityList == null){
 			return null;
 		}
 		
-		out = this.entitysaleModel(outEntityList).get(0);
+		out = this.entityToModel(outEntityList);
 		return out;
 	}
 }
