@@ -160,7 +160,7 @@ public class SaleLeadsMockController {
     	List<SaleLeadsModel> data = null;
     	TimeScope distributeTime = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel,null, startNum, pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}

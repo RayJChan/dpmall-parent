@@ -182,9 +182,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param pageSize
      * @return
      */
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
-			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
-			Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
 		List<SaleLeadsModel> accept = null;
 		com.dpmall.common.TimeScope scopeInternal = new com.dpmall.common.TimeScope();
 		scopeInternal.begin = (Timestamp) distributeTime.begin;

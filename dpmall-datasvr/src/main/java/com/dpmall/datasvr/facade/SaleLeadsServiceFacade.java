@@ -113,14 +113,12 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @param pageSize
      * @return
      */
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
-			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
-			Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',in:{distributorId:'" + distributorId + "',storeId:'" + storeId + "',saleLeadId:'" + saleLeadId + "',sclientName:'" + clientName + "',clientTel:'" + clientTel + "',startNum:'"
 					+ startNum + "',pageSize:'" + pageSize +"'}}");
 		}
-		List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel,storeName, startNum, pageSize);
 		
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',out:"+JSON.toJSONString(acceptModel)+"}");
