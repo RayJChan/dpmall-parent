@@ -138,12 +138,22 @@ public class SaleLeadsController {
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String token){
+    	LOG.info("{method:'SaleLeadsController::reject',in:{distributorId:'" + distributorId + "',saleLeadsId:'" + saleLeadsId + "',rejectType:'" + 
+
+rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
     	Response res = new Response();
+    	if(StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(rejectType)){
+        	res.resultCode = ErrorCode.INVALID_PARAM;
+    		return res;
+    	}
         try{
-        	res.resultCode = saleLeadsServiceMock.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+        	res.data = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+        	res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
+        LOG.info("{method:'SaleLeadsController::reject',out:{res'" + JSON.toJSONString(res) + "'}}");
         
     	return res;
     }
@@ -223,15 +233,21 @@ public class SaleLeadsController {
     public Response getOnePage4Accept(String storeId,Integer startNum, Integer pageSize,String token){
 
     	Response res = new Response();
+    	if(StringUtils.isEmpty(storeId)){
+          	res.resultCode = ErrorCode.INVALID_PARAM;
+      		return res;
+      	}
+    	LOG.info("getOnePage4Accept=========="+storeId);
     	List<SaleLeadsModel> data = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePage4Accept(storeId, startNum, pageSize);
+        	res.resultCode = ErrorCode.SUCCESS;
+    	    data = saleLeadsService.getOnePage4Accept(storeId, startNum, pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
     	
     	res.data = data;
-
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Accept',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -246,14 +262,19 @@ public class SaleLeadsController {
 
     	Response res = new Response();
     	Integer data = null;
+    	LOG.info("get2AcceptCount=========="+storeId);
+    	 if(StringUtils.isEmpty(storeId)){
+          	res.resultCode = ErrorCode.INVALID_PARAM;
+      		return res;
+      	}
         try{
-    	    data = saleLeadsServiceMock.get2AcceptCount(storeId);
+    	    data = saleLeadsService.get2AcceptCount(storeId);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
     	
     	res.data = data;
-
+    	LOG.info("{method:'SaleLeadsController::get2AcceptCount',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -385,18 +406,25 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getOnePageSuccessOrders",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize,String token){
-
+    public Response getOnePageSuccessOrders(String form,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
+    	LOG.info("getOnePageSuccessOrders=========="+JSON.toJSONString(form));
+    	if(StringUtils.isEmpty(form)){
+         	res.resultCode = ErrorCode.INVALID_PARAM;
+     		return res;
+     	}
+    	SaleLeadStatisticForm statisticForm = JSON.parseObject(form, SaleLeadStatisticForm.class);
     	List<SaleLeadsModel> data = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePageSuccessOrders(form, startNum, pageSize);
+    	    data = saleLeadsService.getOnePageSuccessOrders(statisticForm, startNum, pageSize);
+    	    res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
     	
     	res.data = data;
-
+    	LOG.info("{method:'SaleLeadsController::getOnePageSuccessOrders',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
     	
     }
@@ -411,14 +439,24 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/getSuccessOrdersTtlAmount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getSuccessOrdersTtlAmount(SaleLeadStatisticForm form,String token){
+    public Response getSuccessOrdersTtlAmount(String form,String token){
     	Response res = new Response();
+    	LOG.info("getOnePageSuccessOrders=========="+JSON.toJSONString(form));
+    	if(StringUtils.isEmpty(form)){
+         	res.resultCode = ErrorCode.INVALID_PARAM;
+     		return res;
+     	}
+    	SaleLeadStatisticForm statisticForm = JSON.parseObject(form, SaleLeadStatisticForm.class);
+    	Double data = null;
         try{
-        	res.data = saleLeadsServiceMock.getSuccessOrdersTtlAmount(form);
+        	data = saleLeadsService.getSuccessOrdersTtlAmount(statisticForm);
+    	    res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
-
+        res.data = data;
+    	LOG.info("{method:'SaleLeadsController::getSuccessOrdersTtlAmount',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -467,15 +505,22 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/rejectBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response rejectBatch(RejectBatchForm form,String token){
+    public Response rejectBatch(String form,String token){
     	Response res = new Response();
-    	
+    	LOG.info("rejectBatchJSON=========="+JSON.toJSONString(form));
+    	 if(StringUtils.isEmpty(form)){
+         	res.resultCode = ErrorCode.INVALID_PARAM;
+     		return res;
+     	}
+    	 RejectBatchForm rejectBatchForm = JSON.parseObject(form, RejectBatchForm.class);
         try{
-        	res.resultCode = saleLeadsServiceMock.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark);
+        	res.data = saleLeadsService.rejectBatch(rejectBatchForm.distributorId, rejectBatchForm.saleLeadsIdList, rejectBatchForm.rejectType, rejectBatchForm.rejectRemark);
+        	res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
-
+        LOG.info("{method:'SaleLeadsController::rejectBatch',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
 
