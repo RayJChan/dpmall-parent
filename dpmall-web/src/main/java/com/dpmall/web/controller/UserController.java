@@ -21,7 +21,7 @@ import com.dpmall.web.mock.UserServiceMock;
  * @date 2017-07-19
  */
 @Controller
-@RequestMapping("/user/")
+@RequestMapping("/user")
 public class UserController {
 	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 	
