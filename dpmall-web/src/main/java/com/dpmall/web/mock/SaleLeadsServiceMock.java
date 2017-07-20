@@ -138,6 +138,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			tmp.style = "欧式";
 			tmp.total = 0.0;
+			tmp.storeAcceptor="12345";
+			tmp.storeAcceptorName="zhangsan";
+			tmp.storeAcceptorRemark ="这个客户买了很多东西";
+			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			mockResults.add(tmp);
 		}
 		return mockResults;
@@ -175,6 +179,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
 			tmp.total = 0.0;
+			tmp.storeAcceptor="12345";
+			tmp.storeAcceptorName="zhangsan";
+			tmp.storeAcceptorRemark ="这个客户买了很多东西";
+			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			mockResults.add(tmp);
 		}
 		return mockResults;
@@ -227,6 +235,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
 			tmp.total = 0.0;
+			tmp.storeAcceptor="12345";
+			tmp.storeAcceptorName="zhangsan";
+			tmp.storeAcceptorRemark ="这个客户买了很多东西";
+			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			mockResults.add(tmp);
 		}
 		return mockResults;
@@ -264,6 +276,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
 			tmp.total = 0.0;
+			tmp.storeAcceptor="12345";
+			tmp.storeAcceptorName="zhangsan";
+			tmp.storeAcceptorRemark ="这个客户买了很多东西";
+			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			mockResults.add(tmp);
 		}
 		return mockResults;
@@ -302,6 +318,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 			tmp.storeAcceptTime = null;
 			tmp.style = "欧式";
 			tmp.total = 0.0;
+			tmp.storeAcceptor="12345";
+			tmp.storeAcceptorName="zhangsan";
+			tmp.storeAcceptorRemark ="这个客户买了很多东西";
+			tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 			mockResults.add(tmp);
 		}
 		return mockResults;
@@ -355,7 +375,10 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 		tmp.storeAcceptTime = null;
 		tmp.style = "欧式";
 		tmp.total = 0.0;
-	
+		tmp.storeAcceptor="12345";
+		tmp.storeAcceptorName="zhangsan";
+		tmp.storeAcceptorRemark ="这个客户买了很多东西";
+		tmp.storeAcceptTime = DateUtils.format(new Date(),DateUtils.YYYY_MM_DD_HH_MM_SS);
 		return tmp;
 	}
 

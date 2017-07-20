@@ -75,8 +75,14 @@ public class SaleLeadsModel  implements Serializable {
 	/**店铺接单人*/
 	public String storeAcceptor;
 	
+	/**店铺接单人名称*/
+	public String storeAcceptorName;
+	
 	/**店铺接单时间*/
 	public String storeAcceptTime;
+	
+	/**店铺接单人备注*/
+	public String storeAcceptorRemark;
 	
 	/**预约到店时间*/
 	public String appointmentTime;
