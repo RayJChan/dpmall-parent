@@ -134,10 +134,24 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		LOG.info("result:"+result);
 		return result;
 	}
-
+	 /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
 	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
+		Date date = new Date();
+		SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
+		entity.id = Long.valueOf(saleLeadsId);
+		entity.refuseTime = date;
+		entity.distributorOperateTime = date;
+		entity.rejectType = Integer.valueOf(rejectType);
+		entity.rejectRemark=rejectRemark;
+		entity.saleLeadsStatus="5";
+		return salesLeadsOrderDao.edit(entity);
 	}
 
 	/**
@@ -298,15 +312,66 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		// TODO Auto-generated method stub
 		return result;
 	}
-
+	
+	/**
+     * 经销商批量拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
+		Integer temp = 1;
+		for (String saleLeadsId : saleLeadsIdList) {
+			Date date = new Date();
+			SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
+			entity.id = Long.valueOf(saleLeadsId);
+			entity.refuseTime = date;
+			entity.distributorOperateTime = date;
+			entity.rejectType = Integer.valueOf(rejectType);
+			entity.rejectRemark=rejectRemark;
+			entity.saleLeadsStatus="5";
+			Integer result = salesLeadsOrderDao.edit(entity);
+			LOG.info(result.toString());
+			if(result!=1){
+				temp=0;
+			}
+		}
+		return temp;
 	}
 
+	/**
+	 * author:daihx
+	 * 导购员批量接单
+	 * saleLeadsId
+	 */
 	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
 		// TODO Auto-generated method stub
-		return 0;
+		SaleLeadsModel out = null;
+		Boolean a = true;
+		int b;
+		//先for循环拿每一条去改状态，得到每一条的结果返回值
+		
+		for(String id : saleLeadsId){
+			List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getSaleLeads(id);
+			SalesLeadsOrderEntity entity = outEntityList.get(0);
+			entity.saleLeadsStatus = "15";
+			entity.storeAcceptTime = new Date();
+			entity.storeAcceptor = acceptorId;
+			int result=salesLeadsOrderDao.edit(entity);
+			if(result==0){
+				a = false;
+				break;
+			}
+		}
+		if(a){
+			 b = 1;
+		}else{
+			 b = 0;
+		}
+
+		return b;
 	}
 	
 	

@@ -75,8 +75,14 @@ public class SaleLeadsModel  implements Serializable {
 	/**店铺接单人*/
 	public String storeAcceptor;
 	
+	/**店铺接单人名称*/
+	public String storeAcceptorName;
+	
 	/**店铺接单时间*/
 	public String storeAcceptTime;
+	
+	/**店铺接单人备注*/
+	public String storeAcceptorRemark;
 	
 	/**预约到店时间*/
 	public String appointmentTime;
@@ -86,6 +92,12 @@ public class SaleLeadsModel  implements Serializable {
 	
 	/**成单金额*/
 	public Double total;
+	
+	/**拒单类型*/
+	public Integer rejectType;
+	
+	/**拒单原因*/
+	public String rejectRemark;
 	
 	/**成交商品列表*/
 	public List<SaleLeadsGoodsModel> orderItemList;

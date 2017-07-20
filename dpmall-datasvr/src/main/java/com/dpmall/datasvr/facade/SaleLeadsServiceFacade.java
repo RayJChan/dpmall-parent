@@ -55,10 +55,26 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		}
 		return result;
 	}
-
+	 /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
 	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::reject',in:{saleLeadsId:'" + saleLeadsId + "',rejectType:'"
+					+ rejectType + "',rejectRemark:'" + rejectRemark +"'}}");
+		}
+		
+		Integer reject = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::reject',out:"+reject+"}");
+		}
+		return reject;
 	}
 
 	public List<SaleLeadsModel> getOnePage4Followup(String distributorId, Integer startNum, Integer pageSize) {
@@ -235,15 +251,43 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		}
 		return result;
 	}
-
+	/**
+     * 经销商批量拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
 	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::reject',in:{saleLeadsIdList:'" + saleLeadsIdList + "',rejectType:'"
+					+ rejectType + "',rejectRemark:'" + rejectRemark +"'}}");
+		}
+		Integer temp = 1;
+		for (String saleLeadsId : saleLeadsIdList) {
+			Integer result = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+			if(result!=1){
+				temp=0;
+			}
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::reject',out:"+temp+"}");
+		}
+		return temp;
 	}
 
 	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'accept',in:{acceptorId:'" + acceptorId  +"'}}");
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'::accept',out:{saleLeadsId:'" + saleLeadsId  +"'}}");
+		}
+		int result = saleLeadsService.acceptBatch(acceptorId, saleLeadsId);
+		
+		return result;
 	}
 
 	/**

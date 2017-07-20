@@ -71,8 +71,14 @@ public class SalesLeadsOrderEntity  {
 	/**店铺接单人*/
 	public String storeAcceptor;
 	
+	/**店铺接单人名称*/
+	public String storeAcceptorName;
+	
 	/**店铺接单时间*/
 	public Date storeAcceptTime;
+	
+	/**店铺接单人备注*/
+	public String storeAcceptorRemark;
 	
 	/**预约到店时间*/
 	public Date appointmentTime;
@@ -82,5 +88,14 @@ public class SalesLeadsOrderEntity  {
 	
 	/**成单金额*/
 	public BigDecimal total;
+	
+	/**拒单类型*/
+	public Integer rejectType;
+	
+	/**拒单原因*/
+	public String rejectRemark;
+	
+	/**拒单时间*/
+	public Date refuseTime;
 	
 }

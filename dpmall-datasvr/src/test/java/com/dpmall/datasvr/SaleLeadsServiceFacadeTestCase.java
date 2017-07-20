@@ -2,6 +2,7 @@ package com.dpmall.datasvr;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,5 +91,49 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	int result = saleLeadsService.accept("14", "1");
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    }
+    /**
+	 * author:daihx
+	 * 导购员批量接单
+	 * saleLeadsId
+	 */
+    @Test
+    public void testAcceptBatch(){
+    	List<String> saleLeadsId = new ArrayList<String>();
+    	saleLeadsId.add("1");
+    	saleLeadsId.add("2");
+    	saleLeadsId.add("3");
+    	int result = saleLeadsService.acceptBatch("14", saleLeadsId);
+    	LOG.info("=======================开始执行=======================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    }
+    /**
+     * 经销商拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
+    @Test
+    public void testReject(){
+    	Integer reject = saleLeadsService.reject(null,"1","10","11sssssss");
+    	LOG.info("=======================拒单更新状态======================="+reject);
+    }
+    /**
+     * 经销商批量拒单
+     * @param distributorId 经销商ID
+     * @param saleLeadsId 销售线索ID
+     * @param rejectType 拒单类型
+     * @param rejectRemark 拒单备注
+     * @return
+     */
+    @Test
+    public void testRejectBatch(){
+    	List<String> saleLeadsIdList = new ArrayList<String>();
+    	saleLeadsIdList.add("1");
+    	saleLeadsIdList.add("2");
+    	Integer reject = saleLeadsService.rejectBatch(null,saleLeadsIdList,"19","21ssaaaassss1111ssss");
+    	LOG.info("=======================拒单更新状态======================="+reject);
     }
 }
