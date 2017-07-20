@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
@@ -247,8 +248,9 @@ public class SaleLeadsController {
 
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.accept(acceptorId, saleLeadsId);
+        	res.resultCode = saleLeadsService.accept(acceptorId, saleLeadsId);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
@@ -446,12 +448,20 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/acceptBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response acceptBatch(AcceptBatchForm form,String token){
+    public Response acceptBatch(String form,String token){
     	Response res = new Response();
     	
+    	LOG.info(JSON.toJSONString(form));
+        if(StringUtils.isEmpty(form)){
+        	res.resultCode = ErrorCode.INVALID_PARAM;
+    		return res;
+    	}
+        
+    	AcceptBatchForm formObj = JSON.parseObject(form, AcceptBatchForm.class);
         try{
-        	res.resultCode = saleLeadsServiceMock.acceptBatch(form.acceptorId, form.saleLeadsId);
+        	res.resultCode = saleLeadsService.acceptBatch(formObj.acceptorId, formObj.saleLeadsId);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
@@ -470,11 +480,13 @@ public class SaleLeadsController {
 	public Response getSaleLeads(String saleLeadsId,String token){
     	Response res = new Response();
         try{
-        	res.data = saleLeadsServiceMock.getSaleLeads(saleLeadsId);
+        	res.data = saleLeadsService.getSaleLeads(saleLeadsId);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
+        LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
     	return res;
     }
 }
