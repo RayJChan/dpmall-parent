@@ -1,7 +1,6 @@
 package com.dpmall.api.bean;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,17 +29,20 @@ public class SaleLeadsModel  implements Serializable {
 	/**服务地址*/
 	public String serviceAddress;
 	
-	/**服务品类*/
+	/**服务意向*/
 	public String serviceCatelog;
 	
 	/**服务摘要*/
 	public String serviceTitle;
 	
-	/**预计服务时间*/
+	/**预计服务时间**/
 	public String serviceDate;
 	
 	/**风格偏好*/
 	public String style;
+	
+	/**品牌偏好*/
+	public String brand;
 	
 	/**客户预算*/
 	public Double budget;
@@ -99,11 +101,9 @@ public class SaleLeadsModel  implements Serializable {
 	/**拒单原因*/
 	public String rejectRemark;
 	
-	/**品牌编号*/
-	public String brandPref;
-	
 	/**经销商备注*/
 	public String agencyRemark;
+
 	
 	/**成交商品列表*/
 	public List<SaleLeadsGoodsModel> orderItemList;

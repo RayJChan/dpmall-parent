@@ -24,7 +24,17 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::search',in:{distributorId:'" + distributorId + "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<SaleLeadsModel> out = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'SaleLeadsServiceFacade::search',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public Integer get2DistributeCount(String distributorId) {
@@ -103,14 +113,12 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @param pageSize
      * @return
      */
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId, TimeScope distributeTime,
-			String storeId, String saleLeadId, String clientName, String clientTel, Integer startNum,
-			Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',in:{distributorId:'" + distributorId + "',storeId:'" + storeId + "',saleLeadId:'" + saleLeadId + "',sclientName:'" + clientName + "',clientTel:'" + clientTel + "',startNum:'"
 					+ startNum + "',pageSize:'" + pageSize +"'}}");
 		}
-		List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel,storeName, startNum, pageSize);
 		
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageClosedSaleLeads',out:"+JSON.toJSONString(acceptModel)+"}");
@@ -221,16 +229,40 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		}
 		return result;
 	}
-
+	/**
+     * 获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     * @throws ParseException 
+     */
 	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',in:{form:'" + JSON.toJSONString(form) + "',startNum:'" + startNum + "',pageSize:'"
+					+ pageSize +"}}");
+		}
+		List<SaleLeadsModel> result=saleLeadsService.getOnePageSuccessOrders(form, startNum, pageSize);
+		if (LOG.isDebugEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
-
+	/**
+     * 获取根据form条件查询成功结单的金额
+     * @param form
+     * @return
+     */
 	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getSuccessOrdersTtlAmount',in:{form:'" + JSON.toJSONString(form) + "'}}");
+		}
+		Double result = saleLeadsService.getSuccessOrdersTtlAmount(form);
+		if (LOG.isDebugEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 	
 	/**

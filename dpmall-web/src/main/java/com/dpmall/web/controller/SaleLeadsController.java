@@ -52,15 +52,13 @@ public class SaleLeadsController {
     @ResponseBody
     public Response getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
-    	List<SaleLeadsModel> data = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePage4Distribute(distributorId, startNum, pageSize);
+        	res.data = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
-    	
-    	res.data = data;
-
+    
     	return res;
     }
     
@@ -149,8 +147,9 @@ public class SaleLeadsController {
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePage4Followup(distributorId, startNum, pageSize);
+    	    data = saleLeadsService.getOnePage4Followup(distributorId, startNum, pageSize);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
     	
@@ -178,7 +177,7 @@ public class SaleLeadsController {
     	List<SaleLeadsModel> data = null;
     	TimeScope distributeTime = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, null,startNum, pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -249,8 +248,9 @@ public class SaleLeadsController {
 
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.accept(acceptorId, saleLeadsId);
+        	res.resultCode = saleLeadsService.accept(acceptorId, saleLeadsId);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
@@ -455,12 +455,20 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/acceptBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response acceptBatch(AcceptBatchForm form,String token){
+    public Response acceptBatch(String form,String token){
     	Response res = new Response();
     	
+    	LOG.info(JSON.toJSONString(form));
+        if(StringUtils.isEmpty(form)){
+        	res.resultCode = ErrorCode.INVALID_PARAM;
+    		return res;
+    	}
+        
+    	AcceptBatchForm formObj = JSON.parseObject(form, AcceptBatchForm.class);
         try{
-        	res.resultCode = saleLeadsServiceMock.acceptBatch(form.acceptorId, form.saleLeadsId);
+        	res.resultCode = saleLeadsService.acceptBatch(formObj.acceptorId, formObj.saleLeadsId);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
@@ -479,11 +487,13 @@ public class SaleLeadsController {
 	public Response getSaleLeads(String saleLeadsId,String token){
     	Response res = new Response();
         try{
-        	res.data = saleLeadsServiceMock.getSaleLeads(saleLeadsId);
+        	res.data = saleLeadsService.getSaleLeads(saleLeadsId);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
+        LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
     	return res;
     }
 }

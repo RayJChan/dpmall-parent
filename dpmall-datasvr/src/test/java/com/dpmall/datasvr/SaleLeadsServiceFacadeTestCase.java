@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.param.SaleLeadStatisticForm;
 import com.dpmall.common.DateUtils;
 import com.dpmall.common.SpringTestCase;
 
@@ -26,8 +27,9 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     
     @Test
     public void testSearch(){
-    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Distribute("8", 0, 20);
-        LOG.info("result:" + JSON.toJSONString(result));
+    	List<SaleLeadsModel> result = saleLeadsService.getOnePage4Distribute("1", 0, 20);
+    	LOG.info("=====================daihx====================");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
     @Test
     public void testOnePage4FollowupSearch(){
@@ -99,7 +101,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
 
     	scope.begin = new Timestamp(DateUtils.parse("2017-07-18 00:00:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
     	scope.end = new Timestamp(DateUtils.parse("2017-07-20 10:30:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
-    	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5);
+    	List<SaleLeadsModel> acceptModel = saleLeadsService.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1",null, 0, 5);
         LOG.info("result:" + JSON.toJSONString(acceptModel));
     }
     /**
@@ -156,5 +158,40 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	saleLeadsIdList.add("2");
     	Integer reject = saleLeadsService.rejectBatch(null,saleLeadsIdList,"19","21ssaaaassss1111ssss");
     	LOG.info("=======================拒单更新状态======================="+reject);
+    }
+    /**
+     * 测试获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     * @throws ParseException 
+     */
+    @Test
+    public void testGetOnePageSuccessOrders(){
+    	SaleLeadStatisticForm from = new SaleLeadStatisticForm();
+    	from.storeId= 13L;
+    	from.acceptorName="310146";
+    	from.productCatelog="1111";
+    	from.fromTime="2016-07-19 10:30:00";
+    	from.toTime="2017-07-22 10:30:00";
+    	List<SaleLeadsModel> SuccessOrders = saleLeadsService.getOnePageSuccessOrders(from, 0, 5);
+    	LOG.info(JSON.toJSONString(SuccessOrders));
+    }
+    /**
+     * 测试获取根据form条件查询成功结单的金额
+     * @param form
+     * @return
+     */
+    @Test
+    public void testGetSuccessOrdersTtlAmount(){
+    	SaleLeadStatisticForm from = new SaleLeadStatisticForm();
+    	from.storeId= 13L;
+    	from.acceptorName="310146";
+    	from.productCatelog="1111";
+    	from.fromTime="2016-07-19 10:30:00";
+    	from.toTime="2017-07-22 10:30:00";
+    	Double TtlAmount = saleLeadsService.getSuccessOrdersTtlAmount(from);
+    	LOG.info("TtlAmount======="+TtlAmount);
     }
 }
