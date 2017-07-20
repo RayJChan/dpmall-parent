@@ -314,7 +314,84 @@
 		    and P_ACCEPTSTORE=${storeId}
 		</if>
 	</select>
-	
+	<select id="getOnePageSuccessOrders"  resultMap="SalesLeadsOrderEntity">
+		select 
+			S.PK,
+			S.P_NAME,
+			S.P_TELEPHONE,
+			S.P_CUSADDRESS,
+			S.P_COMMENT,
+			S.P_SERVERADDRESS,
+			S.P_SERVERPURPOSE,
+			S.P_SERVICETITLE,
+			S.P_FITMENTDATE,
+			S.P_STYLEPREFERENCE,
+			S.P_BUDGET,
+			S.P_BRANDPREFERENCE,
+			S.P_HANDLERCOMMENT,
+			S.P_SALESLEADSORDERSTATUS,
+			S.P_DISTRIBUTEDATE,
+			S.P_DISTRIBUTER,
+			S.P_AGENCYOPERATEDATE,
+			S.P_AGENCYACCEPT,
+			S.P_SUGGESTSTORE,
+			S.P_ACCEPTDATE,
+			S.P_APPOINTMENTDATE,
+			S.P_CLOSEDATE,
+			S.P_AMOUNT,
+			S.P_CALLSERVICETEL,
+			S.P_REFUSEDATE,
+			S.P_REFUSETYPE,
+			S.P_REFUSEREASON
+		from SALESLEADSORDER S
+		<if test="acceptorName != null">
+		   , APPUSER AU  
+		</if>
+		<if test="productCatelog != null">
+		    , SALESLEADSORDERITEM SI 
+		</if>
+		where 1= 1 AND S.P_SALESLEADSORDERSTATUS='25'
+		<if test="storeId != null">
+		    and S.P_ACCEPTSTORE=#{storeId} 
+		</if>
+		<if test="acceptorName != null">
+		    and S.P_ACCEPTBY =#{acceptorName} AND  S.P_ACCEPTBY = AU.P_USERNAME
+		</if>
+		<if test="productCatelog != null">
+		    and SI.P_PRODUCTCATETORY = #{productCatelog} AND SI.P_SALESLEADSORDER = S.PK
+		</if>
+		<if test="fromTime != null and toTime != null">
+		    and S.P_CLOSEDATE between #{fromTime} and #{toTime}
+		</if>
+		<if test="startNum!=null and pageSize!=null">			
+			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
+		</if>
+		order by S.P_CLOSEDATE desc
+	</select>
+	<select id="getSuccessOrdersTtlAmount"  resultType="double">
+		select 
+			SUM(S.P_AMOUNT)
+		from SALESLEADSORDER S 
+		<if test="acceptorName != null">
+		   , APPUSER AU  
+		</if>
+		<if test="productCatelog != null">
+		    , SALESLEADSORDERITEM SI 
+		</if>
+		where 1= 1 AND S.P_SALESLEADSORDERSTATUS='25'
+		<if test="storeId != null">
+		    and S.P_ACCEPTSTORE=#{storeId} 
+		</if>
+		<if test="acceptorName != null">
+		    and S.P_ACCEPTBY =#{acceptorName} AND  S.P_ACCEPTBY = AU.P_USERNAME
+		</if>
+		<if test="productCatelog != null">
+		    and SI.P_PRODUCTCATETORY = #{productCatelog} AND SI.P_SALESLEADSORDER = S.PK
+		</if>
+		<if test="fromTime != null and toTime != null">
+		    and S.P_CLOSEDATE between #{fromTime} and #{toTime}
+		</if>
+	</select>
 	<update id="distribute">
 	    update salesleadsorder set
 			p_suggeststore=${shopId},

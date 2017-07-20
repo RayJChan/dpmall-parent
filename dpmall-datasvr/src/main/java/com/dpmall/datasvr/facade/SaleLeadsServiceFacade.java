@@ -231,16 +231,40 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		}
 		return result;
 	}
-
+	/**
+     * 获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     * @throws ParseException 
+     */
 	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',in:{form:'" + JSON.toJSONString(form) + "',startNum:'" + startNum + "',pageSize:'"
+					+ pageSize +"}}");
+		}
+		List<SaleLeadsModel> result=saleLeadsService.getOnePageSuccessOrders(form, startNum, pageSize);
+		if (LOG.isDebugEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
-
+	/**
+     * 获取根据form条件查询成功结单的金额
+     * @param form
+     * @return
+     */
 	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getSuccessOrdersTtlAmount',in:{form:'" + JSON.toJSONString(form) + "'}}");
+		}
+		Double result = saleLeadsService.getSuccessOrdersTtlAmount(form);
+		if (LOG.isDebugEnabled()) {
+			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 	
 	/**
