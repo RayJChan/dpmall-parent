@@ -276,14 +276,14 @@ public class SaleLeadsController {
 					+ saleLeadsId +"'}}");
 		}
         try{
-        	res.resultCode = saleLeadsService.accept(acceptorId, saleLeadsId);
+        	res.data = saleLeadsService.accept(acceptorId, saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
         
         if(LOG.isDebugEnabled()){
-			LOG.info("{method:'SaleLeadsServiceFacade::accept',out:"+JSON.toJSONString(res.resultCode)+"}");
+			LOG.info("{method:'SaleLeadsServiceFacade::accept',out:"+JSON.toJSONString(res.data)+"}");
 		 }
 
     	return res;
@@ -498,14 +498,14 @@ public class SaleLeadsController {
         
     	AcceptBatchForm formObj = JSON.parseObject(form, AcceptBatchForm.class);
         try{
-        	res.resultCode = saleLeadsService.acceptBatch(formObj.acceptorId, formObj.saleLeadsId);
+        	res.data = saleLeadsService.acceptBatch(formObj.acceptorId, formObj.saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
         
         if(LOG.isDebugEnabled()){
-			LOG.info("{method:'SaleLeadsServiceFacade::acceptBatch',out:"+JSON.toJSONString(res.resultCode)+"}");
+			LOG.info("{method:'SaleLeadsServiceFacade::acceptBatch',out:"+JSON.toJSONString(res.data)+"}");
 		 }
 
     	return res;
