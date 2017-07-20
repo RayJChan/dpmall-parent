@@ -1,5 +1,6 @@
 package com.dpmall.db.dao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -94,4 +95,20 @@ public interface SalesLeadsOrderDao {
       * @return
       */
      public List<SalesLeadsOrderEntity> getOnePageClosedSaleLeads(@Param("distributorId")String distributorId,@Param("distributeTime")TimeScope  distributeTime,@Param("storeId") String storeId,@Param("saleLeadId")String saleLeadId,@Param("clientName") String clientName,@Param("clientTel")String clientTel,@Param("startNum")Integer startNum,@Param("pageSize") Integer pageSize);
+     
+     /**
+      * 获取根据form条件查询一页的成功结单的数据
+      * @param form
+      * @param startNum
+      * @param pageSize
+      * @return
+      */
+     public List<SalesLeadsOrderEntity> getOnePageSuccessOrders(@Param("storeId")Long storeId,@Param("acceptorName")String acceptorName,@Param("productCatelog")String productCatelog,@Param("fromTime")Date fromTime,@Param("toTime")Date toTime,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
+     /**
+      * 获取根据form条件查询成功结单的金额
+      * @param form
+      * @return
+      */
+     public Double getSuccessOrdersTtlAmount(@Param("storeId")Long storeId,@Param("acceptorName")String acceptorName,@Param("productCatelog")String productCatelog,@Param("fromTime")Date fromTime,@Param("toTime")Date toTime);
+
 }

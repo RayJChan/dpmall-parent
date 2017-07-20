@@ -3,6 +3,7 @@ package com.dpmall.db;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -107,5 +108,33 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     	for(SalesLeadsOrderEntity salesLeadsOrderEntity:salesLeadsOrderDao.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5)){
     		LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
     	}
+    }
+    /**
+     * 测试获取根据form条件查询一页的成功结单的数据
+     * @param form
+     * @param startNum
+     * @param pageSize
+     * @return
+     * @throws ParseException 
+     */
+    @Test
+    public void testGetOnePageSuccessOrders() throws ParseException {
+    	Date fromTime = DateUtils.parse("2016-07-20 20:55:00", DateUtils.YYYY_MM_DD_HH_MM_SS);
+    	Date toTime = DateUtils.parse("2017-07-20 20:55:00", DateUtils.YYYY_MM_DD_HH_MM_SS);
+    	for (SalesLeadsOrderEntity SuccessOrders : salesLeadsOrderDao.getOnePageSuccessOrders(13L,"310146","1111", fromTime, toTime,0,5)) {
+    		LOG.info(JSON.toJSONString(SuccessOrders));
+		}
+    }
+    /**
+     * 获取根据form条件查询成功结单的金额
+     * @param form
+     * @return
+     */
+    @Test
+    public void testGetSuccessOrdersTtlAmount() throws ParseException {
+    	Date fromTime = DateUtils.parse("2016-07-20 20:55:00", DateUtils.YYYY_MM_DD_HH_MM_SS);
+    	Date toTime = DateUtils.parse("2017-07-20 20:55:00", DateUtils.YYYY_MM_DD_HH_MM_SS);
+    	Double TtlAmount = salesLeadsOrderDao.getSuccessOrdersTtlAmount(13L,"310146","1111", fromTime, toTime);
+    	LOG.info(JSON.toJSONString(TtlAmount));
     }
 }
