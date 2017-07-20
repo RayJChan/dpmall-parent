@@ -1,5 +1,7 @@
 package com.dpmall.web.mock;
 
+import java.util.List;
+
 import com.dpmall.api.IUserService;
 import com.dpmall.api.bean.LoginResModel;
 import com.dpmall.api.bean.UserModel;
@@ -22,6 +24,13 @@ public class UserServiceMock implements IUserService {
 		}
 		return res;
 	}
+	
+
+	@Override
+	public List<UserModel> getStoreAllUser(Long storeId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public int createStoreUser(UserModel usr) {
@@ -32,5 +41,6 @@ public class UserServiceMock implements IUserService {
 	public int updateUser(UserModel usr) {
 		return ErrorCode.SUCCESS;
 	}
+
 
 }

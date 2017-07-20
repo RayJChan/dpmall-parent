@@ -23,4 +23,5 @@
 	<dubbo:service interface="com.dpmall.api.ISaleLeadsService" ref="SaleLeadsServiceFacade" />
 	<dubbo:service interface="com.dpmall.api.IOrderService" ref="OrderServiceFacade" />
 	<dubbo:service interface="com.dpmall.api.IPrepayService" ref="PrepayServiceFacade" />
+	<dubbo:service interface="com.dpmall.api.IUserService" ref="UserServiceFacade" />
 </beans>

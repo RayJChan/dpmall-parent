@@ -30,4 +30,7 @@
 	<bean id ="saleLeadsService" class="com.dpmall.datasvr.service.SaleLeadsServiceImpl">
 	    <property name="salesLeadsOrderDao" ref="salesLeadsOrderDao"/>
 	</bean>
+	
+	<bean id="UserServiceFacade" class="com.dpmall.datasvr.facade.UserServiceFacade"></bean>
+	<bean id ="userService" class="com.dpmall.datasvr.service.UserServiceImpl"></bean>
 </beans>
