@@ -307,7 +307,7 @@
 	<select id="getOnePage4Acceptor2Followup" resultMap="SalesLeadsOrderEntity">
 		select * from (
 		<include refid="baseSql"/>
-		left join agency a on s.p_agency = a .pk where  (P_SALESLEADSORDERSTATUS='15' OR P_SALESLEADSORDERSTATUS='20' OR P_SALESLEADSORDERSTATUS='23')
+		left join agency a on s.p_agency = a .pk where  P_SALESLEADSORDERSTATUS in ('15','20','23')
 		<if test="acceptorId!=null">
 			and s.p_acceptby=${acceptorId}
 		</if> and  rownum &lt;${startNum}+${pageSize}+1) P1 where P1.rn&gt;${startNum}
