@@ -51,15 +51,13 @@ public class SaleLeadsController {
     @ResponseBody
     public Response getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize,String token){
     	Response res = new Response();
-    	List<SaleLeadsModel> data = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePage4Distribute(distributorId, startNum, pageSize);
+        	res.data = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
-    	
-    	res.data = data;
-
+    
     	return res;
     }
     
@@ -148,8 +146,9 @@ public class SaleLeadsController {
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePage4Followup(distributorId, startNum, pageSize);
+    	    data = saleLeadsService.getOnePage4Followup(distributorId, startNum, pageSize);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
     	
