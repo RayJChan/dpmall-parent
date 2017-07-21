@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
 import com.dpmall.web.controller.form.AcceptBatchForm;
 import com.dpmall.web.controller.form.RejectBatchForm;
 import com.dpmall.web.controller.form.Response;
@@ -315,7 +315,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getOnePageSuccessOrders",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize,String token){
+    public Response getOnePageSuccessOrders(SaleLeadStatisticParam form,Integer startNum, Integer pageSize,String token){
 
     	Response res = new Response();
     	List<SaleLeadsModel> data = null;
@@ -341,7 +341,7 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/getSuccessOrdersTtlAmount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getSuccessOrdersTtlAmount(SaleLeadStatisticForm form,String token){
+    public Response getSuccessOrdersTtlAmount(SaleLeadStatisticParam form,String token){
     	Response res = new Response();
         try{
         	res.data = saleLeadsServiceMock.getSuccessOrdersTtlAmount(form);

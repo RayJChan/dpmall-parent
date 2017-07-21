@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
 import com.dpmall.common.DateUtils;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
@@ -288,7 +288,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @return
      * @throws ParseException 
      */
-	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
+	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticParam form, Integer startNum,
 			Integer pageSize) {
 		Long storeId = form.storeId;
 		String acceptorName = form.acceptorName;
@@ -321,7 +321,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param form
      * @return
      */
-	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
+	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticParam form) {
 		Long storeId = form.storeId;
 		String acceptorName = form.acceptorName;
 		String productCatelog = form.productCatelog;

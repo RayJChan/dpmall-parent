@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
 
 public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	
@@ -237,7 +237,7 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @return
      * @throws ParseException 
      */
-	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
+	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticParam form, Integer startNum,
 			Integer pageSize) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::getOnePageSuccessOrders',in:{form:'" + JSON.toJSONString(form) + "',startNum:'" + startNum + "',pageSize:'"
@@ -254,7 +254,7 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @param form
      * @return
      */
-	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
+	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticParam form) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::getSuccessOrdersTtlAmount',in:{form:'" + JSON.toJSONString(form) + "'}}");
 		}

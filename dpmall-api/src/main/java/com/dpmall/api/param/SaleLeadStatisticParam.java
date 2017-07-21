@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author river
  * @date 2017-07-18
  */
-public class SaleLeadStatisticForm implements Serializable{
+public class SaleLeadStatisticParam implements Serializable{
 	private static final long serialVersionUID = 2718302718019889798L;
 
 	/**门店ID*/

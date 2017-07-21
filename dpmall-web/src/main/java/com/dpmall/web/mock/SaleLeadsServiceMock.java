@@ -10,7 +10,7 @@ import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.enums.ESaleLeadsOrderStatus;
 import com.dpmall.api.err.ErrorCode;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
 import com.dpmall.common.DateUtils;
 
 public class SaleLeadsServiceMock implements ISaleLeadsService {
@@ -296,7 +296,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form, Integer startNum,
+	public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticParam form, Integer startNum,
 			Integer pageSize) {
 		List<SaleLeadsModel> mockResults = new ArrayList<SaleLeadsModel>();
 		if(pageSize == null){
@@ -340,7 +340,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form) {
+	public Double getSuccessOrdersTtlAmount(SaleLeadStatisticParam form) {
 		return 168.888;
 	}
 

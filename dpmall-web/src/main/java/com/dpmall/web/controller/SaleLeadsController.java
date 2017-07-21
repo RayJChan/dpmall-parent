@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,11 +19,15 @@ import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.err.ErrorCode;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
+import com.dpmall.common.DateUtils;
+import com.dpmall.web.Constants;
 import com.dpmall.web.controller.form.AcceptBatchForm;
+import com.dpmall.web.controller.form.DistributeForm;
 import com.dpmall.web.controller.form.RejectBatchForm;
 import com.dpmall.web.controller.form.Response;
-import com.dpmall.web.mock.SaleLeadsServiceMock;
+import com.dpmall.web.controller.form.SaleLeadForm;
+import com.dpmall.web.controller.form.SaleLeadOrderForm;
 
 /**
  * 销售线索
@@ -33,8 +38,6 @@ import com.dpmall.web.mock.SaleLeadsServiceMock;
 @RequestMapping("/saleLeads")
 public class SaleLeadsController {
 	private static final Logger LOG = LoggerFactory.getLogger(SaleLeadsController.class);
-	
-	private ISaleLeadsService saleLeadsServiceMock = new SaleLeadsServiceMock();
 	
 	@Autowired
 	private ISaleLeadsService saleLeadsService;
@@ -50,23 +53,18 @@ public class SaleLeadsController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Distribute(String distributorId,Integer startNum, Integer pageSize,String token){
+    public Response getOnePage4Distribute(@RequestBody DistributeForm form){
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Distribute',in:" + JSON.toJSONString(form) + "}");
+
     	Response res = new Response();
-    	if (LOG.isInfoEnabled()) {
-    	     LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Distribute',in:{distributorId:'" + distributorId + "',startNum:'"
-				+ startNum + "',pageSize:'" + pageSize +"'}}");
-    	}
         try{
-        	res.data = saleLeadsService.getOnePage4Distribute(distributorId, startNum, pageSize);
+        	res.data = saleLeadsService.getOnePage4Distribute(form.distributorId, form.startNum, form.pageSize);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
         
-        if(LOG.isDebugEnabled()){
-			LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(res.data)+"}");
-		}
-    
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Distribute',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -77,24 +75,17 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response get2DistributeCount(String distributorId,String token){
+    public Response get2DistributeCount(@RequestBody DistributeForm form){
+    	LOG.info("{method:'SaleLeadsController::get2DistributeCount',in:" + JSON.toJSONString(form) + "}");
+
     	Response res = new Response();
-    	Integer data = null;
-    	if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'SaleLeadsServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId +"'}}");
-		}
         try{
-    	    data = saleLeadsService.get2DistributeCount(distributorId);
+        	res.data  = saleLeadsService.get2DistributeCount(form.distributorId);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
         
-        if(LOG.isDebugEnabled()){
-			LOG.info("{method:'SaleLeadsServiceFacade::get2DistributeCount',data:"+ data +"}");
-		}
-    	
-    	res.data = data;
-
+    	LOG.info("{method:'SaleLeadsController::get2DistributeCount',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -108,23 +99,8 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distribute(String distributorId,String saleLeadsId, String shopId,String token){
-    	Response res = new Response();
-    	if (StringUtils.isEmpty(distributorId)||StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(shopId)) {
-			res.resultCode=ErrorCode.INVALID_PARAM;
-			res.message="参数错误";
-			LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
-		}
-        else {
-        	try{
-            	res.data = saleLeadsService.distribute(distributorId, saleLeadsId, shopId);
-            	res.resultCode=ErrorCode.SUCCESS;
-            } catch(Throwable e){
-            	LOG.error(e.getMessage(),e);
-        	}
-		}
-        
-    	return res;
+    public Response distribute(@RequestBody DistributeForm form){
+    	return this.distributeBatch(form);
     }
     
     /**
@@ -137,25 +113,8 @@ public class SaleLeadsController {
      */
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String token){
-    	LOG.info("{method:'SaleLeadsController::reject',in:{distributorId:'" + distributorId + "',saleLeadsId:'" + saleLeadsId + "',rejectType:'" + 
-
-rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
-    	Response res = new Response();
-    	if(StringUtils.isEmpty(saleLeadsId)||StringUtils.isEmpty(rejectType)){
-        	res.resultCode = ErrorCode.INVALID_PARAM;
-    		return res;
-    	}
-        try{
-        	res.data = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
-        	res.resultCode = ErrorCode.SUCCESS;
-        } catch(Throwable e){
-        	res.resultCode = ErrorCode.INTERNAL_ERR;
-        	LOG.error(e.getMessage(),e);
-    	}
-        LOG.info("{method:'SaleLeadsController::reject',out:{res'" + JSON.toJSONString(res) + "'}}");
-        
-    	return res;
+    public Response reject(@RequestBody RejectBatchForm form){
+    	return this.rejectBatch(form);
     }
     
     
@@ -168,27 +127,19 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Followup(String distributorId,Integer startNum, Integer pageSize,String token){
-    	Response res = new Response();
-    	List<SaleLeadsModel> data = null;
-    	if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Followup',in:{distributorId:'" + distributorId + "',startNum:'"
-					+ startNum + "',pageSize:'" + pageSize +"'}}");
-		}
-        try{
-    	    data = saleLeadsService.getOnePage4Followup(distributorId, startNum, pageSize);
-        } catch(Throwable e){
-        	res.resultCode = ErrorCode.INTERNAL_ERR;
-        	LOG.error(e.getMessage(),e);
-    	}
-        
-        if(LOG.isDebugEnabled()){
-			LOG.info("{method:'SaleLeadsServiceFacade::getOnePage4Followup',out:"+ data +"}");
-		  }
-    	
-    	res.data = data;
+    public Response getOnePage4Followup(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Followup',in:" + JSON.toJSONString(form) + "}");
 
-    	return res;
+		Response res = new Response();
+		try {
+			res.data = saleLeadsService.getOnePage4Followup(form.distributorId, form.startNum, form.pageSize);
+		} catch (Throwable e) {
+			res.resultCode = ErrorCode.INTERNAL_ERR;
+			LOG.error(e.getMessage(), e);
+		}
+
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Followup',out:{res:'" + JSON.toJSONString(res) + "'}}");
+		return res;
     }
     
     /**
@@ -205,18 +156,23 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/getOnePageClosedSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageClosedSaleLeads(String distributorId,String distributeTimeBegin, String distributeTimeEnd,String storeId,String saleLeadId, String clientName,String clientTel,Integer startNum, Integer pageSize,String token){
+    public Response getOnePageClosedSaleLeads(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::getOnePageClosedSaleLeads',in:" + JSON.toJSONString(form) + "}");
+	
     	Response res = new Response();
-    	List<SaleLeadsModel> data = null;
-    	TimeScope distributeTime = null;
         try{
-    	    data = saleLeadsServiceMock.getOnePageClosedSaleLeads(distributorId, distributeTime, storeId, saleLeadId, clientName, clientTel, null,startNum, pageSize);
+          	TimeScope distributeTime = null;
+        	if(form.distributeTimeBegin != null && form.distributeTimeEnd != null){
+        		distributeTime = new TimeScope();
+        		distributeTime.begin = DateUtils.parse(form.distributeTimeBegin, DateUtils.YYYY_MM_DD_HH_MM_SS);
+        		distributeTime.end = DateUtils.parse(form.distributeTimeEnd, DateUtils.YYYY_MM_DD_HH_MM_SS);
+        	}
+        	res.data = saleLeadsService.getOnePageClosedSaleLeads(form.distributorId, distributeTime, String.valueOf(form.storeId), form.saleLeadsId, form.clientName, form.clientTel, form.storeName,form.startNum, form.pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
-    	
-    	res.data = data;
 
+    	LOG.info("{method:'SaleLeadsController::getOnePageClosedSaleLeads',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -230,23 +186,22 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Accept(String storeId,Integer startNum, Integer pageSize,String token){
+    public Response getOnePage4Accept(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Accept',in:" + JSON.toJSONString(form) + "}");
+    	
+		Response res = new Response();
+		if (form.storeId == null) {
+			res.resultCode = ErrorCode.INVALID_PARAM;
+			return res;
+		}
 
-    	Response res = new Response();
-    	if(StringUtils.isEmpty(storeId)){
-          	res.resultCode = ErrorCode.INVALID_PARAM;
-      		return res;
-      	}
-    	LOG.info("getOnePage4Accept=========="+storeId);
-    	List<SaleLeadsModel> data = null;
         try{
         	res.resultCode = ErrorCode.SUCCESS;
-    	    data = saleLeadsService.getOnePage4Accept(storeId, startNum, pageSize);
+        	res.data = saleLeadsService.getOnePage4Accept(String.valueOf(form.storeId), form.startNum == null ? 0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
-    	
-    	res.data = data;
+        
     	LOG.info("{method:'SaleLeadsController::getOnePage4Accept',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
@@ -258,22 +213,20 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response get2AcceptCount(String storeId,String token){
-
+    public Response get2AcceptCount(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::get2AcceptCount',in:" + JSON.toJSONString(form) + "}");
+    	
     	Response res = new Response();
-    	Integer data = null;
-    	LOG.info("get2AcceptCount=========="+storeId);
-    	 if(StringUtils.isEmpty(storeId)){
+    	 if(form.storeId == null){
           	res.resultCode = ErrorCode.INVALID_PARAM;
       		return res;
       	}
         try{
-    	    data = saleLeadsService.get2AcceptCount(storeId);
+        	res.data = saleLeadsService.get2AcceptCount(String.valueOf(form.storeId));
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
-    	
-    	res.data = data;
+        
     	LOG.info("{method:'SaleLeadsController::get2AcceptCount',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
@@ -288,25 +241,18 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response accept(String acceptorId, String saleLeadsId,String token){
-
-    	Response res = new Response();
+    public Response accept(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::accept',in:" + JSON.toJSONString(form) + "}");
     	
-    	if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'SaleLeadsServiceFacade::accept',in:{acceptorId:'" + acceptorId + "',saleLeadsId:'"
-					+ saleLeadsId +"'}}");
-		}
+    	Response res = new Response();
         try{
-        	res.data = saleLeadsService.accept(acceptorId, saleLeadsId);
+        	res.data = saleLeadsService.accept(form.acceptorId, form.saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
         
-        if(LOG.isDebugEnabled()){
-			LOG.info("{method:'SaleLeadsServiceFacade::accept',out:"+JSON.toJSONString(res.data)+"}");
-		 }
-
+		LOG.info("{method:'SaleLeadsController::accept',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -317,23 +263,24 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/edit",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response edit(String model,String token){
+    public Response edit(@RequestBody SaleLeadOrderForm form){
+    	LOG.info("{method:'SaleLeadsController::edit',in:" + JSON.toJSONString(form) + "}");
+    	
     	Response res = new Response();
-    	if(StringUtils.isEmpty(model)) {
-    		res.resultCode = ErrorCode.INVALID_PARAM;
-    		//TODO LOG
-    		return res;
-    	}
-
     	try{
-    		SaleLeadsModel saleLeadsModel = JSON.parseObject(model, SaleLeadsModel.class);       
+    		SaleLeadsModel saleLeadsModel = this.convert(form);       
         	res.data = saleLeadsService.edit(saleLeadsModel);
         	res.resultCode=ErrorCode.SUCCESS;
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
-
+    	LOG.info("{method:'SaleLeadsController::edit',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
+    }
+    
+    private SaleLeadsModel convert(SaleLeadOrderForm form ){
+    	//TODO xiecong
+    	return null;
     }
  
     
@@ -346,25 +293,23 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/getOnePage4Acceptor2Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Acceptor2Followup(String acceptorId,Integer startNum, Integer pageSize,String token){ 	
+    public Response getOnePage4Acceptor2Followup(@RequestBody SaleLeadForm form){     	
+    	LOG.info("{method:'SaleLeadsController::getOnePage4Acceptor2Followup',in:" + JSON.toJSONString(form) + "}");
+    	
     	Response res = new Response();
-    	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
+    	if (StringUtils.isEmpty(form.acceptorId)) {
 			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
+			return res;
 		}
-    	else {
-    		List<SaleLeadsModel> data = null;
-            try{
-        	    data = saleLeadsService.getOnePage4Acceptor2Followup(acceptorId, startNum, pageSize);
-            } catch(Throwable e){
-            	LOG.error(e.getMessage(),e);
-            	System.out.println("发现异常");
-            	e.printStackTrace();
-        	}
-        	
-        	res.data = data;
+    	
+		try {
+			res.data = saleLeadsService.getOnePage4Acceptor2Followup(form.acceptorId, form.startNum == null?0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(), e);
 		}
-    	LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
+
+		LOG.info("{method:'SaleLeadsController::getOnePage4Acceptor2Followup',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
@@ -377,23 +322,25 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/getOnePage4AcceptorClosed",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4AcceptorClosed(String acceptorId,Integer startNum, Integer pageSize,String token){
+    public Response getOnePage4AcceptorClosed(@RequestBody SaleLeadForm form){    	
+    	LOG.info("{method:'SaleLeadsController::getOnePage4AcceptorClosed',in:" + JSON.toJSONString(form) + "}");
+    
     	Response res = new Response();
-    	if (StringUtils.isEmpty(acceptorId)||startNum==null||pageSize==null) {
+    	if (StringUtils.isEmpty(form.acceptorId)) {
 			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
+			return res;
 		}
-    	else {
-    		List<SaleLeadsModel> data = null;
-            try{
-        	    data = saleLeadsService.getOnePage4AcceptorClosed(acceptorId, startNum, pageSize);
-            } catch(Throwable e){
-            	res.resultCode =ErrorCode.INTERNAL_ERR;
-            	LOG.error(e.getMessage(),e);
-        	}
-            LOG.info(com.alibaba.fastjson.JSON.toJSONString(res));
-        	res.data = data;
+    	
+		try {
+			res.data = saleLeadsService.getOnePage4AcceptorClosed(form.acceptorId, form.startNum == null?0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
+		} catch (Throwable e) {
+			res.resultCode = ErrorCode.INTERNAL_ERR;
+			LOG.error(e.getMessage(), e);
 		}
+		
+		LOG.info("{method:'SaleLeadsController::getOnePage4AcceptorClosed',out:{res'" + JSON.toJSONString(res) + "'}}");
+
     	return res;
     }
     
@@ -406,24 +353,19 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/getOnePageSuccessOrders",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePageSuccessOrders(String form,Integer startNum, Integer pageSize,String token){
+    public Response getOnePageSuccessOrders(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::getOnePageSuccessOrders',in:" + JSON.toJSONString(form) + "}");
+    	
     	Response res = new Response();
-    	LOG.info("getOnePageSuccessOrders=========="+JSON.toJSONString(form));
-    	if(StringUtils.isEmpty(form)){
-         	res.resultCode = ErrorCode.INVALID_PARAM;
-     		return res;
-     	}
-    	SaleLeadStatisticForm statisticForm = JSON.parseObject(form, SaleLeadStatisticForm.class);
-    	List<SaleLeadsModel> data = null;
+    	SaleLeadStatisticParam param = this.convert(form);
         try{
-    	    data = saleLeadsService.getOnePageSuccessOrders(statisticForm, startNum, pageSize);
+        	res.data = saleLeadsService.getOnePageSuccessOrders(param, form.startNum, form.pageSize);
     	    res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
-    	
-    	res.data = data;
+        
     	LOG.info("{method:'SaleLeadsController::getOnePageSuccessOrders',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
     	
@@ -439,25 +381,32 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/getSuccessOrdersTtlAmount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getSuccessOrdersTtlAmount(String form,String token){
+    public Response getSuccessOrdersTtlAmount(@RequestBody SaleLeadForm form){
+    	LOG.info("{method:'SaleLeadsController::getSuccessOrdersTtlAmount',in:" + JSON.toJSONString(form) + "}");
+    	
     	Response res = new Response();
-    	LOG.info("getOnePageSuccessOrders=========="+JSON.toJSONString(form));
-    	if(StringUtils.isEmpty(form)){
-         	res.resultCode = ErrorCode.INVALID_PARAM;
-     		return res;
-     	}
-    	SaleLeadStatisticForm statisticForm = JSON.parseObject(form, SaleLeadStatisticForm.class);
-    	Double data = null;
+    	SaleLeadStatisticParam param = this.convert(form);
         try{
-        	data = saleLeadsService.getSuccessOrdersTtlAmount(statisticForm);
+        	res.data = saleLeadsService.getSuccessOrdersTtlAmount(param);
     	    res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
-        res.data = data;
+        
     	LOG.info("{method:'SaleLeadsController::getSuccessOrdersTtlAmount',out:{res'" + JSON.toJSONString(res) + "'}}");
     	return res;
+    }
+    
+    private SaleLeadStatisticParam convert(SaleLeadForm in){
+    	SaleLeadStatisticParam param = new SaleLeadStatisticParam();
+    	param.acceptorName = in.acceptorName;
+    	param.fromTime = in.fromTime;
+    	param.toTime = in.toTime;
+    	param.productCatelog = in.productCatelog;
+    	param.storeId = in.storeId;
+    	return param;
+    	
     }
     
     /**
@@ -467,30 +416,23 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/distributeBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token){
+    public Response distributeBatch(@RequestBody DistributeForm form){
+    	LOG.info("{method:'SaleLeadsController::distributeBatch',in:" + JSON.toJSONString(form) + "}");
+    	
     	Response res = new Response();
-    	if (StringUtils.isEmpty(distributorId)) {
+    	if (StringUtils.isEmpty(form.distributorId) || form.saleLeadsId2shopId == null || form.saleLeadsId2shopId.isEmpty()) {
 			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数distributorId错误";
+			return res;
 		}
-    	else {
-    		for(Entry<String, String> entity:saleLeadsId2shopId.entrySet()) {
-    			if (StringUtils.isEmpty(entity.getKey())||StringUtils.isEmpty(entity.getValue())) {
-    				res.resultCode=ErrorCode.INVALID_PARAM;
-    				res.message="参数错误";
-				}
-    			else {
-    				try{
-    		        	res.data = saleLeadsService.distributeBatch(distributorId, saleLeadsId2shopId);
-    		        	res.resultCode=ErrorCode.SUCCESS;
-    		        } catch(Throwable e){
-    		        	LOG.error(e.getMessage(),e);
-    		    	}
-				}
-    		}
-    	}
-        
 
+		try{
+        	res.data = saleLeadsService.distributeBatch(form.distributorId, form.saleLeadsId2shopId);
+        	res.resultCode=ErrorCode.SUCCESS;
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
+		LOG.info("{method:'SaleLeadsController::distributeBatch',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     
     }
@@ -505,16 +447,12 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/rejectBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response rejectBatch(String form,String token){
+    public Response rejectBatch(@RequestBody RejectBatchForm form){
+    	LOG.info("{method:'SaleLeadsController::rejectBatch',in:" + JSON.toJSONString(form) + "}");
+	
     	Response res = new Response();
-    	LOG.info("rejectBatchJSON=========="+JSON.toJSONString(form));
-    	 if(StringUtils.isEmpty(form)){
-         	res.resultCode = ErrorCode.INVALID_PARAM;
-     		return res;
-     	}
-    	 RejectBatchForm rejectBatchForm = JSON.parseObject(form, RejectBatchForm.class);
         try{
-        	res.data = saleLeadsService.rejectBatch(rejectBatchForm.distributorId, rejectBatchForm.saleLeadsIdList, rejectBatchForm.rejectType, rejectBatchForm.rejectRemark);
+        	res.data = saleLeadsService.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark);
         	res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
@@ -532,18 +470,12 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
      */
     @RequestMapping(value="/acceptBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response acceptBatch(String form,String token){
+    public Response acceptBatch(@RequestBody AcceptBatchForm form){
     	Response res = new Response();
     	
-    	LOG.info(JSON.toJSONString(form));
-        if(StringUtils.isEmpty(form)){
-        	res.resultCode = ErrorCode.INVALID_PARAM;
-    		return res;
-    	}
-        
-    	AcceptBatchForm formObj = JSON.parseObject(form, AcceptBatchForm.class);
+    	LOG.info("{method:'SaleLeadsController::acceptBatch',in:" + JSON.toJSONString(form) + "}");
         try{
-        	res.data = saleLeadsService.acceptBatch(formObj.acceptorId, formObj.saleLeadsId);
+        	res.data = saleLeadsService.acceptBatch(form.acceptorId, form.saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
@@ -565,13 +497,13 @@ rejectType + "',rejectRemark:'" + rejectRemark + "'}}");
 	 */
     @RequestMapping(value="/getSaleLeads",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-	public Response getSaleLeads(String saleLeadsId,String token){
+	public Response getSaleLeads(@RequestBody SaleLeadForm form){
     	Response res = new Response();
     	if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'SaleLeadsServiceFacade::getSaleLeads',in:{saleLeadsId:'" + saleLeadsId +"'}}");
+			LOG.info("{method:'SaleLeadsServiceFacade::getSaleLeads',in:" + JSON.toJSONString(form) +"}");
 		}
         try{
-        	res.data = saleLeadsService.getSaleLeads(saleLeadsId);
+        	res.data = saleLeadsService.getSaleLeads(form.saleLeadsId);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);

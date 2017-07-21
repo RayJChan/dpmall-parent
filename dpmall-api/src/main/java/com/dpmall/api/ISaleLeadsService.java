@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
 
 /**
  * 销售线索类服务接口
@@ -168,7 +168,7 @@ public interface ISaleLeadsService {
      * @param pageSize
      * @return
      */
-    public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticForm form,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePageSuccessOrders(SaleLeadStatisticParam form,Integer startNum, Integer pageSize);
     
     
     /**
@@ -176,5 +176,5 @@ public interface ISaleLeadsService {
      * @param form
      * @return
      */
-    public Double getSuccessOrdersTtlAmount(SaleLeadStatisticForm form);
+    public Double getSuccessOrdersTtlAmount(SaleLeadStatisticParam form);
 }

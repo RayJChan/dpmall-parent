@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.param.SaleLeadStatisticForm;
+import com.dpmall.api.param.SaleLeadStatisticParam;
 import com.dpmall.common.DateUtils;
 import com.dpmall.common.SpringTestCase;
 
@@ -169,7 +169,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
      */
     @Test
     public void testGetOnePageSuccessOrders(){
-    	SaleLeadStatisticForm from = new SaleLeadStatisticForm();
+    	SaleLeadStatisticParam from = new SaleLeadStatisticParam();
     	from.storeId= 13L;
     	from.acceptorName="310146";
     	from.productCatelog="1111";
@@ -185,7 +185,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
      */
     @Test
     public void testGetSuccessOrdersTtlAmount(){
-    	SaleLeadStatisticForm from = new SaleLeadStatisticForm();
+    	SaleLeadStatisticParam from = new SaleLeadStatisticParam();
     	from.storeId= 13L;
     	from.acceptorName="310146";
     	from.productCatelog="1111";
