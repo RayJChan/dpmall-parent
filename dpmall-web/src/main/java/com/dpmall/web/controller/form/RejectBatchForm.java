@@ -2,7 +2,7 @@ package com.dpmall.web.controller.form;
 
 import java.util.List;
 
-public class RejectBatchForm{
+public class RejectBatchForm extends RequestForm{
 	
 	public String distributorId;
 	
@@ -11,8 +11,4 @@ public class RejectBatchForm{
 	public String rejectType;
 	
 	public String rejectRemark;
-	
-    public String token;
-    public Integer startNum;
-    public Integer pageSize;
 }

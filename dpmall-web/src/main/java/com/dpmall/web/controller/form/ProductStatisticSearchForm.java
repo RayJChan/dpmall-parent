@@ -6,12 +6,11 @@ package com.dpmall.web.controller.form;
  * @author river
  * @date 2017-07-13
  */
-public class ProductStatisticSearchForm{
+public class ProductStatisticSearchForm extends RequestForm{
 	public String productCode;
 	public String fromTime;
 	public String endTime;
-    public String token;
-    public Integer startNum;
-    public Integer pageSize;
+	public int start;
+	public int pageSize;
 
 }

@@ -1,11 +1,15 @@
 package com.dpmall.web.controller.form;
 
+import java.io.Serializable;
+
 /**
  * 订单项 
  * @author river
  * @since 2017-07-10
  */
-public class SaleLeadsGoodsForm{
+public class SaleLeadsGoodsForm implements Serializable {
+	
+	private static final long serialVersionUID = 4687983236180867282L;
 	
 	/**订单项ID*/
 	public String orderItemId;
@@ -21,8 +25,4 @@ public class SaleLeadsGoodsForm{
 	
 	/**成交价格*/
 	public Double dealPrice;
-	
-    public String token;
-    public Integer startNum;
-    public Integer pageSize;
 }
