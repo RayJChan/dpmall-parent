@@ -178,6 +178,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param saleLeadId
      * @param clientName
      * @param clientTel
+     * @param storeName
      * @param startNum
      * @param pageSize
      * @return
@@ -187,7 +188,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		com.dpmall.common.TimeScope scopeInternal = new com.dpmall.common.TimeScope();
 		scopeInternal.begin = (Timestamp) distributeTime.begin;
 		scopeInternal.end = (Timestamp) distributeTime.end;
-		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, startNum, pageSize);
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, storeName, startNum, pageSize);
 		if(acceptEntity.isEmpty()){
 			return null;
 		}
