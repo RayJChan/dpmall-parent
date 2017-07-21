@@ -5,7 +5,7 @@ package com.dpmall.web.controller.form;
  * @author river
  * @date 2017-07-18
  */
-public class SaleLeadForm extends RequestForm{
+public class SaleLeadForm{
 
 	/**门店ID*/
     public Long storeId;
@@ -42,4 +42,7 @@ public class SaleLeadForm extends RequestForm{
     
     /**店铺名称*/
     public String storeName;
+    public String token;
+    public Integer startNum;
+    public Integer pageSize;
 }

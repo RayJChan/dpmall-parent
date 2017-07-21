@@ -7,7 +7,7 @@ import java.util.List;
  * @author river
  * @since 2017-07-10
  */
-public class SaleLeadOrderForm  extends RequestForm {
+public class SaleLeadOrderForm{
 
 	/**留资订单ID*/
 	public Long id;
@@ -108,5 +108,9 @@ public class SaleLeadOrderForm  extends RequestForm {
 	
 	/**成交商品列表*/
 	public List<SaleLeadsGoodsForm> orderItemList;
+	
+    public String token;
+    public Integer startNum;
+    public Integer pageSize;
 	
 }
