@@ -157,9 +157,8 @@ public class SaleLeadsController {
 	
     	Response res = new Response();
         try{
-          	TimeScope distributeTime = null;
+          	TimeScope distributeTime = new TimeScope();
         	if(form.distributeTimeBegin != null && form.distributeTimeEnd != null){
-        		distributeTime = new TimeScope();
         		distributeTime.begin = DateUtils.parse(form.distributeTimeBegin, DateUtils.YYYY_MM_DD_HH_MM_SS);
         		distributeTime.end = DateUtils.parse(form.distributeTimeEnd, DateUtils.YYYY_MM_DD_HH_MM_SS);
         	}
