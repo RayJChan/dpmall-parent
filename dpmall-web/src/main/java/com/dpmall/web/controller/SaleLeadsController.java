@@ -1,9 +1,5 @@
 package com.dpmall.web.controller;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -279,8 +275,40 @@ public class SaleLeadsController {
     }
     
     private SaleLeadsModel convert(SaleLeadOrderForm form ){
-    	//TODO xiecong
-    	return null;
+    	SaleLeadsModel model = new SaleLeadsModel();
+    	model.agencyRemark=form.agencyRemark;
+    	model.appointmentTime=form.appointmentTime;
+    	model.brand=form.brand;
+    	model.budget=form.budget;
+    	model.callServiceRemark=form.callServiceRemark;
+    	model.callServiceTel=form.callServiceTel;
+    	model.clientAddr=form.clientAddr;
+    	model.clientName=form.clientName;
+    	model.clientRemark=form.clientRemark;
+    	model.clientTel=form.clientTel;
+    	model.closeTime=form.closeTime;
+    	model.distributeTime=form.distributeTime;
+    	model.distributorId=form.distributorId;
+    	model.distributorOperateTime=form.distributorOperateTime;
+    	model.distributorUserName=form.distributorUserName;
+    	model.id=form.id;
+    	model.orderCode=form.orderCode;
+    	model.recommendstoreId=form.recommendstoreId;
+    	model.recommendstoreName=form.recommendstoreName;
+    	model.rejectRemark=form.rejectRemark;
+    	model.rejectType=form.rejectType;
+    	model.saleLeadsStatus=form.saleLeadsStatus;
+    	model.serviceAddress=form.serviceAddress;
+    	model.serviceCatelog=form.serviceCatelog;
+    	model.serviceDate=form.serviceDate;
+    	model.serviceTitle=form.serviceTitle;
+    	model.storeAcceptor=form.storeAcceptor;
+    	model.storeAcceptorName=form.storeAcceptorName;
+    	model.storeAcceptorRemark=form.storeAcceptorRemark;
+    	model.storeAcceptTime=form.storeAcceptTime;
+    	model.style=form.style;
+    	model.total=form.total;
+    	return model;
     }
  
     
