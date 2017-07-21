@@ -98,9 +98,9 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     public void testGetOnePageClosedSaleLeads() throws ParseException{
     	TimeScope scope = new TimeScope();
 
-    	scope.begin = new Timestamp(DateUtils.parse("2017-07-18 00:00:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
-    	scope.end = new Timestamp(DateUtils.parse("2017-07-20 10:30:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
-    	for(SalesLeadsOrderEntity salesLeadsOrderEntity:salesLeadsOrderDao.getOnePageClosedSaleLeads("1", scope, "13", "1", "22", "1", 0, 5)){
+    	scope.begin = new Timestamp(DateUtils.parse("2016-07-18 00:00:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
+    	scope.end = new Timestamp(DateUtils.parse("2017-07-22 10:30:00", DateUtils.YYYY_MM_DD_HH_MM_SS).getTime());
+    	for(SalesLeadsOrderEntity salesLeadsOrderEntity:salesLeadsOrderDao.getOnePageClosedSaleLeads("1", scope, "13", "100357040", "丽", "13564705105", "江", 0, 5)){
     		LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
     	}
     }
