@@ -3,14 +3,14 @@
 <mapper namespace="com.dpmall.db.dao.StoreDao">
 	<resultMap id="StoreResultMap" type="com.dpmall.db.bean.StoreEntity">
 	    <id property="storeId" column="PK" />
-	    <result property="storeName" column="P_NAME" />
+	    <result property="storeName" column="P_DISPLAYNAME" />
 	    <result property="storeAddr" column="P_FORMATADDRESS" />
 	</resultMap>
 	
 	<select id="listDistributorStores" resultMap="StoreResultMap">
 		select 
 		P.PK,
-		P.P_NAME,
+		P.P_DISPLAYNAME,
 		P.P_FORMATADDRESS 
 		from AGENCY a , 
 		POINTOFSERVICE p 
