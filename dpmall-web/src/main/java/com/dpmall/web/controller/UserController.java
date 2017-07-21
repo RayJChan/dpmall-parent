@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,6 +13,7 @@ import com.dpmall.api.IUserService;
 import com.dpmall.api.bean.UserModel;
 import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.Response;
+import com.dpmall.web.controller.form.UserForm;
 import com.dpmall.web.mock.UserServiceMock;
 
 /**
@@ -94,15 +96,15 @@ public class UserController {
 	
 	@RequestMapping(value="/getStoreAllUser",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json")
 	@ResponseBody
-	public Response getStoreAllUser(Long storeId,String token) {
+	public Response getStoreAllUser(@RequestBody UserForm userForm) {
 		Response res = new Response();
-		if (storeId==null) {
+		if (userForm.storeId==null) {
 			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
 		else {
 			try {
-				res.data=userService.getStoreAllUser(storeId);
+				res.data=userService.getStoreAllUser(userForm.storeId);
 				res.resultCode=ErrorCode.SUCCESS;
 			} catch (Exception e) {
 				LOG.error(e.getMessage());
