@@ -228,52 +228,59 @@
 	
 	<select id="getOnePageClosedSaleLeads"  resultMap="SalesLeadsOrderEntity">
 		select 
-			PK,
-			P_NAME,
-			P_TELEPHONE,
-			P_CUSADDRESS,
-			P_COMMENT,
-			P_SERVERADDRESS,
-			P_SERVERPURPOSE,
-			P_SERVICETITLE,
-			P_FITMENTDATE,
-			P_STYLEPREFERENCE,
-			P_BUDGET,
-			P_BRANDPREFERENCE,
-			P_HANDLERCOMMENT,
-			P_SALESLEADSORDERSTATUS,
-			P_DISTRIBUTEDATE,
-			P_DISTRIBUTER,
-			P_AGENCYOPERATEDATE,
-			P_AGENCYACCEPT,
-			P_SUGGESTSTORE,
-			P_ACCEPTDATE,
-			P_APPOINTMENTDATE,
-			P_CLOSEDATE,
-			P_AMOUNT,
-			P_CALLSERVICETEL,
-			P_REFUSEDATE,
-			P_REFUSETYPE,
-			P_REFUSEREASON,
-			P_AGENCYREMARK
-		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='25'
+			SO.PK,
+			SO.P_NAME,
+			SO.P_TELEPHONE,
+			SO.P_CUSADDRESS,
+			SO.P_COMMENT,
+			SO.P_SERVERADDRESS,
+			SO.P_SERVERPURPOSE,
+			SO.P_SERVICETITLE,
+			SO.P_FITMENTDATE,
+			SO.P_STYLEPREFERENCE,
+			SO.P_BUDGET,
+			SO.P_BRANDPREFERENCE,
+			SO.P_HANDLERCOMMENT,
+			SO.P_SALESLEADSORDERSTATUS,
+			SO.P_DISTRIBUTEDATE,
+			SO.P_DISTRIBUTER,
+			SO.P_AGENCYOPERATEDATE,
+			SO.P_AGENCYACCEPT,
+			SO.P_SUGGESTSTORE,
+			SO.P_ACCEPTDATE,
+			SO.P_APPOINTMENTDATE,
+			SO.P_CLOSEDATE,
+			SO.P_AMOUNT,
+			SO.P_CALLSERVICETEL,
+			SO.P_REFUSEDATE,
+			SO.P_REFUSETYPE,
+			SO.P_REFUSEREASON,
+			SO.P_AGENCYREMARK
+		from SALESLEADSORDER SO
+		<if test="storeName != null">
+		    , POINTOFSERVICE PS 
+		</if>
+		where 1= 1 AND SO.P_SALESLEADSORDERSTATUS in ('25','30')
 		<if test="distributorId != null">
-		    and P_DISTRIBUTER=${distributorId} 
+		    and SO.P_DISTRIBUTER=${distributorId} 
 		</if>
 		<if test="distributeTime != null">
-		    and P_DISTRIBUTEDATE between #{distributeTime.begin} and #{distributeTime.end}
+		    and SO.P_DISTRIBUTEDATE between #{distributeTime.begin} and #{distributeTime.end}
 		</if>
 		<if test="storeId != null">
-		    and P_ACCEPTSTORE=${storeId} 
+		    and SO.P_ACCEPTSTORE=#{storeId} 
 		</if>
 		<if test="saleLeadId != null">
-		    and P_SALESLEADS=${saleLeadId} 
+		    and SO.P_SALESLEADS=${saleLeadId} 
 		</if>
 		<if test="clientName != null">
-		    and P_NAME=${clientName} 
+		    and SO.P_NAME like '%${clientName}%'
 		</if>
 		<if test="clientTel != null">
-		    and P_TELEPHONE=${clientTel} 
+		    and SO.P_TELEPHONE=${clientTel} 
+		</if>
+		<if test="storeName != null">
+		    and PS.P_NAME like '%${storeName}%' and SO.P_ACCEPTSTORE = PS.PK
 		</if>
 		<if test="startNum!=null and pageSize!=null">			
 			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1

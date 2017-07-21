@@ -94,7 +94,7 @@ public interface SalesLeadsOrderDao {
       * @param pageSize
       * @return
       */
-     public List<SalesLeadsOrderEntity> getOnePageClosedSaleLeads(@Param("distributorId")String distributorId,@Param("distributeTime")TimeScope  distributeTime,@Param("storeId") String storeId,@Param("saleLeadId")String saleLeadId,@Param("clientName") String clientName,@Param("clientTel")String clientTel,@Param("startNum")Integer startNum,@Param("pageSize") Integer pageSize);
+     public List<SalesLeadsOrderEntity> getOnePageClosedSaleLeads(@Param("distributorId")String distributorId,@Param("distributeTime")TimeScope distributeTime,@Param("storeId") String storeId,@Param("saleLeadId")String saleLeadId,@Param("clientName") String clientName,@Param("clientTel")String clientTel,@Param("storeName")String storeName,@Param("startNum")Integer startNum,@Param("pageSize") Integer pageSize);
      
      /**
       * 获取根据form条件查询一页的成功结单的数据
