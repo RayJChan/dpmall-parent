@@ -1,11 +1,9 @@
 package com.dpmall.db;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -94,10 +92,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
      * **/
     @Test
     public void eidtTest() {
-    	SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
-    	entity.id=1L;
-    	entity.budget=new BigDecimal("20170719");
-    	LOG.info("result:"+salesLeadsOrderDao.edit(entity));
+    	
     }
     @Test
     public void testGetOnePageClosedSaleLeads() throws ParseException{
