@@ -16,7 +16,7 @@
 		POINTOFSERVICE p 
 		where 
 		a.P_UID=p.P_CODEOFAGENCY and 
-		a.P_UID=${distributorId}
+		a.PK=${distributorId}
 	</select>
 	
 </mapper>
