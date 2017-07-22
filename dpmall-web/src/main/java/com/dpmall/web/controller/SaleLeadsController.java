@@ -164,6 +164,7 @@ public class SaleLeadsController {
         	}
         	res.data = saleLeadsService.getOnePageClosedSaleLeads(form.distributorId, distributeTime, String.valueOf(form.storeId), form.saleLeadsId, form.clientName, form.clientTel, form.storeName,form.startNum, form.pageSize);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
