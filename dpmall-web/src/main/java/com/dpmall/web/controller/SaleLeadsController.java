@@ -193,7 +193,7 @@ public class SaleLeadsController {
 
         try{
         	res.resultCode = ErrorCode.SUCCESS;
-        	res.data = saleLeadsService.getOnePage4Accept(String.valueOf(form.storeId), form.startNum == null ? 0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
+        	res.data = saleLeadsService.getOnePage4Accept(form.storeId == null ? null :String.valueOf(form.storeId), form.startNum == null ? 0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -218,7 +218,7 @@ public class SaleLeadsController {
       		return res;
       	}
         try{
-        	res.data = saleLeadsService.get2AcceptCount(String.valueOf(form.storeId));
+        	res.data = saleLeadsService.get2AcceptCount(form.storeId == null ? null :String.valueOf(form.storeId));
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
