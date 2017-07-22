@@ -38,7 +38,7 @@ public class SaleLeadsModel  implements Serializable {
 	/**预计服务时间**/
 	public String serviceDate;
 	
-	/**风格偏好*/
+	/**装修风格-风格偏好*/
 	public String style;
 	
 	/**品牌偏好*/
@@ -80,13 +80,13 @@ public class SaleLeadsModel  implements Serializable {
 	/**店铺接单人名称*/
 	public String storeAcceptorName;
 	
-	/**店铺接单时间*/
+	/**接单时间*/
 	public String storeAcceptTime;
 	
 	/**店铺接单人备注*/
 	public String storeAcceptorRemark;
 	
-	/**预约到店时间*/
+	/**预约时间*/
 	public String appointmentTime;
 	
 	/**结单时间*/
