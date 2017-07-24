@@ -265,7 +265,7 @@
 		<if test="distributorId != null">
 		    and SO.P_DISTRIBUTER=${distributorId} 
 		</if>
-		<if test="distributeTime != null">
+		<if test="distributeTime != null and distributeTime.begin!=null and distributeTime.end !=null" >
 		    and SO.P_DISTRIBUTEDATE between #{distributeTime.begin} and #{distributeTime.end}
 		</if>
 		<if test="storeId != null">

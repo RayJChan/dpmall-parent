@@ -162,8 +162,9 @@ public class SaleLeadsController {
         		distributeTime.begin = DateUtils.parse(form.distributeTimeBegin, DateUtils.YYYY_MM_DD_HH_MM_SS);
         		distributeTime.end = DateUtils.parse(form.distributeTimeEnd, DateUtils.YYYY_MM_DD_HH_MM_SS);
         	}
-        	res.data = saleLeadsService.getOnePageClosedSaleLeads(form.distributorId, distributeTime, String.valueOf(form.storeId), form.saleLeadsId, form.clientName, form.clientTel, form.storeName,form.startNum, form.pageSize);
+        	res.data = saleLeadsService.getOnePageClosedSaleLeads(form.distributorId, distributeTime, form.storeId == null ? null :String.valueOf(form.storeId), form.saleLeadsId, form.clientName, form.clientTel, form.storeName,form.startNum, form.pageSize);
         } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
     	}
 
@@ -192,7 +193,7 @@ public class SaleLeadsController {
 
         try{
         	res.resultCode = ErrorCode.SUCCESS;
-        	res.data = saleLeadsService.getOnePage4Accept(String.valueOf(form.storeId), form.startNum == null ? 0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
+        	res.data = saleLeadsService.getOnePage4Accept(form.storeId == null ? null :String.valueOf(form.storeId), form.startNum == null ? 0:form.startNum, form.pageSize == null ? Constants.DEFAULT_PAGESIZE : form.pageSize);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -217,7 +218,7 @@ public class SaleLeadsController {
       		return res;
       	}
         try{
-        	res.data = saleLeadsService.get2AcceptCount(String.valueOf(form.storeId));
+        	res.data = saleLeadsService.get2AcceptCount(form.storeId == null ? null :String.valueOf(form.storeId));
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
