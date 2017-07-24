@@ -33,6 +33,7 @@
 		<result property="agencyRemark" column="P_AGENCYREMARK"/>
 		<result property="storeAcceptorName" column="P_ACCEPTORNAME"/>
 		<result property="storeAcceptorRemark" column="P_STOREACCEPTORREMARK"/>
+		<result property="orderCode" column="P_ORDERCODE"/>
 	</resultMap>
 	<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
@@ -317,7 +318,8 @@
 			S.P_REFUSEDATE,
 			S.P_REFUSETYPE,
 			S.P_REFUSEREASON,
-			S.P_AGENCYREMARK,	
+			S.P_AGENCYREMARK,
+			P_ORDERCODE,	
 			rownum rn			
 		FROM
 			SALESLEADSORDER S

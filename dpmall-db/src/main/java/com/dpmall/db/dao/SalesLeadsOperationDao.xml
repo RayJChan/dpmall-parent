@@ -19,7 +19,7 @@
 			P_OPERATORTYPE
 		) values (
 			#{template.operatorBy},
-			#{template.operatorDate},
+			sysdate,
 			#{template.operatorDesc},
 			#{template.salesLeadsOrder},
 			#{template.operatorType}
