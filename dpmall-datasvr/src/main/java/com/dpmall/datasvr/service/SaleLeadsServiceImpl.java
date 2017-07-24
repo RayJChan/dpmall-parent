@@ -18,7 +18,9 @@ import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticParam;
 import com.dpmall.common.DateUtils;
+import com.dpmall.db.bean.SalesLeadsOperationEntity;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
+import com.dpmall.db.dao.SalesLeadsOperationDao;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
 
 public class SaleLeadsServiceImpl implements ISaleLeadsService {
@@ -27,8 +29,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	
 	@Autowired
 	private SalesLeadsOrderDao salesLeadsOrderDao;
-
-
+	
+	@Autowired
+	private SalesLeadsOperationDao salesLeadsOperationDao;
 	/**
 	 * 把entity转换成model
 	 * @param entity 需要转换的entity
@@ -58,6 +61,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.storeAcceptTime=entity.storeAcceptTime==null?null:DateUtils.format(entity.storeAcceptTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
+		model.orderCode=entity.orderCode;
 
 		return model;
 		
@@ -92,6 +96,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.storeAcceptTime=model.storeAcceptTime == null ? null : DateUtils.parse(model.storeAcceptTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.style=model.style;
 		entity.total=model.total==null?null:new BigDecimal(model.total);
+		entity.orderCode=model.orderCode;
 		return entity;
 	}
 
@@ -245,6 +250,11 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		} catch (ParseException e) {
 			LOG.error(e.getMessage(),e);
 		}
+		SalesLeadsOperationEntity operationEntity = new SalesLeadsOperationEntity();
+		operationEntity.operatorDesc="编辑SaleLeads订单";
+		operationEntity.operatorType="edit";
+		operationEntity.salesLeadsOrder=String.valueOf(model.id);
+		salesLeadsOperationDao.insert(operationEntity);
 		int result=salesLeadsOrderDao.edit(entity);	
 		// TODO Auto-generated method stub
 		return result;
@@ -352,6 +362,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		int result=0;
 		for(Entry<String, String> entity : saleLeadsId2shopId.entrySet()) {
 			salesLeadsOrderDao.distribute(entity.getKey(), entity.getValue());
+			SalesLeadsOperationEntity operationEntity=new SalesLeadsOperationEntity();
+			operationEntity.operatorDesc="经销商分配店铺";
+			operationEntity.salesLeadsOrder=entity.getKey();
+			operationEntity.operatorType="distributeBatch";
+			//todo
+			salesLeadsOperationDao.insert(operationEntity);
 			result++;
 		}
 		// TODO Auto-generated method stub
