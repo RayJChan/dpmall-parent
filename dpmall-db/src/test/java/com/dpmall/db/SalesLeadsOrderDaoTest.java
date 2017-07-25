@@ -92,6 +92,8 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
      * **/
     @Test
     public void eidtTest() {
+    	SalesLeadsOrderEntity entity =new SalesLeadsOrderEntity();
+    	
     	
     }
     @Test

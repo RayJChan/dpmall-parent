@@ -76,8 +76,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     public void testEdit() {
     	SaleLeadsModel model=new SaleLeadsModel();
     	model.id=1L;
-    	model.budget=22.22;
-    	model.saleLeadsStatus="23";
+    	model.total=22.22;
     	LOG.info("result:"+saleLeadsService.edit(model));
     	
     }

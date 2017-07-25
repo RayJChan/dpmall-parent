@@ -62,7 +62,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
 		model.orderCode=entity.orderCode;
-
+		model.storeAcceptorRemark=entity.storeAcceptorRemark;
 		return model;
 		
 	}
@@ -97,6 +97,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.style=model.style;
 		entity.total=model.total==null?null:new BigDecimal(model.total);
 		entity.orderCode=model.orderCode;
+		entity.storeAcceptorRemark=model.storeAcceptorRemark;
 		return entity;
 	}
 
@@ -254,6 +255,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		operationEntity.operatorDesc="编辑SaleLeads订单";
 		operationEntity.operatorType="edit";
 		operationEntity.salesLeadsOrder=String.valueOf(model.id);
+		operationEntity.operatorBy="1111";
 		salesLeadsOperationDao.insert(operationEntity);
 		int result=salesLeadsOrderDao.edit(entity);	
 		// TODO Auto-generated method stub
@@ -366,6 +368,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			operationEntity.operatorDesc="经销商分配店铺";
 			operationEntity.salesLeadsOrder=entity.getKey();
 			operationEntity.operatorType="distributeBatch";
+			operationEntity.operatorBy="1111";
 			//todo
 			salesLeadsOperationDao.insert(operationEntity);
 			result++;
