@@ -525,7 +525,10 @@
 				P_REFUSEDATE=#{entity.refuseTime},
 			</if>
 			<if test="entity.agencyRemark!=null">
-				P_AGENCYREMARK=#{entity.agencyRemark}
+				P_AGENCYREMARK=#{entity.agencyRemark},
+			</if>
+			<if test="entity.storeAcceptorRemark!=null">
+				P_STOREACCEPTORREMARK=#{entity.storeAcceptorRemark},
 			</if>
 		</set>
 		 	where PK=${entity.id}
