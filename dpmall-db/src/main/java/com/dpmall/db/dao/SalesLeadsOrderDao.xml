@@ -220,7 +220,7 @@
 			P_AGENCYREMARK
 		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='10'
 		<if test="storeId != null">
-		    and P_ACCEPTSTORE=${storeId} 
+		    and P_SUGGESTSTORE=${storeId} 
 		</if>
 		<if test="startNum!=null and pageSize!=null">			
 			and ${startNum} &lt; rownum and rownum &lt; ${pageSize}+${startNum}+1
