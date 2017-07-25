@@ -96,9 +96,10 @@ public interface ISaleLeadsService {
      * @param clientTel
      * @param startNum
      * @param pageSize
+     * @param acceptorId 导购员ID
      * @return
      */
-    public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize);
+    public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,String acceptorId,Integer startNum, Integer pageSize);
     
     
 	/**

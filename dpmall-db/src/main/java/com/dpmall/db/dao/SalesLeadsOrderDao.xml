@@ -280,6 +280,9 @@
 		<if test="clientTel != null">
 		    and SO.P_TELEPHONE=${clientTel} 
 		</if>
+		<if test="acceptorId != null">
+		    and SO.p_acceptby=${acceptorId} 
+		</if>
 		<if test="storeName != null">
 		    and PS.P_NAME like '%${storeName}%' and SO.P_ACCEPTSTORE = PS.PK
 		</if>

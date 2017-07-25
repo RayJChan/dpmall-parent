@@ -185,16 +185,17 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param clientName
      * @param clientTel
      * @param storeName
+     * @param acceptorId
      * @param startNum
      * @param pageSize
      * @return
      */
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,String acceptorId,Integer startNum, Integer pageSize) {
 		List<SaleLeadsModel> accept = null;
 		com.dpmall.common.TimeScope scopeInternal = new com.dpmall.common.TimeScope();
 		scopeInternal.begin = (Timestamp) distributeTime.begin;
 		scopeInternal.end = (Timestamp) distributeTime.end;
-		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, storeName, startNum, pageSize);
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, storeName, acceptorId,startNum, pageSize);
 		if(acceptEntity.isEmpty()){
 			return null;
 		}
