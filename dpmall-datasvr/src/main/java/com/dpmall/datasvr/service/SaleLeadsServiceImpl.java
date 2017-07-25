@@ -53,6 +53,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.distributorUserName=entity.distributorUserName;
 		model.id=entity.id;
 		model.recommendstoreId=entity.recommendstoreId;
+		model.recommendstoreName=entity.recommendstoreName;
 		model.saleLeadsStatus=entity.saleLeadsStatus;
 		model.serviceDate=entity.serviceDate==null?null:DateUtils.format(entity.serviceDate, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.serviceAddress=entity.serviceAddress;
@@ -87,6 +88,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.distributorOperateTime=model.distributorOperateTime == null ? null : DateUtils.parse(model.distributorOperateTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.distributorUserName=model.distributorUserName;
 		entity.id=model.id;
+		entity.recommendstoreName=model.recommendstoreName;
 		entity.recommendstoreId=model.recommendstoreId;
 		entity.saleLeadsStatus=model.saleLeadsStatus;
 		entity.serviceDate=model.serviceDate == null ? null : DateUtils.parse(model.serviceDate, DateUtils.YYYY_MM_DD_HH_MM_SS);
