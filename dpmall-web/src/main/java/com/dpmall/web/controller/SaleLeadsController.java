@@ -162,7 +162,7 @@ public class SaleLeadsController {
         		distributeTime.begin = DateUtils.parse(form.distributeTimeBegin, DateUtils.YYYY_MM_DD_HH_MM_SS);
         		distributeTime.end = DateUtils.parse(form.distributeTimeEnd, DateUtils.YYYY_MM_DD_HH_MM_SS);
         	}
-        	res.data = saleLeadsService.getOnePageClosedSaleLeads(form.distributorId, distributeTime, form.storeId == null ? null :String.valueOf(form.storeId), form.saleLeadsId, form.clientName, form.clientTel, form.storeName,form.startNum, form.pageSize);
+        	res.data = saleLeadsService.getOnePageClosedSaleLeads(form.distributorId, distributeTime, form.storeId == null ? null :String.valueOf(form.storeId), form.saleLeadsId, form.clientName, form.clientTel, form.storeName,form.acceptorId,form.startNum, form.pageSize);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);

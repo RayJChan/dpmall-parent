@@ -106,6 +106,9 @@ public class SaleLeadsModel  implements Serializable {
 	
 	/**订单编码*/
 	public String orderCode;
+	
+	/**接单店铺*/
+	public String acceptStore;
 
 	
 	/**成交商品列表*/

@@ -34,6 +34,7 @@
 		<result property="storeAcceptorName" column="P_ACCEPTORNAME"/>
 		<result property="storeAcceptorRemark" column="P_STOREACCEPTORREMARK"/>
 		<result property="orderCode" column="P_ORDERCODE"/>
+		<result property="acceptStore" column="P_ACCEPTSTORE"/>
 	</resultMap>
 	<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
@@ -142,49 +143,52 @@
 	
 	<select id="getSaleLeads"  resultMap="SalesLeadsOrderEntity">
 		select 
-			PK,
-			P_SALESLEADS,
-			P_AGENCY,
-			P_SALESLEADSORDERSTATUS,
-			P_RESOLVED,
-			P_DISTRIBUTEDATE,
-			P_DISTRIBUTER,
-			P_AGENCYACCEPTDATE,
-			P_AGENCYACCEPT,
-			P_REFUSEDATE,
-			P_SUGGESTSTORE,
-			P_CUSADDRESS,
-			P_ACCEPTSTORE,
-			P_ACCEPTBY,
-			P_ACCEPTDATE,
-			P_APPOINTMENTDATE,
-			P_ACTUALDATE,
-			P_AMOUNT,
-			P_ORDERPICTURE,
-			P_TELEPHONE,
-			P_NAME,
-			P_FITMENTDATE,
-			P_STYLEPREFERENCE,
-			P_COMMENT,
-			P_BRANDPREFERENCE,
-			P_BUDGET,
-			P_HANDLER,
-			P_HANDLERCOMMENT,
-			P_CLOSEDATE,
-			P_CLOSEREASON,
-			P_REFUSEDATE,
-			P_REFUSETYPE,
-			P_REFUSEREASON,
-			P_SERVERADDRESS,
-			P_SERVERPURPOSE,
-			P_SERVICETITLE,
-			P_CALLSERVICETEL,
-			P_AGENCYOPERATEDATE,
-			P_STOREACCEPTORREMARK,
+			SO.PK,
+			SO.P_SALESLEADS,
+			SO.P_AGENCY,
+			SO.P_SALESLEADSORDERSTATUS,
+			SO.P_RESOLVED,
+			SO.P_DISTRIBUTEDATE,
+			SO.P_DISTRIBUTER,
+			SO.P_AGENCYACCEPTDATE,
+			SO.P_AGENCYACCEPT,
+			SO.P_REFUSEDATE,
+			SO.P_SUGGESTSTORE,
+			SO.P_CUSADDRESS,
+			SO.P_ACCEPTSTORE,
+			SO.P_ACCEPTBY,
+			SO.P_ACCEPTDATE,
+			SO.P_APPOINTMENTDATE,
+			SO.P_ACTUALDATE,
+			SO.P_AMOUNT,
+			SO.P_ORDERPICTURE,
+			SO.P_TELEPHONE,
+			SO.P_NAME,
+			SO.P_FITMENTDATE,
+			SO.P_STYLEPREFERENCE,
+			SO.P_COMMENT,
+			SO.P_BRANDPREFERENCE,
+			SO.P_BUDGET,
+			SO.P_HANDLER,
+			SO.P_HANDLERCOMMENT,
+			SO.P_CLOSEDATE,
+			SO.P_CLOSEREASON,
+			SO.P_REFUSEDATE,
+			SO.P_REFUSETYPE,
+			SO.P_REFUSEREASON,
+			SO.P_SERVERADDRESS,
+			SO.P_SERVERPURPOSE,
+			SO.P_SERVICETITLE,
+			SO.P_CALLSERVICETEL,
+			SO.P_AGENCYOPERATEDATE,
+			SO.P_STOREACCEPTORREMARK,
+			SO.P_AGENCYREMARK,
+			PS.P_DISPLAYNAME AS P_RECOMMENDSTORENAME,
 			ROWNUM RN
-		from SALESLEADSORDER where 1= 1
+		from SALESLEADSORDER SO
+		left join POINTOFSERVICE PS on PS.PK=SO.P_SUGGESTSTORE where 1= 1 
 		<if test="saleLeadsId != null">
-		    AND PK = ${saleLeadsId} 
+		    AND SO.PK = ${saleLeadsId} 
 		</if>
 	</select>
 	
@@ -279,6 +283,9 @@
 		</if>
 		<if test="clientTel != null">
 		    and SO.P_TELEPHONE=${clientTel} 
+		</if>
+		<if test="acceptorId != null">
+		    and SO.p_acceptby=${acceptorId} 
 		</if>
 		<if test="storeName != null">
 		    and PS.P_NAME like '%${storeName}%' and SO.P_ACCEPTSTORE = PS.PK
@@ -517,7 +524,10 @@
 			</if>
 			<if test="entity.storeAcceptorRemark!=null">
 				P_STOREACCEPTORREMARK=#{entity.storeAcceptorRemark},
-			</if> 
+			</if>
+			<if test="entity.acceptStore!=null">
+				P_ACCEPTSTORE=#{entity.acceptStore},
+			</if>  
 		</set>
 			<if test="entity.id!=null">
 				where PK=${entity.id}

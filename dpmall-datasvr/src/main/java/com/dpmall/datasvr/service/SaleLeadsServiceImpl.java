@@ -53,6 +53,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.distributorUserName=entity.distributorUserName;
 		model.id=entity.id;
 		model.recommendstoreId=entity.recommendstoreId;
+		model.recommendstoreName=entity.recommendstoreName;
 		model.saleLeadsStatus=entity.saleLeadsStatus;
 		model.serviceDate=entity.serviceDate==null?null:DateUtils.format(entity.serviceDate, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		model.serviceAddress=entity.serviceAddress;
@@ -62,7 +63,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
 		model.orderCode=entity.orderCode;
+		model.acceptStore=entity.acceptStore;
 		model.storeAcceptorRemark=entity.storeAcceptorRemark;
+		model.agencyRemark=entity.agencyRemark;
 		return model;
 		
 	}
@@ -87,6 +90,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.distributorOperateTime=model.distributorOperateTime == null ? null : DateUtils.parse(model.distributorOperateTime, DateUtils.YYYY_MM_DD_HH_MM_SS);
 		entity.distributorUserName=model.distributorUserName;
 		entity.id=model.id;
+		entity.recommendstoreName=model.recommendstoreName;
 		entity.recommendstoreId=model.recommendstoreId;
 		entity.saleLeadsStatus=model.saleLeadsStatus;
 		entity.serviceDate=model.serviceDate == null ? null : DateUtils.parse(model.serviceDate, DateUtils.YYYY_MM_DD_HH_MM_SS);
@@ -97,7 +101,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.style=model.style;
 		entity.total=model.total==null?null:new BigDecimal(model.total);
 		entity.orderCode=model.orderCode;
+		entity.acceptStore=model.acceptStore;
 		entity.storeAcceptorRemark=model.storeAcceptorRemark;
+		entity.agencyRemark=model.agencyRemark;
 		return entity;
 	}
 
@@ -185,16 +191,17 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param clientName
      * @param clientTel
      * @param storeName
+     * @param acceptorId
      * @param startNum
      * @param pageSize
      * @return
      */
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,String acceptorId,Integer startNum, Integer pageSize) {
 		List<SaleLeadsModel> accept = null;
 		com.dpmall.common.TimeScope scopeInternal = new com.dpmall.common.TimeScope();
 		scopeInternal.begin = (Timestamp) distributeTime.begin;
 		scopeInternal.end = (Timestamp) distributeTime.end;
-		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, storeName, startNum, pageSize);
+		List<SalesLeadsOrderEntity> acceptEntity = salesLeadsOrderDao.getOnePageClosedSaleLeads(distributorId, scopeInternal, storeId, saleLeadId, clientName, clientTel, storeName, acceptorId,startNum, pageSize);
 		if(acceptEntity.isEmpty()){
 			return null;
 		}
@@ -421,6 +428,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			outEntityList.saleLeadsStatus = "15";
 			outEntityList.storeAcceptTime = new Date();
 			outEntityList.storeAcceptor = acceptorId;
+			outEntityList.acceptStore = "15";
 			int result=salesLeadsOrderDao.edit(outEntityList);
 			if(result==0){
 				a = false;

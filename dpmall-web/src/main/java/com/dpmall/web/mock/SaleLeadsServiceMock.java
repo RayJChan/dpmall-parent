@@ -109,7 +109,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,Integer startNum, Integer pageSize) {
+	public List<SaleLeadsModel> getOnePageClosedSaleLeads(String distributorId,TimeScope distributeTime, String storeId,String saleLeadId, String clientName,String clientTel,String storeName,String acceptorId,Integer startNum, Integer pageSize) {
 		List<SaleLeadsModel> mockResults = new ArrayList<SaleLeadsModel>();
 		if(pageSize == null){
 			pageSize = 20;
