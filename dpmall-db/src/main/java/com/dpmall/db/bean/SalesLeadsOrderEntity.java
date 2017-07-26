@@ -104,4 +104,6 @@ public class SalesLeadsOrderEntity  {
 	/**订单编码*/
 	public String orderCode;
 	
+	/**接单店铺*/
+	public String acceptStore;
 }

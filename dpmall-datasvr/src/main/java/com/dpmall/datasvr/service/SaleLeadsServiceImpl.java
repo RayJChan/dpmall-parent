@@ -63,6 +63,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
 		model.orderCode=entity.orderCode;
+		model.acceptStore=entity.acceptStore;
 		model.storeAcceptorRemark=entity.storeAcceptorRemark;
 		return model;
 		
@@ -99,6 +100,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.style=model.style;
 		entity.total=model.total==null?null:new BigDecimal(model.total);
 		entity.orderCode=model.orderCode;
+		entity.acceptStore=model.acceptStore;
 		entity.storeAcceptorRemark=model.storeAcceptorRemark;
 		return entity;
 	}
@@ -424,6 +426,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			outEntityList.saleLeadsStatus = "15";
 			outEntityList.storeAcceptTime = new Date();
 			outEntityList.storeAcceptor = acceptorId;
+			outEntityList.acceptStore = "15";
 			int result=salesLeadsOrderDao.edit(outEntityList);
 			if(result==0){
 				a = false;
