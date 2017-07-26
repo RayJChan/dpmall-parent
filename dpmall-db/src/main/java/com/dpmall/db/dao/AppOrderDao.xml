@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dpmall.db.dao.AppOrderDao">
+	<resultMap id="StoreResultMap" type="com.dpmall.db.bean.AppOrderEntity">
+	    <id property="id" column="PK" />
+	    <result property="recommendStore" column="P_RECOMMENDSTORE" />
+	    <result property="consignment" column="P_CONSIGNMENT" />
+	    <result property="cusComment" column="P_CUSCOMMET"/>
+	    <result property="serverComment" column="P_SERVERCOMMENT"/>
+	    <result property="cusRefuseComment" column="P_CUSREFUSECOMMET"/>
+	    <result property="agencyComment" column="P_AGENCYCOMMENT"/>
+	    <result property="refuseType" column="P_REFUSETYPE"/>
+	    <result property="refuseComment" column="P_REFUSECOMMENT"/>
+	    <result property="acceptedRefuseComment" column="P_ACCEPTEDREFUSECOMMENT"/>
+	    <result property="deliverPic" column="P_DELIVERYPIC"/>
+	    <result property="status" column="P_STATUS"/>
+	    <result property="acceptedBy" column="P_ACCEPTEDBY"/>
+	    <result property="acceptedComment" column="P_ACCEPTEDCOMMENT"/>
+	    <result property="acceptedTime" column="P_ACCEPTEDTIME"/>
+	    <result property="isDeliverySelf" column="P_ISDELIVERYSELF"/>
+	    <result property="deliveryTime" column="P_DELIVERYTIME"/>
+	    <result property="finishTime" column="P_FINISHTIME"/>
+	    <result property="deliveryPoint" column="deliveryPoint"/>
+	    <result property="deliveryMode" column="deliveryMode"/>
+	</resultMap>
+	
+</mapper>
