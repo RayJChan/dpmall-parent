@@ -3,12 +3,13 @@ package com.dpmall.web.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dpmall.api.bean.OrderModel;
-import com.dpmall.api.common.TimeScope;
+import com.dpmall.web.controller.form.AppOrderForm;
 
 /**
  * 实物订单服务接口
@@ -28,7 +29,7 @@ public class OrderController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Distribute(String distributorId,String startItemId, Integer pageSize){
+    public List<OrderModel> getOnePage4Distribute(@RequestBody AppOrderForm form){
     	return null;
     }
     
@@ -39,7 +40,7 @@ public class OrderController {
      */
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Integer get2DistributeCount(String distributorId){
+    public Integer get2DistributeCount(@RequestBody AppOrderForm form){
     	return 0;
     }
     
@@ -54,7 +55,7 @@ public class OrderController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int distribute(String distributorId,String orderCode, String storeId){
+    public int distribute(@RequestBody AppOrderForm form){
     	return 0;
     }
     
@@ -69,7 +70,7 @@ public class OrderController {
      */
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark){
+    public int reject(@RequestBody AppOrderForm form){
     	return 0;
     }
     
@@ -83,7 +84,7 @@ public class OrderController {
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Followup(String distributorId,String startItemId, Integer pageSize){
+    public List<OrderModel> getOnePage4Followup(@RequestBody AppOrderForm form){
     	return null;
     }
     
@@ -101,7 +102,7 @@ public class OrderController {
      */
     @RequestMapping(value="/getOnePageClosedOrder",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePageClosedOrder(String distributorId,TimeScope distributeTime, String storeId,String orderCode, String clientName,String clientTel,Integer startNum, Integer pageSize){
+    public List<OrderModel> getOnePageClosedOrder(@RequestBody AppOrderForm form){
     	return null;
     }
     
@@ -115,7 +116,7 @@ public class OrderController {
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Accept(String storeId,String startItemId, Integer pageSize){
+    public List<OrderModel> getOnePage4Accept(@RequestBody AppOrderForm form){
     	return null;
     }
     
@@ -126,7 +127,7 @@ public class OrderController {
      */
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Integer get2AcceptCount(String storeId){
+    public Integer get2AcceptCount(@RequestBody AppOrderForm form){
     	return 0;
     }
     
@@ -140,7 +141,7 @@ public class OrderController {
      */
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int accept(String acceptorId, String orderCode){
+    public int accept(@RequestBody AppOrderForm form){
     	return 0;
     }
     
@@ -151,7 +152,7 @@ public class OrderController {
      */
     @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int deliver(String orderCode){
+    public int deliver(@RequestBody AppOrderForm form){
     	return 0;
     }
  
@@ -165,7 +166,7 @@ public class OrderController {
      */
     @RequestMapping(value="/getOnePage4Acceptor2Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId,String startItemId, Integer pageSize){
+    public List<OrderModel> getOnePage4Acceptor2Followup(@RequestBody AppOrderForm form){
     	return null;
     }
     
@@ -178,7 +179,7 @@ public class OrderController {
      */
     @RequestMapping(value="/getOnePage4AcceptorClosed",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId,String startItemId, Integer pageSize){
+    public List<OrderModel> getOnePage4AcceptorClosed(@RequestBody AppOrderForm form){
     	return null;
     }
 

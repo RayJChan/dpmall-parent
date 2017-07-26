@@ -124,5 +124,5 @@ public interface IOrderService {
      * @param pageSize 页大小
      * @return 导购员已结单的一页实物订单信息
      */
-    public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId,Integer offset, Integer pageSize);
+    public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId,Integer startItemId, Integer pageSize);
 }
