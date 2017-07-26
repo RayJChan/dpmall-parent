@@ -65,6 +65,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.orderCode=entity.orderCode;
 		model.acceptStore=entity.acceptStore;
 		model.storeAcceptorRemark=entity.storeAcceptorRemark;
+		model.agencyRemark=entity.agencyRemark;
 		return model;
 		
 	}
@@ -102,6 +103,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.orderCode=model.orderCode;
 		entity.acceptStore=model.acceptStore;
 		entity.storeAcceptorRemark=model.storeAcceptorRemark;
+		entity.agencyRemark=model.agencyRemark;
 		return entity;
 	}
 
