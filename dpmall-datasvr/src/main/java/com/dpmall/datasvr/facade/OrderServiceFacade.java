@@ -100,8 +100,17 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public List<OrderModel> getOnePage4Accept(String storeId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Accept',in:{storeId:'" + storeId + "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> orderModel = orderService.getOnePage4Accept(storeId, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Accept',out:"+JSON.toJSONString(orderModel)+"}");
+		}
+		return orderModel;
 	}
 
 	public Integer get2AcceptCount(String storeId) {

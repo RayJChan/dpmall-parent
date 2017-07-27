@@ -106,4 +106,10 @@ public class OrderEntity {
 	
 	/**商品汇总价格**/
 	public BigDecimal productTotal;
+	
+	/**收货人名字**/
+	public String firstName;
+	
+	/**收货人电话号码**/
+	public String phone1;
 }

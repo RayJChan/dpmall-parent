@@ -54,4 +54,18 @@ public class AppOrderDaoTest extends SpringTestCase{
     	List<OrderEntity> result = appOrderDao.getOnePage4Followup("310145", 0,20);
     	logger.info(JSON.toJSONString(result));
     }
+	
+	/**
+	 * 店铺获取待接单的实物订单
+	 * @param storeId 店铺ID
+	 * @param offset 上一次加载的位移
+	 * @param pageSize 页的大小
+	 * @return 店铺获取待接单的实物订单列表
+	 */
+	@Test
+    public void testGetOnePage4Accept(){
+		logger.info("=====================getOnePage4Accept=======================");
+    	List<OrderEntity> result = appOrderDao.getOnePage4Accept("10086", 0,20);
+    	logger.info(JSON.toJSONString(result));
+    }
 }

@@ -51,4 +51,17 @@ public class OrderServiceFacadeTest extends SpringTestCase{
     	LOG.info("=====================daihx====================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
+	/**
+	 * 店铺获取待接单的实物订单
+	 * @param storeId 店铺ID
+	 * @param offset 上一次加载的位移
+	 * @param pageSize 页的大小
+	 * @return 店铺获取待接单的实物订单列表
+	 */
+	@Test
+    public void testGetOnePage4Accept(){
+    	List<OrderModel> result = orderService.getOnePage4Accept("10086", 0, 20);
+    	LOG.info("=====================getOnePage4Accept====================");
+        LOG.info("result:" + JSON.toJSONString(result));
+    }
 }

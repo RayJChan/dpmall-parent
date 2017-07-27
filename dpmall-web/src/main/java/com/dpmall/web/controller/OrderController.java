@@ -178,8 +178,19 @@ public class OrderController {
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Accept(@RequestBody AppOrderForm form){
-    	return null;
+    public Response getOnePage4Accept(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::getOnePage4Accept',in:" + JSON.toJSONString(form) + "}");
+
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOnePage4Accept(form.storeId, form.offset, form.pageSize);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+    	LOG.info("{method:'OrderController::getOnePage4Accept',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
