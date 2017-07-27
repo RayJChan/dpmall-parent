@@ -79,4 +79,7 @@ public class OrderEntity {
 	
 	/**订单金额*/
 	public BigDecimal orderTotal;
+	
+	/**送货地址**/
+	public String address;
 }

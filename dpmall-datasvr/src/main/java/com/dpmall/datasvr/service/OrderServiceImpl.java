@@ -2,10 +2,13 @@ package com.dpmall.datasvr.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.db.bean.OrderEntity;
+import com.dpmall.db.dao.AppOrderDao;
 
 /**
  * 实物订单服务实现
@@ -13,6 +16,9 @@ import com.dpmall.db.bean.OrderEntity;
  * @date 2017-07-14
  */
 public class OrderServiceImpl implements IOrderService {
+	
+	@Autowired
+	private AppOrderDao orderDao;
 	
 	private OrderEntity modelToEntity(OrderModel model) {
 		OrderEntity entity=new OrderEntity();
@@ -28,10 +34,14 @@ public class OrderServiceImpl implements IOrderService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public Integer get2DistributeCount(String distributorId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	/**
+     * 获取经销商待分配的实物订单数
+     * @param distributorId 经销商ID
+     * @return 经销商待分配的实物订单数
+     */
+	public Integer get2DistributeCount(String distributorId) {	
+		return orderDao.get2DistributeCount(distributorId);
 	}
 
 	public int distribute(String distributorId, String orderCode, String storeId) {

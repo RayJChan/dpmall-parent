@@ -1,4 +1,4 @@
-package com.dpmall.db;
+package com.dpmall.db.dao;
 
 import java.util.List;
 

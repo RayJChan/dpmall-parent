@@ -2,14 +2,19 @@ package com.dpmall.web.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.AppOrderForm;
+import com.dpmall.web.controller.form.Response;
 
 /**
  * 实物订单服务接口
@@ -19,6 +24,9 @@ import com.dpmall.web.controller.form.AppOrderForm;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
+	
+	@Autowired
+	private IOrderService orderService;
 
 	/**
 	 * 经销商获取待分配的实物订单
@@ -40,8 +48,17 @@ public class OrderController {
      */
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Integer get2DistributeCount(@RequestBody AppOrderForm form){
-    	return 0;
+    public Response get2DistributeCount(@RequestBody AppOrderForm form){
+    	Response response=new Response();
+    	if (StringUtils.isEmpty(form.distributorId)) {
+			response.resultCode=ErrorCode.INVALID_PARAM;
+			response.message="参数错误";
+		}
+    	else {
+			response.data=orderService.get2DistributeCount(form.distributorId);
+			response.resultCode=ErrorCode.SUCCESS;
+		}
+    	return response;
     }
     
     
