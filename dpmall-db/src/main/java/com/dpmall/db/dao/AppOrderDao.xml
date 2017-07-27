@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dpmall.db.dao.AppOrderDao">
-	<resultMap id="StoreResultMap" type="com.dpmall.db.bean.AppOrderEntity">
+	<resultMap id="StoreResultMap" type="com.dpmall.db.bean.OrderEntity">
 	    <id property="id" column="PK" />
 	    <result property="recommendStore" column="P_RECOMMENDSTORE" />
 	    <result property="consignment" column="P_CONSIGNMENT" />

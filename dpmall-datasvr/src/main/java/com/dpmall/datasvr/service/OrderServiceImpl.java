@@ -5,6 +5,7 @@ import java.util.List;
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.db.bean.OrderEntity;
 
 /**
  * 实物订单服务实现
@@ -12,7 +13,17 @@ import com.dpmall.api.common.TimeScope;
  * @date 2017-07-14
  */
 public class OrderServiceImpl implements IOrderService {
-
+	
+	private OrderEntity modelToEntity(OrderModel model) {
+		OrderEntity entity=new OrderEntity();
+		entity.clientName=model.clientName;
+		entity.clientTel=model.clientTel;
+		return entity;
+	}
+	
+	private OrderModel entityToModel(OrderEntity entity) {
+		return null;
+	}
 	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;

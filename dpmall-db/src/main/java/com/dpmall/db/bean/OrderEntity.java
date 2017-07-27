@@ -7,7 +7,7 @@ import java.util.Date;
  * @author xiecong
  *
  */
-public class AppOrderEntity {
+public class OrderEntity {
 	/**ID**/
 	public Long id;
 	
