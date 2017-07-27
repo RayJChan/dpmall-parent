@@ -38,12 +38,16 @@
 					A .PK = ${distributorId}
 					AND o.P_STATUS='0'					
 	</select>
-	
-	
 	<select id="get2AcceptCount" resultType="int">
 		select count(1) from O2OCONSIGNMENTITEMS  where P_STATUS='10'
 		<if test="storeId != null">
 		    and P_RECOMMENDSTORE=${storeId}
 		</if>
 	</select>
+	<update id="distribute">
+		update O2OCONSIGNMENTITEMS set 
+			P_RECOMMENDSTORE=#{storeId},
+			P_STATUS='10'
+		where pk=#{orderCode}
+	</update>
 </mapper>

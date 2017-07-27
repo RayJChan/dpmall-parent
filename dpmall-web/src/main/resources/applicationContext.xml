@@ -34,4 +34,5 @@
 	<dubbo:reference id="saleLeadsService" interface="com.dpmall.api.ISaleLeadsService" />
 	<dubbo:reference id="storeService" interface="com.dpmall.api.IStoreService" />
 	<dubbo:reference id="userService" interface="com.dpmall.api.IUserService" />
+	<dubbo:reference id="orderService" interface="com.dpmall.api.IOrderService"></dubbo:reference>
 </beans>

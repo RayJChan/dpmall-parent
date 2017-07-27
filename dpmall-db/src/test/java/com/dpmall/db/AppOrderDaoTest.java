@@ -25,4 +25,9 @@ public class AppOrderDaoTest extends SpringTestCase{
 	public void testGet2AcceptCount() {
 		logger.info("获取店铺待接单的实物订单数:"+appOrderDao.get2AcceptCount("10086"));
 	}
+	
+	@Test
+	public void distributeTest() {
+		logger.info("result:"+JSON.toJSONString(appOrderDao.distribute("1", "10086")));
+	}
 }

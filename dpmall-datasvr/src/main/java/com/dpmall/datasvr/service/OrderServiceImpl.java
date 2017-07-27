@@ -45,8 +45,8 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	public int distribute(String distributorId, String orderCode, String storeId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = orderDao.distribute(orderCode, storeId);
+		return result;
 	}
 
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {

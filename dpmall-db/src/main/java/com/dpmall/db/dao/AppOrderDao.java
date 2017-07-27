@@ -10,7 +10,7 @@ public interface AppOrderDao {
 	
 	 public Integer get2DistributeCount(@Param("distributorId")String distributorId);
 	 
-	 public int distribute(String distributorId,String orderCode, String storeId);
+	 public int distribute(@Param("orderCode")String orderCode, @Param("storeId")String storeId);
 	 
 	 public List<OrderEntity> getOnePage4Acceptor2Followup(String acceptorId,Integer offset, Integer pageSize);
 	 

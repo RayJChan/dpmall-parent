@@ -23,4 +23,9 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer result = orderService.get2AcceptCount("10086");
 		LOG.info("result:" + result);
 	}
+	
+	@Test
+	public void distributeTest() {
+		orderService.distribute("", "3", "10002");
+	}
 }
