@@ -88,4 +88,34 @@
 		AND  ROWNUM between ${offset} and ${pageSize}
 	</select>
 	
+	
+	<select id="getOnePage4Followup"  resultMap="AppOrderResultMap">
+		select 
+			C.PK,
+			C.P_STATUS,
+            C.P_ALLOCATIONEMPLOYEECODE as P_ALLOCATIONEMPLOYEECODE,
+            C.P_SHIPPINGADDRESS as P_SHIPPINGADDRESS,
+			O.P_CODE,
+			O.P_BUYERNICK as P_BUYERNICK,
+            O2O.P_RECOMMENDSTORE,
+            O2O.P_CUSCOMMET,
+            O2O.P_SERVERCOMMENT,
+            O2O.P_AGENCYCOMMENT,
+            P.P_CODE as P_ICODE,
+            P.P_CATEGORY as P_CATEGORY,
+            OE.P_QUANTITY as P_QUANTITY,
+            OE.P_BASEPRICE as P_BASEPRICE,
+            OE.P_TOTALPRICE as P_TOTALPRICE,
+			ROWNUM RN
+		from CONSIGNMENTS C LEFT JOIN ORDERS O ON O.PK=C.P_ORDER
+		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+		LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+		LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK 
+		where 1= 1 AND C.P_STATUS in ('8796105375835','8796105670747','8796105375835')
+		<if test="distributorId != null">
+		    AND C.P_ALLOCATIONEMPLOYEECODE = #{distributorId} 
+		</if>
+		AND  ROWNUM between ${offset} and ${pageSize}
+	</select>
+	
 </mapper>
