@@ -35,6 +35,12 @@ public class OrderServiceImpl implements IOrderService {
 		entity.productQuantity=model.productQuantity;;
 		entity.productBaseprice=model.productBaseprice;
 		entity.productTotal=model.productTotal;
+		entity.phone1=model.phone1;
+		entity.firstName=model.firstName;
+		entity.address=model.address;
+		entity.orderTotal=model.orderTotal;
+		entity.status=model.status;
+		entity.id=model.id;
 		return entity;
 	}
 	
@@ -48,6 +54,12 @@ public class OrderServiceImpl implements IOrderService {
 		model.productQuantity=entity.productQuantity;;
 		model.productBaseprice=entity.productBaseprice;
 		model.productTotal=entity.productTotal;
+		model.phone1=entity.phone1;
+		model.firstName=entity.firstName;
+		model.address=entity.address;
+		model.orderTotal=entity.orderTotal;
+		model.status=entity.status;
+		model.id = entity.id;
 		return model;
 	}
 	/**
@@ -120,10 +132,23 @@ public class OrderServiceImpl implements IOrderService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * 店铺获取待接单的实物订单
+	 * @param storeId 店铺ID
+	 * @param offset 上一次加载的位移
+	 * @param pageSize 页的大小
+	 * @return 店铺获取待接单的实物订单列表
+	 */
 	public List<OrderModel> getOnePage4Accept(String storeId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> orderModel = null;
+		
+		List<OrderEntity> orderEntityList = orderDao.getOnePage4Accept(storeId,offset,pageSize);
+		if(orderEntityList == null || orderEntityList.isEmpty()){
+			return null;
+		}
+		orderModel = this.entitysaleModel(orderEntityList);
+		return orderModel;
 	}
 
 	public Integer get2AcceptCount(String storeId) {

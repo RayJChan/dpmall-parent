@@ -38,5 +38,14 @@ public interface AppOrderDao {
 	 * @return
 	 */
   public List<OrderEntity> getOnePage4Followup(@Param(value="distributorId")String distributorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+  
+  /**
+	 * 店铺获取待接单的实物订单
+	 * @param storeId 店铺ID
+	 * @param offset 上一次加载的位移
+	 * @param pageSize 页的大小
+	 * @return 店铺获取待接单的实物订单列表
+	 */
+  public List<OrderEntity> getOnePage4Accept(@Param(value="storeId")String storeId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
    
 }
