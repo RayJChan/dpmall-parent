@@ -71,8 +71,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderDao.get2AcceptCount(storeId);
 	}
 
 	public int accept(String acceptorId, String orderCode) {

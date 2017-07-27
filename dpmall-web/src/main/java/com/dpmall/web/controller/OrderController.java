@@ -3,6 +3,8 @@ package com.dpmall.web.controller;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.err.ErrorCode;
@@ -24,6 +27,7 @@ import com.dpmall.web.controller.form.Response;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
+	private static final Logger LOG = LoggerFactory.getLogger(OrderController.class);
 	
 	@Autowired
 	private IOrderService orderService;
@@ -163,9 +167,21 @@ public class OrderController {
      */
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Integer get2AcceptCount(@RequestBody AppOrderForm form){
-    	return 0;
-    }
+	public Integer get2AcceptCount(@RequestBody AppOrderForm form) {
+		LOG.info("{method:'OrderController::get2AcceptCount',in:" + JSON.toJSONString(form) + "}");
+		Response res = new Response();
+		if (form.storeId == null) {
+			res.resultCode = ErrorCode.INVALID_PARAM;
+			return res.resultCode;
+		}
+		try {
+			res.data = orderService.get2AcceptCount(form.storeId == null ? null : String.valueOf(form.storeId));
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(), e);
+		}
+		LOG.info("{method:'OrderController::get2AcceptCount',out:{res:'" + JSON.toJSONString(res) + "'}}");
+		return (Integer) res.data;
+	}
     
      
     

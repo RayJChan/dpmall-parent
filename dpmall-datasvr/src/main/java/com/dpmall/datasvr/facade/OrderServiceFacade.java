@@ -81,8 +81,19 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public Integer get2AcceptCount(String storeId) {
-		// TODO Auto-generated method stub
-		return null;
+		Integer count = 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::get2AcceptCount',in:{storeId:'" + storeId + "'}}");
+		}
+		try {
+			count = orderService.get2AcceptCount(storeId);
+		} catch (Throwable e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::get2AcceptCount',out:"+count+"}");
+		}
+		return count;
 	}
 
 	public int accept(String acceptorId, String orderCode) {
