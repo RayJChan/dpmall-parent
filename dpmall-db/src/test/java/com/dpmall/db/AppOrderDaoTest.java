@@ -1,5 +1,7 @@
 package com.dpmall.db;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.common.SpringTestCase;
+import com.dpmall.db.bean.OrderEntity;
 import com.dpmall.db.dao.AppOrderDao;
 
 public class AppOrderDaoTest extends SpringTestCase{
@@ -30,4 +33,15 @@ public class AppOrderDaoTest extends SpringTestCase{
 	public void distributeTest() {
 		logger.info("result:"+JSON.toJSONString(appOrderDao.distribute("1", "10086")));
 	}
+	
+	/**
+	 * author:crown
+	 * getOnePage4Distribute
+	 */
+	@Test
+    public void testGetOnePage4Distribute(){
+		logger.info("=====================crown=========================");
+    	List<OrderEntity> result = appOrderDao.getOnePage4Distribute("310145", 0,5);
+    	logger.info(JSON.toJSONString(result));
+    }
 }

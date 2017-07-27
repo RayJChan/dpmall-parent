@@ -20,4 +20,14 @@ public interface AppOrderDao {
 	  * @return 经销商待分配的实物订单数
 	 */
 	public Integer get2AcceptCount(@Param("storeId")String storeId);
+	
+	/**
+	 * author: crown
+	 * 根据经销商ID查询待分配销售线索
+	 * @param template
+	 * @param page
+	 * @return
+	 */
+   public List<OrderEntity> getOnePage4Distribute(@Param(value="distributorId")String distributorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+   
 }

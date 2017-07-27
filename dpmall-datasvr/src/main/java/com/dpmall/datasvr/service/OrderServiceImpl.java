@@ -1,5 +1,6 @@
 package com.dpmall.datasvr.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.db.bean.OrderEntity;
+import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.AppOrderDao;
 
 /**
@@ -24,15 +26,61 @@ public class OrderServiceImpl implements IOrderService {
 		OrderEntity entity=new OrderEntity();
 		entity.clientName=model.clientName;
 		entity.clientTel=model.clientTel;
+		
+		entity.allocatCode=model.allocatCode;
+		entity.shippingAddress=model.shippingAddress;
+		entity.buyerNick=model.buyerNick;
+		entity.productCode=model.productCode;
+		entity.productCategory=model.productCategory;
+		entity.productQuantity=model.productQuantity;;
+		entity.productBaseprice=model.productBaseprice;
+		entity.productTotal=model.productTotal;
 		return entity;
 	}
 	
 	private OrderModel entityToModel(OrderEntity entity) {
-		return null;
+		OrderModel model=new OrderModel();
+		model.allocatCode=entity.allocatCode;
+		model.shippingAddress=entity.shippingAddress;
+		model.buyerNick=entity.buyerNick;
+		model.productCode=entity.productCode;
+		model.productCategory=entity.productCategory;
+		model.productQuantity=entity.productQuantity;;
+		model.productBaseprice=entity.productBaseprice;
+		model.productTotal=entity.productTotal;
+		return model;
 	}
+	/**
+     * 实物类经销商获取待分配的实物订单
+     * @param distributorId 经销商ID
+     * @return 经销商待分配的实物订单数
+     * author:crown
+     */
 	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> out = null;
+
+		List<OrderEntity> outEntityList = orderDao.getOnePage4Distribute(distributorId,offset,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+				
+		out = this.entitysaleModel(outEntityList);
+		return out;
+	}
+	
+	private List<OrderModel> entitysaleModel(List<OrderEntity> in){
+		if(in == null || in.isEmpty()){
+			return null;
+		}
+		
+		List<OrderModel> out = new ArrayList<OrderModel>();
+		for(OrderEntity tmp : in){
+			out.add(entityToModel(tmp));
+		}
+		
+		return out;
+		
 	}
 	
 	/**

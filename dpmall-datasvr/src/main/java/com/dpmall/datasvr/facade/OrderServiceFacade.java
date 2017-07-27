@@ -23,9 +23,24 @@ public class OrderServiceFacade implements IOrderService {
 	@Autowired
 	private IOrderService orderService;
 
+	/**
+     * 实物类经销商获取待分配的实物订单
+     * @param distributorId 经销商ID
+     * @return 经销商待分配的实物订单数
+     * author:crown
+     */
 	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Distribute',in:{distributorId:'" + distributorId + "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> out = orderService.getOnePage4Distribute(distributorId, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 	
 	/**
