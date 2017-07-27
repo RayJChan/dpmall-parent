@@ -86,7 +86,7 @@ public class OrderController {
     	else {
 			try {
 				response.resultCode=ErrorCode.SUCCESS;
-				response.data=orderService.distribute(distributorId, orderCode, storeId);
+				response.data=orderService.distribute(form.distributorId, form.orderCode, form.storeId);
 			} catch (Exception e) {
 				response.resultCode=ErrorCode.INTERNAL_ERR;
 				response.message="未知错误";
