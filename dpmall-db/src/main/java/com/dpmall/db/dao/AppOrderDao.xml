@@ -25,6 +25,14 @@
 	    <result property="orderCode" column="p_code"/>
 	    <result property="address" column="p_streetname"/>
 	    <result property="orderTotal" column="p_payamount"/>
+	    <result property="allocatCode" column="P_ALLOCATIONEMPLOYEECODE"/>
+	    <result property="shippingAddress" column="P_SHIPPINGADDRESS"/>
+	    <result property="buyerNick" column="P_BUYERNICK"/>
+	    <result property="productCode" column="P_ICODE"/>
+	    <result property="productCategory" column="P_CATEGORY"/>
+	    <result property="productQuantity" column="P_QUANTITY"/>
+	    <result property="productBaseprice" column="P_BASEPRICE"/>
+	    <result property="productTotal" column="P_TOTALPRICE"/>
 	</resultMap>
 	
 	<select id="get2DistributeCount" resultType="java.lang.Integer">
@@ -50,4 +58,34 @@
 			P_STATUS='10'
 		where pk=#{orderCode}
 	</update>
+	
+	<select id="getOnePage4Distribute"  resultMap="AppOrderResultMap">
+		select 
+			C.PK,
+			C.P_STATUS,
+            C.P_ALLOCATIONEMPLOYEECODE as P_ALLOCATIONEMPLOYEECODE,
+            C.P_SHIPPINGADDRESS as P_SHIPPINGADDRESS,
+			O.P_CODE,
+			O.P_BUYERNICK as P_BUYERNICK,
+            O2O.P_RECOMMENDSTORE,
+            O2O.P_CUSCOMMET,
+            O2O.P_SERVERCOMMENT,
+            O2O.P_AGENCYCOMMENT,
+            P.P_CODE as P_ICODE,
+            P.P_CATEGORY as P_CATEGORY,
+            OE.P_QUANTITY as P_QUANTITY,
+            OE.P_BASEPRICE as P_BASEPRICE,
+            OE.P_TOTALPRICE as P_TOTALPRICE,
+			ROWNUM RN
+		from CONSIGNMENTS C LEFT JOIN ORDERS O ON O.PK=C.P_ORDER
+		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+		LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+		LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK 
+		where 1= 1 AND C.P_STATUS='8796105375835'
+		<if test="distributorId != null">
+		    AND C.P_ALLOCATIONEMPLOYEECODE = #{distributorId} 
+		</if>
+		AND  ROWNUM between ${offset} and ${pageSize}
+	</select>
+	
 </mapper>

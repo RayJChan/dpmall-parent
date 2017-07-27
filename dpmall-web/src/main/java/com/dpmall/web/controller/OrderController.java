@@ -41,8 +41,19 @@ public class OrderController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Distribute(@RequestBody AppOrderForm form){
-    	return null;
+    public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::getOnePage4Distribute',in:" + JSON.toJSONString(form) + "}");
+
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOnePage4Distribute(form.distributorId, form.offset, form.pageSize);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+    	LOG.info("{method:'OrderController::getOnePage4Distribute',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
