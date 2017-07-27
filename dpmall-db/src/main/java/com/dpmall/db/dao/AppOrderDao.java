@@ -13,4 +13,11 @@ public interface AppOrderDao {
 	 public int distribute(String distributorId,String orderCode, String storeId);
 	 
 	 public List<OrderEntity> getOnePage4Acceptor2Followup(String acceptorId,Integer offset, Integer pageSize);
+	 
+	 /**
+	  * 获取店铺待接单的实物订单数
+	  * @param storeId 经销商ID
+	  * @return 经销商待分配的实物订单数
+	 */
+	public Integer get2AcceptCount(@Param("storeId")String storeId);
 }
