@@ -30,4 +30,13 @@ public interface AppOrderDao {
 	 */
    public List<OrderEntity> getOnePage4Distribute(@Param(value="distributorId")String distributorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
    
+   /**
+	 * author: crown
+	 * 根据经销商ID查询待跟进一页的实物订单数据
+	 * @param template
+	 * @param page
+	 * @return
+	 */
+  public List<OrderEntity> getOnePage4Followup(@Param(value="distributorId")String distributorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+   
 }

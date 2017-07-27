@@ -80,8 +80,17 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public List<OrderModel> getOnePage4Followup(String distributorId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Followup',in:{distributorId:'" + distributorId + "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> out = orderService.getOnePage4Followup(distributorId, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Followup',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<OrderModel> getOnePageClosedOrder(String distributorId, TimeScope distributeTime, String storeId,

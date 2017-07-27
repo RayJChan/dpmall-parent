@@ -135,8 +135,19 @@ public class OrderController {
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Followup(@RequestBody AppOrderForm form){
-    	return null;
+    public Response getOnePage4Followup(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::getOnePage4Followup',in:" + JSON.toJSONString(form) + "}");
+
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOnePage4Followup(form.distributorId, form.offset, form.pageSize);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+    	LOG.info("{method:'OrderController::getOnePage4Followup',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**

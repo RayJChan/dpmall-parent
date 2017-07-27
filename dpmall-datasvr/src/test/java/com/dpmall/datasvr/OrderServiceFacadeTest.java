@@ -37,8 +37,17 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	 * getOnePage4Distribute
 	 */
 	@Test
-    public void testSearch(){
+    public void testGetOnePage4Distribute(){
     	List<OrderModel> result = orderService.getOnePage4Distribute("310145", 0, 20);
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+    }
+	/**
+	 * author:crown
+	 * getOnePage4Distribute
+	 */
+	@Test
+    public void testGetOnePage4Followup(){
+    	List<OrderModel> result = orderService.getOnePage4Followup("310145", 0, 20);
     	LOG.info("=====================daihx====================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }

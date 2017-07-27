@@ -104,7 +104,15 @@ public class OrderServiceImpl implements IOrderService {
 
 	public List<OrderModel> getOnePage4Followup(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> out = null;
+
+		List<OrderEntity> outEntityList = orderDao.getOnePage4Followup(distributorId,offset,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+						
+		out = this.entitysaleModel(outEntityList);
+		return out;
 	}
 
 	public List<OrderModel> getOnePageClosedOrder(String distributorId, TimeScope distributeTime, String storeId,
