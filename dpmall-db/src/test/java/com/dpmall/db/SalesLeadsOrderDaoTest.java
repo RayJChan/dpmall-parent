@@ -40,7 +40,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
 	 */
 	@Test
 	public void getOnePage4AcceptorClosed() {
-		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4AcceptorClosed("14", 1, 1) ) {
+		for(SalesLeadsOrderEntity salesLeadsOrderEntity: salesLeadsOrderDao.getOnePage4AcceptorClosed("13", 0, 5) ) {
 			LOG.info(JSON.toJSONString(salesLeadsOrderEntity));
 			System.out.println(JSON.toJSONString(salesLeadsOrderEntity));
 		}
