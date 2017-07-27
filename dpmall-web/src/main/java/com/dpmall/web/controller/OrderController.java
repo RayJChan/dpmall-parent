@@ -55,8 +55,13 @@ public class OrderController {
 			response.message="参数错误";
 		}
     	else {
-			response.data=orderService.get2DistributeCount(form.distributorId);
-			response.resultCode=ErrorCode.SUCCESS;
+			try {
+				response.data=orderService.get2DistributeCount(form.distributorId);
+				response.resultCode=ErrorCode.SUCCESS;
+			} catch (Exception e) {
+				response.resultCode=ErrorCode.INTERNAL_ERR;
+				response.message="未知错误";
+			}
 		}
     	return response;
     }
@@ -72,8 +77,22 @@ public class OrderController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int distribute(@RequestBody AppOrderForm form){
-    	return 0;
+    public Response distribute(@RequestBody AppOrderForm form){
+    	Response response=new Response();
+    	if (StringUtils.isEmpty(form.distributorId)||StringUtils.isEmpty(form.orderCode)||StringUtils.isEmpty(form.storeId)) {
+    		response.resultCode=ErrorCode.INVALID_PARAM;
+			response.message="参数错误";
+		}
+    	else {
+			try {
+				response.resultCode=ErrorCode.SUCCESS;
+				response.data=orderService.distribute(distributorId, orderCode, storeId);
+			} catch (Exception e) {
+				response.resultCode=ErrorCode.INTERNAL_ERR;
+				response.message="未知错误";
+			}
+		}
+    	return response;
     }
     
     

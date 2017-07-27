@@ -47,8 +47,16 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public int distribute(String distributorId, String orderCode, String storeId) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::distribute',in:{distributorId:'" + distributorId +"orderCode"+orderCode+"storeId"+storeId+ "'}}");
+		}
+		
+		Integer out = orderService.distribute(distributorId, orderCode, storeId);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::distribute',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {

@@ -20,4 +20,9 @@ public class AppOrderDaoTest extends SpringTestCase{
 	public void getOnePage4DistributeTest() {
 		logger.info(JSON.toJSONString(appOrderDao.get2DistributeCount("8796294532666")));
 	}
+	
+	@Test
+	public void distributeTest() {
+		logger.info("result:"+JSON.toJSONString(appOrderDao.distribute("1", "10086")));
+	}
 }

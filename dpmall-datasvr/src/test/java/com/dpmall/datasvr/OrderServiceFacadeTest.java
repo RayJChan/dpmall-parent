@@ -14,4 +14,9 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	public void get2DistributeCountTest() {
 		orderService.get2DistributeCount("8796294532666");
 	}
+	
+	@Test
+	public void distributeTest() {
+		orderService.distribute("", "3", "10002");
+	}
 }

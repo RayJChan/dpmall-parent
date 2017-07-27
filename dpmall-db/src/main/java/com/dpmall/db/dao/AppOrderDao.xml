@@ -38,4 +38,10 @@
 					A .PK = ${distributorId}
 					AND o.P_STATUS='0'					
 	</select>
+	<update id="distribute">
+		update O2OCONSIGNMENTITEMS set 
+			P_RECOMMENDSTORE=#{storeId},
+			P_STATUS='10'
+		where pk=#{orderCode}
+	</update>
 </mapper>

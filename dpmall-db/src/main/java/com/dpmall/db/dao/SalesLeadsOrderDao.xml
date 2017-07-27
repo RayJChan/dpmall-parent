@@ -512,6 +512,9 @@
 			<if test='entity.saleLeadsStatus=="23"'>
 				P_ACTUALDATE=sysdate,
 			</if>
+			<if test='entity.saleLeadsStatus=="25"'>
+				P_CLOSEDATE=sysdate,
+			</if>
 			<if test="entity.total!=null">
 				P_AMOUNT=${entity.total},
 			</if>	
