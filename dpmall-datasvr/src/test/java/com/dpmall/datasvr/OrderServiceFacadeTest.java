@@ -72,7 +72,7 @@ public class OrderServiceFacadeTest extends SpringTestCase{
      */
 	@Test
 	public void testDeliver() {
-		Integer deliver = orderService.deliver("a100015067");
+		Integer deliver = orderService.deliver("aSIT100020032");
 		LOG.info("===============确认收货================"+deliver);
 	}
 }

@@ -81,11 +81,11 @@ public class AppOrderDaoTest extends SpringTestCase{
 		OrderEntity  entity = new OrderEntity();
 		Date date = new Date();
 		entity.status = "33";
-		entity.orderCode = "a1000105067";
+		entity.orderCode = "aSIT100020032";
 		entity.deliveryTime = date;
 		System.out.println(entity.toString());
 		int count = appOrderDao.edit(entity);
-		System.out.println(count == 1? "succsess":"flase");
+		System.out.println(count +"======testEdit======");
 		logger.info(Integer.toString(count));
 	}
 	
@@ -100,10 +100,10 @@ public class AppOrderDaoTest extends SpringTestCase{
 		logger.info("=====================deliver4Consignments=======================");
 		OrderEntity  entity = new OrderEntity();
 		Date date = new Date();
-		entity.orderCode = "a100015067";
+		entity.orderCode = "aSIT100020032";
 		entity.deliveryTime = date;
 		int count = appOrderDao.deliver4Consignments(entity);
-		System.out.println(count == 1? "succsess":"flase");
+		System.out.println(count+"=======testDeliver4Consignments======");
 		logger.info(Integer.toString(count));
 	}
 	

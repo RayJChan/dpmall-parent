@@ -168,22 +168,24 @@ public class OrderServiceImpl implements IOrderService {
      * @return 成功返回200
      */
 	public int deliver(String orderCode) {
-		int resultCode = ErrorCode.INTERNAL_ERR;//错误码500
+		int count = 0;
 		Date date = new Date();
 		OrderEntity entity = new OrderEntity();
 		//orderCode 为空 返回错误代码 500
 		if (orderCode == null) {	
-			return resultCode;
+			return count;
 		}
 		//赋值给实体类
 		entity.orderCode = orderCode;
 		entity.deliveryTime = date;
+		entity.status = "20";
+		
 		int count1 = orderDao.deliver4Consignments(entity);
 		int count2 = orderDao.edit(entity);
-		if (count1 == 1 && count2 == 1) {//有待修改
-			resultCode = ErrorCode.SUCCESS;//200
+		if(count1 != 0 && count2 != 0 ) {
+			count =1;
 		}
-		return resultCode;
+		return count;
 	}
 
 	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, Integer offset, Integer pageSize) {

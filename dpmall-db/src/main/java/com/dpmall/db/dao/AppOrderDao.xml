@@ -211,15 +211,13 @@
 					CONSIGNMENTS 
 				WHERE
 					P_CODE = #{entity.orderCode})
-		
-	
 	</update>
 	
 	<!--更新表CONSIGNMENTS 收货状态  -->
 		<update id="deliver4Consignments">
 			UPDATE CONSIGNMENTS 
 				<set>
-					P_STATUS = '8796105637979',
+					P_STATUS = '8796105670747',
 					<if test="entity.deliveryTime != null">
 						P_SHIPPINGDATE = #{entity.deliveryTime}
 					</if>
@@ -228,7 +226,5 @@
 					where P_CODE = #{entity.orderCode}
 				</if>
 		</update>
-	
-	
 	
 </mapper>

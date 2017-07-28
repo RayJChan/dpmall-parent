@@ -31,6 +31,7 @@ public class OrderController {
 	
 	@Autowired
 	private IOrderService orderService;
+	
 
 	/**
 	 * 经销商获取待分配的实物订单
@@ -259,7 +260,8 @@ public class OrderController {
     		return res.resultCode;
     	}
     	try {
-			res.data = orderService.deliver(form.orderCode == null? null : String.valueOf(form.orderCode));
+    		
+    		res.data = orderService.deliver(form.orderCode == null? null : String.valueOf(form.orderCode));
 		} catch (Exception e) {
 			LOG.error(e.getMessage(),e);
 		}
