@@ -252,21 +252,20 @@ public class OrderController {
      */
     @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int deliver(@RequestBody AppOrderForm form){
+    public Response deliver(@RequestBody AppOrderForm form){
     	LOG.info("{method:'OrderController::deliver',in:"+JSON.toJSONString(form)+"}");
     	Response res = new Response();
     	if(form.orderCode == null) {//orderCode为空返回错误码500
     		res.resultCode = ErrorCode.INVALID_PARAM;
-    		return res.resultCode;
+    		return res;
     	}
     	try {
-    		
     		res.data = orderService.deliver(form.orderCode == null? null : String.valueOf(form.orderCode));
 		} catch (Exception e) {
 			LOG.error(e.getMessage(),e);
 		}
     	LOG.info("{method:'OrderController::deliver',in:"+JSON.toJSONString(res)+"}");
-    	return (Integer)res.data;
+    	return res;
     }
  
     
