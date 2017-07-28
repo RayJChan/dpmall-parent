@@ -155,7 +155,7 @@ public class OrderServiceImpl implements IOrderService {
 		return orderDao.get2AcceptCount(storeId);
 	}
 
-	public int accept(String acceptorId, String orderCode) {
+	public int accept(String acceptorId, String orderCode, String acceptComment) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

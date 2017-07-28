@@ -68,4 +68,14 @@ public class AppOrderDaoTest extends SpringTestCase{
     	List<OrderEntity> result = appOrderDao.getOnePage4Accept("10086", 0,20);
     	logger.info(JSON.toJSONString(result));
     }
+	/**
+	 * author:crown
+	 * getOnePage4Distribute
+	 */
+	@Test
+    public void testAccept(){
+		logger.info("=====================1Crown=======================");
+    	int result = appOrderDao.accept("12306", "8803499018195", "水印");
+    	logger.info(JSON.toJSONString(result));
+    }
 }
