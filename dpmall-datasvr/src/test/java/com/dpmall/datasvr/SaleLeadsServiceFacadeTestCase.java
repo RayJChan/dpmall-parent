@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
+import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticParam;
@@ -77,7 +78,17 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	SaleLeadsModel model=new SaleLeadsModel();
     	model.id=1L;
     	model.total=22.22;
-    	LOG.info("result:"+saleLeadsService.edit(model));
+    	List<SaleLeadsGoodsModel> list = new ArrayList<SaleLeadsGoodsModel>();
+    	for(int i=0;i<3;i++) {
+    		SaleLeadsGoodsModel goodsModel = new SaleLeadsGoodsModel();
+    		goodsModel.catetory="233";
+    		goodsModel.dealPrice=23.3;
+    		goodsModel.itemNum=23;
+    		goodsModel.orderItemId="23";
+    		list.add(goodsModel);
+    	}
+    	model.orderItemList=list;
+    	LOG.info("result:"+JSON.toJSONString(model));
     	
     }
     @Test

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.ISaleLeadsService;
+import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.err.ErrorCode;
@@ -24,6 +25,7 @@ import com.dpmall.web.controller.form.RejectBatchForm;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.controller.form.SaleLeadForm;
 import com.dpmall.web.controller.form.SaleLeadOrderForm;
+import com.dpmall.web.controller.form.SaleLeadsGoodsForm;
 
 /**
  * 销售线索
@@ -308,6 +310,14 @@ public class SaleLeadsController {
     	model.storeAcceptTime=form.storeAcceptTime;
     	model.style=form.style;
     	model.total=form.total;
+    	for(SaleLeadsGoodsForm goods:form.orderItemList) {
+    		SaleLeadsGoodsModel saleLeadsGoodsModel = new SaleLeadsGoodsModel();
+    		saleLeadsGoodsModel.catetory=goods.catetory;
+    		saleLeadsGoodsModel.dealPrice=goods.dealPrice;
+    		saleLeadsGoodsModel.itemNum=goods.itemNum;
+    		saleLeadsGoodsModel.orderItemId=goods.orderItemId;
+    		model.orderItemList.add(saleLeadsGoodsModel);
+    	}
     	return model;
     }
  

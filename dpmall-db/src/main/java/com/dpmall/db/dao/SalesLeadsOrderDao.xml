@@ -441,6 +441,7 @@
 	<update id="distribute">
 	    update salesleadsorder set
 			p_suggeststore=${shopId},
+			p_acceptstore=${shopId},
 			p_distributedate=sysdate,
 			p_salesleadsorderstatus='10'
 		where pk=${saleLeadsId}					
