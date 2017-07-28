@@ -129,7 +129,7 @@ public class OrderServiceFacade implements IOrderService {
 		return count;
 	}
 
-	public int accept(String acceptorId, String orderCode) {
+	public int accept(String acceptorId, String orderCode, String acceptComment) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
