@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dpmall.db.dao.SalesLeadsOrderItemDao">
+	<resultMap id="SalesLeadsOrderItemResultMap" type="com.dpmall.db.bean.SalesLeadsOrderItemEntity">
+		<id property="id" column="PK"/>		
+		<result property="orderId" column="P_SALESLEADSORDER"/>
+		<result property="productId" column="P_PRODUCT"/>
+		<result property="quantity" column="P_QUANTITY"/>
+		<result property="dealPrice" column="P_AMOUNT"/>
+		<result property="productName" column="P_PRODUCTCATETORY"/>
+	</resultMap>
+	
+	<insert id="insert">
+		insert into SALESLEADSORDERITEM(P_SALESLEADSORDER,
+										P_QUANTITY,
+										P_AMOUNT,
+										P_PRODUCTCATETORY) 
+						values(${orderItem.orderId},
+								${orderItem.quantity},
+								${orderItem.dealPrice},
+								${orderItem.catetory})
+	</insert>
+	
+	
+</mapper>
