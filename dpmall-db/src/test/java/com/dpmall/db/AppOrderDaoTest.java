@@ -1,5 +1,6 @@
 package com.dpmall.db;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -68,4 +69,42 @@ public class AppOrderDaoTest extends SpringTestCase{
     	List<OrderEntity> result = appOrderDao.getOnePage4Accept("10086", 0,20);
     	logger.info(JSON.toJSONString(result));
     }
+	
+	/**
+	 * 编辑实物订单信息
+	 * @param entity
+	 * @return 1为成功，0为失败
+	 */
+	@Test 
+	public void testEdit() {
+		logger.info("=====================edit=======================");
+		OrderEntity  entity = new OrderEntity();
+		Date date = new Date();
+		entity.status = "33";
+		entity.orderCode = "a1000105067";
+		entity.deliveryTime = date;
+		System.out.println(entity.toString());
+		int count = appOrderDao.edit(entity);
+		System.out.println(count == 1? "succsess":"flase");
+		logger.info(Integer.toString(count));
+	}
+	
+	/**
+	 * author : cwj 
+	 * 确认发货，更新B2C发货单模型发货状态
+	 * @param entity
+	 * @return 1为成功，0为失败
+	 */	
+	@Test
+	public void testDeliver4Consignments() {
+		logger.info("=====================deliver4Consignments=======================");
+		OrderEntity  entity = new OrderEntity();
+		Date date = new Date();
+		entity.orderCode = "a100015067";
+		entity.deliveryTime = date;
+		int count = appOrderDao.deliver4Consignments(entity);
+		System.out.println(count == 1? "succsess":"flase");
+		logger.info(Integer.toString(count));
+	}
+	
 }

@@ -216,7 +216,8 @@ public class OrderController {
 		return (Integer) res.data;
 	}
     
-     
+  
+    
     
     /**
      * 导购员接单
@@ -231,18 +232,6 @@ public class OrderController {
     }
     
     /**
-     * 确认发货
-     * @param model
-     * @return 成功返回200
-     */
-    @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
-    @ResponseBody
-    public int deliver(@RequestBody AppOrderForm form){
-    	return 0;
-    }
- 
-    
-    /**
      * 获取导购员已接单的一页实物订单信息
      * @param acceptorId 导购员ID
      * @param startItemId 上一次加载的最后项ID
@@ -254,6 +243,30 @@ public class OrderController {
     public List<OrderModel> getOnePage4Acceptor2Followup(@RequestBody AppOrderForm form){
     	return null;
     }
+    
+    /**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
+    @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public int deliver(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::deliver',in:"+JSON.toJSONString(form)+"}");
+    	Response res = new Response();
+    	if(form.orderCode == null) {//orderCode为空返回错误码500
+    		res.resultCode = ErrorCode.INVALID_PARAM;
+    		return res.resultCode;
+    	}
+    	try {
+			res.data = orderService.deliver(form.orderCode == null? null : String.valueOf(form.orderCode));
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
+    	LOG.info("{method:'OrderController::deliver',in:"+JSON.toJSONString(res)+"}");
+    	return (Integer)res.data;
+    }
+ 
     
     /**
      * 获取导购员已结单的一页实物订单信息

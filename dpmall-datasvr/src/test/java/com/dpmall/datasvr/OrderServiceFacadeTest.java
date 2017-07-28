@@ -64,4 +64,15 @@ public class OrderServiceFacadeTest extends SpringTestCase{
     	LOG.info("=====================getOnePage4Accept====================");
         LOG.info("result:" + JSON.toJSONString(result));
     }
+	
+	/**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
+	@Test
+	public void testDeliver() {
+		Integer deliver = orderService.deliver("a100015067");
+		LOG.info("===============确认收货================"+deliver);
+	}
 }
