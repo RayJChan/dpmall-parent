@@ -227,4 +227,17 @@
 				</if>
 		</update>
 	
+	<update id="accept">
+		update O2OCONSIGNMENTITEMS set
+		    P_STATUS='15',
+		    P_ACCEPTEDTIME=sysdate,
+			<if test="acceptorId!=null">
+				P_ACCEPTEDBY=#{acceptorId},
+			</if>
+			<if test="acceptComment!=null">
+				P_ACCEPTEDCOMMENT=#{acceptComment}
+			</if>
+		where P_CONSIGNMENT=#{orderCode}
+	</update>	
+	
 </mapper>
