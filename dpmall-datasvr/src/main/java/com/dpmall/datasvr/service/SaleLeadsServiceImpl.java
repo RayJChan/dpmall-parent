@@ -432,7 +432,6 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			outEntityList.saleLeadsStatus = "15";
 			outEntityList.storeAcceptTime = new Date();
 			outEntityList.storeAcceptor = acceptorId;
-			outEntityList.acceptStore = "15";
 			int result=salesLeadsOrderDao.edit(outEntityList);
 			if(result==0){
 				a = false;
