@@ -57,7 +57,7 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
-        	order.orderItemList.addAll(orderItemList);
+        	order.orderItemList=orderItemList;
         	results.add(order);
     	}
     	return results;
@@ -144,6 +144,7 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
+        	order.orderItemList=new ArrayList<OrderItemModel>();
         	order.orderItemList.addAll(orderItemList);
         	results.add(order);
     	}
@@ -188,6 +189,7 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
+        	order.orderItemList=new ArrayList<OrderItemModel>();
         	order.orderItemList.addAll(orderItemList);
         	results.add(order);
     	}
@@ -228,6 +230,7 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
+        	order.orderItemList=new ArrayList<OrderItemModel>();
         	order.orderItemList.addAll(orderItemList);
         	results.add(order);
     	}
@@ -304,6 +307,7 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
+        	order.orderItemList=new ArrayList<OrderItemModel>();
         	order.orderItemList.addAll(orderItemList);
         	results.add(order);
     	}
@@ -343,6 +347,7 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
+        	order.orderItemList=new ArrayList<OrderItemModel>();
         	order.orderItemList.addAll(orderItemList);
         	results.add(order);
     	}
