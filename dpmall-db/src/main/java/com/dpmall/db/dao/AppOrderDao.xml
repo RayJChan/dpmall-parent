@@ -141,17 +141,90 @@
 		AND  ROWNUM between ${offset} and ${pageSize}
 	</select>
 	
-	<update id="accept">
-		update O2OCONSIGNMENTITEMS set
-		    P_STATUS='15',
-		    P_ACCEPTEDTIME=sysdate,
-			<if test="acceptorId!=null">
-				P_ACCEPTEDBY=#{acceptorId},
+	<!-- 更新O2O表 -->
+	<update id="edit">
+		UPDATE O2OCONSIGNMENTITEMS
+		<set>
+			<if test="entity.recommendStore !=null">
+				P_RECOMMENDSTORE = #{entity.recommendStore},
 			</if>
-			<if test="acceptComment!=null">
-				P_ACCEPTEDCOMMENT=#{acceptComment}
+			<if test="entity.consignment !=null">
+				P_CONSIGNMENT = #{entity.consignment},
 			</if>
-		where P_CONSIGNMENT=#{orderCode}
+			<if test="entity.cusComment !=null">
+				P_CUSCOMMET = #{entity.cusComment},
+			</if>
+			<if test="entity.serverComment !=null">
+				P_SERVERCOMMENT = #{entity.serverComment},
+			</if>
+			<if test="entity.cusRefuseComment !=null">
+				P_CUSREFUSECOMMET = #{entity.cusRefuseComment},
+			</if>
+			<if test="entity.agencyComment !=null">
+				P_AGENCYCOMMENT = #{entity.agencyComment},
+			</if>
+			<if test="entity.refuseType !=null">
+				P_REFUSETYPE = #{entity.refuseType},
+			</if>
+			<if test="entity.refuseComment !=null">
+				P_REFUSECOMMENT = #{entity.refuseComment},
+			</if>
+			<if test="entity.acceptedRefuseComment !=null">
+				P_ACCEPTEDREFUSECOMMENT = #{entity.acceptedRefuseComment},
+			</if>
+			<if test="entity.deliverPic !=null">
+				P_DELIVERYPIC = #{entity.deliverPic},
+			</if>
+			<if test="entity.status !=null">
+				P_STATUS = #{entity.status},
+			</if>
+			<if test="entity.acceptedBy !=null">
+				P_ACCEPTEDBY = #{entity.acceptedBy},
+			</if>
+			<if test="entity.acceptedComment !=null">
+				P_ACCEPTEDCOMMENT = #{entity.acceptedComment},
+			</if>
+			<if test="entity.acceptedTime !=null">
+				P_ACCEPTEDTIME = #{entity.acceptedTime},
+			</if>
+			<if test="entity.isDeliverySelf !=null">
+				P_ISDELIVERYSELF = #{entity.isDeliverySelf},
+			</if>
+			<if test="entity.deliveryTime !=null">
+				P_DELIVERYTIME = #{entity.deliveryTime},
+			</if>
+			<if test="entity.finishTime !=null">
+				P_FINISHTIME = ${entity.finishTime},
+			</if>
+			<if test="entity.deliveryPoint !=null">
+				deliveryPoint = #{entity.deliveryPoint},
+			</if>
+			<if test="entity.deliveryMode !=null">
+				deliveryMode = #{entity.deliveryMode},
+			</if>
+		</set>
+		WHERE
+			P_CONSIGNMENT = (
+				SELECT
+					pk
+				FROM
+					CONSIGNMENTS 
+				WHERE
+					P_CODE = #{entity.orderCode})
 	</update>
+	
+	<!--更新表CONSIGNMENTS 收货状态  -->
+		<update id="deliver4Consignments">
+			UPDATE CONSIGNMENTS 
+				<set>
+					P_STATUS = '8796105670747',
+					<if test="entity.deliveryTime != null">
+						P_SHIPPINGDATE = #{entity.deliveryTime}
+					</if>
+				</set> 
+				<if test="entity.orderCode != null">
+					where P_CODE = #{entity.orderCode}
+				</if>
+		</update>
 	
 </mapper>

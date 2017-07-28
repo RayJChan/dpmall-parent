@@ -57,4 +57,22 @@ public interface AppOrderDao {
    */
   public int accept(@Param(value="acceptorId")String acceptorId, @Param("orderCode")String orderCode, @Param("acceptComment")String acceptComment);
    
+  
+  /**
+	 * author : cwj 
+	 * 编辑实物订单信息
+	 * @param entity
+	 * @return 1为成功，0为失败
+	 */
+	int edit (@Param("entity") OrderEntity entity);
+
+	/**
+	 * author : cwj 
+	 * 确认发货，更新B2C发货单模型发货状态
+	 * @param entity
+	 * @return 1为成功，0为失败
+	 */
+	int deliver4Consignments (@Param("entity") OrderEntity entity);
+	
+  
 }

@@ -1,6 +1,7 @@
 package com.dpmall.datasvr.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.db.bean.OrderEntity;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.AppOrderDao;
@@ -160,9 +162,30 @@ public class OrderServiceImpl implements IOrderService {
 		return 0;
 	}
 
+	/**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
 	public int deliver(String orderCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = 0;
+		Date date = new Date();
+		OrderEntity entity = new OrderEntity();
+		//orderCode 为空 返回错误代码 500
+		if (orderCode == null) {	
+			return count;
+		}
+		//赋值给实体类
+		entity.orderCode = orderCode;
+		entity.deliveryTime = date;
+		entity.status = "20";
+		
+		int count1 = orderDao.deliver4Consignments(entity);
+		int count2 = orderDao.edit(entity);
+		if(count1 != 0 && count2 != 0 ) {
+			count =1;
+		}
+		return count;
 	}
 
 	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, Integer offset, Integer pageSize) {
