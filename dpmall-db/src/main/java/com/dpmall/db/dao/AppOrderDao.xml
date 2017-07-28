@@ -25,6 +25,16 @@
 	    <result property="orderCode" column="p_code"/>
 	    <result property="address" column="p_streetname"/>
 	    <result property="orderTotal" column="p_payamount"/>
+	    <result property="allocatCode" column="P_ALLOCATIONEMPLOYEECODE"/>
+	    <result property="shippingAddress" column="P_SHIPPINGADDRESS"/>
+	    <result property="buyerNick" column="P_BUYERNICK"/>
+	    <result property="productCode" column="P_ICODE"/>
+	    <result property="productCategory" column="P_CATEGORY"/>
+	    <result property="productQuantity" column="P_QUANTITY"/>
+	    <result property="productBaseprice" column="P_BASEPRICE"/>
+	    <result property="productTotal" column="P_TOTALPRICE"/>
+	    <result property="firstName" column="P_FIRSTNAME"/>
+	    <result property="phone1" column="P_PHONE1"/>
 	</resultMap>
 	
 	<select id="get2DistributeCount" resultType="java.lang.Integer">
@@ -50,4 +60,184 @@
 			P_STATUS='10'
 		where pk=#{orderCode}
 	</update>
+	
+	<select id="getOnePage4Distribute"  resultMap="AppOrderResultMap">
+		select 
+			C.PK,
+			C.P_STATUS,
+            C.P_ALLOCATIONEMPLOYEECODE as P_ALLOCATIONEMPLOYEECODE,
+            C.P_SHIPPINGADDRESS as P_SHIPPINGADDRESS,
+			O.P_CODE,
+			O.P_BUYERNICK as P_BUYERNICK,
+            O2O.P_RECOMMENDSTORE,
+            O2O.P_CUSCOMMET,
+            O2O.P_SERVERCOMMENT,
+            O2O.P_AGENCYCOMMENT,
+            P.P_CODE as P_ICODE,
+            P.P_CATEGORY as P_CATEGORY,
+            OE.P_QUANTITY as P_QUANTITY,
+            OE.P_BASEPRICE as P_BASEPRICE,
+            OE.P_TOTALPRICE as P_TOTALPRICE,
+			ROWNUM RN
+		from CONSIGNMENTS C LEFT JOIN ORDERS O ON O.PK=C.P_ORDER
+		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+		LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+		LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK 
+		where 1= 1 AND C.P_STATUS='8796105375835'
+		<if test="distributorId != null">
+		    AND C.P_ALLOCATIONEMPLOYEECODE = #{distributorId} 
+		</if>
+		AND  ROWNUM between ${offset} and ${pageSize}
+	</select>
+	
+	
+	<select id="getOnePage4Followup"  resultMap="AppOrderResultMap">
+		select 
+			C.PK,
+			C.P_STATUS,
+            C.P_ALLOCATIONEMPLOYEECODE as P_ALLOCATIONEMPLOYEECODE,
+            C.P_SHIPPINGADDRESS as P_SHIPPINGADDRESS,
+			O.P_CODE,
+			O.P_BUYERNICK as P_BUYERNICK,
+            O2O.P_RECOMMENDSTORE,
+            O2O.P_CUSCOMMET,
+            O2O.P_SERVERCOMMENT,
+            O2O.P_AGENCYCOMMENT,
+            P.P_CODE as P_ICODE,
+            P.P_CATEGORY as P_CATEGORY,
+            OE.P_QUANTITY as P_QUANTITY,
+            OE.P_BASEPRICE as P_BASEPRICE,
+            OE.P_TOTALPRICE as P_TOTALPRICE,
+			ROWNUM RN
+		from CONSIGNMENTS C LEFT JOIN ORDERS O ON O.PK=C.P_ORDER
+		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+		LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+		LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK 
+		where 1= 1 AND C.P_STATUS in ('8796105375835','8796105670747','8796105375835')
+		<if test="distributorId != null">
+		    AND C.P_ALLOCATIONEMPLOYEECODE = #{distributorId} 
+		</if>
+		AND  ROWNUM between ${offset} and ${pageSize}
+	</select>
+	
+	<select id="getOnePage4Accept"  resultMap="AppOrderResultMap">
+		select 
+			C.PK,
+			C.P_STATUS,
+            OE.P_QUANTITY as P_QUANTITY,
+            OE.P_PAYAMOUNT as p_payamount,
+            AD.P_FIRSTNAME as P_FIRSTNAME,
+            AD.P_PHONE1 as P_PHONE1,
+            AD.P_STREETNAME as p_streetname,
+			ROWNUM RN
+		from CONSIGNMENTS C LEFT JOIN ORDERS O ON O.PK=C.P_ORDER
+		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+		LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+		LEFT JOIN ADDRESSES AD ON C.P_SHIPPINGADDRESS=AD.PK 
+		where 1= 1 AND C.P_STATUS = '8796105637979'
+		<if test="storeId != null">
+		    AND O2O.P_RECOMMENDSTORE = #{storeId} 
+		</if>
+		AND  ROWNUM between ${offset} and ${pageSize}
+	</select>
+	
+	<!-- 更新O2O表 -->
+	<update id="edit">
+		UPDATE O2OCONSIGNMENTITEMS
+		<set>
+			<if test="entity.recommendStore !=null">
+				P_RECOMMENDSTORE = #{entity.recommendStore},
+			</if>
+			<if test="entity.consignment !=null">
+				P_CONSIGNMENT = #{entity.consignment},
+			</if>
+			<if test="entity.cusComment !=null">
+				P_CUSCOMMET = #{entity.cusComment},
+			</if>
+			<if test="entity.serverComment !=null">
+				P_SERVERCOMMENT = #{entity.serverComment},
+			</if>
+			<if test="entity.cusRefuseComment !=null">
+				P_CUSREFUSECOMMET = #{entity.cusRefuseComment},
+			</if>
+			<if test="entity.agencyComment !=null">
+				P_AGENCYCOMMENT = #{entity.agencyComment},
+			</if>
+			<if test="entity.refuseType !=null">
+				P_REFUSETYPE = #{entity.refuseType},
+			</if>
+			<if test="entity.refuseComment !=null">
+				P_REFUSECOMMENT = #{entity.refuseComment},
+			</if>
+			<if test="entity.acceptedRefuseComment !=null">
+				P_ACCEPTEDREFUSECOMMENT = #{entity.acceptedRefuseComment},
+			</if>
+			<if test="entity.deliverPic !=null">
+				P_DELIVERYPIC = #{entity.deliverPic},
+			</if>
+			<if test="entity.status !=null">
+				P_STATUS = #{entity.status},
+			</if>
+			<if test="entity.acceptedBy !=null">
+				P_ACCEPTEDBY = #{entity.acceptedBy},
+			</if>
+			<if test="entity.acceptedComment !=null">
+				P_ACCEPTEDCOMMENT = #{entity.acceptedComment},
+			</if>
+			<if test="entity.acceptedTime !=null">
+				P_ACCEPTEDTIME = #{entity.acceptedTime},
+			</if>
+			<if test="entity.isDeliverySelf !=null">
+				P_ISDELIVERYSELF = #{entity.isDeliverySelf},
+			</if>
+			<if test="entity.deliveryTime !=null">
+				P_DELIVERYTIME = #{entity.deliveryTime},
+			</if>
+			<if test="entity.finishTime !=null">
+				P_FINISHTIME = ${entity.finishTime},
+			</if>
+			<if test="entity.deliveryPoint !=null">
+				deliveryPoint = #{entity.deliveryPoint},
+			</if>
+			<if test="entity.deliveryMode !=null">
+				deliveryMode = #{entity.deliveryMode},
+			</if>
+		</set>
+		WHERE
+			P_CONSIGNMENT = (
+				SELECT
+					pk
+				FROM
+					CONSIGNMENTS 
+				WHERE
+					P_CODE = #{entity.orderCode})
+	</update>
+	
+	<!--更新表CONSIGNMENTS 收货状态  -->
+		<update id="deliver4Consignments">
+			UPDATE CONSIGNMENTS 
+				<set>
+					P_STATUS = '8796105670747',
+					<if test="entity.deliveryTime != null">
+						P_SHIPPINGDATE = #{entity.deliveryTime}
+					</if>
+				</set> 
+				<if test="entity.orderCode != null">
+					where P_CODE = #{entity.orderCode}
+				</if>
+		</update>
+	
+	<update id="accept">
+		update O2OCONSIGNMENTITEMS set
+		    P_STATUS='15',
+		    P_ACCEPTEDTIME=sysdate,
+			<if test="acceptorId!=null">
+				P_ACCEPTEDBY=#{acceptorId},
+			</if>
+			<if test="acceptComment!=null">
+				P_ACCEPTEDCOMMENT=#{acceptComment}
+			</if>
+		where P_CONSIGNMENT=#{orderCode}
+	</update>	
+	
 </mapper>

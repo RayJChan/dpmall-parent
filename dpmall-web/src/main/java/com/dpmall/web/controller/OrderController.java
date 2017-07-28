@@ -31,6 +31,7 @@ public class OrderController {
 	
 	@Autowired
 	private IOrderService orderService;
+	
 
 	/**
 	 * 经销商获取待分配的实物订单
@@ -41,8 +42,19 @@ public class OrderController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Distribute(@RequestBody AppOrderForm form){
-    	return null;
+    public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::getOnePage4Distribute',in:" + JSON.toJSONString(form) + "}");
+
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOnePage4Distribute(form.distributorId, form.offset, form.pageSize);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+    	LOG.info("{method:'OrderController::getOnePage4Distribute',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
@@ -124,8 +136,19 @@ public class OrderController {
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Followup(@RequestBody AppOrderForm form){
-    	return null;
+    public Response getOnePage4Followup(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::getOnePage4Followup',in:" + JSON.toJSONString(form) + "}");
+
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOnePage4Followup(form.distributorId, form.offset, form.pageSize);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+    	LOG.info("{method:'OrderController::getOnePage4Followup',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
@@ -156,8 +179,19 @@ public class OrderController {
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Accept(@RequestBody AppOrderForm form){
-    	return null;
+    public Response getOnePage4Accept(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::getOnePage4Accept',in:" + JSON.toJSONString(form) + "}");
+
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOnePage4Accept(form.storeId, form.offset, form.pageSize);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+    	LOG.info("{method:'OrderController::getOnePage4Accept',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
@@ -183,7 +217,8 @@ public class OrderController {
 		return (Integer) res.data;
 	}
     
-     
+  
+    
     
     /**
      * 导购员接单
@@ -198,18 +233,6 @@ public class OrderController {
     }
     
     /**
-     * 确认发货
-     * @param model
-     * @return 成功返回200
-     */
-    @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
-    @ResponseBody
-    public int deliver(@RequestBody AppOrderForm form){
-    	return 0;
-    }
- 
-    
-    /**
      * 获取导购员已接单的一页实物订单信息
      * @param acceptorId 导购员ID
      * @param startItemId 上一次加载的最后项ID
@@ -221,6 +244,30 @@ public class OrderController {
     public List<OrderModel> getOnePage4Acceptor2Followup(@RequestBody AppOrderForm form){
     	return null;
     }
+    
+    /**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
+    @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public Response deliver(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::deliver',in:"+JSON.toJSONString(form)+"}");
+    	Response res = new Response();
+    	if(form.orderCode == null) {//orderCode为空返回错误码500
+    		res.resultCode = ErrorCode.INVALID_PARAM;
+    		return res;
+    	}
+    	try {
+    		res.data = orderService.deliver(form.orderCode == null? null : String.valueOf(form.orderCode));
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
+    	LOG.info("{method:'OrderController::deliver',in:"+JSON.toJSONString(res)+"}");
+    	return res;
+    }
+ 
     
     /**
      * 获取导购员已结单的一页实物订单信息

@@ -29,5 +29,9 @@ public class AppOrderForm extends RequestForm{
 	/**导购员ID**/
 	public String acceptorId;
 	
+	/**开始页码**/
+	public Integer offset;
+	
+	public Integer pageSize;
 	
 }

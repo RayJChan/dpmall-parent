@@ -98,7 +98,7 @@ public interface IOrderService {
      * @param orderCode 订单编码
      * @return 成功返回200
      */
-    public int accept(String acceptorId, String orderCode);
+    public int accept(String acceptorId, String orderCode, String acceptComment);
     
     /**
      * 确认发货

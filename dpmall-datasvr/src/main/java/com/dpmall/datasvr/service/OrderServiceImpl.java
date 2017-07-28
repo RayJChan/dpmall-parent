@@ -1,5 +1,7 @@
 package com.dpmall.datasvr.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.db.bean.OrderEntity;
+import com.dpmall.db.bean.SalesLeadsOrderEntity;
 import com.dpmall.db.dao.AppOrderDao;
 
 /**
@@ -24,15 +28,73 @@ public class OrderServiceImpl implements IOrderService {
 		OrderEntity entity=new OrderEntity();
 		entity.clientName=model.clientName;
 		entity.clientTel=model.clientTel;
+		
+		entity.allocatCode=model.allocatCode;
+		entity.shippingAddress=model.shippingAddress;
+		entity.buyerNick=model.buyerNick;
+		entity.productCode=model.productCode;
+		entity.productCategory=model.productCategory;
+		entity.productQuantity=model.productQuantity;;
+		entity.productBaseprice=model.productBaseprice;
+		entity.productTotal=model.productTotal;
+		entity.phone1=model.phone1;
+		entity.firstName=model.firstName;
+		entity.address=model.address;
+		entity.orderTotal=model.orderTotal;
+		entity.status=model.status;
+		entity.id=model.id;
 		return entity;
 	}
 	
 	private OrderModel entityToModel(OrderEntity entity) {
-		return null;
+		OrderModel model=new OrderModel();
+		model.allocatCode=entity.allocatCode;
+		model.shippingAddress=entity.shippingAddress;
+		model.buyerNick=entity.buyerNick;
+		model.productCode=entity.productCode;
+		model.productCategory=entity.productCategory;
+		model.productQuantity=entity.productQuantity;;
+		model.productBaseprice=entity.productBaseprice;
+		model.productTotal=entity.productTotal;
+		model.phone1=entity.phone1;
+		model.firstName=entity.firstName;
+		model.address=entity.address;
+		model.orderTotal=entity.orderTotal;
+		model.status=entity.status;
+		model.id = entity.id;
+		return model;
 	}
+	/**
+     * 实物类经销商获取待分配的实物订单
+     * @param distributorId 经销商ID
+     * @return 经销商待分配的实物订单数
+     * author:crown
+     */
 	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> out = null;
+
+		List<OrderEntity> outEntityList = orderDao.getOnePage4Distribute(distributorId,offset,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+				
+		out = this.entitysaleModel(outEntityList);
+		return out;
+	}
+	
+	private List<OrderModel> entitysaleModel(List<OrderEntity> in){
+		if(in == null || in.isEmpty()){
+			return null;
+		}
+		
+		List<OrderModel> out = new ArrayList<OrderModel>();
+		for(OrderEntity tmp : in){
+			out.add(entityToModel(tmp));
+		}
+		
+		return out;
+		
 	}
 	
 	/**
@@ -56,7 +118,15 @@ public class OrderServiceImpl implements IOrderService {
 
 	public List<OrderModel> getOnePage4Followup(String distributorId, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> out = null;
+
+		List<OrderEntity> outEntityList = orderDao.getOnePage4Followup(distributorId,offset,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+						
+		out = this.entitysaleModel(outEntityList);
+		return out;
 	}
 
 	public List<OrderModel> getOnePageClosedOrder(String distributorId, TimeScope distributeTime, String storeId,
@@ -64,24 +134,58 @@ public class OrderServiceImpl implements IOrderService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * 店铺获取待接单的实物订单
+	 * @param storeId 店铺ID
+	 * @param offset 上一次加载的位移
+	 * @param pageSize 页的大小
+	 * @return 店铺获取待接单的实物订单列表
+	 */
 	public List<OrderModel> getOnePage4Accept(String storeId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> orderModel = null;
+		
+		List<OrderEntity> orderEntityList = orderDao.getOnePage4Accept(storeId,offset,pageSize);
+		if(orderEntityList == null || orderEntityList.isEmpty()){
+			return null;
+		}
+		orderModel = this.entitysaleModel(orderEntityList);
+		return orderModel;
 	}
 
 	public Integer get2AcceptCount(String storeId) {
 		return orderDao.get2AcceptCount(storeId);
 	}
 
-	public int accept(String acceptorId, String orderCode) {
+	public int accept(String acceptorId, String orderCode, String acceptComment) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
 	public int deliver(String orderCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = 0;
+		Date date = new Date();
+		OrderEntity entity = new OrderEntity();
+		//orderCode 为空 返回错误代码 500
+		if (orderCode == null) {	
+			return count;
+		}
+		//赋值给实体类
+		entity.orderCode = orderCode;
+		entity.deliveryTime = date;
+		entity.status = "20";
+		
+		int count1 = orderDao.deliver4Consignments(entity);
+		int count2 = orderDao.edit(entity);
+		if(count1 != 0 && count2 != 0 ) {
+			count =1;
+		}
+		return count;
 	}
 
 	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, Integer offset, Integer pageSize) {

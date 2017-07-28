@@ -82,4 +82,34 @@ public class OrderEntity {
 	
 	/**送货地址**/
 	public String address;
+	
+	/**经销商ID**/
+	public String allocatCode;
+	
+	/**收货地址**/
+	public String shippingAddress;
+	
+	/**客户姓名**/
+	public String buyerNick;
+	
+	/**商品编码**/
+	public String productCode;
+	
+	/**商品品类**/
+	public String productCategory;
+	
+	/**商品数量**/
+	public String productQuantity;
+	
+	/**商品单价**/
+	public BigDecimal productBaseprice;
+	
+	/**商品汇总价格**/
+	public BigDecimal productTotal;
+	
+	/**收货人名字**/
+	public String firstName;
+	
+	/**收货人电话号码**/
+	public String phone1;
 }

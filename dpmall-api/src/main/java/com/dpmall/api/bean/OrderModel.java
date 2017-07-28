@@ -1,6 +1,7 @@
 package com.dpmall.api.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -37,9 +38,47 @@ public class OrderModel implements Serializable {
 	public String payMode;
 	
 	/**订单金额*/
-	public Double orderTotal;
+	public BigDecimal orderTotal;
 	
 	/**订单列表*/
 	public List<OrderItemModel> orderItemList;
-
+	
+	/**经销商ID**/
+	public String allocatCode;
+	
+	/**收货地址**/
+	public String shippingAddress;
+	
+	/**客户姓名**/
+	public String buyerNick;
+	
+	/**商品编码**/
+	public String productCode;
+	
+	/**商品品类**/
+	public String productCategory;
+	
+	/**商品数量**/
+	public String productQuantity;
+	
+	/**商品单价**/
+	public BigDecimal productBaseprice;
+	
+	/**商品汇总价格**/
+	public BigDecimal productTotal;
+	
+	/**收货人名字**/
+	public String firstName;
+	
+	/**收货人电话号码**/
+	public String phone1;
+	
+	/**送货地址**/
+	public String address;
+	
+	/**订单状态**/
+	public String status;
+	
+	/**ID**/
+	public Long id;
 }

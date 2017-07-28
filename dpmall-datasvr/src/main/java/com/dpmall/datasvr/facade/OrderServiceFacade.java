@@ -23,9 +23,24 @@ public class OrderServiceFacade implements IOrderService {
 	@Autowired
 	private IOrderService orderService;
 
+	/**
+     * 实物类经销商获取待分配的实物订单
+     * @param distributorId 经销商ID
+     * @return 经销商待分配的实物订单数
+     * author:crown
+     */
 	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Distribute',in:{distributorId:'" + distributorId + "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> out = orderService.getOnePage4Distribute(distributorId, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 	
 	/**
@@ -65,8 +80,17 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public List<OrderModel> getOnePage4Followup(String distributorId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Followup',in:{distributorId:'" + distributorId + "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> out = orderService.getOnePage4Followup(distributorId, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Followup',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<OrderModel> getOnePageClosedOrder(String distributorId, TimeScope distributeTime, String storeId,
@@ -76,8 +100,17 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public List<OrderModel> getOnePage4Accept(String storeId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Accept',in:{storeId:'" + storeId + "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> orderModel = orderService.getOnePage4Accept(storeId, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4Accept',out:"+JSON.toJSONString(orderModel)+"}");
+		}
+		return orderModel;
 	}
 
 	public Integer get2AcceptCount(String storeId) {
@@ -96,14 +129,30 @@ public class OrderServiceFacade implements IOrderService {
 		return count;
 	}
 
-	public int accept(String acceptorId, String orderCode) {
+	public int accept(String acceptorId, String orderCode, String acceptComment) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
 	public int deliver(String orderCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		Integer deliver = 0 ;
+		if(LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::deliver',in:{orderCode:'" + orderCode + "'}}");
+		}
+		try {
+			 deliver = orderService.deliver(orderCode);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::reject',out:" + deliver + "}");
+		}
+		return deliver;
 	}
 
 	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, Integer offset, Integer pageSize) {
