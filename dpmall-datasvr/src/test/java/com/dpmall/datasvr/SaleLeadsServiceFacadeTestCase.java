@@ -53,7 +53,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
    
     @Test
     public void testGet2DistributeCount(){
-    	Integer result = saleLeadsService.get2DistributeCount("8");
+    	Integer result = saleLeadsService.get2DistributeCount("8796132134458");
         LOG.info("result:" + JSON.toJSONString(result));
     }
     @Test

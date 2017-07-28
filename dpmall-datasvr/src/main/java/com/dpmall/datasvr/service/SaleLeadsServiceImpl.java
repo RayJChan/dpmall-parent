@@ -147,7 +147,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public Integer get2DistributeCount(String distributorId) {
 		// TODO Auto-generated method stub
-		Integer result = salesLeadsOrderDao.get2DistributeCount(Integer.valueOf(distributorId));
+		Integer result = salesLeadsOrderDao.get2DistributeCount(distributorId);
 		return result;
 	}
 
