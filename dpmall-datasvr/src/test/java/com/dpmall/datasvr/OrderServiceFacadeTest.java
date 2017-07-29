@@ -75,4 +75,15 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer deliver = orderService.deliver("aSIT100020032");
 		LOG.info("===============确认收货================"+deliver);
 	}
+	
+	/**
+     * 导购员接单
+     * @param model
+     * @return 成功返回200
+     */
+	@Test
+	public void testAccept() {
+		Integer result = orderService.accept("123456", "aSITA100272016", "110");
+		LOG.info("================导购员接单================" + result);
+	}
 }

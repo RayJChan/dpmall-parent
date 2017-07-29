@@ -130,8 +130,21 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public int accept(String acceptorId, String orderCode, String acceptComment) {
-		// TODO Auto-generated method stub
-		return 0;
+		Integer result = 0  ;
+		if(LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::accept',in:"
+					+ "{acceptorId:'" + acceptorId + "'}+{orderCode:'" + orderCode + "'}+{acceptComment:'" + acceptComment + "'}}");
+		}
+		try {
+			result = orderService.accept(acceptorId, orderCode, acceptComment);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::accept',out:"
+					+ "{acceptorId:'" + acceptorId + "'}+{orderCode:'" + orderCode + "'}+{acceptComment:'" + acceptComment + "'}}");
+		}
+		return result;
 	}
 
 	/**
