@@ -34,7 +34,9 @@ public class OrderMockController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Distribute(@RequestBody AppOrderForm form){
+    public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
+    	Response response=new Response(); 
+    	response.resultCode=ErrorCode.SUCCESS;
     	List<OrderModel> results=new ArrayList<OrderModel>();
     	for(int i=0;i<=3;i++){
     		OrderModel order=new OrderModel();
@@ -61,7 +63,8 @@ public class OrderMockController {
         	order.orderItemList=orderItemList;
         	results.add(order);
     	}
-    	return results;
+    	response.data=results;
+    	return response;
     }
     
     /**
@@ -124,7 +127,9 @@ public class OrderMockController {
      */
     @RequestMapping(value="/getOnePage4Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Followup(@RequestBody AppOrderForm form){
+    public Response getOnePage4Followup(@RequestBody AppOrderForm form){
+    	Response response=new Response(); 
+    	response.resultCode=ErrorCode.SUCCESS;
     	List<OrderModel> results=new ArrayList<OrderModel>();
     	for(int i=0;i<=3;i++){
     		OrderModel order=new OrderModel();
@@ -148,11 +153,11 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
-        	order.orderItemList=new ArrayList<OrderItemModel>();
-        	order.orderItemList.addAll(orderItemList);
+        	order.orderItemList=orderItemList;
         	results.add(order);
     	}
-    	return results;
+    	response.data=results;
+    	return response;
     }
     
     /**
@@ -169,7 +174,9 @@ public class OrderMockController {
      */
     @RequestMapping(value="/getOnePageClosedOrder",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePageClosedOrder(@RequestBody AppOrderForm form){
+    public Response getOnePageClosedOrder(@RequestBody AppOrderForm form){
+    	Response response=new Response(); 
+    	response.resultCode=ErrorCode.SUCCESS;
     	List<OrderModel> results=new ArrayList<OrderModel>();
     	for(int i=0;i<=3;i++){
     		OrderModel order=new OrderModel();
@@ -193,11 +200,11 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
-        	order.orderItemList=new ArrayList<OrderItemModel>();
-        	order.orderItemList.addAll(orderItemList);
+        	order.orderItemList=orderItemList;
         	results.add(order);
     	}
-    	return results;
+    	response.data=results;
+    	return response;
     }
     
     
@@ -210,7 +217,9 @@ public class OrderMockController {
 	 */
     @RequestMapping(value="/getOnePage4Accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Accept(@RequestBody AppOrderForm form){
+    public Response getOnePage4Accept(@RequestBody AppOrderForm form){
+    	Response response=new Response(); 
+    	response.resultCode=ErrorCode.SUCCESS;
     	List<OrderModel> results=new ArrayList<OrderModel>();
     	for(int i=0;i<=3;i++){
     		OrderModel order=new OrderModel();
@@ -234,11 +243,11 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
-        	order.orderItemList=new ArrayList<OrderItemModel>();
-        	order.orderItemList.addAll(orderItemList);
+        	order.orderItemList=orderItemList;
         	results.add(order);
     	}
-    	return results;
+    	response.data=results;
+    	return response;
     }
     
     /**
@@ -296,7 +305,9 @@ public class OrderMockController {
      */
     @RequestMapping(value="/getOnePage4Acceptor2Followup",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4Acceptor2Followup(@RequestBody AppOrderForm form){
+    public Response getOnePage4Acceptor2Followup(@RequestBody AppOrderForm form){
+    	Response response=new Response(); 
+    	response.resultCode=ErrorCode.SUCCESS;
     	List<OrderModel> results=new ArrayList<OrderModel>();
     	for(int i=0;i<=3;i++){
     		OrderModel order=new OrderModel();
@@ -320,11 +331,11 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
-        	order.orderItemList=new ArrayList<OrderItemModel>();
-        	order.orderItemList.addAll(orderItemList);
+        	order.orderItemList=orderItemList;
         	results.add(order);
     	}
-    	return results;
+    	response.data=results;
+    	return response;
     }
     
     /**
@@ -336,7 +347,9 @@ public class OrderMockController {
      */
     @RequestMapping(value="/getOnePage4AcceptorClosed",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<OrderModel> getOnePage4AcceptorClosed(@RequestBody AppOrderForm form){
+    public Response getOnePage4AcceptorClosed(@RequestBody AppOrderForm form){
+    	Response response=new Response(); 
+    	response.resultCode=ErrorCode.SUCCESS;
     	List<OrderModel> results=new ArrayList<OrderModel>();
     	for(int i=0;i<=3;i++){
     		OrderModel order=new OrderModel();
@@ -360,11 +373,11 @@ public class OrderMockController {
         		item.unit="单位"+i+j;
         		orderItemList.add(item);
         	}
-        	order.orderItemList=new ArrayList<OrderItemModel>();
-        	order.orderItemList.addAll(orderItemList);
+        	order.orderItemList=orderItemList;
         	results.add(order);
     	}
-    	return results;
+    	response.data=results;
+    	return response;
     }
 
 }
