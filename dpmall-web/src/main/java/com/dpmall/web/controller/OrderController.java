@@ -229,7 +229,18 @@ public class OrderController {
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response accept(@RequestBody AppOrderForm form){
-    	return null;
+        LOG.info("{method:'OrderController::accept',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = orderService.accept(form.acceptorId, form.orderCode, form.acceptComment);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'OrderController::accept',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
