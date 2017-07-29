@@ -157,9 +157,23 @@ public class OrderServiceImpl implements IOrderService {
 		return orderDao.get2AcceptCount(storeId);
 	}
 
+	/**
+     * 导购员接单
+     * @param model
+     * @return 成功返回200
+     */
 	public int accept(String acceptorId, String orderCode, String acceptComment) {
-		// TODO Auto-generated method stub
-		return 0;
+		OrderEntity entity = new OrderEntity();
+		
+		entity.acceptedBy = acceptorId;
+		entity.acceptedComment = acceptComment;
+		entity.acceptedTime = new Date();
+		/*entity.status = "15";*/
+		entity.orderCode = orderCode;
+		
+		int result = orderDao.edit(entity);
+		
+		return result;
 	}
 
 	/**
