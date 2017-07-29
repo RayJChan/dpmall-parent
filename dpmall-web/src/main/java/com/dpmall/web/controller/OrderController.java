@@ -122,8 +122,8 @@ public class OrderController {
      */
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int reject(@RequestBody AppOrderForm form){
-    	return 0;
+    public Response reject(@RequestBody AppOrderForm form){
+    	return null;
     }
     
     
@@ -201,12 +201,12 @@ public class OrderController {
      */
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-	public Integer get2AcceptCount(@RequestBody AppOrderForm form) {
+	public Response get2AcceptCount(@RequestBody AppOrderForm form) {
 		LOG.info("{method:'OrderController::get2AcceptCount',in:" + JSON.toJSONString(form) + "}");
 		Response res = new Response();
 		if (form.storeId == null) {
 			res.resultCode = ErrorCode.INVALID_PARAM;
-			return res.resultCode;
+			return res;
 		}
 		try {
 			res.data = orderService.get2AcceptCount(form.storeId == null ? null : String.valueOf(form.storeId));
@@ -214,7 +214,7 @@ public class OrderController {
 			LOG.error(e.getMessage(), e);
 		}
 		LOG.info("{method:'OrderController::get2AcceptCount',out:{res:'" + JSON.toJSONString(res) + "'}}");
-		return (Integer) res.data;
+		return res;
 	}
     
   
@@ -228,8 +228,8 @@ public class OrderController {
      */
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int accept(@RequestBody AppOrderForm form){
-    	return 0;
+    public Response accept(@RequestBody AppOrderForm form){
+    	return null;
     }
     
     /**

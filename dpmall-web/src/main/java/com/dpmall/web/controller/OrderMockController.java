@@ -1,5 +1,6 @@
 package com.dpmall.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class OrderMockController {
         	order.deliverMode="送货方式"+i+i+i+i;
         	order.orderCode="订单编号"+i+i+i+i;
         	order.orderRefCode="订单参考编号"+i+i+i+i;
-        	order.orderTotal=i+i+i+i+0D;
+        	order.orderTotal=BigDecimal.valueOf(i+i+i+i);
         	order.payMode="付费方式"+i+i+i+i;
         	order.receiptInfo="发票信息"+i+i+i+i;
         	List<OrderItemModel> orderItemList=new ArrayList<OrderItemModel>();
@@ -106,8 +107,11 @@ public class OrderMockController {
      */
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int reject(@RequestBody AppOrderForm form){
-    	return ErrorCode.SUCCESS;
+    public Response reject(@RequestBody AppOrderForm form){
+    	Response response=new Response();
+    	response.resultCode=ErrorCode.SUCCESS;
+    	response.message="666";
+    	return response;
     }
     
     
@@ -130,7 +134,7 @@ public class OrderMockController {
         	order.deliverMode="送货方式"+i+i+i+i;
         	order.orderCode="订单编号"+i+i+i+i;
         	order.orderRefCode="订单参考编号"+i+i+i+i;
-        	order.orderTotal=i+i+i+i+0D;
+        	order.orderTotal=BigDecimal.valueOf(i+i+i+i);
         	order.payMode="付费方式"+i+i+i+i;
         	order.receiptInfo="发票信息"+i+i+i+i;
         	List<OrderItemModel> orderItemList=new ArrayList<OrderItemModel>();
@@ -175,7 +179,7 @@ public class OrderMockController {
         	order.deliverMode="送货方式"+i+i+i+i;
         	order.orderCode="订单编号"+i+i+i+i;
         	order.orderRefCode="订单参考编号"+i+i+i+i;
-        	order.orderTotal=i+i+i+i+0D;
+        	order.orderTotal=BigDecimal.valueOf(i+i+i+i);
         	order.payMode="付费方式"+i+i+i+i;
         	order.receiptInfo="发票信息"+i+i+i+i;
         	List<OrderItemModel> orderItemList=new ArrayList<OrderItemModel>();
@@ -216,7 +220,7 @@ public class OrderMockController {
         	order.deliverMode="送货方式"+i+i+i+i;
         	order.orderCode="订单编号"+i+i+i+i;
         	order.orderRefCode="订单参考编号"+i+i+i+i;
-        	order.orderTotal=i+i+i+i+0D;
+        	order.orderTotal=BigDecimal.valueOf(i+i+i+i);
         	order.payMode="付费方式"+i+i+i+i;
         	order.receiptInfo="发票信息"+i+i+i+i;
         	List<OrderItemModel> orderItemList=new ArrayList<OrderItemModel>();
@@ -244,8 +248,11 @@ public class OrderMockController {
      */
     @RequestMapping(value="/get2AcceptCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-	public Integer get2AcceptCount(@RequestBody AppOrderForm form) {
-		return ErrorCode.SUCCESS;
+	public Response get2AcceptCount(@RequestBody AppOrderForm form) {
+    	Response response=new Response();
+    	response.resultCode=ErrorCode.SUCCESS;
+    	response.message="666";
+    	return response;
 	}
     
      
@@ -258,8 +265,11 @@ public class OrderMockController {
      */
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int accept(@RequestBody AppOrderForm form){
-    	return ErrorCode.SUCCESS;
+    public Response accept(@RequestBody AppOrderForm form){
+    	Response response=new Response();
+    	response.resultCode=ErrorCode.SUCCESS;
+    	response.message="666";
+    	return response;
     }
     
     /**
@@ -269,8 +279,11 @@ public class OrderMockController {
      */
     @RequestMapping(value="/deliver",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public int deliver(@RequestBody AppOrderForm form){
-    	return ErrorCode.SUCCESS;
+    public Response deliver(@RequestBody AppOrderForm form){
+    	Response response=new Response();
+    	response.resultCode=ErrorCode.SUCCESS;
+    	response.message="666";
+    	return response;
     }
  
     
@@ -293,7 +306,7 @@ public class OrderMockController {
         	order.deliverMode="送货方式"+i+i+i+i;
         	order.orderCode="订单编号"+i+i+i+i;
         	order.orderRefCode="订单参考编号"+i+i+i+i;
-        	order.orderTotal=i+i+i+i+0D;
+        	order.orderTotal=BigDecimal.valueOf(i+i+i+i);
         	order.payMode="付费方式"+i+i+i+i;
         	order.receiptInfo="发票信息"+i+i+i+i;
         	List<OrderItemModel> orderItemList=new ArrayList<OrderItemModel>();
@@ -333,7 +346,7 @@ public class OrderMockController {
         	order.deliverMode="送货方式"+i+i+i+i;
         	order.orderCode="订单编号"+i+i+i+i;
         	order.orderRefCode="订单参考编号"+i+i+i+i;
-        	order.orderTotal=i+i+i+i+0D;
+        	order.orderTotal=BigDecimal.valueOf(i+i+i+i);
         	order.payMode="付费方式"+i+i+i+i;
         	order.receiptInfo="发票信息"+i+i+i+i;
         	List<OrderItemModel> orderItemList=new ArrayList<OrderItemModel>();
