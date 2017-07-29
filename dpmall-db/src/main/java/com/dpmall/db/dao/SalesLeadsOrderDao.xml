@@ -35,6 +35,7 @@
 		<result property="storeAcceptorRemark" column="P_STOREACCEPTORREMARK"/>
 		<result property="orderCode" column="P_ORDERCODE"/>
 		<result property="acceptStore" column="P_ACCEPTSTORE"/>
+		<result property="arriveDate" column="P_ACTUALDATE"/>
 	</resultMap>
 	<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
