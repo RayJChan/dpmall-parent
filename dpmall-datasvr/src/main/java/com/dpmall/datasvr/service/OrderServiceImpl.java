@@ -168,7 +168,7 @@ public class OrderServiceImpl implements IOrderService {
 		entity.acceptedBy = acceptorId;
 		entity.acceptedComment = acceptComment;
 		entity.acceptedTime = new Date();
-		/*entity.status = "15";*/
+		/*entity.status = "15"; */
 		entity.orderCode = orderCode;
 		
 		int result = orderDao.edit(entity);

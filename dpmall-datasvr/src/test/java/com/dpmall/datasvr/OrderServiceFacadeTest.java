@@ -84,6 +84,6 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	@Test
 	public void testAccept() {
 		Integer result = orderService.accept("123456", "aSITA100272016", "110");
-		LOG.info("===============导购员接单================" + result);
+		LOG.info("================导购员接单================" + result);
 	}
 }

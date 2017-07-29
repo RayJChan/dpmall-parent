@@ -130,7 +130,7 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public int accept(String acceptorId, String orderCode, String acceptComment) {
-		Integer result = 0 ;
+		Integer result = 0  ;
 		if(LOG.isInfoEnabled()) {
 			LOG.info("{method:'OrderServiceFacade::accept',in:"
 					+ "{acceptorId:'" + acceptorId + "'}+{orderCode:'" + orderCode + "'}+{acceptComment:'" + acceptComment + "'}}");
