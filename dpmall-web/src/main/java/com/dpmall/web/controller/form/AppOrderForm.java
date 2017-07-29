@@ -34,4 +34,7 @@ public class AppOrderForm extends RequestForm{
 	
 	public Integer pageSize;
 	
+	/**导购员接单备注**/
+	public String acceptComment;
+	
 }
