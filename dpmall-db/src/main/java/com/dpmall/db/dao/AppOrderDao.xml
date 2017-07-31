@@ -83,35 +83,6 @@
 		where pk=#{orderCode}
 	</update>
 	
-	<select id="getOnePage4Distribute"  resultMap="AppOrderResultMap">
-		select 
-			C.PK,
-			C.P_STATUS,
-            C.P_ALLOCATIONEMPLOYEECODE as P_ALLOCATIONEMPLOYEECODE,
-            C.P_SHIPPINGADDRESS as P_SHIPPINGADDRESS,
-			O.P_CODE,
-			O.P_BUYERNICK as P_BUYERNICK,
-            O2O.P_RECOMMENDSTORE,
-            O2O.P_CUSCOMMET,
-            O2O.P_SERVERCOMMENT,
-            O2O.P_AGENCYCOMMENT,
-            P.P_CODE as P_ICODE,
-            P.P_CATEGORY as P_CATEGORY,
-            OE.P_QUANTITY as P_QUANTITY,
-            OE.P_BASEPRICE as P_BASEPRICE,
-            OE.P_TOTALPRICE as P_TOTALPRICE,
-			ROWNUM RN
-		from CONSIGNMENTS C LEFT JOIN ORDERS O ON O.PK=C.P_ORDER
-		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
-		LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
-		LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK 
-		where 1= 1 AND C.P_STATUS='8796105375835'
-		<if test="distributorId != null">
-		    AND C.P_ALLOCATIONEMPLOYEECODE = #{distributorId} 
-		</if>
-		AND  ROWNUM between ${offset} and ${pageSize}
-	</select>
-	
 	
 	<select id="getOnePage4Followup"  resultMap="AppOrderResultMap">
 		select 
@@ -262,7 +233,7 @@
 		where P_CONSIGNMENT=#{orderCode}
 	</update>	
 	
-	<resultMap type="com.dpmall.db.bean.OrderEntity" id="testResultMap">
+	<resultMap type="com.dpmall.db.bean.OrderEntity" id="listResultMap">
 		<id property="id" column="pk"/>
 		<result property="consignment" column="p_code"/>
 		<result property="status" column="P_STATUS"/>
@@ -293,29 +264,39 @@
 		    </collection>
 	</resultMap>
 		
-	<select id="test" resultMap="testResultMap">
+	<select id="getOnePage4Distribute" resultMap="listResultMap">
 		SELECT
-				c.p_code ,
-				c.pk,
-				o2.P_QUANTITY as quantity,
-				o2.P_TMALLQUANTITY as tmallQuantity,
-				o2.P_DELIVERYCOST as deliveryCost,
-				o2.P_SERVICEAMOUNT as serviceAmount,
-				o2.p_payamount as payAmount,
-				c.P_STATUS,
-				o2.pk as itemsId,
-				o2.P_PAYAMOUNT,
-				o2.P_JUNTANPRICE,
-				A .P_FIRSTNAME,
-				A .p_phone1,
-				A .P_STREETNAME,
-				u.P_CODE as unit 
+				*
 			FROM
-				 CONSIGNMENTS c	
-			LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
-			LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
-			LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-			LEFT JOIN UNITS u ON o2.P_UNIT = u.pk
-			WHERE c.pk=8796191688659
+				(
+					SELECT
+						c.p_code,
+						c.pk,
+						o2.P_QUANTITY AS quantity,
+						o2.P_TMALLQUANTITY AS tmallQuantity,
+						o2.P_DELIVERYCOST AS deliveryCost,
+						o2.P_SERVICEAMOUNT AS serviceAmount,
+						o2.p_payamount AS payAmount,
+						c.P_STATUS,
+						o2.pk AS itemsId,
+						o2.P_PAYAMOUNT,
+						o2.P_JUNTANPRICE,
+						A .P_FIRSTNAME,
+						A .p_phone1,
+						A .P_STREETNAME,
+						U .P_CODE AS unit,
+						ROWNUM rn
+					FROM
+						CONSIGNMENTS c
+					LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
+					LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
+					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+					LEFT JOIN UNITS U ON o2.P_UNIT = U .pk
+					WHERE
+						c.P_SPLITORDERTYPE like '%M%' and 
+						c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
+					AND c.P_STATUS = #{status}
+					AND ROWNUM &lt; ${offset}+${pageSize}+1
+				) p1 WHERE p1.rn&gt;${offset}
 	</select>
 </mapper>

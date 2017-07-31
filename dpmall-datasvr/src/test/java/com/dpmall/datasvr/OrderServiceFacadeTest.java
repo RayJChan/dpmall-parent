@@ -86,4 +86,9 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer result = orderService.accept("123456", "aSITA100272016", "110");
 		LOG.info("================导购员接单================" + result);
 	}
+	
+	@Test
+	public void getOnePage4DistributeTest() {
+		logger.info("result:"+JSON.toJSONString(orderService.getOnePage4Distribute("", "", 0, 3)));
+	}
 }

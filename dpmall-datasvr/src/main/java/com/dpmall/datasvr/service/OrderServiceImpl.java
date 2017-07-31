@@ -9,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.api.err.ErrorCode;
 import com.dpmall.db.bean.OrderEntity;
-import com.dpmall.db.bean.SalesLeadsOrderEntity;
+import com.dpmall.db.bean.OrderItemEntity;
 import com.dpmall.db.dao.AppOrderDao;
 
 /**
@@ -43,6 +42,9 @@ public class OrderServiceImpl implements IOrderService {
 		entity.orderTotal=model.orderTotal;
 		entity.status=model.status;
 		entity.id=model.id;
+		for(Object obj:model.items) {
+			entity.items.add((OrderItemEntity) obj);
+		}
 		return entity;
 	}
 	
@@ -62,26 +64,12 @@ public class OrderServiceImpl implements IOrderService {
 		model.orderTotal=entity.orderTotal;
 		model.status=entity.status;
 		model.id = entity.id;
+		for (OrderItemEntity item:entity.items) {
+			model.items.add(item);
+		}
 		return model;
 	}
-	/**
-     * 实物类经销商获取待分配的实物订单
-     * @param distributorId 经销商ID
-     * @return 经销商待分配的实物订单数
-     * author:crown
-     */
-	public List<OrderModel> getOnePage4Distribute(String distributorId, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		List<OrderModel> out = null;
 
-		List<OrderEntity> outEntityList = orderDao.getOnePage4Distribute(distributorId,offset,pageSize);
-		if(outEntityList == null || outEntityList.isEmpty()){
-			return null;
-		}
-				
-		out = this.entitysaleModel(outEntityList);
-		return out;
-	}
 	
 	private List<OrderModel> entitysaleModel(List<OrderEntity> in){
 		if(in == null || in.isEmpty()){
@@ -214,8 +202,10 @@ public class OrderServiceImpl implements IOrderService {
 
 	public List<OrderModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderEntity> entities = orderDao.getOnePage4Distribute(distributorId, status, offset, pageSize);
+		List<OrderModel> result = new ArrayList<OrderModel>(entities.size());
+		result=entitysaleModel(entities);
+		return result;
 	}
 
 	public Integer get2DistributeCount(String distributorId, String status) {

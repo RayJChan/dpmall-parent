@@ -22,13 +22,14 @@ public interface AppOrderDao {
 	public Integer get2AcceptCount(@Param("storeId")String storeId);
 	
 	/**
-	 * author: crown
-	 * 根据经销商ID查询待分配销售线索
-	 * @param template
-	 * @param page
-	 * @return
+	 * 实物类经销商订单状态列表
+	 * @param distributorId 经销商Id
+	 * @param status 状态
+	 * @param offset 上一次加载的最后项offset
+	 * @param pageSize 页的大小
+	 * @return 经销商获取待分配的实物订单列表
 	 */
-   public List<OrderEntity> getOnePage4Distribute(@Param(value="distributorId")String distributorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+	 public List<OrderEntity> getOnePage4Distribute(@Param("distributorId")String distributorId,@Param("status")String status,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
    
    /**
 	 * author: crown

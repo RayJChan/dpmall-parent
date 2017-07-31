@@ -82,4 +82,6 @@ public class OrderModel implements Serializable {
 	
 	/**ID**/
 	public Long id;
+	
+	public List<Object> items;
 }

@@ -1,7 +1,5 @@
 package com.dpmall.web.controller;
 
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IOrderService;
-import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.AppOrderForm;
 import com.dpmall.web.controller.form.Response;
@@ -49,7 +46,7 @@ public class OrderController {
     	Response res = new Response();
         try{
         	res.resultCode=ErrorCode.SUCCESS;
-        	res.data = orderService.getOnePage4Distribute(form.distributorId, form.offset, form.pageSize);
+        	res.data = orderService.getOnePage4Distribute(form.distributorId, form.status,form.startNum, form.pageSize);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
