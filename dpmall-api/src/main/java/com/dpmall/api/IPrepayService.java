@@ -2,9 +2,7 @@ package com.dpmall.api;
 
 import java.util.List;
 
-import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.bean.PrepayModel;
-import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.common.TimeScope;
 
 /**
