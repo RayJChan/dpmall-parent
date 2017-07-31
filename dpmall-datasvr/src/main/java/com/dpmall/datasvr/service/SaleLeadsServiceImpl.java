@@ -75,6 +75,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.agencyRemark=entity.agencyRemark;
 		model.storeAcceptor=entity.storeAcceptor;
 		model.brand=entity.brand;
+		model.arriveDate=entity.arriveDate;
 		return model;
 		
 	}
@@ -115,6 +116,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.agencyRemark=model.agencyRemark;
 		entity.storeAcceptor=model.storeAcceptor;
 		entity.brand=model.brand;
+		entity.arriveDate=model.arriveDate;
 		return entity;
 	}
 
@@ -147,7 +149,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public Integer get2DistributeCount(String distributorId) {
 		// TODO Auto-generated method stub
-		Integer result = salesLeadsOrderDao.get2DistributeCount(Integer.valueOf(distributorId));
+		Integer result = salesLeadsOrderDao.get2DistributeCount(distributorId);
 		return result;
 	}
 

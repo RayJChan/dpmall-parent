@@ -129,14 +129,43 @@ public class OrderServiceFacade implements IOrderService {
 		return count;
 	}
 
-	public int accept(String acceptorId, String orderCode) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int accept(String acceptorId, String orderCode, String acceptComment) {
+		Integer result = 0  ;
+		if(LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::accept',in:"
+					+ "{acceptorId:'" + acceptorId + "'}+{orderCode:'" + orderCode + "'}+{acceptComment:'" + acceptComment + "'}}");
+		}
+		try {
+			result = orderService.accept(acceptorId, orderCode, acceptComment);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::accept',out:"
+					+ "{acceptorId:'" + acceptorId + "'}+{orderCode:'" + orderCode + "'}+{acceptComment:'" + acceptComment + "'}}");
+		}
+		return result;
 	}
 
+	/**
+     * 确认发货
+     * @param model
+     * @return 成功返回200
+     */
 	public int deliver(String orderCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		Integer deliver = 0 ;
+		if(LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::deliver',in:{orderCode:'" + orderCode + "'}}");
+		}
+		try {
+			 deliver = orderService.deliver(orderCode);
+		} catch (Exception e) {
+			LOG.error(e.getMessage(),e);
+		}
+		if(LOG.isDebugEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::reject',out:" + deliver + "}");
+		}
+		return deliver;
 	}
 
 	public List<OrderModel> getOnePage4Acceptor2Followup(String acceptorId, Integer offset, Integer pageSize) {

@@ -55,7 +55,7 @@ public interface SalesLeadsOrderDao {
      * @param distributorId 经销商ID
      * @return 经销商待分配的线索数
      */
-    Integer get2DistributeCount(@Param(value="distributorId")int distributorId);
+    Integer get2DistributeCount(@Param(value="distributorId")String distributorId);
     
     /**
 	 * <p>

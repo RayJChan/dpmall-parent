@@ -48,6 +48,31 @@ public interface AppOrderDao {
 	 */
   public List<OrderEntity> getOnePage4Accept(@Param(value="storeId")String storeId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
   
-  public List<OrderEntity> test();
+  /**
+   * author:crown
+   * 导购员接单
+   * @param acceptorId 导购员ID
+   * @param orderCode 订单编码
+   * @return 成功返回200
+   */
+  public int accept(@Param(value="acceptorId")String acceptorId, @Param("orderCode")String orderCode, @Param("acceptComment")String acceptComment);
    
+  
+  /**
+	 * author : cwj 
+	 * 编辑实物订单信息
+	 * @param entity
+	 * @return 1为成功，0为失败
+	 */
+	int edit (@Param("entity") OrderEntity entity);
+
+	/**
+	 * author : cwj 
+	 * 确认发货，更新B2C发货单模型发货状态
+	 * @param entity
+	 * @return 1为成功，0为失败
+	 */
+	int deliver4Consignments (@Param("entity") OrderEntity entity);
+	
+  
 }

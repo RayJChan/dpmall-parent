@@ -70,7 +70,7 @@ public class SalesLeadsOrderDaoTest extends SpringTestCase {
     }
     @Test
     public void testget2DistributeCount(){
-    	Integer result = salesLeadsOrderDao.get2DistributeCount(8);
+    	Integer result = salesLeadsOrderDao.get2DistributeCount("8796132134458");
     	LOG.info(JSON.toJSONString(result));
     }
     @Test
