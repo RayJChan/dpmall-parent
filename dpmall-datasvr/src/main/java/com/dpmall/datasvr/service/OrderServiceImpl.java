@@ -211,5 +211,51 @@ public class OrderServiceImpl implements IOrderService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<OrderModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
+			Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2DistributeCount(String distributorId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2StoreCount(String storeId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2AcceptorCount(String acceptorId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OrderModel getOrderDetails(String consignmentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OrderModel getReturnRequestDetails(String consignmentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
