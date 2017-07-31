@@ -2,18 +2,17 @@ package com.dpmall.db.bean;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author xiecong
+ * o2o订单
  *
  */
 public class OrderEntity {
 	/**ID**/
 	public Long id;
-	
-	/**推荐门店**/
-	public String recommendStore;
-	
+		
 	/**发货单ID**/
 	public 	String consignment;
 	
@@ -112,4 +111,7 @@ public class OrderEntity {
 	
 	/**收货人电话号码**/
 	public String phone1;
+	
+	/**orderEntry**/
+	public List<OrderItemEntity> items;
 }

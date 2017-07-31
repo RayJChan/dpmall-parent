@@ -2,6 +2,7 @@ package com.dpmall.api.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class OrderModel implements Serializable {
 	public BigDecimal orderTotal;
 	
 	/**订单列表*/
-	public List<OrderItemModel> orderItemList;
+	public List<OrderItemModel> orderItemList = new ArrayList<OrderItemModel>();
 	
 	/**经销商ID**/
 	public String allocatCode;

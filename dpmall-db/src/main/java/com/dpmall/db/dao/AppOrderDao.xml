@@ -35,6 +35,28 @@
 	    <result property="productTotal" column="P_TOTALPRICE"/>
 	    <result property="firstName" column="P_FIRSTNAME"/>
 	    <result property="phone1" column="P_PHONE1"/>
+	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
+	    	<id property="id" column="itemsId"/>
+		    <result property="splitOrderType" column="splitOrderType"/>
+			<result property="packQua" column="packQua"/>
+			<result property="code" column="code"/>
+			<result property="name" column="name"/>
+			<result property="description" column="description"/>
+			<result property="category" column="category"/>
+			<result property="unit" column="unit"/>
+			<result property="netWeight" column="netWeight"/>
+			<result property="volume" column="volume"/>
+			<result property="size" column="size"/>
+			<result property="quantity" column="quantity"/>
+			<result property="tmallQuantity" column="tmallQuantity"/>
+			<result property="basePrice" column="basePrice"/>
+			<result property="totalPrice" column="totalPrice"/>
+			<result property="deliveryCost" column="deliveryCost"/>
+			<result property="promotionTotalsaved" column="promotionTotalsaved"/>
+			<result property="payAmount" column="payAmount"/>
+			<result property="juntanPrice" column="juntanPrice"/>
+			<result property="serviceAmount" column="serviceAmount"/>
+	    </collection>
 	</resultMap>
 	
 	<select id="get2DistributeCount" resultType="java.lang.Integer">
@@ -141,4 +163,60 @@
 		AND  ROWNUM between ${offset} and ${pageSize}
 	</select>
 	
+	<resultMap type="com.dpmall.db.bean.OrderEntity" id="testResultMap">
+		<id property="id" column="pk"/>
+		<result property="consignment" column="p_code"/>
+		<result property="status" column="P_STATUS"/>
+		<result property="clientName" column="P_FIRSTNAME"/>
+		<result property="clientTel" column="p_phone1"/>
+		<result property="address" column="P_STREETNAME"/>
+			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
+				<id property="id" column="itemsId"/>
+			    <result property="splitOrderType" column="splitOrderType"/>
+				<result property="packQua" column="packQua"/>
+				<result property="code" column="code"/>
+				<result property="name" column="name"/>
+				<result property="description" column="description"/>
+				<result property="category" column="category"/>
+				<result property="unit" column="unit"/>
+				<result property="netWeight" column="netWeight"/>
+				<result property="volume" column="volume"/>
+				<result property="size" column="size"/>
+				<result property="quantity" column="quantity"/>
+				<result property="tmallQuantity" column="tmallQuantity"/>
+				<result property="basePrice" column="basePrice"/>
+				<result property="totalPrice" column="totalPrice"/>
+				<result property="deliveryCost" column="deliveryCost"/>
+				<result property="promotionTotalsaved" column="promotionTotalsaved"/>
+				<result property="payAmount" column="payAmount"/>
+				<result property="juntanPrice" column="juntanPrice"/>
+				<result property="serviceAmount" column="serviceAmount"/>
+		    </collection>
+	</resultMap>
+		
+	<select id="test" resultMap="testResultMap">
+		SELECT
+				c.p_code ,
+				c.pk,
+				o2.P_QUANTITY as quantity,
+				o2.P_TMALLQUANTITY as tmallQuantity,
+				o2.P_DELIVERYCOST as deliveryCost,
+				o2.P_SERVICEAMOUNT as serviceAmount,
+				o2.p_payamount as payAmount,
+				c.P_STATUS,
+				o2.pk as itemsId,
+				o2.P_PAYAMOUNT,
+				o2.P_JUNTANPRICE,
+				A .P_FIRSTNAME,
+				A .p_phone1,
+				A .P_STREETNAME,
+				u.P_CODE as unit 
+			FROM
+				 CONSIGNMENTS c	
+			LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
+			LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
+			LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+			LEFT JOIN UNITS u ON o2.P_UNIT = u.pk
+			WHERE c.pk=8796191688659
+	</select>
 </mapper>

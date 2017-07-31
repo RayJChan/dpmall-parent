@@ -1,6 +1,7 @@
 package com.dpmall.api.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,5 +36,5 @@ public class PrepayModel implements Serializable {
 	public Double totalAmount;
 	
 	/**订单成交商品*/
-	public List<SaleLeadsGoodsModel> goodsList;
+	public List<SaleLeadsGoodsModel> goodsList=new ArrayList<SaleLeadsGoodsModel>();;
 }

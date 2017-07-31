@@ -46,6 +46,7 @@ public class OrderController {
 
     	Response res = new Response();
         try{
+        	res.resultCode=ErrorCode.SUCCESS;
         	res.data = orderService.getOnePage4Distribute(form.distributorId, form.offset, form.pageSize);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;

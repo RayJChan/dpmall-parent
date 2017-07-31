@@ -3,7 +3,7 @@ package com.dpmall.api.bean;
 import java.io.Serializable;
 
 /**
- * 订单明细
+ * 留资订单明细
  * @author river
  * @since 2017-07-10
  */

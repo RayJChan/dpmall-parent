@@ -47,5 +47,7 @@ public interface AppOrderDao {
 	 * @return 店铺获取待接单的实物订单列表
 	 */
   public List<OrderEntity> getOnePage4Accept(@Param(value="storeId")String storeId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+  
+  public List<OrderEntity> test();
    
 }
