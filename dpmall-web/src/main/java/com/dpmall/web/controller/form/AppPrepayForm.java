@@ -1,6 +1,6 @@
 package com.dpmall.web.controller.form;
 
-public class AppOrderForm extends RequestForm{
+public class AppPrepayForm extends RequestForm{
 	
 	/**经销商Id**/
 	public String distributorId;

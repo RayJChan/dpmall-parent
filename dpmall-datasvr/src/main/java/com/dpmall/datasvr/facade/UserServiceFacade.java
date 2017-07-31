@@ -45,4 +45,9 @@ public class UserServiceFacade implements IUserService {
 		return result;
 	}
 
+	public Integer updatePasswd(String username, String passwd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

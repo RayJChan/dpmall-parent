@@ -15,9 +15,9 @@ public interface IUserService {
 	/**
 	 * <p>
 	 * 登录接口
-	 * @param username
-	 * @param passwd
-	 * @return
+	 * @param username 用户名
+	 * @param passwd 密码
+	 * @return 用户信息
 	 */
     public LoginResModel login(String username, String passwd);
     
@@ -42,4 +42,15 @@ public interface IUserService {
      * @return
      */
     public List<UserModel> getStoreAllUser(Long storeId);
+    
+    
+    /**
+	 * 修改密码
+	 * @param username 用户名
+	 * @param passwd 密码
+	 * @return 成功返回200
+	 */
+    public Integer updatePasswd(String username, String passwd);
+    
+    
 }
