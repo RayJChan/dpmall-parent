@@ -37,7 +37,7 @@ public class OrderController {
 	 * 经销商获取待分配的实物订单
 	 * @param distributorId 经销商Id
 	 * @param status 状态
-	 * @param startItemId 上一次加载的最后项ID
+	 * @param startNum 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的实物订单列表
 	 */
@@ -133,7 +133,7 @@ public class OrderController {
 //    /**
 //     * 经销商获取待跟进的一页实物订单数据
 //	 * @param distributorId 经销商Id
-//	 * @param startItemId 上一次加载的最后项ID
+//	 * @param startNum 上一次加载的最后项ID
 //	 * @param pageSize 页的大小
 //     * @return 经销商待跟进的一页实物订单数据
 //     */
@@ -177,7 +177,7 @@ public class OrderController {
 	 * 店铺获取待接单的实物订单
 	 * @param storeId 店铺ID
 	 * @param status 状态
-	 * @param startItemId 上一次加载的最后项ID
+	 * @param startNum 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 店铺获取待接单的实物订单列表
 	 */
@@ -277,7 +277,7 @@ public class OrderController {
 	 * 实物类导购员订单状态列表
 	 * @param acceptorId 导购员ID
 	 * @param status 状态
-	 * @param startItemId 上一次加载的最后项ID
+	 * @param startNum 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 实物类导购员订单状态列表
 	 */
