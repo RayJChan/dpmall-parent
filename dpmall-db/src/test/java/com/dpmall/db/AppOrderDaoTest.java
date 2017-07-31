@@ -22,17 +22,17 @@ public class AppOrderDaoTest extends SpringTestCase{
 
 	@Test
 	public void getOnePage4DistributeTest() {
-		logger.info(JSON.toJSONString(appOrderDao.get2DistributeCount("8796294532666")));
+//		logger.info(JSON.toJSONString(appOrderDao.get2DistributeCount("8796294532666")));
 	}
 	
 	@Test
 	public void testGet2AcceptCount() {
-		logger.info("获取店铺待接单的实物订单数:"+appOrderDao.get2AcceptCount("10086"));
+//		logger.info("获取店铺待接单的实物订单数:"+appOrderDao.get2AcceptCount("10086"));
 	}
 	
 	@Test
 	public void distributeTest() {
-		logger.info("result:"+JSON.toJSONString(appOrderDao.distribute("1", "10086")));
+//		logger.info("result:"+JSON.toJSONString(appOrderDao.distribute("1", "10086")));
 	}
 	
 	/**
@@ -84,9 +84,9 @@ public class AppOrderDaoTest extends SpringTestCase{
 		entity.orderCode = "aSIT100020032";
 		entity.deliveryTime = date;
 		System.out.println(entity.toString());
-		int count = appOrderDao.edit(entity);
-		System.out.println(count +"======testEdit======");
-		logger.info(Integer.toString(count));
+//		int count = appOrderDao.edit(entity);
+//		System.out.println(count +"======testEdit======");
+//		logger.info(Integer.toString(count));
 	}
 	
 	/**
@@ -114,8 +114,8 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Test
     public void testAccept(){
 		logger.info("=====================1Crown=======================");
-    	int result = appOrderDao.accept("12306", "8803499018195", "水印");
-    	logger.info(JSON.toJSONString(result));
+//    	int result = appOrderDao.accept("12306", "8803499018195", "水印");
+//    	logger.info(JSON.toJSONString(result));
     }
 	
 }

@@ -17,30 +17,30 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	@Autowired
 	private IOrderService orderService;
 	
-	@Test
-	public void get2DistributeCountTest() {
-		orderService.get2DistributeCount("8796294532666");
-	}
-	
-	@Test
-	public void testGet2AcceptCount() {
-		Integer result = orderService.get2AcceptCount("10086");
-		LOG.info("result:" + result);
-	}
-	
-	@Test
-	public void distributeTest() {
-		orderService.distribute("", "3", "10002");
-	}
-	/**
-	 * author:crown
-	 * getOnePage4Distribute
-	 */
-	@Test
-    public void testGetOnePage4Distribute(){
-    	List<OrderModel> result = orderService.getOnePage4Distribute("310145", 0, 20);
-        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
-    }
+//	@Test
+//	public void get2DistributeCountTest() {
+//		orderService.get2DistributeCount("8796294532666");
+//	}
+//	
+//	@Test
+//	public void testGet2AcceptCount() {
+//		Integer result = orderService.get2AcceptCount("10086");
+//		LOG.info("result:" + result);
+//	}
+//	
+//	@Test
+//	public void distributeTest() {
+//		orderService.distribute("", "3", "10002");
+//	}
+//	/**
+//	 * author:crown
+//	 * getOnePage4Distribute
+//	 */
+//	@Test
+//    public void testGetOnePage4Distribute(){
+//    	List<OrderModel> result = orderService.getOnePage4Distribute("310145", 0, 20);
+//        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+//    }
 	/**
 	 * author:crown
 	 * getOnePage4Distribute
@@ -51,19 +51,19 @@ public class OrderServiceFacadeTest extends SpringTestCase{
     	LOG.info("=====================daihx====================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
-	/**
-	 * 店铺获取待接单的实物订单
-	 * @param storeId 店铺ID
-	 * @param offset 上一次加载的位移
-	 * @param pageSize 页的大小
-	 * @return 店铺获取待接单的实物订单列表
-	 */
-	@Test
-    public void testGetOnePage4Accept(){
-    	List<OrderModel> result = orderService.getOnePage4Accept("10086", 0, 20);
-    	LOG.info("=====================getOnePage4Accept====================");
-        LOG.info("result:" + JSON.toJSONString(result));
-    }
+//	/**
+//	 * 店铺获取待接单的实物订单
+//	 * @param storeId 店铺ID
+//	 * @param offset 上一次加载的位移
+//	 * @param pageSize 页的大小
+//	 * @return 店铺获取待接单的实物订单列表
+//	 */
+//	@Test
+//    public void testGetOnePage4Accept(){
+//    	List<OrderModel> result = orderService.getOnePage4Accept("10086", 0, 20);
+//    	LOG.info("=====================getOnePage4Accept====================");
+//        LOG.info("result:" + JSON.toJSONString(result));
+//    }
 	
 	/**
      * 确认发货

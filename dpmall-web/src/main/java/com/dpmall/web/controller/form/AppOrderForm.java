@@ -30,11 +30,14 @@ public class AppOrderForm extends RequestForm{
 	public String acceptorId;
 	
 	/**开始页码**/
-	public Integer offset;
+	public Integer startNum;
 	
 	public Integer pageSize;
 	
 	/**导购员接单备注**/
 	public String acceptComment;
+	
+	/**订单状态**/
+	public String status;
 	
 }

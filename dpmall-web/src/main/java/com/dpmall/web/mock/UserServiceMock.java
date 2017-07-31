@@ -54,4 +54,11 @@ public class UserServiceMock implements IUserService {
 	}
 
 
+	@Override
+	public Integer updatePasswd(String username, String passwd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

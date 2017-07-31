@@ -31,4 +31,60 @@ public class PrepayServiceImpl implements IPrepayService {
 		return null;
 	}
 
+	public List<PrepayModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
+			Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2DistributeCount(String distributorId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2StoreCount(String storeId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2AcceptorCount(String acceptorId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public PrepayModel get4ConsignmentId(String consignmentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer distribute(String distributorId, String orderCode, String storeId, String remark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer updateOrder(String orderCode, String status, String remark) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PrepayModel> get4Search(String phone, String storeId, String acceptorId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PrepayModel> getReason4Order(String orderStyle) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

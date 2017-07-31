@@ -35,12 +35,12 @@ public class OrderServiceFacade implements IOrderService {
 					+ offset + "',pageSize:'" + pageSize +"'}}");
 		}
 		
-		List<OrderModel> out = orderService.getOnePage4Distribute(distributorId, offset, pageSize);
+		//List<OrderModel> out = orderService.getOnePage4Distribute(distributorId, offset, pageSize);
 		
 		if(LOG.isDebugEnabled()){
-			LOG.info("{method:'OrderServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
+//			LOG.info("{method:'OrderServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
 		}
-		return out;
+		return null;
 	}
 	
 	/**
@@ -53,12 +53,12 @@ public class OrderServiceFacade implements IOrderService {
 			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId + "'}}");
 		}
 		
-		Integer out = orderService.get2DistributeCount(distributorId);
+//		Integer out = orderService.get2DistributeCount(distributorId);
 		
 		if(LOG.isDebugEnabled()){
-			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',out:"+JSON.toJSONString(out)+"}");
+//			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',out:"+JSON.toJSONString(out)+"}");
 		}
-		return out;
+		return null;
 	}
 
 	public int distribute(String distributorId, String orderCode, String storeId) {
@@ -66,12 +66,12 @@ public class OrderServiceFacade implements IOrderService {
 			LOG.info("{method:'OrderServiceFacade::distribute',in:{distributorId:'" + distributorId +"orderCode"+orderCode+"storeId"+storeId+ "'}}");
 		}
 		
-		Integer out = orderService.distribute(distributorId, orderCode, storeId);
+//		Integer out = orderService.distribute(distributorId, orderCode, storeId);
 		
 		if(LOG.isDebugEnabled()){
-			LOG.info("{method:'OrderServiceFacade::distribute',out:"+JSON.toJSONString(out)+"}");
+//			LOG.info("{method:'OrderServiceFacade::distribute',out:"+JSON.toJSONString(out)+"}");
 		}
-		return out;
+		return 0;
 	}
 
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {
@@ -105,12 +105,12 @@ public class OrderServiceFacade implements IOrderService {
 					+ offset + "',pageSize:'" + pageSize +"'}}");
 		}
 		
-		List<OrderModel> orderModel = orderService.getOnePage4Accept(storeId, offset, pageSize);
+//		List<OrderModel> orderModel = orderService.getOnePage4Accept(storeId, offset, pageSize);
 		
 		if(LOG.isDebugEnabled()){
-			LOG.info("{method:'OrderServiceFacade::getOnePage4Accept',out:"+JSON.toJSONString(orderModel)+"}");
+//			LOG.info("{method:'OrderServiceFacade::getOnePage4Accept',out:"+JSON.toJSONString(orderModel)+"}");
 		}
-		return orderModel;
+		return null;
 	}
 
 	public Integer get2AcceptCount(String storeId) {
@@ -119,7 +119,7 @@ public class OrderServiceFacade implements IOrderService {
 			LOG.info("{method:'OrderServiceFacade::get2AcceptCount',in:{storeId:'" + storeId + "'}}");
 		}
 		try {
-			count = orderService.get2AcceptCount(storeId);
+//			count = orderService.get2AcceptCount(storeId);
 		} catch (Throwable e) {
 			LOG.error(e.getMessage(),e);
 		}
@@ -174,6 +174,52 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public List<OrderModel> getOnePage4AcceptorClosed(String acceptorId, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<OrderModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
+			Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2DistributeCount(String distributorId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2StoreCount(String storeId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Integer get2AcceptorCount(String acceptorId, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OrderModel getOrderDetails(String consignmentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public OrderModel getReturnRequestDetails(String consignmentId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
