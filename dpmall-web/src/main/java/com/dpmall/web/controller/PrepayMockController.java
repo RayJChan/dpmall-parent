@@ -19,7 +19,7 @@ public class PrepayMockController {
 	 * 特权定金销商商订单状态列表
 	 * @param distributorId 经销商Id
 	 * @param status 状态
-	 * @param offset 上一次加载的最后项offset
+	 * @param startNum 上一次加载的最后项startNum
 	 * @param pageSize 页的大小
 	 * @return 特权定金销商商订单状态列表
 	 */
@@ -51,7 +51,7 @@ public class PrepayMockController {
 	 * 特权定金门店订单状态列表
 	 * @param storeId 门店Id
 	 * @param status 状态
-	 * @param offset 上一次加载的最后项offset
+	 * @param startNum 上一次加载的最后项startNum
 	 * @param pageSize 页的大小
 	 * @return 特权定金门店订单状态列表
 	 */
@@ -83,7 +83,7 @@ public class PrepayMockController {
 	 * 特权定金导购员状态列表
 	 * @param acceptorId 导购员Id
 	 * @param status 状态
-	 * @param offset 上一次加载的最后项offset
+	 * @param startNum 上一次加载的最后项startNum
 	 * @param pageSize 页的大小
 	 * @return 特权定金导购员状态列表
 	 */
@@ -185,21 +185,6 @@ public class PrepayMockController {
     @RequestMapping(value="/getReason4Order",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getReason4Order(@RequestBody AppPrepayForm form){
-    	Response response=new Response();
-    	response.resultCode=ErrorCode.SUCCESS;
-    	response.message="666";
-    	return response;
-    }
-    
-    /**
-     * 实物类经销商订单状态列表
-     * @param distributorId 经销商Id
-     * @param Status 订单状态
-     * @return
-     */
-    @RequestMapping(value="/getOrderListForStatus",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
-    @ResponseBody
-    public Response getOrderListForStatus(@RequestBody AppPrepayForm form){
     	Response response=new Response();
     	response.resultCode=ErrorCode.SUCCESS;
     	response.message="666";
