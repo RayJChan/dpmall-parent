@@ -65,20 +65,22 @@ public class OrderController {
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get2DistributeCount(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::get2DistributeCount',in:" + JSON.toJSONString(form) + "}");
     	Response response=new Response();
-    	if (StringUtils.isEmpty(form.distributorId)) {
+    	if (StringUtils.isEmpty(form.distributorId)||StringUtils.isEmpty(form.status)) {
 			response.resultCode=ErrorCode.INVALID_PARAM;
 			response.message="参数错误";
 		}
     	else {
 			try {
-//				response.data=orderService.get2DistributeCount(form.distributorId);
+				response.data = orderService.get2DistributeCount(form.distributorId,form.status);
 				response.resultCode=ErrorCode.SUCCESS;
 			} catch (Exception e) {
 				response.resultCode=ErrorCode.INTERNAL_ERR;
 				response.message="未知错误";
 			}
 		}
+    	LOG.info("{method:'OrderController::get2DistributeCount',out:{res:'" + JSON.toJSONString(response) + "'}}");
     	return response;
     }
     
