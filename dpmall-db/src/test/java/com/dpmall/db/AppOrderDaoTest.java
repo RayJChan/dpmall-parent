@@ -163,4 +163,17 @@ public class AppOrderDaoTest extends SpringTestCase{
 		Integer result = appOrderDao.get2DistributeCount("310145", "8796105670747");
     	logger.info(JSON.toJSONString(result));
     }
+	
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     * @return 实物类导购员订单状态条数
+     */
+	@Test
+	public void testGet2AcceptorCount() {
+		logger.info("=================testGet2AcceptorCount====================");
+		Integer count = appOrderDao.get2AcceptorCount("5590590", "8796105375835");
+		logger.info(JSON.toJSONString(count));
+	}
 }

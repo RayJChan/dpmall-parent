@@ -118,4 +118,16 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer result = orderService.get2DistributeCount("310145", "8796105670747");
     	logger.info(JSON.toJSONString(result));
     }
+	
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     */
+	@Test
+	public void testGet2AcceptorCount() {
+		logger.info("===================get2AcceptorCount=================");
+		Integer result = orderService.get2AcceptorCount("5590590", "8796105375835");
+		logger.info(JSON.toJSONString(result));
+	}
 }
