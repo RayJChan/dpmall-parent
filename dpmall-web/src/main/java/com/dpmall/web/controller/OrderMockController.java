@@ -73,6 +73,7 @@ public class OrderMockController {
     @ResponseBody
     public Response get2DistributeCount(@RequestBody AppOrderForm form){
     	Response response=new Response(); 
+    	response.data=777;
     	return response;
     }
     
@@ -138,7 +139,7 @@ public class OrderMockController {
     @ResponseBody
 	public Response get2StoreCount(@RequestBody AppOrderForm form) {
     	Response response=new Response(); 
-    	response.data=2;
+    	response.data=888;
     	response.resultCode=ErrorCode.SUCCESS;
     	return response;
 	}
@@ -202,7 +203,8 @@ public class OrderMockController {
     @RequestMapping(value="/getReturnRequestDetails",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
 	public Response getReturnRequestDetails(@RequestBody AppOrderForm form) {
-    	Response response=new Response(); 
+    	Response response=new Response();
+    	response.data=orderServiceMock.getReturnRequestDetails(form.consignmentId);
     	return response;
 	}
 

@@ -207,8 +207,44 @@ public class OrderServiceMock implements IOrderService {
      * @return 订单详情
      */
     public OrderModel getReturnRequestDetails(String consignmentId){
-    	OrderModel mockResults = new OrderModel();
- 	    return mockResults;
+    	OrderModel tmp = new OrderModel();
+		BigDecimal bg1 = new BigDecimal("1.1");
+		BigDecimal bg2 = new BigDecimal("736");
+		BigDecimal bg3 = new BigDecimal("736");
+		BigDecimal bg4 = new BigDecimal("368");
+		BigDecimal bg5 = new BigDecimal("368");
+		Long id=new Long(87961914);
+		tmp.address = "测试测试测试";
+		tmp.consignmentCode="a100015013";
+		tmp.deliveryCost = bg1;
+		tmp.orderCode = null;
+		tmp.id = id;
+		tmp.orderTotal = bg2;	
+		tmp.payAmount = bg3; 
+		tmp.phone1 = "15218365660";
+		tmp.productBaseprice = bg4;
+		tmp.productQuantity = "2";
+		tmp.productTotal = bg3;
+		tmp.salesApplication = "8796111634523";
+		tmp.serviceAmount = bg5;
+		tmp.shippingAddress = "8796420833303";
+		tmp.status = "8796105703515";
+		tmp.buyerNick = "测试";
+		tmp.buyerNick = "测试";
+		tmp.productCategory = "wu";
+		tmp.name = "wu";
+		tmp.productCode = "47598749686797";
+		tmp.deliveryMethods = "1";
+		tmp.cusComment = "测试";
+		tmp.serverComment = "测试";
+		tmp.agencyComment = "测试";
+		tmp.deliveryMode = "1";
+		tmp.logisticsCompany = "新邦物流";
+		tmp.trackingId = "457956793457";
+		tmp.acceptedBy = "dianyuan";
+		tmp.acceptedComment = "无";
+		tmp.deliverPic = "wu" ;
+		return tmp;
     }
 
 }
