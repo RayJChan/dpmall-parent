@@ -133,5 +133,15 @@ public class AppOrderDaoTest extends SpringTestCase{
 		
 	}
 	
+	/**
+	 * author:crown
+	 * getOnePage4Distribute
+	 */
+	@Test
+    public void testGetOrderDetails(){
+		logger.info("=====================getOrderDetails=======================");
+		OrderEntity result = appOrderDao.getOrderDetails("a100015013");
+    	logger.info(JSON.toJSONString(result));
+    }
 
 }
