@@ -1,20 +1,15 @@
 package com.dpmall.web.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
-import com.dpmall.api.bean.OrderItemModel;
 import com.dpmall.api.bean.OrderModel;
-import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.AppOrderForm;
 import com.dpmall.web.controller.form.Response;
 
@@ -38,7 +33,8 @@ public class OrderMockController {
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
-    	Response response=new Response(); 
+    	Response response=new Response();
+    	List<OrderModel> result = new ArrayList<>();
     	return response;
     }
     
