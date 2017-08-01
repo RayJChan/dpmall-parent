@@ -43,4 +43,7 @@ public class AppOrderForm extends RequestForm{
 	/**经销商备注**/
 	public String remark;
 	
+	/**发货单号**/
+	public String consignmentId;
+	
 }
