@@ -123,8 +123,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		List<SaleLeadsModel> out = null;
-
-		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getOnePage4Distribute(Long.valueOf(distributorId),startNum,pageSize);
+		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getOnePage4Distribute(distributorId == null ? null : Long.valueOf(distributorId),startNum,pageSize);
 		if(outEntityList == null || outEntityList.isEmpty()){
 			return null;
 		}
