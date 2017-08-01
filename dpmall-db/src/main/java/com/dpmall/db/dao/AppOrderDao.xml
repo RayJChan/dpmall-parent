@@ -72,16 +72,15 @@
 	</resultMap>
 	
 	<select id="get2DistributeCount" resultType="java.lang.Integer">
-		SELECT
-			count(1)
-			FROM
-				O2OCONSIGNMENTITEMS o
-				LEFT JOIN CONSIGNMENTS c ON o.P_CONSIGNMENT = c.PK			
-				LEFT JOIN AGENCY A ON c.P_ALLOCATIONEMPLOYEECODE = A .p_uid
-				WHERE
-					A .PK = ${distributorId}
-					AND o.P_STATUS='0'					
+		SELECT count(1) FROM CONSIGNMENTS c LEFT JOIN AGENCY A ON c.P_ALLOCATIONEMPLOYEECODE = A .p_uid WHERE 1=1
+		<if test="distributorId != null">
+			AND A.p_uid = #{distributorId}
+		</if>
+		<if test="status != null">
+			AND c.P_STATUS=#{status}
+		</if>	
 	</select>
+	
 	<select id="get2AcceptCount" resultType="int">
 		select count(1) from O2OCONSIGNMENTITEMS  where P_STATUS='10'
 		<if test="storeId != null">

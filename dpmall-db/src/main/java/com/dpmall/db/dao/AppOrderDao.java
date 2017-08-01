@@ -7,8 +7,14 @@ import org.apache.ibatis.annotations.Param;
 import com.dpmall.db.bean.OrderEntity;
 
 public interface AppOrderDao {
-	
-	 public Integer get2DistributeCount(@Param("distributorId")String distributorId);
+	 
+	 /**
+     * 实物类经销商订单状态条数
+     * @param distributorId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
+	 public Integer get2DistributeCount(@Param("distributorId")String distributorId,@Param("status")String status);
 	 
 	 /**
 	     * 经销商下派到店铺（o2o表）
