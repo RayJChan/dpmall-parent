@@ -1,5 +1,6 @@
 package com.dpmall.db.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -7,8 +8,14 @@ import java.math.BigDecimal;
  * orderentry表的映射类
  *
  */
-public class OrderItemEntity {
-	
+public class OrderItemEntity implements Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8989668484097387715L;
+
 	/**id**/
 	public String id;
 	

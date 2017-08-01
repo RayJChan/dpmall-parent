@@ -1,5 +1,6 @@
 package com.dpmall.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dpmall.api.bean.OrderModel;
+import com.dpmall.api.err.ErrorCode;
+import com.dpmall.db.bean.OrderItemEntity;
 import com.dpmall.web.controller.form.AppOrderForm;
 import com.dpmall.web.controller.form.Response;
 
@@ -35,6 +38,22 @@ public class OrderMockController {
     public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
     	Response response=new Response();
     	List<OrderModel> result = new ArrayList<>();
+    	for(int i=0;i<5;i++) {
+    		OrderModel model = new OrderModel();
+    		model.orderCode="XCD125452145";
+    		model.address="广东省佛山市禅城区中国陶瓷城";
+    		model.deliveryPointOfService="自己仓库";
+    		model.status="45146515216";
+    		model.orderTotal=new BigDecimal(300.00);
+    		for(int j=0;j<3;j++) {
+    			OrderItemEntity entity=new OrderItemEntity();
+    			entity.code="TF7541654854";
+    			model.items.add(entity);
+    		}
+    		result.add(model);
+    	}
+    	response.data=result;
+    	response.resultCode=ErrorCode.SUCCESS;
     	return response;
     }
     
@@ -80,7 +99,24 @@ public class OrderMockController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppOrderForm form){
-    	Response response=new Response(); 
+    	Response response=new Response();
+    	List<OrderModel> result = new ArrayList<>();
+    	for(int i=0;i<5;i++) {
+    		OrderModel model = new OrderModel();
+    		model.orderCode="XCD125452145";
+    		model.address="广东省佛山市禅城区中国陶瓷城";
+    		model.deliveryPointOfService="自己仓库";
+    		model.status="45146515216";
+    		model.orderTotal=new BigDecimal(300.00);
+    		for(int j=0;j<3;j++) {
+    			OrderItemEntity entity=new OrderItemEntity();
+    			entity.code="TF7541654854";
+    			model.items.add(entity);
+    		}
+    		result.add(model);
+    	}
+    	response.data=result;
+    	response.resultCode=ErrorCode.SUCCESS;
     	return response;
     }
     
@@ -94,6 +130,8 @@ public class OrderMockController {
     @ResponseBody
 	public Response get2StoreCount(@RequestBody AppOrderForm form) {
     	Response response=new Response(); 
+    	response.data=2;
+    	response.resultCode=ErrorCode.SUCCESS;
     	return response;
 	}
     

@@ -261,6 +261,7 @@
 		<result property="clientName" column="P_FIRSTNAME"/>
 		<result property="clientTel" column="p_phone1"/>
 		<result property="address" column="P_STREETNAME"/>
+		<result property="deliveryPoint" column="P_DELIVERYPOINTOFSERVICE"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
 			    <result property="splitOrderType" column="splitOrderType"/>
@@ -287,37 +288,38 @@
 		
 	<select id="getOnePage4Distribute" resultMap="listResultMap">
 		SELECT
-				*
-			FROM
-				(
-					SELECT
-						c.p_code,
-						c.pk,
-						o2.P_QUANTITY AS quantity,
-						o2.P_TMALLQUANTITY AS tmallQuantity,
-						o2.P_DELIVERYCOST AS deliveryCost,
-						o2.P_SERVICEAMOUNT AS serviceAmount,
-						o2.p_payamount AS payAmount,
-						c.P_STATUS,
-						o2.pk AS itemsId,
-						o2.P_PAYAMOUNT,
-						o2.P_JUNTANPRICE,
-						A .P_FIRSTNAME,
-						A .p_phone1,
-						A .P_STREETNAME,
-						U .P_CODE AS unit,
-						ROWNUM rn
-					FROM
-						CONSIGNMENTS c
-					LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
-					LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
-					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-					LEFT JOIN UNITS U ON o2.P_UNIT = U .pk
-					WHERE
-						c.P_SPLITORDERTYPE like '%M%' and 
-						c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
-					AND c.P_STATUS = #{status}
-					AND ROWNUM &lt; ${offset}+${pageSize}+1
-				) p1 WHERE p1.rn&gt;${offset}
+			c.p_code,
+			c.pk,
+			c.P_DELIVERYPOINTOFSERVICE,
+			o2.P_DELIVERYCOST AS deliveryCost,
+			o2.P_SERVICEAMOUNT AS serviceAmount,
+			o2.p_payamount AS payAmount,
+			c.P_STATUS,
+			o2.pk AS itemsId,
+			A .P_STREETNAME,
+			ROWNUM rn
+		FROM
+			CONSIGNMENTS c
+		LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
+		LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
+		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+		WHERE
+			c.PK IN (
+				SELECT
+					pk
+				FROM
+					(
+						SELECT
+							pk,
+							ROWNUM rn
+						FROM
+							CONSIGNMENTS
+						WHERE
+							P_ALLOCATIONEMPLOYEECODE = #{distributorId}
+						AND ROWNUM &lt; ${offset}+${pageSize}+1
+					) p1
+				WHERE
+					p1.rn &gt; ${offset}
+			)
 	</select>
 </mapper>

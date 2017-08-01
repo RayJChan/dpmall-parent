@@ -1,5 +1,6 @@
 package com.dpmall.datasvr.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,10 +62,10 @@ public class OrderServiceImpl implements IOrderService {
 		model.phone1=entity.phone1;
 		model.firstName=entity.firstName;
 		model.address=entity.address;
-		model.orderTotal=entity.orderTotal;
 		model.status=entity.status;
 		model.id = entity.id;
 		for (OrderItemEntity item:entity.items) {
+			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
 		}
 		return model;
