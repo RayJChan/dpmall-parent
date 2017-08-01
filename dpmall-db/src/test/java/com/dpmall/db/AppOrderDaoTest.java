@@ -176,4 +176,17 @@ public class AppOrderDaoTest extends SpringTestCase{
 		Integer count = appOrderDao.get2AcceptorCount("5590590", "8796105375835");
 		logger.info(JSON.toJSONString(count));
 	}
+	
+	/**
+     * 实物类经销商订单状态条数
+     * @param distributorId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
+	@Test
+    public void testGetOnePage4AcceptorId(){
+		logger.info("=====================getOnePage4AcceptorId=======================");
+		List<OrderEntity> result = appOrderDao.getOnePage4AcceptorId("123456", "8796105637979", 0, 20);
+    	logger.info(JSON.toJSONString(result));
+    }
 }
