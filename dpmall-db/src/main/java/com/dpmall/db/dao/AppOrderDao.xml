@@ -35,6 +35,17 @@
 	    <result property="productTotal" column="P_TOTALPRICE"/>
 	    <result property="firstName" column="P_FIRSTNAME"/>
 	    <result property="phone1" column="P_PHONE1"/>
+	    <result property="consignmentCode" column="P_CCODE"/>
+	    <result property="logisticsInfo" column="P_LOGISTICSINFO"/>
+	    <result property="logisticsCompany" column="P_LOGISTICSCOMPANY"/>
+	    <result property="trackingId" column="P_TRACKINGID"/>
+	    <result property="deliveryCost" column="P_DELIVERYCOST"/>
+	    <result property="salesApplication" column="P_SALESAPPLICATION"/>
+	    <result property="juntanPrice" column="P_JUNTANPRICE"/>
+	    <result property="payAmount" column="P_PAYAMOUNT"/>
+	    <result property="serviceAmount" column="P_SERVICEAMOUNT"/>
+	    <result property="deliveryMethods" column="P_DELIVERYMETHODS"/>
+	    <result property="name" column="P_NAME"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 	    	<id property="id" column="itemsId"/>
 		    <result property="splitOrderType" column="splitOrderType"/>
@@ -57,6 +68,7 @@
 			<result property="juntanPrice" column="juntanPrice"/>
 			<result property="serviceAmount" column="serviceAmount"/>
 	    </collection>
+	    
 	</resultMap>
 	
 	<select id="get2DistributeCount" resultType="java.lang.Integer">
@@ -319,5 +331,53 @@
 					AND c.P_STATUS = #{status}
 					AND ROWNUM &lt; ${offset}+${pageSize}+1
 				) p1 WHERE p1.rn&gt;${offset}
+	</select>
+	
+	<select id="getOrderDetails"  resultMap="AppOrderResultMap">
+		select 
+   		      C.PK,
+   		      C.P_CODE AS P_CCODE,
+   		      C.P_STATUS,
+   		      C.P_SHIPPINGADDRESS,
+   		      C.P_LOGISTICSINFO,
+   		      C.P_DELIVERYMODE as deliveryMode,
+   		      C.P_LOGISTICSCOMPANY,
+      		  C.P_TRACKINGID,
+      		  O2O.P_CUSCOMMET,
+   		      O2O.P_SERVERCOMMENT,
+   		      O2O.P_AGENCYCOMMENT,
+   		      O2O.P_ACCEPTEDBY,
+		      O2O.P_ACCEPTEDCOMMENT,
+   		      O2O.P_DELIVERYPIC,
+   		      O.P_BUYERNICK,
+   		      P.P_CATEGORY,
+      		  P.P_CODE AS P_ICODE,
+      		  OE.P_QUANTITY,
+   		      OE.P_TMALLQUANTITY,
+   		      OE.P_BASEPRICE,
+   		      OE.P_TOTALPRICE,
+   		      OE.P_DELIVERYCOST,
+   
+   		      O.P_SALESAPPLICATION,
+   		      OE.P_JUNTANPRICE,
+  		      OE.P_PAYAMOUNT,
+      		  OE.P_SERVICEAMOUNT,
+   
+      		  LI.P_DELIVERYMETHODS,
+   		      LI.P_NAME,
+   		      A.P_STREETNAME,
+  		      A.P_PHONE1,
+   		      C.P_CATEGORY,
+   		      ROWNUM RN
+   		      from CONSIGNMENTS C 
+   		  LEFT JOIN ADDRESSES A ON C.P_SHIPPINGADDRESS=A.PK
+   		  LEFT JOIN LOGISTICSINFO LI ON C.P_LOGISTICSINFO=LI.PK
+   		  LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+   		  LEFT JOIN ORDERS O ON C.P_ORDER=O.PK
+   		  LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+   		  LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK
+		<if test="consignmentId != null">
+		  WHERE 1=1 AND C.P_CODE= #{consignmentId}
+		</if>
 	</select>
 </mapper>

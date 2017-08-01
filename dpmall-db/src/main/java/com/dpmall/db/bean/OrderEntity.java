@@ -112,6 +112,41 @@ public class OrderEntity {
 	/**收货人电话号码**/
 	public String phone1;
 	
+	
+	/**订单编号**/
+	public String consignmentCode;
+	
+	/**包邮**/
+	public String logisticsInfo;
+	
+	/**物流单号**/
+	public String trackingId;
+	
+	/**运费**/
+	public BigDecimal deliveryCost;
+	
+	/**站方*/
+	public String salesApplication;
+	
+	/**均摊金额*/
+	public BigDecimal juntanPrice;
+	
+	/**付款数量*/
+	public BigDecimal payAmount;
+	
+	/**服务金额*/
+	public BigDecimal serviceAmount;
+	
+	/**送货方式*/
+	public String deliveryMethods;
+	
+	/**物流公司名称*/
+	public String logisticsCompany;
+	
+	/**物流公司名称*/
+	public String name;
+	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
+	
 }

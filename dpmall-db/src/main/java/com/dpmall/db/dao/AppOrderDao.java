@@ -89,5 +89,13 @@ public interface AppOrderDao {
 	 */
 	int deliver4Consignments (@Param("entity") OrderEntity entity);
 	
+	/**
+	 * author:crown
+     * 实物类获取单据明细
+     * @param consignmentId 发货单ID
+     * @return 订单详情
+     */
+	OrderEntity getOrderDetails(@Param("consignmentId")String consignmentId);
+	
   
 }
