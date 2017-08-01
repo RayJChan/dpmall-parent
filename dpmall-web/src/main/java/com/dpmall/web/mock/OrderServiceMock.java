@@ -12,7 +12,7 @@ import com.dpmall.api.err.ErrorCode;
 public class OrderServiceMock implements IOrderService {
 
 	@Override
-	public OrderModel getReturnRequestDetails(String consignmentId) {
+	public OrderModel getOrderDetails(String consignmentId) {
 
 		OrderModel tmp = new OrderModel();
 		BigDecimal bg1 = new BigDecimal("1.1");
@@ -24,6 +24,7 @@ public class OrderServiceMock implements IOrderService {
 		tmp.address = "测试测试测试";
 		tmp.consignmentCode="a100015013";
 		tmp.deliveryCost = bg1;
+		tmp.orderCode = null;
 		tmp.id = id;
 		tmp.orderTotal = bg2;	
 		tmp.payAmount = bg3; 
@@ -49,7 +50,7 @@ public class OrderServiceMock implements IOrderService {
 		tmp.trackingId = "457956793457";
 		tmp.acceptedBy = "dianyuan";
 		tmp.acceptedComment = "无";
-		tmp.deliverPic = "wu";
+		tmp.deliverPic = "wu" ;
 		return tmp;
 	}
 	
@@ -205,7 +206,7 @@ public class OrderServiceMock implements IOrderService {
      * @param consignmentId 发货单ID
      * @return 订单详情
      */
-    public OrderModel getOrderDetails(String consignmentId){
+    public OrderModel getReturnRequestDetails(String consignmentId){
     	OrderModel mockResults = new OrderModel();
  	    return mockResults;
     }

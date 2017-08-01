@@ -3,15 +3,20 @@ package com.dpmall.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
+import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.web.controller.form.AppOrderForm;
 import com.dpmall.web.controller.form.Response;
+import com.dpmall.web.mock.OrderServiceMock;
 
 /**
  * 实物订单服务接口
@@ -21,6 +26,10 @@ import com.dpmall.web.controller.form.Response;
 @Controller
 @RequestMapping("/orderMock")
 public class OrderMockController {
+	
+	private IOrderService orderServiceMock = new OrderServiceMock();
+	
+	private static final Logger LOG = LoggerFactory.getLogger(SaleLeadsMockController.class);
 	
 	/**
 	 * 经销商获取待分配的实物订单
@@ -135,8 +144,17 @@ public class OrderMockController {
     @RequestMapping(value="/getOrderDetails",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
 	public Response getOrderDetails(@RequestBody AppOrderForm form) {
-    	Response response=new Response(); 
-    	return response;
+    	Response res = new Response();
+    	OrderModel data = null;
+        try{
+    	    data = orderServiceMock.getOrderDetails(form.consignmentId);
+        } catch(Throwable e){
+        	LOG.error(e.getMessage(),e);
+    	}
+    	
+    	res.data = data;
+
+    	return res;
 	}
     
     /**
