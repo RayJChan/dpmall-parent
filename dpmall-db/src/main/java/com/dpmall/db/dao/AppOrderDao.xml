@@ -76,11 +76,32 @@
 		    and P_RECOMMENDSTORE=${storeId}
 		</if>
 	</select>
-	<update id="distribute">
-		update O2OCONSIGNMENTITEMS set 
-			P_RECOMMENDSTORE=#{storeId},
-			P_STATUS='10'
-		where pk=#{orderCode}
+	<!--经销商发单\下派   （O2O）  -->
+	<update id="distribute4O2o">
+		UPDATE O2OCONSIGNMENTITEMS
+		SET 
+		  P_AGENCYCOMMENT = #{remark},
+		  P_RECOMMENDSTORE = #{storeId}
+		WHERE
+			P_CONSIGNMENT = 
+		(
+				SELECT
+					pk
+				FROM
+					CONSIGNMENTS
+				WHERE
+					P_CODE = #{orderCode}
+			)
+	</update>
+	
+	<!--经销商发单\下派   （Consignment）  -->
+	<update id="distribute4Consignment">
+		update CONSIGNMENTS
+		SET  
+			P_STATUS = '8796105375835',  
+			P_DELIVERYPOINTOFSERVICE = #{storeId}
+		WHERE 
+			P_CODE = #{orderCode}
 	</update>
 	
 	

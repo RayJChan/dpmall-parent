@@ -40,4 +40,7 @@ public class AppOrderForm extends RequestForm{
 	/**订单状态**/
 	public String status;
 	
+	/**经销商备注**/
+	public String remark;
+	
 }

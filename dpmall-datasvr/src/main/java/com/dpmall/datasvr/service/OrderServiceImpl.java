@@ -94,10 +94,6 @@ public class OrderServiceImpl implements IOrderService {
 		return orderDao.get2DistributeCount(distributorId);
 	}
 
-	public int distribute(String distributorId, String orderCode, String storeId) {
-		int result = orderDao.distribute(orderCode, storeId);
-		return result;
-	}
 
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {
 		// TODO Auto-generated method stub
@@ -213,9 +209,22 @@ public class OrderServiceImpl implements IOrderService {
 		return null;
 	}
 
+	/**
+     * 经销商下派到店铺
+     * @param distributorId 经销商ID
+     * @param orderCode 订单编码
+     * @param storeId 店铺ID
+     * @param remark 备注
+     */
 	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		int result1 = orderDao.distribute4O2o(orderCode, storeId, remark);
+		int result2 = orderDao.distribute4Consignment(orderCode, storeId);
+		
+		if(result1 != 0 && result2 != 0 ) {
+			result =1;
+		}
+		return result;
 	}
 
 	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
