@@ -113,5 +113,32 @@ public class OrderModel implements Serializable {
 	/**物流公司名称*/
 	public String name;
 	
+	/**客户备注**/
+	public String cusComment;
+	
+	/**客服备注**/
+	public String serverComment;
+	
+	/**客户退货备注**/
+	public String cusRefuseComment;
+	
+	/**门店接单人**/
+	public String acceptedBy;
+	
+	/**发货凭证**/
+	public String deliverPic;
+	
+	/**经销商备注**/
+	public String agencyComment;
+	
+	/**门店接单人备注**/
+	public String acceptedComment;
+	
+	/**发货方式**/
+	public String deliveryMode;
+	
+	/**物流公司名称*/
+	public String logisticsCompany;
+	
 	public List<Object> items;
 }
