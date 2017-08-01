@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.common.SpringTestCase;
+import com.dpmall.db.bean.OrderEntity;
 
 public class OrderServiceFacadeTest extends SpringTestCase{
 	private static final Logger LOG = LoggerFactory.getLogger(OrderServiceFacadeTest.class);
@@ -100,4 +101,15 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer result = orderService.distribute("", "aSIT100016018", "33", "TESTDistribute");
 		LOG.info("================经销商下派到店铺================" + result);
 	}
+	
+	/**
+	 * author:crown
+	 * getOrderDetails
+	 */
+	@Test
+    public void testGetOrderDetails(){
+		logger.info("=====================getOrderDetails=======================");
+		OrderModel result = orderService.getOrderDetails("a100015013");
+    	logger.info(JSON.toJSONString(result));
+    }
 }

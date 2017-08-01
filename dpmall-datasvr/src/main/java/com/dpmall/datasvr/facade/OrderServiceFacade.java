@@ -202,8 +202,16 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public OrderModel getOrderDetails(String consignmentId) {
-		// TODO Auto-generated method stub
-		return null;
+			if (LOG.isInfoEnabled()) {
+				LOG.info("{method:'OrderServiceFacade::getOrderDetails',in:{consignmentId:'" + consignmentId + "'}}");
+			}
+			
+			OrderModel out = orderService.getOrderDetails(consignmentId);
+			
+			if(LOG.isDebugEnabled()){
+				LOG.info("{method:'OrderServiceFacade::getOrderDetails',out:"+JSON.toJSONString(out)+"}");
+			}
+			return out;
 	}
 
 	public OrderModel getReturnRequestDetails(String consignmentId) {

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
+import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.db.bean.OrderEntity;
 import com.dpmall.db.bean.OrderItemEntity;
@@ -42,6 +43,16 @@ public class OrderServiceImpl implements IOrderService {
 		entity.orderTotal=model.orderTotal;
 		entity.status=model.status;
 		entity.id=model.id;
+		entity.consignmentCode=model.consignmentCode;
+		entity.logisticsInfo=model.logisticsInfo;
+		entity.trackingId=model.trackingId;
+		entity.deliveryCost=model.deliveryCost;
+		entity.salesApplication=model.salesApplication;
+		entity.juntanPrice=model.juntanPrice;
+		entity.payAmount=model.payAmount;
+		entity.serviceAmount=model.serviceAmount;
+		entity.deliveryMethods=model.deliveryMethods;
+		entity.name=model.name;
 		for(Object obj:model.items) {
 			entity.items.add((OrderItemEntity) obj);
 		}
@@ -64,6 +75,16 @@ public class OrderServiceImpl implements IOrderService {
 		model.orderTotal=entity.orderTotal;
 		model.status=entity.status;
 		model.id = entity.id;
+		model.consignmentCode=entity.consignmentCode;
+		model.logisticsInfo=entity.logisticsInfo;
+		model.trackingId=entity.trackingId;
+		model.deliveryCost=entity.deliveryCost;
+		model.salesApplication=entity.salesApplication;
+		model.juntanPrice=entity.juntanPrice;
+		model.payAmount=entity.payAmount;
+		model.serviceAmount=entity.serviceAmount;
+		model.deliveryMethods=entity.deliveryMethods;
+		model.name=entity.name;
 		for (OrderItemEntity item:entity.items) {
 			model.items.add(item);
 		}
@@ -249,7 +270,12 @@ public class OrderServiceImpl implements IOrderService {
 
 	public OrderModel getOrderDetails(String consignmentId) {
 		// TODO Auto-generated method stub
-		return null;
+		OrderModel out = null;
+
+		OrderEntity outEntityList = orderDao.getOrderDetails(consignmentId);
+				
+		out = this.entityToModel(outEntityList);
+		return out;
 	}
 
 	public OrderModel getReturnRequestDetails(String consignmentId) {
