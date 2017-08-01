@@ -251,9 +251,15 @@ public class OrderServiceImpl implements IOrderService {
 		return null;
 	}
 
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     * @return 实物类导购员订单状态条数
+     */
 	public Integer get2AcceptorCount(String acceptorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return orderDao.get2AcceptorCount(acceptorId, status);
 	}
 
 	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {

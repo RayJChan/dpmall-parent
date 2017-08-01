@@ -105,5 +105,13 @@ public interface AppOrderDao {
      */
 	OrderEntity getOrderDetails(@Param("consignmentId")String consignmentId);
 	
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     * @return 实物类导购员订单状态条数
+     */
+	public int get2AcceptorCount (@Param("acceptorId") String acceptorId , @Param("status") String status);
+	
   
 }
