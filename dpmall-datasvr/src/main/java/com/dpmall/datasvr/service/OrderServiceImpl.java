@@ -106,16 +106,6 @@ public class OrderServiceImpl implements IOrderService {
 		
 	}
 	
-	/**
-     * 获取经销商待分配的实物订单数
-     * @param distributorId 经销商ID
-     * @return 经销商待分配的实物订单数
-     */
-	public Integer get2DistributeCount(String distributorId) {	
-		return orderDao.get2DistributeCount(distributorId);
-	}
-
-
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -226,8 +216,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	public Integer get2DistributeCount(String distributorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderDao.get2DistributeCount(distributorId, status);
 	}
 
 	/**
