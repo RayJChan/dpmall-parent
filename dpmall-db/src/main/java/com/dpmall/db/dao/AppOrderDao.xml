@@ -222,36 +222,47 @@
 		select 
    		      C.PK,
    		      C.P_CODE AS P_CCODE,
-   		      C.P_STATUS,
-   		      C.P_SHIPPINGADDRESS,
-   		      C.P_LOGISTICSINFO,
-   		      C.P_DELIVERYMODE as deliveryMode,
-   		      C.P_LOGISTICSCOMPANY,
-      		  C.P_TRACKINGID,
-      		  O2O.P_CUSCOMMET,
-   		      O2O.P_SERVERCOMMENT,
-   		      O2O.P_AGENCYCOMMENT,
-   		      O2O.P_ACCEPTEDBY,
-		      O2O.P_ACCEPTEDCOMMENT,
-   		      O2O.P_DELIVERYPIC,
-   		      O.P_BUYERNICK,
-   		      P.P_CATEGORY,
-      		  P.P_CODE AS P_ICODE,
-      		  OE.P_QUANTITY,
-   		      OE.P_TMALLQUANTITY,
-   		      OE.P_BASEPRICE,
-   		      OE.P_TOTALPRICE,
-   		      OE.P_DELIVERYCOST,
-   
+   		      
    		      O.P_SALESAPPLICATION,
    		      OE.P_JUNTANPRICE,
   		      OE.P_PAYAMOUNT,
       		  OE.P_SERVICEAMOUNT,
-   
-      		  LI.P_DELIVERYMETHODS,
-   		      LI.P_NAME,
+      		  OE.P_DELIVERYCOST,
+   		      
+   		      C.P_STATUS,
+   		      
+   		      O.P_BUYERNICK,
+   		      A.P_PHONE1,
    		      A.P_STREETNAME,
-  		      A.P_PHONE1,
+   		      
+   		      P.P_CATEGORY as category,
+   		      P.P_CODE AS code,
+   		      
+   		      OE.P_QUANTITY as quantity,
+   		      OE.P_TMALLQUANTITY as tmallQuantity,
+   		      
+   		      OE.P_BASEPRICE as basePrice,
+   		      OE.P_TOTALPRICE as totalPrice,
+   		      
+   		      LI.P_DELIVERYMETHODS,
+   		      
+   		      O2O.P_CUSCOMMET,
+   		      O2O.P_SERVERCOMMENT,
+   		      O2O.P_AGENCYCOMMENT,
+   		      
+   		      LI.P_NAME,
+   		      
+   		      C.P_SHIPPINGADDRESS,
+   		      C.P_LOGISTICSINFO,
+   		      
+   		      C.P_DELIVERYMODE as deliveryMode,
+   		      C.P_LOGISTICSCOMPANY,
+   		      C.P_TRACKINGID,
+      		  
+   		      O2O.P_ACCEPTEDBY,
+		        O2O.P_ACCEPTEDCOMMENT,
+   		      O2O.P_DELIVERYPIC,
+   		      
    		      C.P_CATEGORY,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 

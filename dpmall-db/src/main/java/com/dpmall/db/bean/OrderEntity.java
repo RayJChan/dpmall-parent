@@ -146,6 +146,9 @@ public class OrderEntity {
 	/**物流公司名称*/
 	public String name;
 	
+	/**汇总金额*/
+	public BigDecimal totalSum;
+	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
 	

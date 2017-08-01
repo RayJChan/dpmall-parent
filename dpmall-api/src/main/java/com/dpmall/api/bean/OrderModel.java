@@ -140,6 +140,9 @@ public class OrderModel implements Serializable {
 	/**发货方式**/
 	public String deliveryMode;
 	
+	/**汇总金额*/
+	public BigDecimal totalSum;
+	
 	/**物流公司名称*/
 	public String logisticsCompany;
 	
