@@ -91,4 +91,13 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	public void getOnePage4DistributeTest() {
 		logger.info("result:"+JSON.toJSONString(orderService.getOnePage4Distribute("", "", 0, 3)));
 	}
+	
+	/**
+     * 经销商下派到店铺
+     */
+	@Test
+	public void testDistribute() {
+		Integer result = orderService.distribute("", "aSIT100016018", "33", "TESTDistribute");
+		LOG.info("================经销商下派到店铺================" + result);
+	}
 }

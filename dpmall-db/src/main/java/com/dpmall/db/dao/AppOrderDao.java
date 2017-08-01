@@ -10,7 +10,21 @@ public interface AppOrderDao {
 	
 	 public Integer get2DistributeCount(@Param("distributorId")String distributorId);
 	 
-	 public int distribute(@Param("orderCode")String orderCode, @Param("storeId")String storeId);
+	 /**
+	     * 经销商下派到店铺（o2o表）
+	     * @param orderCode 订单编码
+	     * @param storeId 店铺ID
+	     * @param remark 备注
+	     */
+	 public int distribute4O2o(@Param("orderCode")String orderCode,	 @Param("storeId")String storeId, @Param("remark") String remark);
+	 
+	 /**
+	  * 
+   * 经销商下派到店铺 (consignment表)
+   * @param orderCode 订单编码
+   * @param storeId 店铺ID
+   */
+	 public int distribute4Consignment(@Param("orderCode")String orderCode , @Param("storeId")String storeId);
 	 
 	 public List<OrderEntity> getOnePage4Acceptor2Followup(String acceptorId,Integer offset, Integer pageSize);
 	 

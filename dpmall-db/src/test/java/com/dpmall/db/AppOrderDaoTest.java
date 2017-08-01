@@ -118,6 +118,20 @@ public class AppOrderDaoTest extends SpringTestCase{
 //    	logger.info(JSON.toJSONString(result));
     }
 	
+	/**
+     * 经销商下派到店铺
+     * @param orderCode 订单编码
+     * @param storeId 店铺ID
+     * @param remark 备注
+     */
+	@Test
+	public void testDistributes() {
+		logger.info("==============testDistributes==============");
+//		int result1 = appOrderDao.distribute4O2o("aSIT100016018", "1111", "Test备注");
+		int result2 = appOrderDao.distribute4Consignment("aSIT100016018", "2222");
+		logger.info(Integer.toString(result2));
+		
+	}
 	
 
 }

@@ -42,17 +42,18 @@ public class OrderServiceFacade implements IOrderService {
 		return null;
 	}
 
-	public int distribute(String distributorId, String orderCode, String storeId) {
+	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
 		if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'OrderServiceFacade::distribute',in:{distributorId:'" + distributorId +"orderCode"+orderCode+"storeId"+storeId+ "'}}");
+			LOG.info("{method:'OrderServiceFacade::distribute',in:{distributorId:'" + distributorId +"orderCode"+orderCode+"storeId"+storeId+"remark"+remark +"'}}");
 		}
 		
-//		Integer out = orderService.distribute(distributorId, orderCode, storeId);
+		Integer out = orderService.distribute(distributorId, orderCode, storeId, remark);
 		
 		if(LOG.isDebugEnabled()){
-//			LOG.info("{method:'OrderServiceFacade::distribute',out:"+JSON.toJSONString(out)+"}");
+			LOG.info("{method:'OrderServiceFacade::distribute',out:"+JSON.toJSONString(out)+"}");
 		}
-		return 0;
+		return out;
+		
 	}
 
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {
@@ -179,10 +180,6 @@ public class OrderServiceFacade implements IOrderService {
 		return null;
 	}
 
-	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
 		// TODO Auto-generated method stub
