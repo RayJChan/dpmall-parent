@@ -262,9 +262,17 @@ public class OrderServiceImpl implements IOrderService {
 		return orderDao.get2AcceptorCount(acceptorId, status);
 	}
 
-	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
+	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> out = null;
+
+		List<OrderEntity> outEntityList = orderDao.getOnePage4AcceptorId(acceptorId,status,startNum,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+								
+		out = this.entitysaleModel(outEntityList);
+		return out;
 	}
 
 	public OrderModel getOrderDetails(String consignmentId) {

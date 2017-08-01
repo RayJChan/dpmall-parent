@@ -113,5 +113,15 @@ public interface AppOrderDao {
      */
 	public int get2AcceptorCount (@Param("acceptorId") String acceptorId , @Param("status") String status);
 	
+	/**
+	 * 实物类导购员订单状态列表
+	 * author:crown
+	 * @param acceptorId 导购员ID
+     * @param status 状态
+     * @param startItemId 上一次加载的最后项ID
+     * @param pageSize 页大小
+     * @return 导购员已接单的一页实物订单信息
+	 */
+	 public List<OrderEntity> getOnePage4AcceptorId(@Param("acceptorId")String acceptorId,@Param("status")String status,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
   
 }

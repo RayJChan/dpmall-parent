@@ -200,9 +200,18 @@ public class OrderServiceFacade implements IOrderService {
 		return result;
 	}
 
-	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer startNum, Integer pageSize) {
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4AcceptorId',in:{acceptorId:'" + acceptorId +"'status:'"+status+ "',offset:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> out = orderService.getOnePage4AcceptorId(acceptorId, status, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4AcceptorId',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public OrderModel getOrderDetails(String consignmentId) {

@@ -302,4 +302,40 @@
 				P_STATUS = #{status}
 		</if>
 	</select>
+	
+	<select id="getOnePage4AcceptorId" resultMap="listResultMap">
+		SELECT
+				*
+			FROM
+				(
+					SELECT
+						c.p_code,
+						c.pk,
+						OE.P_QUANTITY AS quantity,
+						OE.P_TMALLQUANTITY AS tmallQuantity,
+						OE.P_DELIVERYCOST AS deliveryCost,
+						OE.P_SERVICEAMOUNT AS serviceAmount,
+						OE.p_payamount AS payAmount,
+						c.P_STATUS,
+						OE.pk AS itemsId,
+						OE.P_PAYAMOUNT,
+						OE.P_JUNTANPRICE,
+						A .P_FIRSTNAME,
+						A .p_phone1,
+						A .P_STREETNAME,
+						U .P_CODE AS unit,
+						ROWNUM rn
+					FROM
+						CONSIGNMENTS c
+					LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+					LEFT JOIN CONSIGNMENTENTRIES CE ON CE.P_CONSIGNMENT = c.pk
+					LEFT JOIN ORDERENTRIES OE ON CE.P_ORDERENTRY = OE.pk
+					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+					LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
+					WHERE
+						O2O.P_ACCEPTEDBY = #{acceptorId}
+					AND c.P_STATUS = #{status}
+					AND ROWNUM &lt; ${startNum}+${pageSize}+1
+				) p1 WHERE p1.rn&gt;${startNum}
+	</select>
 </mapper>
