@@ -70,20 +70,22 @@ public class OrderController {
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get2DistributeCount(@RequestBody AppOrderForm form){
+    	LOG.info("{method:'OrderController::get2DistributeCount',in:" + JSON.toJSONString(form) + "}");
     	Response response=new Response();
-    	if (StringUtils.isEmpty(form.distributorId)) {
+    	if (StringUtils.isEmpty(form.distributorId)||StringUtils.isEmpty(form.status)) {
 			response.resultCode=ErrorCode.INVALID_PARAM;
 			response.message="参数错误";
 		}
     	else {
 			try {
-//				response.data=orderService.get2DistributeCount(form.distributorId);
+				response.data = orderService.get2DistributeCount(form.distributorId,form.status);
 				response.resultCode=ErrorCode.SUCCESS;
 			} catch (Exception e) {
 				response.resultCode=ErrorCode.INTERNAL_ERR;
 				response.message="未知错误";
 			}
 		}
+    	LOG.info("{method:'OrderController::get2DistributeCount',out:{res:'" + JSON.toJSONString(response) + "'}}");
     	return response;
     }
     
@@ -315,7 +317,18 @@ public class OrderController {
     @RequestMapping(value="/getOrderDetails",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
 	public Response getOrderDetails(@RequestBody AppOrderForm form) {
-		return null;
+        LOG.info("{method:'OrderController::getOrderDetails',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getOrderDetails(form.consignmentId);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'OrderController::getOrderDetails',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
 	}
     
     /**

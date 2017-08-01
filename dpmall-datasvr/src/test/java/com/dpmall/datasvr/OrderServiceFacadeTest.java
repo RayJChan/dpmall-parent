@@ -8,17 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IOrderService;
 import com.dpmall.common.SpringTestCase;
+import com.dpmall.db.bean.OrderEntity;
 
 public class OrderServiceFacadeTest extends SpringTestCase{
 	private static final Logger LOG = LoggerFactory.getLogger(OrderServiceFacadeTest.class);
 	@Autowired
 	private IOrderService orderService;
 	
-//	@Test
-//	public void get2DistributeCountTest() {
-//		orderService.get2DistributeCount("8796294532666");
-//	}
-//	
 //	@Test
 //	public void testGet2AcceptCount() {
 //		Integer result = orderService.get2AcceptCount("10086");
@@ -98,4 +94,28 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	/*	Integer result = orderService.distribute("", "aSIT100016018", "33", "TESTDistribute");
 		LOG.info("================经销商下派到店铺================" + result);*/
 	}
+	
+	/**
+	 * author:crown
+	 * getOrderDetails
+	 */
+	@Test
+    public void testGetOrderDetails(){
+		logger.info("=====================getOrderDetails=======================");
+		OrderModel result = orderService.getOrderDetails("a100015013");
+    	logger.info(JSON.toJSONString(result));
+    }
+	
+	/**
+     * 实物类经销商订单状态条数
+     * @param distributorId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
+	@Test
+    public void testGet2DistributeCount(){
+		logger.info("=====================testGet2DistributeCount=======================");
+		Integer result = orderService.get2DistributeCount("310145", "8796105670747");
+    	logger.info(JSON.toJSONString(result));
+    }
 }

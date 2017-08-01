@@ -23,25 +23,6 @@ public class OrderServiceFacade implements IOrderService {
 	@Autowired
 	private IOrderService orderService;
 
-	
-	/**
-     * 获取经销商待分配的实物订单数
-     * @param distributorId 经销商ID
-     * @return 经销商待分配的实物订单数
-     */
-	public Integer get2DistributeCount(String distributorId) {
-		if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId + "'}}");
-		}
-		
-//		Integer out = orderService.get2DistributeCount(distributorId);
-		
-		if(LOG.isDebugEnabled()){
-//			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',out:"+JSON.toJSONString(out)+"}");
-		}
-		return null;
-	}
-
 	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'OrderServiceFacade::distribute',in:{distributorId:'" + distributorId +"orderCode"+orderCode+"storeId"+storeId+"remark"+remark +"'}}");
@@ -176,8 +157,16 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public Integer get2DistributeCount(String distributorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId +"'status:'"+status+ "'}}");
+		}
+		
+		Integer result = orderService.get2DistributeCount(distributorId, status);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::get2DistributeCount',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 
 
@@ -211,8 +200,16 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public OrderModel getOrderDetails(String consignmentId) {
-		// TODO Auto-generated method stub
-		return null;
+			if (LOG.isInfoEnabled()) {
+				LOG.info("{method:'OrderServiceFacade::getOrderDetails',in:{consignmentId:'" + consignmentId + "'}}");
+			}
+			
+			OrderModel out = orderService.getOrderDetails(consignmentId);
+			
+			if(LOG.isDebugEnabled()){
+				LOG.info("{method:'OrderServiceFacade::getOrderDetails',out:"+JSON.toJSONString(out)+"}");
+			}
+			return out;
 	}
 
 	public OrderModel getReturnRequestDetails(String consignmentId) {

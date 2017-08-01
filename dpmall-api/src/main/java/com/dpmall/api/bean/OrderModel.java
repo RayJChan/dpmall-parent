@@ -86,5 +86,63 @@ public class OrderModel implements Serializable {
 	/**ID**/
 	public Long id;
 	
+	/**订单编号**/
+	public String consignmentCode;
+	
+	/**包邮**/
+	public String logisticsInfo;
+	
+	/**物流单号**/
+	public String trackingId;
+	
+	/**运费**/
+	public BigDecimal deliveryCost;
+	
+	/**站方*/
+	public String salesApplication;
+	
+	/**均摊金额*/
+	public BigDecimal juntanPrice;
+	
+	/**付款数量*/
+	public BigDecimal payAmount;
+	
+	/**服务金额*/
+	public BigDecimal serviceAmount;
+	
+	/**送货方式*/
+	public String deliveryMethods;
+	
+	/**物流公司名称*/
+	public String name;
+	
+	/**客户备注**/
+	public String cusComment;
+	
+	/**客服备注**/
+	public String serverComment;
+	
+	/**客户退货备注**/
+	public String cusRefuseComment;
+	
+	/**门店接单人**/
+	public String acceptedBy;
+	
+	/**发货凭证**/
+	public String deliverPic;
+	
+	/**经销商备注**/
+	public String agencyComment;
+	
+	/**门店接单人备注**/
+	public String acceptedComment;
+	
+	/**发货方式**/
+	public String deliveryMode;
+	
+	/**物流公司名称*/
+	public String logisticsCompany;
+	
+	public List<Object> items;
 	public List<Object> items=new ArrayList<Object>();
 }

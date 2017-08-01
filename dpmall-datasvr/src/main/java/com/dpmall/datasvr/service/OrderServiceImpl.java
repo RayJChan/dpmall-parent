@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
+import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.db.bean.OrderEntity;
 import com.dpmall.db.bean.OrderItemEntity;
@@ -43,6 +44,16 @@ public class OrderServiceImpl implements IOrderService {
 		entity.orderTotal=model.orderTotal;
 		entity.status=model.status;
 		entity.id=model.id;
+		entity.consignmentCode=model.consignmentCode;
+		entity.logisticsInfo=model.logisticsInfo;
+		entity.trackingId=model.trackingId;
+		entity.deliveryCost=model.deliveryCost;
+		entity.salesApplication=model.salesApplication;
+		entity.juntanPrice=model.juntanPrice;
+		entity.payAmount=model.payAmount;
+		entity.serviceAmount=model.serviceAmount;
+		entity.deliveryMethods=model.deliveryMethods;
+		entity.name=model.name;
 		for(Object obj:model.items) {
 			entity.items.add((OrderItemEntity) obj);
 		}
@@ -64,6 +75,16 @@ public class OrderServiceImpl implements IOrderService {
 		model.address=entity.address;
 		model.status=entity.status;
 		model.id = entity.id;
+		model.consignmentCode=entity.consignmentCode;
+		model.logisticsInfo=entity.logisticsInfo;
+		model.trackingId=entity.trackingId;
+		model.deliveryCost=entity.deliveryCost;
+		model.salesApplication=entity.salesApplication;
+		model.juntanPrice=entity.juntanPrice;
+		model.payAmount=entity.payAmount;
+		model.serviceAmount=entity.serviceAmount;
+		model.deliveryMethods=entity.deliveryMethods;
+		model.name=entity.name;
 		for (OrderItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
@@ -86,16 +107,6 @@ public class OrderServiceImpl implements IOrderService {
 		
 	}
 	
-	/**
-     * 获取经销商待分配的实物订单数
-     * @param distributorId 经销商ID
-     * @return 经销商待分配的实物订单数
-     */
-	public Integer get2DistributeCount(String distributorId) {	
-		return orderDao.get2DistributeCount(distributorId);
-	}
-
-
 	public int reject(String distributorId, String orderCode, String rejectType, String rejectRemark) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -206,8 +217,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	public Integer get2DistributeCount(String distributorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderDao.get2DistributeCount(distributorId, status);
 	}
 
 	/**
@@ -253,7 +263,12 @@ public class OrderServiceImpl implements IOrderService {
 
 	public OrderModel getOrderDetails(String consignmentId) {
 		// TODO Auto-generated method stub
-		return null;
+		OrderModel out = null;
+
+		OrderEntity outEntityList = orderDao.getOrderDetails(consignmentId);
+				
+		out = this.entityToModel(outEntityList);
+		return out;
 	}
 
 	public OrderModel getReturnRequestDetails(String consignmentId) {
