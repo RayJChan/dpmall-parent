@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IOrderService;
+import com.dpmall.api.bean.OrderModel;
 import com.dpmall.common.SpringTestCase;
-import com.dpmall.db.bean.OrderEntity;
 
 public class OrderServiceFacadeTest extends SpringTestCase{
 	private static final Logger LOG = LoggerFactory.getLogger(OrderServiceFacadeTest.class);
