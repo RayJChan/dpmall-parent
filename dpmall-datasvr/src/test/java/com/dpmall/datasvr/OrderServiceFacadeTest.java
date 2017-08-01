@@ -1,7 +1,5 @@
 package com.dpmall.datasvr;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IOrderService;
-import com.dpmall.api.bean.OrderModel;
 import com.dpmall.common.SpringTestCase;
 
 public class OrderServiceFacadeTest extends SpringTestCase{
@@ -47,9 +44,9 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	 */
 	@Test
     public void testGetOnePage4Followup(){
-    	List<OrderModel> result = orderService.getOnePage4Followup("310145", 0, 20);
+   /* 	List<OrderModel> result = orderService.getOnePage4Followup("310145", 0, 20);
     	LOG.info("=====================daihx====================");
-        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
+        LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");*/
     }
 //	/**
 //	 * 店铺获取待接单的实物订单
@@ -72,8 +69,8 @@ public class OrderServiceFacadeTest extends SpringTestCase{
      */
 	@Test
 	public void testDeliver() {
-		Integer deliver = orderService.deliver("aSIT100020032");
-		LOG.info("===============确认收货================"+deliver);
+	/*	Integer deliver = orderService.deliver("aSIT100020032");
+		LOG.info("===============确认收货================"+deliver);*/
 	}
 	
 	/**
@@ -83,13 +80,14 @@ public class OrderServiceFacadeTest extends SpringTestCase{
      */
 	@Test
 	public void testAccept() {
-		Integer result = orderService.accept("123456", "aSITA100272016", "110");
-		LOG.info("================导购员接单================" + result);
+		/*Integer result = orderService.accept("123456", "aSITA100272016", "110");
+		LOG.info("================导购员接单================" + result);*/
 	}
 	
 	@Test
+	
 	public void getOnePage4DistributeTest() {
-		logger.info("result:"+JSON.toJSONString(orderService.getOnePage4Distribute("10086", "", 0, 3)));
+		logger.info("result:"+JSON.toJSONString(orderService.getOnePage4Distribute("10086", "2", 0, 3)));
 	}
 	
 	/**
@@ -97,7 +95,7 @@ public class OrderServiceFacadeTest extends SpringTestCase{
      */
 	@Test
 	public void testDistribute() {
-		Integer result = orderService.distribute("", "aSIT100016018", "33", "TESTDistribute");
-		LOG.info("================经销商下派到店铺================" + result);
+	/*	Integer result = orderService.distribute("", "aSIT100016018", "33", "TESTDistribute");
+		LOG.info("================经销商下派到店铺================" + result);*/
 	}
 }

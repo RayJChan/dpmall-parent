@@ -1,18 +1,12 @@
 package com.dpmall.web.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.err.ErrorCode;
-import com.dpmall.db.bean.OrderItemEntity;
 import com.dpmall.web.controller.form.AppOrderForm;
 import com.dpmall.web.controller.form.Response;
 
@@ -35,7 +29,7 @@ public class OrderMockController {
 	 */
     @RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
+    public Response getOnePage4Distribute(@RequestBody AppOrderForm form){/*
     	Response response=new Response();
     	List<OrderModel> result = new ArrayList<>();
     	for(int i=0;i<5;i++) {
@@ -55,7 +49,9 @@ public class OrderMockController {
     	response.data=result;
     	response.resultCode=ErrorCode.SUCCESS;
     	return response;
-    }
+    */
+    	return null;
+    			}
     
     /**
      * 获取经销商待分配的实物订单数
@@ -99,6 +95,8 @@ public class OrderMockController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppOrderForm form){
+    	return null;
+    	/*
     	Response response=new Response();
     	List<OrderModel> result = new ArrayList<>();
     	for(int i=0;i<5;i++) {
@@ -118,7 +116,7 @@ public class OrderMockController {
     	response.data=result;
     	response.resultCode=ErrorCode.SUCCESS;
     	return response;
-    }
+    */}
     
     /**
      * 获取店铺待接单的实物订单数

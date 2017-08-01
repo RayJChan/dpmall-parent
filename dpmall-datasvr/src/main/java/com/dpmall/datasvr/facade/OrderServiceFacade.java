@@ -182,8 +182,17 @@ public class OrderServiceFacade implements IOrderService {
 
 
 	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::getOnePage4StoreId',in:{storeId:'" + storeId +"'status:'"+status+ "',offset:'"
+					+ offset + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<OrderModel> out = orderService.getOnePage4StoreId(storeId, status, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::getOnePage4StoreId',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public Integer get2StoreCount(String storeId, String status) {

@@ -229,8 +229,11 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderEntity> entities = orderDao.getOnePage4StoreId(storeId, status, offset, pageSize);
+		List<OrderModel> result = new ArrayList<OrderModel>(entities.size());
+		result=entitysaleModel(entities);
+		return result;
+	
 	}
 
 	public Integer get2StoreCount(String storeId, String status) {

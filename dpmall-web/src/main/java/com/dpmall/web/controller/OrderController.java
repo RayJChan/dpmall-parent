@@ -42,16 +42,21 @@ public class OrderController {
     @ResponseBody
     public Response getOnePage4Distribute(@RequestBody AppOrderForm form){
     	LOG.info("{method:'OrderController::getOnePage4Distribute',in:" + JSON.toJSONString(form) + "}");
-
     	Response res = new Response();
-        try{
-        	res.resultCode=ErrorCode.SUCCESS;
-        	res.data = orderService.getOnePage4Distribute(form.distributorId, form.status,form.startNum, form.pageSize);
-        } catch(Throwable e){
-        	res.resultCode = ErrorCode.INTERNAL_ERR;
-        	LOG.error(e.getMessage(),e);
+    	if (StringUtils.isEmpty(form.distributorId)||StringUtils.isEmpty(form.status)||form.startNum==null||form.pageSize==null) {
+			res.resultCode=ErrorCode.INVALID_PARAM;
+			res.message="参数错误";
+		}
+    	else {
+    		try{
+            	res.resultCode=ErrorCode.SUCCESS;
+            	res.data = orderService.getOnePage4Distribute(form.distributorId, form.status,form.startNum, form.pageSize);
+            } catch(Throwable e){
+            	res.resultCode = ErrorCode.INTERNAL_ERR;
+            	res.message="系统错误";
+            	LOG.error(e.getMessage(),e);
+        	}  	
     	}
-        
     	LOG.info("{method:'OrderController::getOnePage4Distribute',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
@@ -181,17 +186,23 @@ public class OrderController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppOrderForm form){
-    	LOG.info("{method:'OrderController::getOnePage4Accept',in:" + JSON.toJSONString(form) + "}");
-
+    	LOG.info("{method:'OrderController::getOnePage4StoreId',in:" + JSON.toJSONString(form) + "}");
     	Response res = new Response();
-        try{
-//        	res.data = orderService.getOnePage4Accept(form.storeId, form.offset, form.pageSize);
-        } catch(Throwable e){
-        	res.resultCode = ErrorCode.INTERNAL_ERR;
-        	LOG.error(e.getMessage(),e);
+    	if (StringUtils.isEmpty(form.storeId)||StringUtils.isEmpty(form.status)||form.startNum==null||form.pageSize==null) {
+			res.resultCode=ErrorCode.INVALID_PARAM;
+			res.message="参数错误";
+		}
+    	else {
+    		try{
+            	res.resultCode=ErrorCode.SUCCESS;
+            	res.data = orderService.getOnePage4StoreId(form.storeId, form.status,form.startNum, form.pageSize);
+            } catch(Throwable e){
+            	res.resultCode = ErrorCode.INTERNAL_ERR;
+            	res.message="系统错误";
+            	LOG.error(e.getMessage(),e);
+        	}  	
     	}
-        
-    	LOG.info("{method:'OrderController::getOnePage4Accept',out:{res:'" + JSON.toJSONString(res) + "'}}");
+    	LOG.info("{method:'OrderController::getOnePage4StoreId',out:{res:'" + JSON.toJSONString(res) + "'}}");
     	return res;
     }
     
