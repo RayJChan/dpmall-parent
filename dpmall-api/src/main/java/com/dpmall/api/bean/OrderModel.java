@@ -146,5 +146,8 @@ public class OrderModel implements Serializable {
 	/**物流公司名称*/
 	public String logisticsCompany;
 	
+	/**交易状态*/
+	public String operateStatus;
+	
 	public List<Object> items=new ArrayList<Object>();
 }

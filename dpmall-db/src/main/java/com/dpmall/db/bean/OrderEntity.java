@@ -149,6 +149,9 @@ public class OrderEntity {
 	/**汇总金额*/
 	public BigDecimal totalSum;
 	
+	/**交易状态*/
+	public String operateStatus;
+	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
 	
