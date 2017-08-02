@@ -129,7 +129,7 @@ public interface IOrderService {
      * @param pageSize 页大小
      * @return 导购员已接单的一页实物订单信息
      */
-    public List<OrderModel> getOnePage4AcceptorId(String acceptorId,String status,Integer offset, Integer pageSize);
+    public List<OrderModel> getOnePage4AcceptorId(String acceptorId,String status,Integer startNum, Integer pageSize);
     
     /**
      * 获取导购员已结单的一页实物订单信息
