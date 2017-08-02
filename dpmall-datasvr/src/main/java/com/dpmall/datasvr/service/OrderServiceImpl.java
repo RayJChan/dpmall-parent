@@ -231,10 +231,10 @@ public class OrderServiceImpl implements IOrderService {
      */
 	public int distribute(String distributorId, String orderCode, String storeId, String remark) {
 		int result = 0;
-		int result1 = orderDao.distribute4O2o(orderCode, storeId, remark);
-		int result2 = orderDao.distribute4Consignment(orderCode, storeId);
+		orderDao.distribute4O2o(orderCode, storeId, remark);//更新备注
+		int result2 = orderDao.distribute4Consignment(orderCode, storeId); //更新状态
 		
-		if(result1 != 0 && result2 != 0 ) {
+		if( result2 != 0 ) {
 			result =1;
 		}
 		return result;
