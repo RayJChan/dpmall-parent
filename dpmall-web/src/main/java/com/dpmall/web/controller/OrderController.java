@@ -181,6 +181,7 @@ public class OrderController {
 	 * 店铺获取待接单的实物订单
 	 * @param storeId 店铺ID
 	 * @param status 状态
+	 * @acceptorId 接单员ID
 	 * @param startNum 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 店铺获取待接单的实物订单列表
@@ -308,12 +309,12 @@ public class OrderController {
 	public Response get2AcceptorCount(@RequestBody AppOrderForm form) {
 		LOG.info("{method:'OrderController::get2AcceptorCount',in:"+JSON.toJSONString(form)+"}");
 		Response response = new Response();
-		if (StringUtils.isEmpty(form.storeId) || StringUtils.isEmpty(form.status)) {
+		if (StringUtils.isEmpty(form.acceptorId) ) {
 			response.resultCode = ErrorCode.INVALID_PARAM;
 			response.message = "参数错误";
 		}else {
 			try {
-				response.data = orderService.get2AcceptorCount(form.storeId, form.status);
+				response.data = orderService.get2AcceptorCount(form.acceptorId, form.status);
 			}catch (Exception e) {
 				response.resultCode = ErrorCode.INTERNAL_ERR;
 				response.message = "未知错误";

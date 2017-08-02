@@ -168,35 +168,38 @@
 		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
 		LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-		LEFT JOIN ENUMERATIONVALUES  E ON E.pk=c.p_status
-		LEFT JOIN COMPOSEDTYPES c3 ON c3.pk=E.TYPEPKSTRING
-		WHERE
-			c3.INTERNALCODE = 'ConsignmentStatus' 
-			<if test='status=="waiting"'>
-				AND E.code ='DISTRIBUTED'
-			</if>
-			<if test='status=="followUp"'>
-				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
-			</if>
-			<if test='status=="return"'>
-				AND E.code ='DPRECEIVE' 
-			</if>
-			<if test='status=="finished"'>
-				AND E.code ='COMPLETED'
-			</if>
-			AND
+		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 		
+			where
 			c.PK IN (
 				SELECT
 					pk
 				FROM
 					(
 						SELECT
-							pk,
+							c.pk,
 							ROWNUM rn
 						FROM
-							CONSIGNMENTS
+							CONSIGNMENTS c ,
+						 	ENUMERATIONVALUES E ,
+							COMPOSEDTYPES c3
 						WHERE
-							P_ALLOCATIONEMPLOYEECODE = #{distributorId}
+							E.pk=c.p_status and  
+							c3.pk=E.TYPEPKSTRING and 
+							P_ALLOCATIONEMPLOYEECODE = #{distributorId} and
+							c3.INTERNALCODE = 'ConsignmentStatus' 
+						<if test='status=="1"'>
+							AND E.code ='DISTRIBUTED'
+						</if>
+						<if test='status=="2"'>
+							AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+						</if>
+						<if test='status=="3"'>
+							AND E.code ='DPRECEIVE' 
+						</if>
+						<if test='status=="4"'>
+							AND E.code ='COMPLETED'
+						</if>
+							
 						AND ROWNUM &lt; ${offset}+${pageSize}+1
 					) p1
 				WHERE
@@ -208,10 +211,10 @@
 			c.p_code,
 			c.pk,
 			c.P_DELIVERYPOINTOFSERVICE,
-			O.P_OPERATESTATUS as P_OPERATESTATUS,
 			o2.P_DELIVERYCOST AS deliveryCost,
 			o2.P_SERVICEAMOUNT AS serviceAmount,
 			o2.p_payamount AS payAmount,
+			O.P_OPERATESTATUS as P_OPERATESTATUS,
 			E.code as P_STATUS,
 			o2.pk AS itemsId,
 			A .P_STREETNAME,
@@ -219,41 +222,42 @@
 		FROM
 			CONSIGNMENTS c
 		LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
+		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
 		LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-		LEFT JOIN ENUMERATIONVALUES  E ON E.pk=c.p_status
-		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
-		LEFT JOIN COMPOSEDTYPES c3 ON c3.pk=E.TYPEPKSTRING
-		LEFT JOIN O2OCONSIGNMENTITEMS O3 ON O3.P_CONSIGNMENT=C.pk
-		WHERE
-			c3.INTERNALCODE = 'ConsignmentStatus' 
-			<if test='status=="waiting"'>
-				AND E.code ='DISTRIBUTED'
-			</if>
-			<if test='status=="followUp"'>
-				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
-			</if>
-			<if test='status=="return"'>
-				AND E.code ='DPRECEIVE'
-			</if>
-			<if test='status=="finished"'>
-				AND E.code ='COMPLETED'
-			</if>
-			<if test="acceptorId!=null">
-				AND o3.P_ACCEPTEDBY==#{acceptorId}
-			</if>			
-			AND c.PK IN (
+		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 		
+			where
+			c.PK IN (
 				SELECT
 					pk
 				FROM
 					(
 						SELECT
-							pk,
+							c.pk,
 							ROWNUM rn
 						FROM
-							CONSIGNMENTS
+							CONSIGNMENTS c ,
+						 	ENUMERATIONVALUES E ,
+							COMPOSEDTYPES c3,
+							O2OCONSIGNMENTITEMS o 
 						WHERE
-							P_DELIVERYPOINTOFSERVICE = #{storeId}
+							c.PK=o.P_CONSIGNMENT and 
+							E.pk=c.p_status and  
+							c3.pk=E.TYPEPKSTRING and 
+							p_deliverypointofservice = #{storeId} and
+							c3.INTERNALCODE = 'ConsignmentStatus' 
+						<if test='status=="1"'>
+							AND E.code ='DISTRIBUTED'
+						</if>
+						<if test='status=="2"'>
+							AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+						</if>
+						<if test='status=="3"'>
+							AND E.code ='COMPLETED'
+						</if>
+						<if test="acceptorId!=null">
+							and o.P_ACCEPTEDBY=#{acceptorId}
+						</if>
 						AND ROWNUM &lt; ${offset}+${pageSize}+1
 					) p1
 				WHERE
@@ -324,27 +328,38 @@
 	<!-- 实物类导购员订单状态条数 -->
 	<select id="get2AcceptorCount" resultType="int">
 		SELECT
-			COUNT (*) 
+			COUNT (1)
 		FROM
-			CONSIGNMENTS 
+			CONSIGNMENTS
 		WHERE
 			1 = 1
 		<if test="acceptorId != null">
-			AND 
-				PK IN (
-					SELECT
-						P_CONSIGNMENT
-					FROM
-						O2OCONSIGNMENTITEMS
-					WHERE
-						1 = 1
-					AND P_ACCEPTEDBY = #{acceptorId}
+		AND PK IN (
+			SELECT
+				P_CONSIGNMENT
+			FROM
+				O2OCONSIGNMENTITEMS
+			WHERE
+				1 = 1
+			AND P_ACCEPTEDBY = #{acceptorId}
+		)
+		</if>
+		AND P_STATUS IN (
+			SELECT
+				t2.pk
+			FROM
+				COMPOSEDTYPES t1,
+				ENUMERATIONVALUES t2
+			WHERE
+				t1.INTERNALCODe = 'ConsignmentStatus'
+			AND t2.TYPEPKSTRING = t1.PK
+			AND code IN (
+				'BOOKED',
+				'ALLOCATED',
+				'SHIPPED',
+				'DISTRIBUTED'
 			)
-		</if>
-		<if test="status != null">
-			AND 
-				P_STATUS = #{status}
-		</if>
+		)
 	</select>
 	
 	<select id="getOnePage4AcceptorId" resultMap="listResultMap">
