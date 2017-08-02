@@ -240,7 +240,7 @@
 				AND E.code ='COMPLETED'
 			</if>
 			<if test="acceptorId!=null">
-				AND o3.P_ACCEPTEDBY==#{acceptorId}
+				AND o3.P_ACCEPTEDBY=#{acceptorId}
 			</if>			
 			AND c.PK IN (
 				SELECT

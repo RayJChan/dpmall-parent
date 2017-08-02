@@ -49,7 +49,7 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Test
     public void testGetOnePage4StoreId(){
 		logger.info("=====================crown=========================");
-    	List<OrderEntity> result = appOrderDao.getOnePage4StoreId("10086", "1", 0, 5);
+    	List<OrderEntity> result = appOrderDao.getOnePage4StoreId("10086", "1", "1", 0, 5);
     	logger.info(JSON.toJSONString(result));
     }
 	/**
