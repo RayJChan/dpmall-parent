@@ -123,6 +123,7 @@
 		<result property="clientName" column="P_FIRSTNAME"/>
 		<result property="clientTel" column="p_phone1"/>
 		<result property="address" column="P_STREETNAME"/>
+		<result property="operateStatus" column="P_OPERATESTATUS"/>
 		<result property="deliveryPoint" column="P_DELIVERYPOINTOFSERVICE"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
@@ -156,6 +157,7 @@
 			o2.P_DELIVERYCOST AS deliveryCost,
 			o2.P_SERVICEAMOUNT AS serviceAmount,
 			o2.p_payamount AS payAmount,
+			O.P_OPERATESTATUS as P_OPERATESTATUS,
 			E.code as P_STATUS,
 			o2.pk AS itemsId,
 			A .P_STREETNAME,
@@ -163,6 +165,7 @@
 		FROM
 			CONSIGNMENTS c
 		LEFT JOIN CONSIGNMENTENTRIES c2 ON c2.P_CONSIGNMENT = c.pk
+		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
 		LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
 		LEFT JOIN ENUMERATIONVALUES  E ON E.pk=c.p_status
