@@ -1,5 +1,7 @@
 package com.dpmall.datasvr;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,4 +120,40 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer result = orderService.get2DistributeCount("310145", "8796105670747");
     	logger.info(JSON.toJSONString(result));
     }
+	
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     */
+	@Test
+	public void testGet2AcceptorCount() {
+		logger.info("===================get2AcceptorCount=================");
+		Integer result = orderService.get2AcceptorCount("5590590", "8796105375835");
+		logger.info(JSON.toJSONString(result));
+	}
+	
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     */
+	@Test
+	public void testGetOnePage4AcceptorId() {
+		logger.info("===================getOnePage4AcceptorId=================");
+		List<OrderModel> result = orderService.getOnePage4AcceptorId("123456", "8796105637979", 0, 20);
+		logger.info(JSON.toJSONString(result));
+	}
+	/**
+     * 实物类门店订单状态条数
+     * @param storeId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
+	@Test
+	public void testGet2StoreCount() {
+		logger.info("=================testGet2StoreCount====================");
+		Integer count = orderService.get2StoreCount(null, "8796105375835");
+		logger.info(JSON.toJSONString(count));
+	}
 }

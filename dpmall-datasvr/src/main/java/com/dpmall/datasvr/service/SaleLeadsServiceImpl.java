@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.bean.SaleLeadsModel;
@@ -123,8 +124,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		List<SaleLeadsModel> out = null;
-
-		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getOnePage4Distribute(Long.valueOf(distributorId),startNum,pageSize);
+		List<SalesLeadsOrderEntity> outEntityList = null;
+		if(StringUtils.isEmpty(distributorId)){
+			outEntityList = salesLeadsOrderDao.getOnePage4Distribute(null,startNum,pageSize);
+		}else{
+			outEntityList = salesLeadsOrderDao.getOnePage4Distribute(Long.valueOf(distributorId),startNum,pageSize);
+		}
 		if(outEntityList == null || outEntityList.isEmpty()){
 			return null;
 		}

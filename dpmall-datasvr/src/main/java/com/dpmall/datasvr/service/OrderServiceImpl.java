@@ -245,20 +245,38 @@ public class OrderServiceImpl implements IOrderService {
 		return result;
 	
 	}
-
+	/**
+     * 实物类门店订单状态条数
+     * @param storeId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
 	public Integer get2StoreCount(String storeId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderDao.get2StoreCount(storeId, status);
 	}
 
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     * @return 实物类导购员订单状态条数
+     */
 	public Integer get2AcceptorCount(String acceptorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return orderDao.get2AcceptorCount(acceptorId, status);
 	}
 
-	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
+	public List<OrderModel> getOnePage4AcceptorId(String acceptorId, String status, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
-		return null;
+		List<OrderModel> out = null;
+
+		List<OrderEntity> outEntityList = orderDao.getOnePage4AcceptorId(acceptorId,status,startNum,pageSize);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+								
+		out = this.entitysaleModel(outEntityList);
+		return out;
 	}
 
 	public OrderModel getOrderDetails(String consignmentId) {

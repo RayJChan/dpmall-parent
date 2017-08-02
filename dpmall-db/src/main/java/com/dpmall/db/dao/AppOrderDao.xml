@@ -82,6 +82,16 @@
 		</if>	
 	</select>
 	
+	<select id="get2StoreCount" resultType="java.lang.Integer">
+		SELECT count(1) FROM CONSIGNMENTS  WHERE 1=1
+		<if test="storeId != null">
+			AND P_DELIVERYPOINTOFSERVICE = #{storeId}
+		</if>
+		<if test="status != null">
+			AND P_STATUS=#{status}
+		</if>	
+	</select>
+	
 	<select id="get2AcceptCount" resultType="int">
 		select count(1) from O2OCONSIGNMENTITEMS  where P_STATUS='10'
 		<if test="storeId != null">
@@ -247,36 +257,47 @@
 		select 
    		      C.PK,
    		      C.P_CODE AS P_CCODE,
-   		      C.P_STATUS,
-   		      C.P_SHIPPINGADDRESS,
-   		      C.P_LOGISTICSINFO,
-   		      C.P_DELIVERYMODE as deliveryMode,
-   		      C.P_LOGISTICSCOMPANY,
-      		  C.P_TRACKINGID,
-      		  O2O.P_CUSCOMMET,
-   		      O2O.P_SERVERCOMMENT,
-   		      O2O.P_AGENCYCOMMENT,
-   		      O2O.P_ACCEPTEDBY,
-		      O2O.P_ACCEPTEDCOMMENT,
-   		      O2O.P_DELIVERYPIC,
-   		      O.P_BUYERNICK,
-   		      P.P_CATEGORY,
-      		  P.P_CODE AS P_ICODE,
-      		  OE.P_QUANTITY,
-   		      OE.P_TMALLQUANTITY,
-   		      OE.P_BASEPRICE,
-   		      OE.P_TOTALPRICE,
-   		      OE.P_DELIVERYCOST,
-   
+   		      
    		      O.P_SALESAPPLICATION,
    		      OE.P_JUNTANPRICE,
   		      OE.P_PAYAMOUNT,
       		  OE.P_SERVICEAMOUNT,
-   
-      		  LI.P_DELIVERYMETHODS,
-   		      LI.P_NAME,
+      		  OE.P_DELIVERYCOST,
+   		      
+   		      C.P_STATUS,
+   		      
+   		      O.P_BUYERNICK,
+   		      A.P_PHONE1,
    		      A.P_STREETNAME,
-  		      A.P_PHONE1,
+   		      
+   		      P.P_CATEGORY as category,
+   		      P.P_CODE AS code,
+   		      
+   		      OE.P_QUANTITY as quantity,
+   		      OE.P_TMALLQUANTITY as tmallQuantity,
+   		      
+   		      OE.P_BASEPRICE as basePrice,
+   		      OE.P_TOTALPRICE as totalPrice,
+   		      
+   		      LI.P_DELIVERYMETHODS,
+   		      
+   		      O2O.P_CUSCOMMET,
+   		      O2O.P_SERVERCOMMENT,
+   		      O2O.P_AGENCYCOMMENT,
+   		      
+   		      LI.P_NAME,
+   		      
+   		      C.P_SHIPPINGADDRESS,
+   		      C.P_LOGISTICSINFO,
+   		      
+   		      C.P_DELIVERYMODE as deliveryMode,
+   		      C.P_LOGISTICSCOMPANY,
+   		      C.P_TRACKINGID,
+      		  
+   		      O2O.P_ACCEPTEDBY,
+		        O2O.P_ACCEPTEDCOMMENT,
+   		      O2O.P_DELIVERYPIC,
+   		      
    		      C.P_CATEGORY,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 
@@ -289,5 +310,67 @@
 		<if test="consignmentId != null">
 		  WHERE 1=1 AND C.P_CODE= #{consignmentId}
 		</if>
+	</select>
+	
+	<!-- 实物类导购员订单状态条数 -->
+	<select id="get2AcceptorCount" resultType="int">
+		SELECT
+			COUNT (*) 
+		FROM
+			CONSIGNMENTS 
+		WHERE
+			1 = 1
+		<if test="acceptorId != null">
+			AND 
+				PK IN (
+					SELECT
+						P_CONSIGNMENT
+					FROM
+						O2OCONSIGNMENTITEMS
+					WHERE
+						1 = 1
+					AND P_ACCEPTEDBY = #{acceptorId}
+			)
+		</if>
+		<if test="status != null">
+			AND 
+				P_STATUS = #{status}
+		</if>
+	</select>
+	
+	<select id="getOnePage4AcceptorId" resultMap="listResultMap">
+		SELECT
+				*
+			FROM
+				(
+					SELECT
+						c.p_code,
+						c.pk,
+						OE.P_QUANTITY AS quantity,
+						OE.P_TMALLQUANTITY AS tmallQuantity,
+						OE.P_DELIVERYCOST AS deliveryCost,
+						OE.P_SERVICEAMOUNT AS serviceAmount,
+						OE.p_payamount AS payAmount,
+						c.P_STATUS,
+						OE.pk AS itemsId,
+						OE.P_PAYAMOUNT,
+						OE.P_JUNTANPRICE,
+						A .P_FIRSTNAME,
+						A .p_phone1,
+						A .P_STREETNAME,
+						U .P_CODE AS unit,
+						ROWNUM rn
+					FROM
+						CONSIGNMENTS c
+					LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+					LEFT JOIN CONSIGNMENTENTRIES CE ON CE.P_CONSIGNMENT = c.pk
+					LEFT JOIN ORDERENTRIES OE ON CE.P_ORDERENTRY = OE.pk
+					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+					LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
+					WHERE
+						O2O.P_ACCEPTEDBY = #{acceptorId}
+					AND c.P_STATUS = #{status}
+					AND ROWNUM &lt; ${startNum}+${pageSize}+1
+				) p1 WHERE p1.rn&gt;${startNum}
 	</select>
 </mapper>

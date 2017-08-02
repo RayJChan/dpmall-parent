@@ -105,5 +105,30 @@ public interface AppOrderDao {
      */
 	OrderEntity getOrderDetails(@Param("consignmentId")String consignmentId);
 	
-  
+	/**
+     * 实物类导购员订单状态条数
+     * @param acceptorId 导购员ID
+     * @param status 状态
+     * @return 实物类导购员订单状态条数
+     */
+	public int get2AcceptorCount (@Param("acceptorId") String acceptorId , @Param("status") String status);
+	
+	/**
+	 * 实物类导购员订单状态列表
+	 * author:crown
+	 * @param acceptorId 导购员ID
+     * @param status 状态
+     * @param startItemId 上一次加载的最后项ID
+     * @param pageSize 页大小
+     * @return 导购员已接单的一页实物订单信息
+	 */
+	 public List<OrderEntity> getOnePage4AcceptorId(@Param("acceptorId")String acceptorId,@Param("status")String status,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
+	 
+	 /**
+	   * 实物类门店订单状态条数
+	   * @param storeId 经销商ID
+	   * @param status 状态
+	   * @return 经销商待分配的实物订单数
+	  */
+	 public Integer get2StoreCount(@Param("storeId")String storeId,@Param("status")String status);
 }
