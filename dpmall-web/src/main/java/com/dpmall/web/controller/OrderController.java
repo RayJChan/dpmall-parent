@@ -308,12 +308,12 @@ public class OrderController {
 	public Response get2AcceptorCount(@RequestBody AppOrderForm form) {
 		LOG.info("{method:'OrderController::get2AcceptorCount',in:"+JSON.toJSONString(form)+"}");
 		Response response = new Response();
-		if (StringUtils.isEmpty(form.storeId) || StringUtils.isEmpty(form.status)) {
+		if (StringUtils.isEmpty(form.acceptorId) ) {
 			response.resultCode = ErrorCode.INVALID_PARAM;
 			response.message = "参数错误";
 		}else {
 			try {
-				response.data = orderService.get2AcceptorCount(form.storeId, form.status);
+				response.data = orderService.get2AcceptorCount(form.acceptorId, form.status);
 			}catch (Exception e) {
 				response.resultCode = ErrorCode.INTERNAL_ERR;
 				response.message = "未知错误";
