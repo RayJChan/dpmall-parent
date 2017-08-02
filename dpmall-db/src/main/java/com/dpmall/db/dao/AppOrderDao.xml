@@ -324,27 +324,38 @@
 	<!-- 实物类导购员订单状态条数 -->
 	<select id="get2AcceptorCount" resultType="int">
 		SELECT
-			COUNT (*) 
+			COUNT (1)
 		FROM
-			CONSIGNMENTS 
+			CONSIGNMENTS
 		WHERE
 			1 = 1
 		<if test="acceptorId != null">
-			AND 
-				PK IN (
-					SELECT
-						P_CONSIGNMENT
-					FROM
-						O2OCONSIGNMENTITEMS
-					WHERE
-						1 = 1
-					AND P_ACCEPTEDBY = #{acceptorId}
+		AND PK IN (
+			SELECT
+				P_CONSIGNMENT
+			FROM
+				O2OCONSIGNMENTITEMS
+			WHERE
+				1 = 1
+			AND P_ACCEPTEDBY = #{acceptorId}
+		)
+		</if>
+		AND P_STATUS IN (
+			SELECT
+				t2.pk
+			FROM
+				COMPOSEDTYPES t1,
+				ENUMERATIONVALUES t2
+			WHERE
+				t1.INTERNALCODe = 'ConsignmentStatus'
+			AND t2.TYPEPKSTRING = t1.PK
+			AND code IN (
+				'BOOKED',
+				'ALLOCATED',
+				'SHIPPED',
+				'DISTRIBUTED'
 			)
-		</if>
-		<if test="status != null">
-			AND 
-				P_STATUS = #{status}
-		</if>
+		)
 	</select>
 	
 	<select id="getOnePage4AcceptorId" resultMap="listResultMap">
