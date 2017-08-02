@@ -79,6 +79,7 @@ public class OrderServiceImpl implements IOrderService {
 		model.logisticsInfo=entity.logisticsInfo;
 		model.trackingId=entity.trackingId;
 		model.deliveryCost=entity.deliveryCost;
+		model.consignmentCode=entity.consignment;
 		model.salesApplication=entity.salesApplication;
 		model.juntanPrice=entity.juntanPrice;
 		model.payAmount=entity.payAmount;

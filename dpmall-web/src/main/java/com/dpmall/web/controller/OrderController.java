@@ -181,6 +181,7 @@ public class OrderController {
 	 * 店铺获取待接单的实物订单
 	 * @param storeId 店铺ID
 	 * @param status 状态
+	 * @acceptorId 接单员ID
 	 * @param startNum 上一次加载的最后项ID
 	 * @param pageSize 页的大小
 	 * @return 店铺获取待接单的实物订单列表
