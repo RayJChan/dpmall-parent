@@ -1,5 +1,8 @@
 package com.dpmall.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,21 +104,28 @@ public class OrderController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distribute(@RequestBody AppOrderForm form){
-    	Response response = new Response();
-    	if (StringUtils.isEmpty(form.distributorId) || StringUtils.isEmpty(form.orderCode) || StringUtils.isEmpty(form.storeId)) {
-    		response.resultCode = ErrorCode.INVALID_PARAM;
-    		response.message = "参数错误";
-    	}else {
-			try {
-				response.resultCode = ErrorCode.SUCCESS;
-				response.data = orderService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);
-			} catch (Exception e) {
-				response.resultCode = ErrorCode.INTERNAL_ERR;
-				response.message = "未知错误";
-			}
-		}
-    	return response;
+    public List<Response> distribute(@RequestBody List<AppOrderForm> formList){
+    	
+    	List<Response> responsesList = new ArrayList<Response>();//返回的结果集
+    	
+    	for(AppOrderForm form : formList) {
+    		Response response = new Response();
+    		if (StringUtils.isEmpty(form.distributorId) || StringUtils.isEmpty(form.orderCode) ) {
+        		response.resultCode = ErrorCode.INVALID_PARAM;
+        		response.message = "参数错误";
+        	}else {
+    			try {
+    				response.resultCode = ErrorCode.SUCCESS;
+    				response.data = orderService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);
+    			} catch (Exception e) {
+    				response.resultCode = ErrorCode.INTERNAL_ERR;
+    				response.message = "未知错误";
+    			}
+    		}
+    		responsesList.add(response);
+    	}
+    	
+    	return responsesList;
     }
     
     

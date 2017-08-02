@@ -98,7 +98,26 @@
 		    and P_RECOMMENDSTORE=${storeId}
 		</if>
 	</select>
-	<!--经销商发单\下派   （O2O）  -->
+	
+	<!--经销商发单\下派   （consignment表） 更新货单状态用 -->
+	<update id="distribute4Consignment">
+	UPDATE CONSIGNMENTS
+	SET P_STATUS = (
+		SELECT
+			t2.pk
+		FROM
+			COMPOSEDTYPES t1,
+			ENUMERATIONVALUES t2
+		WHERE
+			t1.INTERNALCODe = 'ConsignmentStatus'
+		AND t2.TYPEPKSTRING = t1.PK
+		AND t2.code = 'ALLOCATED'
+	)
+	WHERE
+		P_CODE = #{orderCode}
+	</update>
+	
+	<!--经销商发单\下派   （O2O表）  主要更新经销商备注 -->
 	<update id="distribute4O2o">
 		UPDATE O2OCONSIGNMENTITEMS
 		SET 
@@ -115,6 +134,7 @@
 					P_CODE = #{orderCode}
 			)
 	</update>
+	
 	
 	<resultMap type="com.dpmall.db.bean.OrderEntity" id="listResultMap">
 		<id property="id" column="pk"/>

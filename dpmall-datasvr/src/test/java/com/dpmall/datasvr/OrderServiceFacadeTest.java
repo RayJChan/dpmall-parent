@@ -93,8 +93,8 @@ public class OrderServiceFacadeTest extends SpringTestCase{
      */
 	@Test
 	public void testDistribute() {
-	/*	Integer result = orderService.distribute("", "aSIT100016018", "33", "TESTDistribute");
-		LOG.info("================经销商下派到店铺================" + result);*/
+		Integer result = orderService.distribute("11", "ddddd", "33", "TESTDistribute");
+		LOG.info("================经销商下派到店铺================" + result);
 	}
 	
 	/**
