@@ -309,7 +309,7 @@ public class OrderController {
      	
      	Response res = new Response();
          try{
-         	res.data = orderService.getOnePage4AcceptorId(form.acceptorId, form.orderCode, form.startNum, form.pageSize);
+         	res.data = orderService.getOnePage4AcceptorId(form.acceptorId, form.status, form.startNum, form.pageSize);
          } catch(Throwable e){
          	res.resultCode = ErrorCode.INTERNAL_ERR;
          	LOG.error(e.getMessage(),e);
