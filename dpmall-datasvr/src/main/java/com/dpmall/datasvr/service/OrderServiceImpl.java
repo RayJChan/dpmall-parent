@@ -54,6 +54,14 @@ public class OrderServiceImpl implements IOrderService {
 		entity.deliveryMethods=model.deliveryMethods;
 		entity.operateStatus=model.operateStatus;
 		entity.name=model.name;
+		entity.acceptedBy=model.acceptedBy;
+		entity.acceptedComment=model.acceptedComment;
+		entity.agencyComment=model.agencyComment;
+		entity.cusComment=model.cusComment;
+		entity.deliverPic=model.deliverPic;
+		entity.deliveryMode=model.deliveryMode;
+		entity.logisticsCompany=model.logisticsCompany;
+		entity.serverComment=model.serverComment;
 		for(Object obj:model.items) {
 			entity.items.add((OrderItemEntity) obj);
 		}
@@ -87,6 +95,14 @@ public class OrderServiceImpl implements IOrderService {
 		model.deliveryMethods=entity.deliveryMethods;
 		model.operateStatus=entity.operateStatus;
 		model.name=entity.name;
+		model.acceptedBy=entity.acceptedBy;
+		model.acceptedComment=entity.acceptedComment;
+		model.agencyComment=entity.agencyComment;
+		model.cusComment=entity.cusComment;
+		model.deliverPic=entity.deliverPic;
+		model.deliveryMode=entity.deliveryMode;
+		model.logisticsCompany=entity.logisticsCompany;
+		model.serverComment=entity.serverComment;
 		for (OrderItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
