@@ -104,7 +104,7 @@
 		    </collection>
 	</resultMap>
 	
-	<select id="get2DistributeCount">
+	<select id="get2DistributeCount" resultType="java.lang.Integer">
 		SELECT
 				COUNT (1)
 			FROM
@@ -114,5 +114,18 @@
 			WHERE
 				c.P_STATUS = E .PK
 			AND E .TYPEPKSTRING = c2.PK
+			<if test='status=="waiting"'>
+				AND E.code ='DISTRIBUTED'
+			</if>
+			<if test='status=="followUp"'>
+				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+			</if>
+			<if test='status=="return"'>
+				AND E.code ='DPRECEIVE'
+			</if>
+			<if test='status=="finished"'>
+				AND E.code ='COMPLETED'
+			</if>
+				AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
 	</select>
 </mapper>
