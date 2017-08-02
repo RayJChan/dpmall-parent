@@ -224,7 +224,7 @@ public class OrderController {
 			return res;
 		}
 		try {
-//			res.data = orderService.get2AcceptCount(form.storeId == null ? null : String.valueOf(form.storeId));
+			res.data = orderService.get2StoreCount(form.storeId, form.status);
 		} catch (Throwable e) {
 			LOG.error(e.getMessage(), e);
 		}

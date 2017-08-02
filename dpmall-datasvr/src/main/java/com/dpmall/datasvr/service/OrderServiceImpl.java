@@ -245,10 +245,14 @@ public class OrderServiceImpl implements IOrderService {
 		return result;
 	
 	}
-
+	/**
+     * 实物类门店订单状态条数
+     * @param storeId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
 	public Integer get2StoreCount(String storeId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		return orderDao.get2StoreCount(storeId, status);
 	}
 
 	/**

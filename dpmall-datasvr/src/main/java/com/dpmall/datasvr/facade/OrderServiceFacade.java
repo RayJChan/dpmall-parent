@@ -185,8 +185,16 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 	public Integer get2StoreCount(String storeId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'OrderServiceFacade::get2StoreCount',in:{storeId:'" + storeId +"'status:'"+status+ "'}}");
+		}
+		
+		Integer result = orderService.get2StoreCount(storeId, status);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'OrderServiceFacade::get2StoreCount',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 
 	public Integer get2AcceptorCount(String acceptorId, String status) {
