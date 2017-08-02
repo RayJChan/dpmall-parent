@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dpmall.api.IOrderService;
 import com.dpmall.api.bean.OrderModel;
-import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.db.bean.OrderEntity;
 import com.dpmall.db.bean.OrderItemEntity;
@@ -238,8 +237,8 @@ public class OrderServiceImpl implements IOrderService {
 		return result;
 	}
 
-	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
-		List<OrderEntity> entities = orderDao.getOnePage4StoreId(storeId, status, offset, pageSize);
+	public List<OrderModel> getOnePage4StoreId(String storeId, String status,String acceptorId,Integer offset, Integer pageSize) {
+		List<OrderEntity> entities = orderDao.getOnePage4StoreId(storeId, status,acceptorId, offset, pageSize);
 		List<OrderModel> result = new ArrayList<OrderModel>(entities.size());
 		result=entitysaleModel(entities);
 		return result;

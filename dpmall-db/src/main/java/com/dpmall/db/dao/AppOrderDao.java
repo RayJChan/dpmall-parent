@@ -95,7 +95,7 @@ public interface AppOrderDao {
 	 */
 	int deliver4Consignments (@Param("entity") OrderEntity entity);
 	
-	public List<OrderEntity> getOnePage4StoreId(@Param("storeId")String storeId,@Param("status")String status,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+	public List<OrderEntity> getOnePage4StoreId(@Param("storeId")String storeId,@Param("status")String status,@Param("acceptorId")String acceptorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
 	
 	/**
 	 * author:crown

@@ -2,7 +2,6 @@ package com.dpmall.api;
 
 import java.util.List;
 
-
 import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.common.TimeScope;
 
@@ -87,7 +86,7 @@ public interface IOrderService {
 	 * @param pageSize 页的大小
 	 * @return 实物类门店订单状态条数
 	 */
-    public List<OrderModel> getOnePage4StoreId(String storeId,String status,Integer offset, Integer pageSize);
+    public List<OrderModel> getOnePage4StoreId(String storeId,String status,String acceptorId,Integer offset, Integer pageSize);
     
     /**
      * 实物类门店订单状态条数

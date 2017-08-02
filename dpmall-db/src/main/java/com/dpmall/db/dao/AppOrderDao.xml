@@ -224,6 +224,7 @@
 		LEFT JOIN ENUMERATIONVALUES  E ON E.pk=c.p_status
 		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
 		LEFT JOIN COMPOSEDTYPES c3 ON c3.pk=E.TYPEPKSTRING
+		LEFT JOIN O2OCONSIGNMENTITEMS O3 ON O3.P_CONSIGNMENT=C.pk
 		WHERE
 			c3.INTERNALCODE = 'ConsignmentStatus' 
 			<if test='status=="waiting"'>
@@ -237,6 +238,9 @@
 			</if>
 			<if test='status=="finished"'>
 				AND E.code ='COMPLETED'
+			</if>
+			<if test="acceptorId!=null">
+				AND o3.P_ACCEPTEDBY==#{acceptorId}
 			</if>			
 			AND c.PK IN (
 				SELECT

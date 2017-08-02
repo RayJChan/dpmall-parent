@@ -197,7 +197,7 @@ public class OrderController {
     	else {
     		try{
             	res.resultCode=ErrorCode.SUCCESS;
-            	res.data = orderService.getOnePage4StoreId(form.storeId, form.status,form.startNum, form.pageSize);
+            	res.data = orderService.getOnePage4StoreId(form.storeId, form.status,form.acceptorId,form.startNum, form.pageSize);
             } catch(Throwable e){
             	res.resultCode = ErrorCode.INTERNAL_ERR;
             	res.message="系统错误";

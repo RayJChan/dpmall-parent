@@ -170,13 +170,13 @@ public class OrderServiceFacade implements IOrderService {
 	}
 
 
-	public List<OrderModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
+	public List<OrderModel> getOnePage4StoreId(String storeId, String status, String acceptorId,Integer offset, Integer pageSize) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'OrderServiceFacade::getOnePage4StoreId',in:{storeId:'" + storeId +"'status:'"+status+ "',offset:'"
 					+ offset + "',pageSize:'" + pageSize +"'}}");
 		}
 		
-		List<OrderModel> out = orderService.getOnePage4StoreId(storeId, status, offset, pageSize);
+		List<OrderModel> out = orderService.getOnePage4StoreId(storeId, status,  acceptorId,offset, pageSize);
 		
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'OrderServiceFacade::getOnePage4StoreId',out:"+JSON.toJSONString(out)+"}");
