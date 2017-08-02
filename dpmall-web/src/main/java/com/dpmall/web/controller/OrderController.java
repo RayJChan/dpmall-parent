@@ -305,7 +305,18 @@ public class OrderController {
     @RequestMapping(value="/getOnePage4AcceptorId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4AcceptorId(@RequestBody AppOrderForm form){
-    	return null;
+    	 LOG.info("{method:'OrderController::getOnePage4AcceptorId',in:" + JSON.toJSONString(form) + "}");
+     	
+     	Response res = new Response();
+         try{
+         	res.data = orderService.getOnePage4AcceptorId(form.acceptorId, form.orderCode, form.startNum, form.pageSize);
+         } catch(Throwable e){
+         	res.resultCode = ErrorCode.INTERNAL_ERR;
+         	LOG.error(e.getMessage(),e);
+     	}
+         
+ 		LOG.info("{method:'OrderController::getOnePage4AcceptorId',out:{res'" + JSON.toJSONString(res) + "'}}");
+     	return res;
     }
     
     /**
