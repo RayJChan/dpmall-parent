@@ -52,6 +52,7 @@ public class OrderServiceImpl implements IOrderService {
 		entity.payAmount=model.payAmount;
 		entity.serviceAmount=model.serviceAmount;
 		entity.deliveryMethods=model.deliveryMethods;
+		entity.operateStatus=model.operateStatus;
 		entity.name=model.name;
 		for(Object obj:model.items) {
 			entity.items.add((OrderItemEntity) obj);
@@ -83,6 +84,7 @@ public class OrderServiceImpl implements IOrderService {
 		model.payAmount=entity.payAmount;
 		model.serviceAmount=entity.serviceAmount;
 		model.deliveryMethods=entity.deliveryMethods;
+		model.operateStatus=entity.operateStatus;
 		model.name=entity.name;
 		for (OrderItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
