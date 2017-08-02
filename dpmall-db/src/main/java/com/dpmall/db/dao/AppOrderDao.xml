@@ -82,6 +82,16 @@
 		</if>	
 	</select>
 	
+	<select id="get2StoreCount" resultType="java.lang.Integer">
+		SELECT count(1) FROM CONSIGNMENTS  WHERE 1=1
+		<if test="storeId != null">
+			AND P_DELIVERYPOINTOFSERVICE = #{storeId}
+		</if>
+		<if test="status != null">
+			AND P_STATUS=#{status}
+		</if>	
+	</select>
+	
 	<select id="get2AcceptCount" resultType="int">
 		select count(1) from O2OCONSIGNMENTITEMS  where P_STATUS='10'
 		<if test="storeId != null">
