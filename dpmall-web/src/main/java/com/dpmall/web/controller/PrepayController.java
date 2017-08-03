@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IPrepayService;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.AppPrepayForm;
 import com.dpmall.web.controller.form.Response;
 
@@ -128,7 +129,18 @@ public class PrepayController {
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response distribute(@RequestBody AppPrepayForm form){
-    	return null;
+        LOG.info("{method:'PrepayController::distribute',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::distribute',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**
