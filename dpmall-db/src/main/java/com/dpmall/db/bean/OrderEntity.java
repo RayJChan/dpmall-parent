@@ -152,6 +152,9 @@ public class OrderEntity {
 	/**操作状态*/
 	public String operateStatus;
 	
+	/**返回状态*/
+	public String returnStatus;
+	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
 	
