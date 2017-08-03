@@ -157,4 +157,37 @@
 			)
 	</update>
 	
+	<!-- 特权定金导购员状态条数 -->
+	<select id="get2AcceptorCount" resultType="int">
+		SELECT
+			COUNT (1)
+		FROM
+			CONSIGNMENTS
+		WHERE
+			1 = 1
+		<if test="acceptorId != null">
+		AND PK IN (
+			SELECT
+				P_CONSIGNMENT
+			FROM
+				O2OCONSIGNMENTITEMS
+			WHERE 
+			    P_ACCEPTEDBY = #{acceptorId}
+		)
+		</if>
+		AND P_STATUS IN (
+			SELECT
+				t2.pk
+			FROM
+				COMPOSEDTYPES t1,
+				ENUMERATIONVALUES t2
+			WHERE
+				t1.INTERNALCODe = 'ConsignmentStatus'
+			AND t2.TYPEPKSTRING = t1.PK
+			AND code IN (
+				#{status}
+			)
+		)
+	</select>
+	
 </mapper>

@@ -42,4 +42,18 @@ public class AppPrePayDaoTest extends SpringTestCase{
 		logger.info(JSON.toJSONString(count));
 	}
 	
+	
+	/**
+     * 特权定金导购员状态条数
+     * @param storeId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
+	@Test
+	public void testGet2AcceptorCount() {
+		logger.info("=================get2AcceptorCount====================");
+		Integer count = prePayDao.get2AcceptorCount("46567675", "ABORTED");
+		logger.info(JSON.toJSONString(count));
+	}
+	
 }
