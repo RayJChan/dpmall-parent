@@ -301,7 +301,7 @@
 							p_deliverypointofservice = #{storeId} and
 							c3.INTERNALCODE = 'ConsignmentStatus' 
 						<if test='status=="1"'>
-							AND E.code in('DISTRIBUTED','STOREWAIT')
+							AND E.code in='STOREWAIT'
 						</if>
 						<if test='status=="2"'>
 							AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
