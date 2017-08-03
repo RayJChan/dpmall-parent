@@ -114,16 +114,16 @@
 			WHERE
 				c.P_STATUS = E .PK
 			AND E .TYPEPKSTRING = c2.PK
-			<if test='status=="waiting"'>
+			<if test='status=="1"'>
 				AND E.code ='DISTRIBUTED'
 			</if>
-			<if test='status=="followUp"'>
+			<if test='status=="2"'>
 				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
 			</if>
-			<if test='status=="return"'>
+			<if test='status=="3"'>
 				AND E.code ='DPRECEIVE'
 			</if>
-			<if test='status=="finished"'>
+			<if test='status=="4"'>
 				AND E.code ='COMPLETED'
 			</if>
 				AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}

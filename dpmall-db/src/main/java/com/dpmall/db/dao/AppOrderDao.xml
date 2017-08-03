@@ -153,7 +153,7 @@
 		SELECT
 			c.p_code,
 			c.pk,
-			c.P_DELIVERYPOINTOFSERVICE,
+			p.p_name as P_DELIVERYPOINTOFSERVICE,
 			o2.P_DELIVERYCOST AS deliveryCost,
 			o2.P_SERVICEAMOUNT AS serviceAmount,
 			o2.p_payamount AS payAmount,
@@ -161,6 +161,7 @@
 			E.code as P_STATUS,
 			o2.pk AS itemsId,
 			A .P_STREETNAME,
+			d.p_code as code,
 			ROWNUM rn
 		FROM
 			CONSIGNMENTS c
@@ -168,7 +169,9 @@
 		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
 		LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 		
+		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 
+		LEFT JOIN POINTOFSERVICE p ON c.P_DELIVERYPOINTOFSERVICE=p.PK
+		LEFT JOIN dpsizevarproduct d ON o2.P_PRODUCT=d.PK	
 			where
 			c.PK IN (
 				SELECT
@@ -210,7 +213,7 @@
 		SELECT
 			c.p_code,
 			c.pk,
-			c.P_DELIVERYPOINTOFSERVICE,
+			p.p_name as P_DELIVERYPOINTOFSERVICE,
 			o2.P_DELIVERYCOST AS deliveryCost,
 			o2.P_SERVICEAMOUNT AS serviceAmount,
 			o2.p_payamount AS payAmount,
@@ -218,6 +221,7 @@
 			E.code as P_STATUS,
 			o2.pk AS itemsId,
 			A .P_STREETNAME,
+			d.p_code as code,
 			ROWNUM rn
 		FROM
 			CONSIGNMENTS c
@@ -225,7 +229,9 @@
 		LEFT JOIN ORDERS O ON c.P_ORDER=O.PK
 		LEFT JOIN ORDERENTRIES o2 ON c2.P_ORDERENTRY = o2.pk
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 		
+		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 
+		LEFT JOIN POINTOFSERVICE p ON c.P_DELIVERYPOINTOFSERVICE=p.PK
+		LEFT JOIN dpsizevarproduct d ON o2.P_PRODUCT=d.PK		
 			where
 			c.PK IN (
 				SELECT
