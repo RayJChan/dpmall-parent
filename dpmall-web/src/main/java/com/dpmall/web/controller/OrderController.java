@@ -104,28 +104,49 @@ public class OrderController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public List<Response> distribute(@RequestBody List<AppOrderForm> formList){
+    public Response distribute(@RequestBody List<AppOrderForm> formList){
     	
-    	List<Response> responsesList = new ArrayList<Response>();//返回的结果集
-    	
-    	for(AppOrderForm form : formList) {
-    		Response response = new Response();
-    		if (StringUtils.isEmpty(form.distributorId) || StringUtils.isEmpty(form.orderCode) ) {
-        		response.resultCode = ErrorCode.INVALID_PARAM;
-        		response.message = "参数错误";
-        	}else {
-    			try {
-    				response.resultCode = ErrorCode.SUCCESS;
-    				response.data = orderService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);
-    			} catch (Exception e) {
-    				response.resultCode = ErrorCode.INTERNAL_ERR;
-    				response.message = "未知错误";
+    	Response response = new Response();
+    	StringBuffer buffer = new StringBuffer();  
+    	int successCount = 0;//记录"下派成功"的数量
+    	int errorCount = 0;//记录"下派失败"的数量
+    	//遍历formList
+    	for(int i=0;i<formList.size();i++) {//遍历formList
+    		AppOrderForm form = new AppOrderForm();
+    		form = formList.get(i);
+    		if (StringUtils.isEmpty(form.distributorId) || StringUtils.isEmpty(form.orderCode) ) {//参数为空
+    			int index = i+1;//记录第几条数据"参数错误"
+    			if (buffer.length() == 0) {
+					buffer.append(index+"参数错误");
+				}else {
+					buffer.append(","+index+"参数错误");
+				}
+				errorCount ++;
+        	}else {//参数不为空
+    			try {//成功
+    				int success = orderService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);//调用下派方法
+    				successCount += success;
+    			} catch (Exception e) {//失败
+    				if (buffer.length() == 0) {
+    					buffer.append(form.orderCode);
+    				}else {
+    					buffer.append(","+form.orderCode);
+    				}
+    				errorCount ++;
     			}
     		}
-    		responsesList.add(response);
     	}
+    	//输出结果Response
+    	if (errorCount == 0) {
+    		response.resultCode = ErrorCode.SUCCESS;
+    		response.message = "下派完成";
+    	}else {
+    		response.resultCode = ErrorCode.INTERNAL_ERR;
+    		response.message = buffer.toString();
+    	}
+    	response.data = successCount;//成功的数量
     	
-    	return responsesList;
+    	return response;
     }
     
     
