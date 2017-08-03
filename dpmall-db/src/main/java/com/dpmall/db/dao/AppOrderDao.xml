@@ -172,7 +172,7 @@
 			O.P_OPERATESTATUS as P_OPERATESTATUS,
 			E.code as P_STATUS,
 			o2.pk AS itemsId,
-			A .P_STREETNAME,
+			r.p_name||ac.p_name||ad.p_name||A .P_STREETNAME as P_STREETNAME, 
 			d.p_code as code,
 			ROWNUM rn
 		FROM
@@ -183,8 +183,16 @@
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
 		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 
 		LEFT JOIN POINTOFSERVICE p ON c.P_DELIVERYPOINTOFSERVICE=p.PK
-		LEFT JOIN dpsizevarproduct d ON o2.P_PRODUCT=d.PK	
+		LEFT JOIN dpsizevarproduct d ON o2.P_PRODUCT=d.PK
+		LEFT JOIN REGIONSLP r ON A .p_region = r.itempk
+		LEFT JOIN citieslp ac ON ac.itempk = A .p_city
+		LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
+		LEFT JOIN languages l ON r.LANGPK = l.pk
+		AND ac.LANGPK = l.pk
+		AND ad.LANGPK = l.pk	
 			where
+			l.p_ISOCODE = 'zh'
+			AND
 			c.PK IN (
 				SELECT
 					pk
@@ -243,8 +251,16 @@
 		LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
 		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status 
 		LEFT JOIN POINTOFSERVICE p ON c.P_DELIVERYPOINTOFSERVICE=p.PK
-		LEFT JOIN dpsizevarproduct d ON o2.P_PRODUCT=d.PK		
+		LEFT JOIN dpsizevarproduct d ON o2.P_PRODUCT=d.PK
+		LEFT JOIN REGIONSLP r ON A .p_region = r.itempk
+		LEFT JOIN citieslp ac ON ac.itempk = A .p_city
+		LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
+		LEFT JOIN languages l ON r.LANGPK = l.pk
+		AND ac.LANGPK = l.pk
+		AND ad.LANGPK = l.pk	
 			where
+			l.p_ISOCODE = 'zh'
+			AND		
 			c.PK IN (
 				SELECT
 					pk

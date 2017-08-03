@@ -18,4 +18,9 @@ public class PrePayDaoTest extends SpringTestCase {
 	public void get2DistributeCountTest() {
 		logger.info("result:"+prePayDao.get2DistributeCount("8796125974074", "4"));
 	}
+	
+	@Test
+	public void get2StoreCountTest() {
+		logger.info("result:"+prePayDao.get2StoreCount("165434", "4"));
+	}
 }

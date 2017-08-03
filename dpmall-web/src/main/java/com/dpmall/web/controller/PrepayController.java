@@ -1,6 +1,7 @@
 package com.dpmall.web.controller;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IPrepayService;
+import com.dpmall.api.err.ErrorCode;
 import com.dpmall.web.controller.form.AppPrepayForm;
 import com.dpmall.web.controller.form.Response;
 
@@ -49,7 +50,21 @@ public class PrepayController {
     @RequestMapping(value="/get2DistributeCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get2DistributeCount(@RequestBody AppPrepayForm form){
-    	return null;
+    	Response response=new Response();
+    	if (StringUtils.isEmpty(form.distributorId)||StringUtils.isEmpty(form.status)) {
+			response.resultCode=ErrorCode.INVALID_PARAM;
+			response.message="参数错误";
+		}
+    	else {
+    		try {
+				response.data=prepayService.get2DistributeCount(form.distributorId, form.status);
+				response.resultCode=ErrorCode.SUCCESS;
+			} catch (Exception e) {
+				response.resultCode=ErrorCode.INTERNAL_ERR;
+				response.message="未知错误";
+			}
+    	}
+    	return response;
     }
     
     /**
@@ -63,7 +78,21 @@ public class PrepayController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppPrepayForm form){
-    	return null;
+    	Response response=new Response();
+    	if (StringUtils.isEmpty(form.storeId)||StringUtils.isEmpty(form.status)) {
+			response.resultCode=ErrorCode.INVALID_PARAM;
+			response.message="参数错误";
+		}
+    	else {
+    		try {
+				response.data=prepayService.get2StoreCount(form.storeId, form.status);
+				response.resultCode=ErrorCode.SUCCESS;
+			} catch (Exception e) {
+				response.resultCode=ErrorCode.INTERNAL_ERR;
+				response.message="未知错误";
+			}
+    	}
+    	return response;
     }
     
     /**

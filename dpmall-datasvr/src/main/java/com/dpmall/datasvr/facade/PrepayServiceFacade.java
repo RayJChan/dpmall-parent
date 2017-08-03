@@ -2,6 +2,11 @@ package com.dpmall.datasvr.facade;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IPrepayService;
 import com.dpmall.api.bean.PrepayModel;
 import com.dpmall.api.bean.SaleLeadsGoodsModel;
@@ -13,7 +18,11 @@ import com.dpmall.api.common.TimeScope;
  * @date 2017-07-14
  */
 public class PrepayServiceFacade implements IPrepayService {
-
+	
+	@Autowired
+	private IPrepayService prepayService;
+	
+	private final Logger LOG =LoggerFactory.getLogger(PrepayServiceFacade.class);
 	public Integer writeoff(String prepayCode, Double ttlAmount, List<SaleLeadsGoodsModel> goodsList) {
 		// TODO Auto-generated method stub
 		return null;
@@ -38,8 +47,16 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public Integer get2DistributeCount(String distributorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get2DistributeCount',in:{distributorId:'" + distributorId +"status:"+status+"'}}");
+		}
+		
+		Integer out = prepayService.get2DistributeCount(distributorId, status);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::get2DistributeCount',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
@@ -48,8 +65,16 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public Integer get2StoreCount(String storeId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get2StoreCount',in:{storeId:'" + storeId +"status:"+status+"'}}");
+		}
+		
+		Integer out = prepayService.get2StoreCount(storeId, status);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::get2StoreCount',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {

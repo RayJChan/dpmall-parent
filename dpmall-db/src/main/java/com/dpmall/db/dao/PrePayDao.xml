@@ -128,7 +128,27 @@
 			</if>
 				AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
 	</select>
-	
+	<select id="get2StoreCount" resultType="java.lang.Integer">
+		SELECT
+				COUNT (1)
+			FROM
+				CONSIGNMENTS c,
+				ENUMERATIONVALUES E,
+				COMPOSEDTYPES c2
+			WHERE
+				c.P_STATUS = E .PK
+			AND E .TYPEPKSTRING = c2.PK
+			<if test='status=="1"'>
+				AND E.code ='DISTRIBUTED'
+			</if>
+			<if test='status=="2"'>
+				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+			</if>
+			<if test='status=="3"'>
+				AND E.code ='COMPLETED'
+			</if>
+				AND c.P_DELIVERYPOINTOFSERVICE = #{storeId}
+	</select>
 	<!--特权定金发单\下派    -->
 	<update id="distribute">
 		UPDATE CONSIGNMENTS
