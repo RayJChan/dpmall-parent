@@ -149,5 +149,8 @@ public class OrderModel implements Serializable {
 	/**操作状态*/
 	public String operateStatus;
 	
+	/**返回状态*/
+	public String returnStatus;
+	
 	public List<Object> items=new ArrayList<Object>();
 }

@@ -37,6 +37,7 @@
 	    <result property="logisticsCompany" column="P_LOGISTICSCOMPANY"/>
 	    <result property="trackingId" column="P_TRACKINGID"/>
 	    <result property="salesApplication" column="P_SALESAPPLICATION"/>
+	    <result property="returnStatus" column="P_RETURNSTATUS"/>
 	    <result property="deliveryMethods" column="P_DELIVERYMETHODS"/>
 	    <result property="name" column="P_NAME"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
