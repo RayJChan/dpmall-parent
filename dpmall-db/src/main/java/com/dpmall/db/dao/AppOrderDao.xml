@@ -71,17 +71,17 @@
 		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status
 		LEFT JOIN COMPOSEDTYPES cs ON e .TYPEPKSTRING = cs.PK
 		WHERE 1=1
-		<if test="distributorId != null">
-			AND A.p_uid = #{distributorId}
-		</if>
 		<if test='status=="1"'>
-			AND e.code ='ACCEPT'
+			AND e.code ='DISTRIBUTED'
 		</if>
 		<if test='status=="2"'>
-			AND e.code in ('RECEIVE','ALLOCATED', 'BOOKED')
+			AND e.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE','STOREWAIT')
 		</if>
 		<if test='status=="3"'>
-			AND e.code in ('SHIPPED','DPRECEIVE')
+			AND e.code ='DPRECEIVE' 
+		</if>
+		<if test='status=="4"'>
+			AND e.code ='COMPLETED'
 		</if>
 	</select>
 	
@@ -89,12 +89,13 @@
 		SELECT count(1) FROM CONSIGNMENTS c 
 		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status
 		LEFT JOIN COMPOSEDTYPES cs ON e .TYPEPKSTRING = cs.PK
+		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON c.PK=O2O.P_CONSIGNMENT
 		WHERE 1=1
 		<if test="storeId != null">
-			AND P_DELIVERYPOINTOFSERVICE = #{storeId}
+			AND O2O.P_RECOMMENDSTORE = #{storeId}
 		</if>
 		<if test='status=="1"'>
-			AND e.code ='DISTRIBUTED'
+			AND e.code in ('DISTRIBUTED','STOREWAIT')
 		</if>
 		<if test='status=="2"'>
 			AND e.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
