@@ -70,8 +70,12 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public Integer get2AcceptorCount(String acceptorId, String status) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get2AcceptorCount',in:{acceptorId:'" + acceptorId +"'status:'"+status+ "'}");
+		}
+		
+		Integer result = prepayService.get2AcceptorCount(acceptorId, status);
+		return result;
 	}
 
 	public PrepayModel get4ConsignmentId(String consignmentId) {
