@@ -15,7 +15,7 @@ public class PrePayFacadeTest extends SpringTestCase{
 	private IPrepayService prepayService;
 	
 	/**
-     * 实物类门店订单状态条数
+     * 特权定金门店订单状态条数
      * @param storeId 经销商ID
      * @param status 状态
      * @return 经销商待分配的实物订单数
@@ -24,6 +24,19 @@ public class PrePayFacadeTest extends SpringTestCase{
 	public void testDistribute() {
 		logger.info("=================distribute====================");
 		Integer count = prepayService.distribute("110", "a100015013", "165434", "daihx");
+		logger.info(JSON.toJSONString(count));
+	}
+	
+	/**
+     * 特权定金订单状态条数
+     * @param storeId 经销商ID
+     * @param status 状态
+     * @return 经销商待分配的实物订单数
+     */
+	@Test
+	public void testGet2AcceptorCount() {
+		logger.info("=================get2AcceptorCount====================");
+		Integer count = prepayService.get2AcceptorCount("46567675", "CANCELLED");
 		logger.info(JSON.toJSONString(count));
 	}
 }
