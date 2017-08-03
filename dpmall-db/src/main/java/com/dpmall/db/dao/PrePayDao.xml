@@ -141,4 +141,20 @@
 			P_CODE = #{orderCode}
 	</update>
 	
+	<update id="distributeO2o">
+		UPDATE O2OCONSIGNMENTITEMS
+		SET 
+		  P_AGENCYCOMMENT = #{remark} 
+		WHERE
+			P_CONSIGNMENT = 
+			(
+				SELECT
+					pk
+				FROM
+					CONSIGNMENTS
+				WHERE
+					P_CODE = #{orderCode}
+			)
+	</update>
+	
 </mapper>
