@@ -40,6 +40,9 @@
 	    <result property="returnStatus" column="P_RETURNSTATUS"/>
 	    <result property="deliveryMethods" column="P_DELIVERYMETHODS"/>
 	    <result property="name" column="P_NAME"/>
+	    <result property="RegionName" column="RegionName"/>
+	    <result property="CityName" column="CityName"/>
+	    <result property="DistrictName" column="DistrictName"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 	    	<id property="id" column="itemsId"/>
 		    <result property="splitOrderType" column="splitOrderType"/>
@@ -361,21 +364,34 @@
    		      C.P_LOGISTICSCOMPANY,
    		      C.P_TRACKINGID,
       		  
-   		      O2O.P_ACCEPTEDBY,
-		        O2O.P_ACCEPTEDCOMMENT,
+   		       O2O.P_ACCEPTEDBY,
+		      O2O.P_ACCEPTEDCOMMENT,
    		      O2O.P_DELIVERYPIC,
    		      
    		      C.P_CATEGORY as category,
+   		      R.P_NAME as RegionName,
+              CLP.P_NAME as CityName,
+              DLP.P_NAME as DistrictName,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 
    		  LEFT JOIN ADDRESSES A ON C.P_SHIPPINGADDRESS=A.PK
+		
    		  LEFT JOIN LOGISTICSINFO LI ON C.P_LOGISTICSINFO=LI.PK
    		  LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
    		  LEFT JOIN ORDERS O ON C.P_ORDER=O.PK
    		  LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
    		  LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK
+   		  
+   		  LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
+   		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
+   		  LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
+		  LEFT JOIN languages L ON R.LANGPK = L.pk
+		  AND CLP.LANGPK = L.pk
+		  AND DLP.LANGPK = L.pk	
+		  WHERE 1=1 AND
+			L.p_ISOCODE = 'zh'
 		<if test="consignmentId != null">
-		  WHERE 1=1 AND C.P_CODE= #{consignmentId}
+		   AND C.P_CODE= #{consignmentId}
 		</if>
 	</select>
 	

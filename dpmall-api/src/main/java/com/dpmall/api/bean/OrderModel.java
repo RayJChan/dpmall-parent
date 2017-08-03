@@ -152,5 +152,14 @@ public class OrderModel implements Serializable {
 	/**返回状态*/
 	public String returnStatus;
 	
+	/**省*/
+	public String RegionName;
+
+	/**市*/
+	public String CityName;
+
+	/**区*/
+	public String DistrictName;
+	
 	public List<Object> items=new ArrayList<Object>();
 }
