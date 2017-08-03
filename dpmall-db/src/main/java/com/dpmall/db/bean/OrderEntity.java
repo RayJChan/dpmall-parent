@@ -155,6 +155,15 @@ public class OrderEntity {
 	/**返回状态*/
 	public String returnStatus;
 	
+	/**省*/
+	public String RegionName;
+
+	/**市*/
+	public String CityName;
+
+	/**区*/
+	public String DistrictName;
+	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
 	
