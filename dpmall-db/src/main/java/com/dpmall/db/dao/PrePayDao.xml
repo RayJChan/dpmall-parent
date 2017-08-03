@@ -128,4 +128,17 @@
 			</if>
 				AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
 	</select>
+	
+	<!--特权定金发单\下派    -->
+	<update id="distribute">
+		UPDATE CONSIGNMENTS
+		SET 
+		  P_DELIVERYPOINTOFSERVICE = #{storeId},
+		  P_STATUS = (SELECT t2.pk FROM COMPOSEDTYPES t1,ENUMERATIONVALUES t2 
+		  where t1.INTERNALCODe = 'ConsignmentStatus' and t2.TYPEPKSTRING = t1.PK 
+          AND CODE='ALLOCATED')
+		WHERE
+			P_CODE = #{orderCode}
+	</update>
+	
 </mapper>

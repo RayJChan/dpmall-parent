@@ -25,26 +25,18 @@
 	    <result property="deliveryMode" column="deliveryMode"/>
 	    <result property="orderCode" column="p_code"/>
 	    <result property="address" column="p_streetname"/>
-	    <result property="orderTotal" column="p_payamount"/>
 	    <result property="allocatCode" column="P_ALLOCATIONEMPLOYEECODE"/>
 	    <result property="shippingAddress" column="P_SHIPPINGADDRESS"/>
 	    <result property="buyerNick" column="P_BUYERNICK"/>
 	    <result property="productCode" column="P_ICODE"/>
 	    <result property="productCategory" column="P_CATEGORY"/>
-	    <result property="productQuantity" column="P_QUANTITY"/>
-	    <result property="productBaseprice" column="P_BASEPRICE"/>
-	    <result property="productTotal" column="P_TOTALPRICE"/>
 	    <result property="firstName" column="P_FIRSTNAME"/>
 	    <result property="phone1" column="P_PHONE1"/>
 	    <result property="consignmentCode" column="P_CCODE"/>
 	    <result property="logisticsInfo" column="P_LOGISTICSINFO"/>
 	    <result property="logisticsCompany" column="P_LOGISTICSCOMPANY"/>
 	    <result property="trackingId" column="P_TRACKINGID"/>
-	    <result property="deliveryCost" column="P_DELIVERYCOST"/>
 	    <result property="salesApplication" column="P_SALESAPPLICATION"/>
-	    <result property="juntanPrice" column="P_JUNTANPRICE"/>
-	    <result property="payAmount" column="P_PAYAMOUNT"/>
-	    <result property="serviceAmount" column="P_SERVICEAMOUNT"/>
 	    <result property="deliveryMethods" column="P_DELIVERYMETHODS"/>
 	    <result property="name" column="P_NAME"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
@@ -98,7 +90,26 @@
 		    and P_RECOMMENDSTORE=${storeId}
 		</if>
 	</select>
-	<!--经销商发单\下派   （O2O）  -->
+	
+	<!--经销商发单\下派   （consignment表） 更新货单状态用 -->
+	<update id="distribute4Consignment">
+	UPDATE CONSIGNMENTS
+	SET P_STATUS = (
+		SELECT
+			t2.pk
+		FROM
+			COMPOSEDTYPES t1,
+			ENUMERATIONVALUES t2
+		WHERE
+			t1.INTERNALCODe = 'ConsignmentStatus'
+		AND t2.TYPEPKSTRING = t1.PK
+		AND t2.code = 'ALLOCATED'
+	)
+	WHERE
+		P_CODE = #{orderCode}
+	</update>
+	
+	<!--经销商发单\下派   （O2O表）  主要更新经销商备注 -->
 	<update id="distribute4O2o">
 		UPDATE O2OCONSIGNMENTITEMS
 		SET 
@@ -115,6 +126,7 @@
 					P_CODE = #{orderCode}
 			)
 	</update>
+	
 	
 	<resultMap type="com.dpmall.db.bean.OrderEntity" id="listResultMap">
 		<id property="id" column="pk"/>
@@ -278,10 +290,10 @@
    		      C.P_CODE AS P_CCODE,
    		      
    		      O.P_SALESAPPLICATION,
-   		      OE.P_JUNTANPRICE,
-  		      OE.P_PAYAMOUNT,
-      		  OE.P_SERVICEAMOUNT,
-      		  OE.P_DELIVERYCOST,
+   		      OE.P_JUNTANPRICE as juntanPrice,
+  		      OE.P_PAYAMOUNT as payAmount,
+      		  OE.P_SERVICEAMOUNT as serviceAmount,
+      		  OE.P_DELIVERYCOST as deliveryCost,
    		      
    		      C.P_STATUS,
    		      
@@ -289,7 +301,7 @@
    		      A.P_PHONE1,
    		      A.P_STREETNAME,
    		      
-   		      P.P_CATEGORY as category,
+   		      P.P_CATEGORY as P_CATEGORY,
    		      P.P_CODE AS code,
    		      
    		      OE.P_QUANTITY as quantity,
@@ -317,7 +329,7 @@
 		        O2O.P_ACCEPTEDCOMMENT,
    		      O2O.P_DELIVERYPIC,
    		      
-   		      C.P_CATEGORY,
+   		      C.P_CATEGORY as category,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 
    		  LEFT JOIN ADDRESSES A ON C.P_SHIPPINGADDRESS=A.PK
@@ -384,7 +396,7 @@
 						c.P_STATUS,
 						OE.pk AS itemsId,
 						OE.P_PAYAMOUNT,
-						OE.P_JUNTANPRICE,
+						OE.P_JUNTANPRICE as juntanPrice,
 						A .P_FIRSTNAME,
 						A .p_phone1,
 						A .P_STREETNAME,

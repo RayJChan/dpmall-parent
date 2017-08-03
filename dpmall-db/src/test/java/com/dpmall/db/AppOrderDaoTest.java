@@ -134,9 +134,9 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Test
 	public void testDistributes() {
 		logger.info("==============testDistributes==============");
-//		int result1 = appOrderDao.distribute4O2o("aSIT100016018", "1111", "Test备注");
-		int result2 = appOrderDao.distribute4Consignment("aSIT100016018", "2222");
-		logger.info(Integer.toString(result2));
+		int result1 = appOrderDao.distribute4O2o("ddddd", "1111", "Test备注");
+		//int result2 = appOrderDao.distribute4Consignment("ddddd", "2222");
+		logger.info(Integer.toString(result1));
 		
 	}
 	
