@@ -66,22 +66,41 @@
 	</resultMap>
 	
 	<select id="get2DistributeCount" resultType="java.lang.Integer">
-		SELECT count(1) FROM CONSIGNMENTS c LEFT JOIN AGENCY A ON c.P_ALLOCATIONEMPLOYEECODE = A .p_uid WHERE 1=1
+		SELECT count(1) FROM CONSIGNMENTS c 
+		LEFT JOIN AGENCY A ON c.P_ALLOCATIONEMPLOYEECODE = A .p_uid 
+		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status
+		LEFT JOIN COMPOSEDTYPES cs ON e .TYPEPKSTRING = cs.PK
+		WHERE 1=1
 		<if test="distributorId != null">
 			AND A.p_uid = #{distributorId}
 		</if>
-		<if test="status != null">
-			AND c.P_STATUS=#{status}
-		</if>	
+		<if test='status=="1"'>
+			AND e.code ='ACCEPT'
+		</if>
+		<if test='status=="2"'>
+			AND e.code in ('RECEIVE','ALLOCATED', 'BOOKED')
+		</if>
+		<if test='status=="3"'>
+			AND e.code in ('SHIPPED','DPRECEIVE')
+		</if>
 	</select>
 	
 	<select id="get2StoreCount" resultType="java.lang.Integer">
-		SELECT count(1) FROM CONSIGNMENTS  WHERE 1=1
+		SELECT count(1) FROM CONSIGNMENTS c 
+		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status
+		LEFT JOIN COMPOSEDTYPES cs ON e .TYPEPKSTRING = cs.PK
+		WHERE 1=1
 		<if test="storeId != null">
 			AND P_DELIVERYPOINTOFSERVICE = #{storeId}
 		</if>
-		<if test="status != null">
-			AND P_STATUS=#{status}
+		<if test='status=="1"'>
+			AND e.code ='DISTRIBUTED'
+		</if>
+		<if test='status=="2"'>
+			AND e.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+		</if>
+		<if test='status=="3"'>
+			AND e.code ='COMPLETED'
 		</if>	
 	</select>
 	
