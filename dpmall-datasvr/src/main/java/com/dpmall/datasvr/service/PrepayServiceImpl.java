@@ -2,10 +2,13 @@ package com.dpmall.datasvr.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.dpmall.api.IPrepayService;
 import com.dpmall.api.bean.PrepayModel;
 import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.common.TimeScope;
+import com.dpmall.db.dao.PrePayDao;
 
 /**
  * 特权定金实现
@@ -13,6 +16,9 @@ import com.dpmall.api.common.TimeScope;
  * @date 2017-07-14
  */
 public class PrepayServiceImpl implements IPrepayService {
+	
+	@Autowired
+	private PrePayDao prePayDao;
 
 	public Integer writeoff(String prepayCode, Double ttlAmount, List<SaleLeadsGoodsModel> goodsList) {
 		// TODO Auto-generated method stub
@@ -68,8 +74,14 @@ public class PrepayServiceImpl implements IPrepayService {
 	}
 
 	public Integer distribute(String distributorId, String orderCode, String storeId, String remark) {
-		// TODO Auto-generated method stub
-		return null;
+		int result = 0;
+		prePayDao.distribute(distributorId, orderCode, storeId);//更新状态
+		int result2 = prePayDao.distributeO2o(orderCode, remark); //更新备注
+		
+		if( result2 != 0 ) {
+			result =1;
+		}
+		return result;
 	}
 
 	public Integer updateOrder(String orderCode, String status, String remark) {

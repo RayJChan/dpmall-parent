@@ -2,7 +2,13 @@ package com.dpmall.datasvr.facade;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import com.dpmall.api.IPrepayService;
+import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.PrepayModel;
 import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.common.TimeScope;
@@ -13,6 +19,12 @@ import com.dpmall.api.common.TimeScope;
  * @date 2017-07-14
  */
 public class PrepayServiceFacade implements IPrepayService {
+	
+	@Autowired
+	@Qualifier("prepayService")
+	IPrepayService prepayService;
+	
+	private final Logger LOG = LoggerFactory.getLogger(PrepayServiceFacade.class);
 
 	public Integer writeoff(String prepayCode, Double ttlAmount, List<SaleLeadsGoodsModel> goodsList) {
 		// TODO Auto-generated method stub
@@ -68,8 +80,13 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public Integer distribute(String distributorId, String orderCode, String storeId, String remark) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::distribute',in:{distributorId:'" + distributorId +"'orderCode:'"+orderCode+ "',storeId:'"
+					+ storeId + "',remark:'" + remark +"'}}");
+		}
+		
+		Integer result = prepayService.distribute(distributorId, orderCode, storeId, remark);
+		return result;
 	}
 
 	public Integer updateOrder(String orderCode, String status, String remark) {
