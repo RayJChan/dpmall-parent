@@ -8,4 +8,6 @@ public interface PrePayDao {
     Integer distribute(@Param("distributorId")String distributorId,@Param("orderCode")String orderCode, @Param("storeId")String storeId);
 	
 	Integer distributeO2o(@Param("orderCode")String orderCode,@Param("remark")String remark);
+	
+	Integer get2AcceptorCount(@Param("acceptorId")String acceptorId, @Param("status")String status);
 }
