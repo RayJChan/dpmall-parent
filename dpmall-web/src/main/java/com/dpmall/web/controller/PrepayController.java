@@ -79,6 +79,18 @@ public class PrepayController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppPrepayForm form){
+    	return null;
+    }
+    
+    /**
+     * 特权定金门店订单状态条数
+     * @param storeId 门店ID
+     * @param status 状态
+     * @return 特权定金门店订单状态条数
+     */
+    @RequestMapping(value="/get2StoreCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public Response get2StoreCount(@RequestBody AppPrepayForm form){
     	Response response=new Response();
     	if (StringUtils.isEmpty(form.storeId)||StringUtils.isEmpty(form.status)) {
 			response.resultCode=ErrorCode.INVALID_PARAM;
@@ -94,18 +106,6 @@ public class PrepayController {
 			}
     	}
     	return response;
-    }
-    
-    /**
-     * 特权定金门店订单状态条数
-     * @param storeId 门店ID
-     * @param status 状态
-     * @return 特权定金门店订单状态条数
-     */
-    @RequestMapping(value="/get2StoreCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
-    @ResponseBody
-    public Response get2StoreCount(@RequestBody AppPrepayForm form){
-    	return null;
     }
     
     /**

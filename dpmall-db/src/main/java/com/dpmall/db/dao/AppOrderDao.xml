@@ -214,7 +214,7 @@
 							AND E.code ='DISTRIBUTED'
 						</if>
 						<if test='status=="2"'>
-							AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+							AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE','STOREWAIT')
 						</if>
 						<if test='status=="3"'>
 							AND E.code ='DPRECEIVE' 
@@ -281,7 +281,7 @@
 							p_deliverypointofservice = #{storeId} and
 							c3.INTERNALCODE = 'ConsignmentStatus' 
 						<if test='status=="1"'>
-							AND E.code ='DISTRIBUTED'
+							AND E.code in('DISTRIBUTED','STOREWAIT')
 						</if>
 						<if test='status=="2"'>
 							AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')

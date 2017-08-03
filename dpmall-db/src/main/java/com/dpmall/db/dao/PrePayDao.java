@@ -12,4 +12,11 @@ public interface PrePayDao {
 	Integer get2AcceptorCount(@Param("acceptorId")String acceptorId, @Param("status")String status);
 
     Integer get2StoreCount(@Param("storeId")String storeId,@Param("status")String status);
+    
+    
+    //修改订单状态 
+    Integer updateOrder(@Param("orderCode")String orderCode, @Param("status")String status,@Param("remark")String remark);
+    
+    //修改o2o经销商备注
+    Integer updateO2oOrder(@Param("orderCode")String orderCode,@Param("remark")String remark);
 }

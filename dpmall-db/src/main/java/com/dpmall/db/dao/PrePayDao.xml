@@ -118,7 +118,7 @@
 				AND E.code ='DISTRIBUTED'
 			</if>
 			<if test='status=="2"'>
-				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE','STOREWAIT')
 			</if>
 			<if test='status=="3"'>
 				AND E.code ='DPRECEIVE'
@@ -139,7 +139,7 @@
 				c.P_STATUS = E .PK
 			AND E .TYPEPKSTRING = c2.PK
 			<if test='status=="1"'>
-				AND E.code ='DISTRIBUTED'
+				AND E.code in ('DISTRIBUTED','STOREWAIT')
 			</if>
 			<if test='status=="2"'>
 				AND E.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
