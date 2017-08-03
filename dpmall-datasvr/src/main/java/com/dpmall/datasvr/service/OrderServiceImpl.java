@@ -63,6 +63,7 @@ public class OrderServiceImpl implements IOrderService {
 		entity.logisticsCompany=model.logisticsCompany;
 		entity.serverComment=model.serverComment;
 		entity.deliveryPoint=model.deliveryPointOfService;
+		entity.returnStatus=model.returnStatus;
 		for(Object obj:model.items) {
 			entity.items.add((OrderItemEntity) obj);
 		}
@@ -105,6 +106,7 @@ public class OrderServiceImpl implements IOrderService {
 		model.deliveryMode=entity.deliveryMode;
 		model.logisticsCompany=entity.logisticsCompany;
 		model.serverComment=entity.serverComment;
+		model.returnStatus=entity.returnStatus;
 		for (OrderItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
