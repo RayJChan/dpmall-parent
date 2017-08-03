@@ -130,7 +130,18 @@ public class PrepayController {
     @RequestMapping(value="/get2AcceptorCount",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get2AcceptorCount(@RequestBody AppPrepayForm form){
-    	return null;
+        LOG.info("{method:'PrepayController::get2AcceptorCount',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.get2AcceptorCount(form.acceptorId, form.status);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::get2AcceptorCount',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     
@@ -157,7 +168,18 @@ public class PrepayController {
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response distribute(@RequestBody AppPrepayForm form){
-    	return null;
+        LOG.info("{method:'PrepayController::distribute',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::distribute',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**

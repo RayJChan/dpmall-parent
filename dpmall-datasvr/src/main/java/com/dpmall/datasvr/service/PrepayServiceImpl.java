@@ -65,7 +65,8 @@ public class PrepayServiceImpl implements IPrepayService {
 
 	public Integer get2AcceptorCount(String acceptorId, String status) {
 		// TODO Auto-generated method stub
-		return null;
+		int result = prePayDao.get2AcceptorCount(acceptorId, status);
+		return result;
 	}
 
 	public PrepayModel get4ConsignmentId(String consignmentId) {
@@ -74,8 +75,14 @@ public class PrepayServiceImpl implements IPrepayService {
 	}
 
 	public Integer distribute(String distributorId, String orderCode, String storeId, String remark) {
-		// TODO Auto-generated method stub
-		return null;
+		int result = 0;
+		prePayDao.distribute(distributorId, orderCode, storeId);//更新状态
+		int result2 = prePayDao.distributeO2o(orderCode, remark); //更新备注
+		
+		if( result2 != 0 ) {
+			result =1;
+		}
+		return result;
 	}
 
 	public Integer updateOrder(String orderCode, String status, String remark) {
