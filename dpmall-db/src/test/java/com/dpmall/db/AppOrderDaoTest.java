@@ -147,7 +147,7 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Test
     public void testGetOrderDetails(){
 		logger.info("=====================getOrderDetails=======================");
-		OrderEntity result = appOrderDao.getOrderDetails("a100015013");
+		OrderEntity result = appOrderDao.getOrderDetails("aSITB100572001");
     	logger.info(JSON.toJSONString(result));
     }
 	

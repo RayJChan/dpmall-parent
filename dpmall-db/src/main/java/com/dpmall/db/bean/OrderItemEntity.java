@@ -76,5 +76,13 @@ public class OrderItemEntity implements Serializable{
 	/**服务费**/
 	public BigDecimal serviceAmount;
 	
+	/**商品编码**/
+	public String productCode;
+	
+	/**商品品类**/
+	public String productCategory;
+	
+	/**商品名称**/
+	public String productName;
 
 }
