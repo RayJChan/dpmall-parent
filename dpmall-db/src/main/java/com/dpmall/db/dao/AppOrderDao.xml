@@ -264,7 +264,7 @@
 			O.P_OPERATESTATUS as P_OPERATESTATUS,
 			E.code as P_STATUS,
 			o2.pk AS itemsId,
-			A .P_STREETNAME,
+			r.p_name||ac.p_name||ad.p_name||A .P_STREETNAME as P_STREETNAME,
 			d.p_code as code,
 			ROWNUM rn
 		FROM
