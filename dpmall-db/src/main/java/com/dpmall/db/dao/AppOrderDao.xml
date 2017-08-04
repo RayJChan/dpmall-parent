@@ -160,7 +160,7 @@
 	
 	<resultMap type="com.dpmall.db.bean.OrderEntity" id="listResultMap">
 		<id property="id" column="pk"/>
-		<result property="consignment" column="p_code"/>
+		<result property="consignmentCode" column="p_code"/>
 		<result property="status" column="P_STATUS"/>
 		<result property="clientName" column="P_FIRSTNAME"/>
 		<result property="clientTel" column="p_phone1"/>

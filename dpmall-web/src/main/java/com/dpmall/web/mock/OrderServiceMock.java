@@ -38,9 +38,9 @@ public class OrderServiceMock implements IOrderService {
 		tmp.status = "8796105703515";
 		tmp.buyerNick = "测试";
 		tmp.buyerNick = "测试";
-		tmp.productCategory = "wu";
+
 		tmp.name = "wu";
-		tmp.productCode = "47598749686797";
+
 		tmp.deliveryMethods = "1";
 		tmp.cusComment = "测试";
 		tmp.serverComment = "测试";
@@ -231,9 +231,9 @@ public class OrderServiceMock implements IOrderService {
 		tmp.status = "8796105703515";
 		tmp.buyerNick = "测试";
 		tmp.buyerNick = "测试";
-		tmp.productCategory = "wu";
+
 		tmp.name = "wu";
-		tmp.productCode = "47598749686797";
+
 		tmp.deliveryMethods = "1";
 		tmp.cusComment = "测试";
 		tmp.serverComment = "测试";
