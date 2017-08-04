@@ -15,7 +15,12 @@ public class PrepayServiceFacadeTest extends SpringTestCase{
 	
 	private final Logger logger =LoggerFactory.getLogger(PrepayServiceFacadeTest.class);
 	@Test
-	public void test() {
+	public void get2DistributeCountTest() {
 		logger.info(JSON.toJSONString(prepayService.get2DistributeCount("8796125974074", "4")));
+	}
+	
+	@Test
+	public void updateOrderTest() {
+		logger.info(JSON.toJSONString(prepayService.updateOrder("aSIT100040004", "ALLOCATED", "2333")));
 	}
 }

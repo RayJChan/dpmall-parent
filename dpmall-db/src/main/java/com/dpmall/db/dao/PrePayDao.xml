@@ -209,5 +209,39 @@
 			)
 		)
 	</select>
-	
+	<update id="updateOrder">
+		UPDATE CONSIGNMENTS
+			SET P_STATUS = "NVL" (
+				(
+					SELECT
+						DISTINCT E .pk
+					FROM
+						CONSIGNMENTS c,
+						ENUMERATIONVALUES E,
+						COMPOSEDTYPES c3
+					WHERE
+						E .pk = c.p_status
+					AND c3.pk = E .TYPEPKSTRING
+					AND c3.INTERNALCODE = 'ConsignmentStatus'
+					AND E .CODE = #{status})
+				,
+				P_STATUS
+			)
+			
+			WHERE
+				P_CODE = #{orderCode}
+	</update>
+	<update id="updateO2oOrder">
+		UPDATE O2OCONSIGNMENTITEMS
+			SET P_AGENCYCOMMENT = #{remark}
+			WHERE
+				P_CONSIGNMENT = (
+					SELECT
+						PK
+					FROM
+						CONSIGNMENTS
+					WHERE
+						P_CODE = #{orderCode}
+				)
+	</update>
 </mapper>

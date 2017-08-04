@@ -4,16 +4,11 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IPrepayService;
-import com.dpmall.api.ISaleLeadsService;
 import com.dpmall.api.bean.PrepayModel;
 import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.common.TimeScope;
@@ -115,8 +110,16 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public Integer updateOrder(String orderCode, String status, String remark) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get2StoreCount',in:{orderCode:'" + orderCode +"status:"+status+"remark:"+remark+"'}}");
+		}
+		
+		Integer out = prepayService.updateOrder(orderCode, status, remark);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::get2StoreCount',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<PrepayModel> get4Search(String phone, String storeId, String acceptorId) {

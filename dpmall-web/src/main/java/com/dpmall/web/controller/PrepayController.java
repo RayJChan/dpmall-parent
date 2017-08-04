@@ -1,6 +1,7 @@
 package com.dpmall.web.controller;
 
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -193,7 +194,17 @@ public class PrepayController {
     @RequestMapping(value="/updateOrder",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response updateOrder(@RequestBody AppPrepayForm form){
-    	return null;
+    	Response response = new Response();
+    	String status[]= {"DISTRIBUTED","ALLOCATED","BOOKED","SHIPPED","DPRECEIVE","STOREWAIT","COMPLETED"};
+    	if (!ArrayUtils.contains(status, form.status)||StringUtils.isEmpty(form.orderCode)||StringUtils.isEmpty(form.remark)) {
+			response.resultCode=ErrorCode.INVALID_PARAM;
+			response.message="参数错误";
+		}
+    	else {
+    		response.resultCode=ErrorCode.SUCCESS;
+    		response.data=prepayService.updateOrder(form.orderCode, form.status, form.remark);
+    	}
+    	return response;
     }
     
     

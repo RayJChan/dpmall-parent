@@ -3,6 +3,7 @@ package com.dpmall.datasvr.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dpmall.api.IPrepayService;
 import com.dpmall.api.bean.PrepayModel;
@@ -84,10 +85,12 @@ public class PrepayServiceImpl implements IPrepayService {
 		}
 		return result;
 	}
-
-	public Integer updateOrder(String orderCode, String status, String remark) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	@Transactional
+	public Integer updateOrder(String orderCode, String status, String remark){
+		Integer result =prePayDao.updateO2oOrder(orderCode, remark);
+		Integer result2=prePayDao.updateOrder(orderCode, status);
+		return result+result2;
 	}
 
 	public List<PrepayModel> get4Search(String phone, String storeId, String acceptorId) {

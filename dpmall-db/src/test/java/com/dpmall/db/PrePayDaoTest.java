@@ -21,6 +21,6 @@ public class PrePayDaoTest extends SpringTestCase {
 	
 	@Test
 	public void get2StoreCountTest() {
-		logger.info("result:"+prePayDao.get2StoreCount("8796129429496", "3"));
+		logger.info("result:"+prePayDao.get2StoreCount("8796129429496", "6"));
 	}
 }
