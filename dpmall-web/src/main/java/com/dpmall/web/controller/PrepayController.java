@@ -120,7 +120,18 @@ public class PrepayController {
     @RequestMapping(value="/getOnePage4AcceptorId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4AcceptorId(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::getOnePage4AcceptorId',in:" + JSON.toJSONString(form) + "}");
+     	
+     	Response res = new Response();
+         try{
+         	res.data = prepayService.getOnePage4AcceptorId(form.acceptorId, form.status, form.startNum, form.pageSize);
+         } catch(Throwable e){
+         	res.resultCode = ErrorCode.INTERNAL_ERR;
+         	LOG.error(e.getMessage(),e);
+     	}
+         
+ 		LOG.info("{method:'PrepayController::getOnePage4AcceptorId',out:{res'" + JSON.toJSONString(res) + "'}}");
+     	return res;
     }
     
     /**
@@ -155,7 +166,18 @@ public class PrepayController {
     @RequestMapping(value="/get4ConsignmentId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get4ConsignmentId(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::get4ConsignmentId',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.get4ConsignmentId(form.consignmentId);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::get4ConsignmentId',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     

@@ -43,4 +43,10 @@ public class AppPrepayForm extends RequestForm{
 	/**经销商备注**/
 	public String remark;
 	
+	/**发货单号**/
+	public String consignmentId;
+	
+	/**查询数据**/
+	public String search;
+	
 }

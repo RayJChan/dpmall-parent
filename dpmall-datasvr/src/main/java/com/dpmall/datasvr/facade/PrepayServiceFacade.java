@@ -80,9 +80,18 @@ public class PrepayServiceFacade implements IPrepayService {
 		return out;
 	}
 
-	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, Integer startNum, Integer pageSize) {
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4AcceptorId',in:{acceptorId:'" + acceptorId +"'status:'"+status+ "',startNum:'"
+					+ startNum + "',pageSize:'" + pageSize +"'}}");
+		}
+		
+		List<PrepayModel> out = prepayService.getOnePage4AcceptorId(acceptorId, status, startNum, pageSize);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4AcceptorId',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public Integer get2AcceptorCount(String acceptorId, String status) {
@@ -93,10 +102,23 @@ public class PrepayServiceFacade implements IPrepayService {
 		Integer result = prepayService.get2AcceptorCount(acceptorId, status);
 		return result;
 	}
-
+	
+	 /**
+     * 特权定金获取单据明细
+     * @param consignmentId 发货单ID
+     * @return 特权定金获取单据明细
+     */
 	public PrepayModel get4ConsignmentId(String consignmentId) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get4ConsignmentId',in:{consignmentId:'" + consignmentId + "'}}");
+		}
+		
+		PrepayModel out = prepayService.get4ConsignmentId(consignmentId);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::get4ConsignmentId',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public Integer distribute(String distributorId, String orderCode, String storeId, String remark) {

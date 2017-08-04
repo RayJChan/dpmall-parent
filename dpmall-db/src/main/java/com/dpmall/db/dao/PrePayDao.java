@@ -1,6 +1,10 @@
 package com.dpmall.db.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import com.dpmall.db.bean.PrePayEntity;
 
 public interface PrePayDao {
 	Integer get2DistributeCount(@Param("distributorId")String distributorId,@Param("status")String status);
@@ -19,4 +23,21 @@ public interface PrePayDao {
     
     //修改o2o经销商备注
     Integer updateO2oOrder(@Param("orderCode")String orderCode,@Param("remark")String remark);
+    
+    /**
+     * 特权定金获取单据明细
+     * @param consignmentId 发货单ID
+     * @return 特权定金获取单据明细
+     */
+    public PrePayEntity get4ConsignmentId(@Param("consignmentId")String consignmentId);
+    
+    /**
+	 * 特权定金导购员状态列表
+	 * @param acceptorId 导购员Id
+	 * @param status 状态
+	 * @param offset 上一次加载的最后项offset
+	 * @param pageSize 页的大小
+	 * @return 特权定金导购员状态列表
+	 */
+    public List<PrePayEntity> getOnePage4AcceptorId(@Param("acceptorId")String acceptorId,@Param("status")String status,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
 }
