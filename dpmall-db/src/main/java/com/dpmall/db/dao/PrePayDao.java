@@ -15,7 +15,7 @@ public interface PrePayDao {
     
     
     //修改订单状态 
-    Integer updateOrder(@Param("orderCode")String orderCode, @Param("status")String status,@Param("remark")String remark);
+    Integer updateOrder(@Param("orderCode")String orderCode, @Param("status")String status);
     
     //修改o2o经销商备注
     Integer updateO2oOrder(@Param("orderCode")String orderCode,@Param("remark")String remark);
