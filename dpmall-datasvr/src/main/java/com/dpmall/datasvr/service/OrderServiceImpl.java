@@ -32,8 +32,6 @@ public class OrderServiceImpl implements IOrderService {
 		entity.allocatCode=model.allocatCode;
 		entity.shippingAddress=model.shippingAddress;
 		entity.buyerNick=model.buyerNick;
-		entity.productCode=model.productCode;
-		entity.productCategory=model.productCategory;
 		entity.productQuantity=model.productQuantity;;
 		entity.productBaseprice=model.productBaseprice;
 		entity.productTotal=model.productTotal;
@@ -79,8 +77,6 @@ public class OrderServiceImpl implements IOrderService {
 		model.allocatCode=entity.allocatCode;
 		model.shippingAddress=entity.shippingAddress;
 		model.buyerNick=entity.buyerNick;
-		model.productCode=entity.productCode;
-		model.productCategory=entity.productCategory;
 		model.productQuantity=entity.productQuantity;;
 		model.productBaseprice=entity.productBaseprice;
 		model.productTotal=entity.productTotal;
