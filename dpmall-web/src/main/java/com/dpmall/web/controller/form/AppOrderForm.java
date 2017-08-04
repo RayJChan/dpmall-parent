@@ -46,4 +46,7 @@ public class AppOrderForm extends RequestForm{
 	/**发货单号**/
 	public String consignmentId;
 	
+	/**查询数据**/
+	public String search;
+	
 }

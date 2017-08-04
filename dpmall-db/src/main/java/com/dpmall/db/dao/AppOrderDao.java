@@ -49,7 +49,7 @@ public interface AppOrderDao {
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的实物订单列表
 	 */
-	 public List<OrderEntity> getOnePage4Distribute(@Param("distributorId")String distributorId,@Param("status")String status,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+	 public List<OrderEntity> getOnePage4Distribute(@Param("distributorId")String distributorId,@Param("status")String status,@Param("search") String search,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
    
    /**
 	 * author: crown
@@ -95,7 +95,7 @@ public interface AppOrderDao {
 	 */
 	int deliver4Consignments (@Param("entity") OrderEntity entity);
 	
-	public List<OrderEntity> getOnePage4StoreId(@Param("storeId")String storeId,@Param("status")String status,@Param("acceptorId") String acceptorId,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
+	public List<OrderEntity> getOnePage4StoreId(@Param("storeId")String storeId,@Param("status")String status,@Param("acceptorId") String acceptorId,@Param("search") String search,@Param("offset")Integer offset, @Param("pageSize")Integer pageSize);
 	
 	/**
 	 * author:crown

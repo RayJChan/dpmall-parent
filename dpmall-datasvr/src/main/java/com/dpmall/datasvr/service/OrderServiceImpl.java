@@ -238,9 +238,9 @@ public class OrderServiceImpl implements IOrderService {
 		return null;
 	}
 
-	public List<OrderModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
+	public List<OrderModel> getOnePage4Distribute(String distributorId, String status, String search,Integer offset,
 			Integer pageSize) {
-		List<OrderEntity> entities = orderDao.getOnePage4Distribute(distributorId, status, offset, pageSize);
+		List<OrderEntity> entities = orderDao.getOnePage4Distribute(distributorId, status, search,offset, pageSize);
 		List<OrderModel> result = new ArrayList<OrderModel>(entities.size());
 		result=entitysaleModel(entities);
 		return result;
@@ -268,8 +268,8 @@ public class OrderServiceImpl implements IOrderService {
 		return result;
 	}
 
-	public List<OrderModel> getOnePage4StoreId(String storeId, String status,String acceptorId,Integer offset, Integer pageSize) {
-		List<OrderEntity> entities = orderDao.getOnePage4StoreId(storeId, status,acceptorId, offset, pageSize);
+	public List<OrderModel> getOnePage4StoreId(String storeId, String status,String acceptorId,String search,Integer offset, Integer pageSize) {
+		List<OrderEntity> entities = orderDao.getOnePage4StoreId(storeId, status,acceptorId,search, offset, pageSize);
 		List<OrderModel> result = new ArrayList<OrderModel>(entities.size());
 		result=entitysaleModel(entities);
 		return result;

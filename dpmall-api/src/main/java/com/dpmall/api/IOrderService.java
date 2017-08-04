@@ -19,7 +19,7 @@ public interface IOrderService {
 	 * @param pageSize 页的大小
 	 * @return 经销商获取待分配的实物订单列表
 	 */
-    public List<OrderModel> getOnePage4Distribute(String distributorId,String status,Integer offset, Integer pageSize);
+    public List<OrderModel> getOnePage4Distribute(String distributorId,String status,String search,Integer offset, Integer pageSize);
     
     
     /**
@@ -86,7 +86,7 @@ public interface IOrderService {
 	 * @param pageSize 页的大小
 	 * @return 实物类门店订单状态条数
 	 */
-    public List<OrderModel> getOnePage4StoreId(String storeId,String status,String acceptorId,Integer offset, Integer pageSize);
+    public List<OrderModel> getOnePage4StoreId(String storeId,String status,String acceptorId,String search,Integer offset, Integer pageSize);
     
     /**
      * 实物类门店订单状态条数

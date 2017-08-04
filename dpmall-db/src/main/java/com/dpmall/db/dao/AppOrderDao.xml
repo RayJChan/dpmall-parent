@@ -233,12 +233,17 @@
 						FROM
 							CONSIGNMENTS c ,
 						 	ENUMERATIONVALUES E ,
-							COMPOSEDTYPES c3
+							COMPOSEDTYPES c3，
+							ADDRESSES A
 						WHERE
 							E.pk=c.p_status and  
 							c3.pk=E.TYPEPKSTRING and 
 							P_ALLOCATIONEMPLOYEECODE = #{distributorId} and
-							c3.INTERNALCODE = 'ConsignmentStatus' 
+							c3.INTERNALCODE = 'ConsignmentStatus' and
+							c.P_SHIPPINGADDRESS = A .pk
+						<if test="search!=null">
+							AND (c.p_code=#{search} OR a.P_FIRSTNAME=#{search} OR a.P_PHONE1=#{search})
+						</if>
 						<if test='status=="1"'>
 							AND E.code ='DISTRIBUTED'
 						</if>
@@ -302,13 +307,18 @@
 							CONSIGNMENTS c ,
 						 	ENUMERATIONVALUES E ,
 							COMPOSEDTYPES c3,
-							O2OCONSIGNMENTITEMS o 
+							O2OCONSIGNMENTITEMS o,
+							ADDRESSES A  
 						WHERE
 							c.PK=o.P_CONSIGNMENT and 
 							E.pk=c.p_status and  
 							c3.pk=E.TYPEPKSTRING and 
 							p_deliverypointofservice = #{storeId} and
+							c.P_SHIPPINGADDRESS = A .pk       and
 							c3.INTERNALCODE = 'ConsignmentStatus' 
+						<if test="search!=null">
+							AND (c.p_code=#{search} OR a.P_FIRSTNAME=#{search} OR a.P_PHONE1=#{search})
+						</if>
 						<if test='status=="1"'>
 							AND E.code ='STOREWAIT'
 						</if>

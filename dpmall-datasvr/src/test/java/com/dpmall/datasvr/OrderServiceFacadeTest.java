@@ -85,7 +85,7 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 	@Test
 	
 	public void getOnePage4DistributeTest() {
-		logger.info("result:"+JSON.toJSONString(orderService.getOnePage4Distribute("8796125974074", "4", 0, 3)));
+		logger.info("result:"+JSON.toJSONString(orderService.getOnePage4Distribute("8796125974074", "4","", 0, 3)));
 	}
 	
 	/**
