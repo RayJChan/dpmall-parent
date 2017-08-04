@@ -229,7 +229,7 @@
 			)
 			
 			WHERE
-				P_CODE = #{orderCode}
+				pk = #{orderCode}
 	</update>
 	<update id="updateO2oOrder">
 		UPDATE O2OCONSIGNMENTITEMS
@@ -241,7 +241,7 @@
 					FROM
 						CONSIGNMENTS
 					WHERE
-						P_CODE = #{orderCode}
+						pk = #{orderCode}
 				)
 	</update>
 </mapper>
