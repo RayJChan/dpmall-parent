@@ -164,6 +164,9 @@ public class OrderEntity {
 	/**区*/
 	public String DistrictName;
 	
+	/**发货备注*/
+	public String deliveryRemark;
+	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
 	

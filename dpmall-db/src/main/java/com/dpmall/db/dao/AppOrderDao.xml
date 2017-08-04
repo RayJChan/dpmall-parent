@@ -43,6 +43,8 @@
 	    <result property="RegionName" column="RegionName"/>
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
+	    <result property="DistrictName" column="DistrictName"/>
+	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 	    	<id property="id" column="itemsId"/>
 		    <result property="splitOrderType" column="splitOrderType"/>
