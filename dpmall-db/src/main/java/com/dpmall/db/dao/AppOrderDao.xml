@@ -28,8 +28,6 @@
 	    <result property="allocatCode" column="P_ALLOCATIONEMPLOYEECODE"/>
 	    <result property="shippingAddress" column="P_SHIPPINGADDRESS"/>
 	    <result property="buyerNick" column="P_BUYERNICK"/>
-	    <result property="productCode" column="P_ICODE"/>
-	    <result property="productCategory" column="P_CATEGORY"/>
 	    <result property="firstName" column="P_FIRSTNAME"/>
 	    <result property="phone1" column="P_PHONE1"/>
 	    <result property="consignmentCode" column="P_CCODE"/>
@@ -66,6 +64,9 @@
 			<result property="payAmount" column="payAmount"/>
 			<result property="juntanPrice" column="juntanPrice"/>
 			<result property="serviceAmount" column="serviceAmount"/>
+			<result property="productName" column="productName"/>
+			<result property="productCategory" column="productCategory"/>
+			<result property="productCode" column="productCode"/>
 	    </collection>
 	    
 	</resultMap>
@@ -333,7 +334,7 @@
 		select 
    		      C.PK,
    		      C.P_CODE AS P_CCODE,
-   		      
+   		       
    		      O.P_SALESAPPLICATION,
    		      OE.P_JUNTANPRICE as juntanPrice,
   		      OE.P_PAYAMOUNT as payAmount,
@@ -344,10 +345,10 @@
    		      
    		      O.P_BUYERNICK,
    		      A.P_PHONE1,
+   		      A.P_FIRSTNAME,
    		      A.P_STREETNAME,
    		      
-   		      P.P_CATEGORY as P_CATEGORY,
-   		      P.P_CODE AS code,
+   		     
    		      
    		      OE.P_QUANTITY as quantity,
    		      OE.P_TMALLQUANTITY as tmallQuantity,
@@ -378,6 +379,9 @@
    		      R.P_NAME as RegionName,
               CLP.P_NAME as CityName,
               DLP.P_NAME as DistrictName,
+              DPT.P_CODE as productCode,
+              DPT.P_CATEGORY as productCategory,
+              DP.P_NAME as productName,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 
    		  LEFT JOIN ADDRESSES A ON C.P_SHIPPINGADDRESS=A.PK
@@ -386,16 +390,19 @@
    		  LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
    		  LEFT JOIN ORDERS O ON C.P_ORDER=O.PK
    		  LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
-   		  LEFT JOIN PRODUCTS P ON OE.P_PRODUCT=P.PK
+          LEFT JOIN dpsizevarproductlp DP on OE.P_PRODUCT=DP.ITEMPK
+   		  LEFT JOIN DPSIZEVARPRODUCT DPT ON OE.P_PRODUCT=DPT.PK
    		  
    		  LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
    		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
    		  LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
 		  LEFT JOIN languages L ON R.LANGPK = L.pk
+          
 		  AND CLP.LANGPK = L.pk
 		  AND DLP.LANGPK = L.pk	
 		  WHERE 1=1 AND
 			L.p_ISOCODE = 'zh'
+            AND DP.P_NAME is not null
 		<if test="consignmentId != null">
 		   AND C.P_CODE= #{consignmentId}
 		</if>

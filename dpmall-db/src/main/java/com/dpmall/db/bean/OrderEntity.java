@@ -91,12 +91,6 @@ public class OrderEntity {
 	/**客户姓名**/
 	public String buyerNick;
 	
-	/**商品编码**/
-	public String productCode;
-	
-	/**商品品类**/
-	public String productCategory;
-	
 	/**商品数量**/
 	public String productQuantity;
 	
@@ -166,6 +160,7 @@ public class OrderEntity {
 	
 	/**发货备注*/
 	public String deliveryRemark;
+	
 	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
