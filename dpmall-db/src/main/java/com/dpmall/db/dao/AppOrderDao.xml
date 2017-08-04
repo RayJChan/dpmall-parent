@@ -421,7 +421,7 @@
    		      OE.P_INFO as P_ICODE,
    		      A.P_FIRSTNAME,
    		      A.P_PHONE1,
-   		      A.P_STREETNAME,
+   		      A.P_STREETNAME as p_streetname,
    		      RE.P_RETURNEXPLAIN as P_CUSREFUSECOMMET,
    		      R.P_CHECKOPINION as P_ACCEPTEDREFUSECOMMENT,
    		      U.P_CODE AS unit,

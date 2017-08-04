@@ -319,9 +319,19 @@ public class OrderServiceImpl implements IOrderService {
 		return out;
 	}
 
+	/**
+     * 实物类获取退货单据明细
+     * @param consignmentId 发货单ID
+     * @return 订单详情
+     */
 	public OrderModel getReturnRequestDetails(String consignmentId) {
-		// TODO Auto-generated method stub
-		return null;
+		OrderModel out = null;
+
+		OrderEntity outEntityList = orderDao.getReturnRequestDetails(consignmentId);
+						
+		out = this.entityToModel(outEntityList);
+		
+		return out;
 	}
 	
 }
