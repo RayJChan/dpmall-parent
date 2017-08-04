@@ -103,7 +103,7 @@
 			AND c.P_DELIVERYPOINTOFSERVICE = #{storeId}
 		</if>
 		<if test='status=="1"'>
-			AND e.code in ('DISTRIBUTED','STOREWAIT')
+			AND e.code ='STOREWAIT'
 		</if>
 		<if test='status=="2"'>
 			AND e.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
