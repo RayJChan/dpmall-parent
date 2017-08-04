@@ -381,9 +381,11 @@
    		      LC.P_NAME AS P_LOGISTICSCOMPANY,
    		      C.P_TRACKINGID,
       		  
-   		       O2O.P_ACCEPTEDBY,
+   		      AU.P_CNNAME AS P_ACCEPTEDBY,
 		      O2O.P_ACCEPTEDCOMMENT,
    		      O2O.P_DELIVERYPIC,
+   		      
+   		      PS.P_DISPLAYNAME as deliveryPoint,
    		      
    		      C.P_CATEGORY as category,
    		      R.P_NAME as RegionName,
@@ -403,6 +405,8 @@
           LEFT JOIN dpsizevarproductlp DP on OE.P_PRODUCT=DP.ITEMPK
    		  LEFT JOIN DPSIZEVARPRODUCT DPT ON OE.P_PRODUCT=DPT.PK
    		  LEFT JOIN LOGISTICSCOMPANY LC ON C.P_LOGISTICSCOMPANY = LC.PK 
+   		  LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
+   		  LEFT JOIN APPUSER AU ON O2O.P_ACCEPTEDBY=AU.PK
    		  
    		  LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
    		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
