@@ -341,7 +341,7 @@
       		  OE.P_SERVICEAMOUNT as serviceAmount,
       		  OE.P_DELIVERYCOST as deliveryCost,
    		      
-   		      C.P_STATUS,
+   		      T2.code AS P_STATUS,
    		      
    		      O.P_BUYERNICK,
    		      A.P_PHONE1,
@@ -397,12 +397,15 @@
    		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
    		  LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
 		  LEFT JOIN languages L ON R.LANGPK = L.pk
+		  LEFT JOIN ENUMERATIONVALUES t2 ON t2.PK=C.P_STATUS
+		  LEFT JOIN COMPOSEDTYPES t1 ON t2.TYPEPKSTRING = t1.PK
           
 		  AND CLP.LANGPK = L.pk
 		  AND DLP.LANGPK = L.pk	
 		  WHERE 1=1 AND
 			L.p_ISOCODE = 'zh'
             AND DP.P_NAME is not null
+            AND t1.INTERNALCODe = 'ConsignmentStatus'  
 		<if test="consignmentId != null">
 		   AND C.P_CODE= #{consignmentId}
 		</if>
