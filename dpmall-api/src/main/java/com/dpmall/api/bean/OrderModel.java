@@ -119,6 +119,9 @@ public class OrderModel implements Serializable {
 	/**客户退货备注**/
 	public String cusRefuseComment;
 	
+	/**门店接单人拒单备注**/
+	public String acceptedRefuseComment;
+	
 	/**门店接单人**/
 	public String acceptedBy;
 	

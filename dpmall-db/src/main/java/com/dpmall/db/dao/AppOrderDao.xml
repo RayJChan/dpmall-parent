@@ -430,20 +430,16 @@
 	<select id="getReturnRequestDetails"  resultMap="AppOrderResultMap">
 		select 
    		      C.PK,
-   		      C.P_STATUS,
+   		      T3.code AS P_STATUS,
    		      C.P_CODE AS P_CCODE,
    		      R.P_RETURNPOLICY as deliveryMode,
-   		      C.P_LOGISTICSCOMPANY,
    		      R.P_RETURNTRACKINGNUMBER as P_TRACKINGID,
-   		      C.P_LOGISTICSINFO,
-   		      P.P_CATEGORY AS P_CATEGORY,
-   		      P.P_CODE AS code,
+   		      LI.P_DELIVERYMETHODS AS P_LOGISTICSINFO,
    		      RE.P_RETURNNUMBER AS quantity,
    		      OE.P_BASEPRICE AS basePrice,
    		      RE.P_RETURNMONEY AS payAmount,
    		      R.P_REFUNDDELIVERYCOST as deliveryCost,
    		      OE.P_SERVICEAMOUNT as serviceAmount,
-   		      OE.P_INFO as P_ICODE,
    		      A.P_FIRSTNAME,
    		      A.P_PHONE1,
    		      A.P_STREETNAME as p_streetname,
@@ -451,16 +447,18 @@
    		      R.P_CHECKOPINION as P_ACCEPTEDREFUSECOMMENT,
    		      U.P_CODE AS unit,
    		      PS.P_DISPLAYNAME as deliveryPoint,
+   		      AU.P_CNNAME AS P_ACCEPTEDBY,
+   		      DPT.P_CATEGORY as productCategory,
+   		      DPT.P_CODE as productCode,
+   		      OE.P_INFO as productName,
    		      O2O.P_RETURNSTATUS,
-   		      O2O.P_ACCEPTEDBY,
 		      O2O.P_ACCEPTEDCOMMENT,
    		      O2O.P_DELIVERYPIC,
    		      O2O.P_AGENCYCOMMENT,
    		      RG.P_NAME as RegionName,
               CLP.P_NAME as CityName,
               DLP.P_NAME as DistrictName,
-              LI.P_DELIVERYMETHODS,
-   		      LI.P_NAME,
+   		      LI.P_NAME AS P_LOGISTICSCOMPANY,
    		      ROWNUM RN
    		  from RETURNENTRY RE
    		  LEFT JOIN RETURNREQUEST R ON RE.P_RETURNREQUEST=R.PK
@@ -474,13 +472,21 @@
    		  LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
    		  LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
    		  
+   		  LEFT JOIN DPSIZEVARPRODUCT DPT ON OE.P_PRODUCT=DPT.PK
+		  LEFT JOIN APPUSER AU ON O2O.P_ACCEPTEDBY=AU.PK
    		  LEFT JOIN REGIONSLP RG ON A.P_REGION =RG.itempk
    		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
    		  LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
 		  LEFT JOIN languages L ON RG.LANGPK = L.pk
+
+          LEFT JOIN ENUMERATIONVALUES T3 ON T3.PK = C.P_STATUS
+		  LEFT JOIN COMPOSEDTYPES T1 ON T3.TYPEPKSTRING = T1.PK 
 		  AND CLP.LANGPK = L.pk
 		  AND DLP.LANGPK = L.pk
-   		  WHERE 1=1 AND L.p_ISOCODE = 'zh'
+		 
+   		  WHERE 1=1
+		  AND L.p_ISOCODE = 'zh'
+   		  AND T1.INTERNALCODe = 'ConsignmentStatus'
 		<if test="consignmentId != null">
 			AND R.P_CONSIGNMENT= #{consignmentId}
 		</if>
