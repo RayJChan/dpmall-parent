@@ -161,5 +161,8 @@ public class OrderModel implements Serializable {
 	/**区*/
 	public String DistrictName;
 	
+	/**发货备注*/
+	public String deliveryRemark;
+	
 	public List<Object> items=new ArrayList<Object>();
 }

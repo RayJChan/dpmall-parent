@@ -43,6 +43,8 @@
 	    <result property="RegionName" column="RegionName"/>
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
+	    <result property="DistrictName" column="DistrictName"/>
+	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 	    	<id property="id" column="itemsId"/>
 		    <result property="splitOrderType" column="splitOrderType"/>
@@ -74,6 +76,9 @@
 		LEFT JOIN ENUMERATIONVALUES e ON e.pk=c.p_status
 		LEFT JOIN COMPOSEDTYPES cs ON e .TYPEPKSTRING = cs.PK
 		WHERE 1=1
+		<if test='distributorId != null'>
+			AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
+		</if>
 		<if test='status=="1"'>
 			AND e.code ='DISTRIBUTED'
 		</if>
@@ -95,7 +100,7 @@
 		LEFT JOIN O2OCONSIGNMENTITEMS O2O ON c.PK=O2O.P_CONSIGNMENT
 		WHERE 1=1
 		<if test="storeId != null">
-			AND O2O.P_RECOMMENDSTORE = #{storeId}
+			AND c.P_DELIVERYPOINTOFSERVICE = #{storeId}
 		</if>
 		<if test='status=="1"'>
 			AND e.code in ('DISTRIBUTED','STOREWAIT')
