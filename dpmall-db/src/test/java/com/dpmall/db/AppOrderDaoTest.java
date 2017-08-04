@@ -147,7 +147,7 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Test
     public void testGetOrderDetails(){
 		logger.info("=====================getOrderDetails=======================");
-		OrderEntity result = appOrderDao.getOrderDetails("a100015013");
+		OrderEntity result = appOrderDao.getOrderDetails("aSITB100572001");
     	logger.info(JSON.toJSONString(result));
     }
 	
@@ -202,4 +202,16 @@ public class AppOrderDaoTest extends SpringTestCase{
 		Integer count = appOrderDao.get2StoreCount(null, "8796105375835");
 		logger.info(JSON.toJSONString(count));
 	}
+	
+	/**
+     * 实物类获取退货单据明细
+     * @param consignmentId 发货单ID
+     * @return 订单详情
+     */
+	@Test
+    public void TestGetReturnRequestDetails(){
+		logger.info("=====================getReturnRequestDetails=======================");
+		OrderEntity result = appOrderDao.getReturnRequestDetails("8797174532051");
+    	logger.info(JSON.toJSONString(result));
+    }
 }

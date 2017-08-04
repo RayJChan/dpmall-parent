@@ -28,4 +28,13 @@ public class OrderItemModel implements Serializable {
 	
 	/**价格*/
 	public Double price;
+	
+	/**商品编码**/
+	public String productCode;
+	
+	/**商品品类**/
+	public String productCategory;
+	
+	/**商品名称**/
+	public String productName;
 }

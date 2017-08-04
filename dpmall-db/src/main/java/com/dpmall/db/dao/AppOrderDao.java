@@ -131,4 +131,11 @@ public interface AppOrderDao {
 	   * @return 经销商待分配的实物订单数
 	  */
 	 public Integer get2StoreCount(@Param("storeId")String storeId,@Param("status")String status);
+	 
+	 /**
+	    * 实物类获取退货单据明细
+	    * @param consignmentId 发货单ID
+	    * @return 订单详情
+	   */
+	 public OrderEntity getReturnRequestDetails(@Param("consignmentId")String consignmentId);
 }

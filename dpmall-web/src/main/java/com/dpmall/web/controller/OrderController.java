@@ -397,7 +397,18 @@ public class OrderController {
     @RequestMapping(value="/getReturnRequestDetails",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
 	public Response getReturnRequestDetails(@RequestBody AppOrderForm form) {
-		return null;
+    	LOG.info("{method:'OrderController::getReturnRequestDetails',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = orderService.getReturnRequestDetails(form.consignmentId);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'OrderController::getReturnRequestDetails',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
 	}
    
     

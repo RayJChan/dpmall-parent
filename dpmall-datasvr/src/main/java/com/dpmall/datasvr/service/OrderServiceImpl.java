@@ -32,8 +32,6 @@ public class OrderServiceImpl implements IOrderService {
 		entity.allocatCode=model.allocatCode;
 		entity.shippingAddress=model.shippingAddress;
 		entity.buyerNick=model.buyerNick;
-		entity.productCode=model.productCode;
-		entity.productCategory=model.productCategory;
 		entity.productQuantity=model.productQuantity;;
 		entity.productBaseprice=model.productBaseprice;
 		entity.productTotal=model.productTotal;
@@ -79,8 +77,6 @@ public class OrderServiceImpl implements IOrderService {
 		model.allocatCode=entity.allocatCode;
 		model.shippingAddress=entity.shippingAddress;
 		model.buyerNick=entity.buyerNick;
-		model.productCode=entity.productCode;
-		model.productCategory=entity.productCategory;
 		model.productQuantity=entity.productQuantity;;
 		model.productBaseprice=entity.productBaseprice;
 		model.productTotal=entity.productTotal;
@@ -94,7 +90,6 @@ public class OrderServiceImpl implements IOrderService {
 		model.logisticsInfo=entity.logisticsInfo;
 		model.trackingId=entity.trackingId;
 		model.deliveryCost=entity.deliveryCost;
-		model.consignmentCode=entity.consignment;
 		model.salesApplication=entity.salesApplication;
 		model.juntanPrice=entity.juntanPrice;
 		model.payAmount=entity.payAmount;
@@ -319,9 +314,19 @@ public class OrderServiceImpl implements IOrderService {
 		return out;
 	}
 
+	/**
+     * 实物类获取退货单据明细
+     * @param consignmentId 发货单ID
+     * @return 订单详情
+     */
 	public OrderModel getReturnRequestDetails(String consignmentId) {
-		// TODO Auto-generated method stub
-		return null;
+		OrderModel out = null;
+
+		OrderEntity outEntityList = orderDao.getReturnRequestDetails(consignmentId);
+						
+		out = this.entityToModel(outEntityList);
+		
+		return out;
 	}
 	
 }

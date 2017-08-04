@@ -53,12 +53,6 @@ public class OrderModel implements Serializable {
 	/**客户姓名**/
 	public String buyerNick;
 	
-	/**商品编码**/
-	public String productCode;
-	
-	/**商品品类**/
-	public String productCategory;
-	
 	/**商品数量**/
 	public String productQuantity;
 	
