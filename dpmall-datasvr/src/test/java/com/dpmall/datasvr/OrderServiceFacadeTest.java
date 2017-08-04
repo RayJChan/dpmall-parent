@@ -156,4 +156,16 @@ public class OrderServiceFacadeTest extends SpringTestCase{
 		Integer count = orderService.get2StoreCount(null, "8796105375835");
 		logger.info(JSON.toJSONString(count));
 	}
+	
+	/**
+     * 实物类获取退货单据明细
+     * @param consignmentId 发货单ID
+     * @return 订单详情
+     */
+	@Test
+    public void TestGetReturnRequestDetails(){
+		logger.info("=====================getReturnRequestDetails=======================");
+		OrderModel result = orderService.getReturnRequestDetails("8797174532051");
+    	logger.info(JSON.toJSONString(result));
+    }
 }
