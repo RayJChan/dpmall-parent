@@ -491,7 +491,7 @@
    		  AND T1.INTERNALCODe in('DeliveryMethods','ConsignmentStatus')
    		  AND DP.P_NAME is not null
 		<if test="consignmentId != null">
-			AND R.P_CONSIGNMENT= #{consignmentId}
+			AND C.P_CODE= #{consignmentId}
 		</if>
 	</select>
 	
