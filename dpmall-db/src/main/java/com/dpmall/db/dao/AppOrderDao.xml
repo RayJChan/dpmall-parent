@@ -169,6 +169,7 @@
 		<result property="RegionName" column="RegionName"/>
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
+	    <result property="OrderStatus" column="OrderStatus"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
 			    <result property="splitOrderType" column="splitOrderType"/>
@@ -557,6 +558,7 @@
                         CLP.P_NAME as CityName,
                         DLP.P_NAME as DistrictName,
                         PS.P_DISPLAYNAME as P_DELIVERYPOINTOFSERVICE,
+                        T3.code AS OrderStatus,
 						ROWNUM rn
 					FROM
 						CONSIGNMENTS c
@@ -565,19 +567,21 @@
 					LEFT JOIN ORDERENTRIES OE ON CE.P_ORDERENTRY = OE.pk
 					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
 					LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
+					LEFT JOIN ORDERS O ON C.P_ORDER=O.PK
                     LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
 					LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
    		            LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
    		            LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
 		            LEFT JOIN languages L ON R.LANGPK = L.pk
                     LEFT JOIN ENUMERATIONVALUES T2 ON T2.PK = C.P_STATUS
+                    LEFT JOIN ENUMERATIONVALUES T3 ON T3.PK = O.P_STATUS
 		            LEFT JOIN COMPOSEDTYPES T1 ON T2.TYPEPKSTRING = T1.PK
 		            AND CLP.LANGPK = L.pk
 		            AND DLP.LANGPK = L.pk	
 		            
 					WHERE
 					 1=1
-                    AND T1.INTERNALCODe in('ConsignmentStatus')
+                    AND T1.INTERNALCODe in('ConsignmentStatus','OrderStatus')
 					AND O2O.P_ACCEPTEDBY = #{acceptorId}
 					AND c.P_STATUS = #{status}
 					AND L.p_ISOCODE = 'zh'

@@ -161,6 +161,8 @@ public class OrderEntity {
 	/**发货备注*/
 	public String deliveryRemark;
 	
+	/**交易状态*/
+	public String OrderStatus;
 	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;

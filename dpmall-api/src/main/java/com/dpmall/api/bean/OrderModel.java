@@ -161,5 +161,8 @@ public class OrderModel implements Serializable {
 	/**发货备注*/
 	public String deliveryRemark;
 	
+	/**交易状态*/
+	public String OrderStatus;
+	
 	public List<Object> items=new ArrayList<Object>();
 }
