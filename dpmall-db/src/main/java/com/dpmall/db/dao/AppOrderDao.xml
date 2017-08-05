@@ -583,7 +583,15 @@
 					 1=1
                     AND T1.INTERNALCODe in('ConsignmentStatus','OrderStatus')
 					AND O2O.P_ACCEPTEDBY = #{acceptorId}
-					AND c.P_STATUS = #{status}
+					<if test='status=="1"'>
+							AND t2.code ='STOREWAIT'
+					</if>
+					<if test='status=="2"'>
+							AND t2.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+					</if>
+					<if test='status=="3"'>
+							AND t2.code ='COMPLETED'
+					</if>
 					AND L.p_ISOCODE = 'zh'
 					AND ROWNUM &lt; ${startNum}+${pageSize}+1
 				) p1 WHERE p1.rn&gt;${startNum}
