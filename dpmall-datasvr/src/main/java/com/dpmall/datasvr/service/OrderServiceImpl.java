@@ -76,6 +76,7 @@ public class OrderServiceImpl implements IOrderService {
 	
 	private OrderModel entityToModel(OrderEntity entity) {
 		OrderModel model=new OrderModel();
+		model.clientName=entity.clientName;
 		model.allocatCode=entity.allocatCode;
 		model.shippingAddress=entity.shippingAddress;
 		model.buyerNick=entity.buyerNick;
