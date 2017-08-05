@@ -41,7 +41,6 @@
 	    <result property="RegionName" column="RegionName"/>
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
-	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 	    	<id property="id" column="itemsId"/>
@@ -167,6 +166,9 @@
 		<result property="address" column="P_STREETNAME"/>
 		<result property="operateStatus" column="P_OPERATESTATUS"/>
 		<result property="deliveryPoint" column="P_DELIVERYPOINTOFSERVICE"/>
+		<result property="RegionName" column="RegionName"/>
+	    <result property="CityName" column="CityName"/>
+	    <result property="DistrictName" column="DistrictName"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
 			    <result property="splitOrderType" column="splitOrderType"/>
@@ -551,6 +553,9 @@
 						A .p_phone1,
 						A .P_STREETNAME,
 						U .P_CODE AS unit,
+						R.P_NAME as RegionName,
+                        CLP.P_NAME as CityName,
+                        DLP.P_NAME as DistrictName,
 						ROWNUM rn
 					FROM
 						CONSIGNMENTS c
@@ -559,9 +564,18 @@
 					LEFT JOIN ORDERENTRIES OE ON CE.P_ORDERENTRY = OE.pk
 					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
 					LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
+					LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
+   		            LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
+   		            LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
+		            LEFT JOIN languages L ON R.LANGPK = L.pk
+		            AND CLP.LANGPK = L.pk
+		            AND DLP.LANGPK = L.pk	
+		            
 					WHERE
-						O2O.P_ACCEPTEDBY = #{acceptorId}
+					 1=1
+					AND O2O.P_ACCEPTEDBY = #{acceptorId}
 					AND c.P_STATUS = #{status}
+					AND L.p_ISOCODE = 'zh'
 					AND ROWNUM &lt; ${startNum}+${pageSize}+1
 				) p1 WHERE p1.rn&gt;${startNum}
 	</select>
