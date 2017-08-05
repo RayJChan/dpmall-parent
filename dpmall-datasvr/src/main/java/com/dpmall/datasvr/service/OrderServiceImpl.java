@@ -68,6 +68,7 @@ public class OrderServiceImpl implements IOrderService {
 		entity.deliveryRemark=model.deliveryRemark;
 		entity.cusRefuseComment=model.cusRefuseComment;
 		entity.acceptedRefuseComment=model.acceptedRefuseComment;
+		entity.OrderStatus=model.OrderStatus;
 		for(Object obj:model.items) {
 			entity.items.add((OrderItemEntity) obj);
 		}
@@ -115,6 +116,7 @@ public class OrderServiceImpl implements IOrderService {
 		model.deliveryRemark=entity.deliveryRemark;
 		model.cusRefuseComment=entity.cusRefuseComment;
 		model.acceptedRefuseComment=entity.acceptedRefuseComment;
+		model.OrderStatus=entity.OrderStatus;
 		for (OrderItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
