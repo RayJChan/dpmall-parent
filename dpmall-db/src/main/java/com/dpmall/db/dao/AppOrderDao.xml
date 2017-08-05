@@ -428,11 +428,11 @@
 	<select id="getReturnRequestDetails"  resultMap="AppOrderResultMap">
 		select 
    		      C.PK,
-   		      T3.code AS P_STATUS,
+   		      T2.code AS P_STATUS,
    		      C.P_CODE AS P_CCODE,
    		      R.P_RETURNPOLICY as deliveryMode,
    		      R.P_RETURNTRACKINGNUMBER as P_TRACKINGID,
-   		      T2.code AS P_LOGISTICSINFO,
+   		      T3.code AS P_LOGISTICSINFO,
    		      RE.P_RETURNNUMBER AS quantity,
    		      OE.P_BASEPRICE AS basePrice,
    		      RE.P_RETURNMONEY AS payAmount,
