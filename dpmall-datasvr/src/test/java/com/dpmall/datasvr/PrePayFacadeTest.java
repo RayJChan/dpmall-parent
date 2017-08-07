@@ -75,4 +75,11 @@ public class PrePayFacadeTest extends SpringTestCase{
 		List<PrepayModel> result = prepayService.getOnePage4Distribute("1060-BA", "2", 1, 999);
 		logger.info(JSON.toJSONString(result));
 	}
+	
+	@Test
+	public void testGetOnePage4StoreId() {
+		logger.info("===================testGetOnePage4StoreId=================");
+		List<PrepayModel> result = prepayService.getOnePage4StoreId("8796129527800", "2", 1, 999);
+		logger.info(JSON.toJSONString(result));
+	}
 }

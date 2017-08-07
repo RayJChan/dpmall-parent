@@ -60,4 +60,14 @@ public interface PrePayDao {
 	 */
     public List<PrePayEntity> getOnePage4Distribute (@Param("distributorId") String distributorId,@Param("status") String status,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
    
+    /**
+	 * 特权定金销商商订单状态列表
+	 * @param distributorId 经销商Id
+	 * @param status 状态
+	 * @param offset 上一次加载的最后项offset
+	 * @param pageSize 页的大小
+	 * @return 特权定金销商商订单状态列表
+	 */
+    public List<PrePayEntity> getOnePage4StoreId (@Param("storeId") String storeId,@Param("status") String status,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
+   
 }

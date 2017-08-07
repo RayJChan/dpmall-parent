@@ -95,7 +95,22 @@ public class PrepayController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::getOnePage4StoreId',in:"+JSON.toJSONString(form)+"}");
+		Response response = new Response();
+		if (StringUtils.isEmpty(form.storeId) || StringUtils.isEmpty(form.status)) {
+    		response.resultCode = ErrorCode.INVALID_PARAM;
+    		response.message="参数错误";
+    	}else {
+    		try {
+				response.data = prepayService.getOnePage4StoreId(form.storeId, form.status, form.startNum, form.pageSize);
+			} catch (Exception e) {
+				response.resultCode = ErrorCode.INTERNAL_ERR;
+				response.message = "未知错误";
+				LOG.error(e.getMessage(),e);
+			}
+    	}
+		LOG.info("{method:'PrepayController:getOnePage4StoreId',out:"+JSON.toJSONString(response)+"}");
+		return response;
     }
     
     /**
