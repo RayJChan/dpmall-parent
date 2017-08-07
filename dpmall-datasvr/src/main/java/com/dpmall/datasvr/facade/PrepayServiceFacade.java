@@ -145,8 +145,16 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public List<PrepayModel> get4Search(String phone, String storeId, String acceptorId) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get4Search',in:{phone:'" + phone +"storeId:"+storeId+"acceptorId:"+acceptorId+"'}}");
+		}
+		
+		List<PrepayModel> out = prepayService.get4Search(phone, storeId, acceptorId);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::get4Search',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
 	}
 
 	public List<PrepayModel> getReason4Order(String orderStyle) {

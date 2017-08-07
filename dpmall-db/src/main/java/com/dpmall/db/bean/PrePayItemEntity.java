@@ -2,6 +2,7 @@ package com.dpmall.db.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class PrePayItemEntity implements Serializable{
 
@@ -78,5 +79,8 @@ public class PrePayItemEntity implements Serializable{
 	
 	/**商品名称**/
 	public String productName;
+	
+	/**下单时间**/
+	public Date createds;
 
 }

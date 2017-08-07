@@ -228,8 +228,15 @@ public class PrepayServiceImpl implements IPrepayService {
 	}
 
 	public List<PrepayModel> get4Search(String phone, String storeId, String acceptorId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PrepayModel> out = null;
+
+		List<PrePayEntity> outEntityList = prePayDao.get4Search(phone, storeId, acceptorId);
+		if(outEntityList == null || outEntityList.isEmpty()){
+			return null;
+		}
+								
+		out = this.entitysaleModel(outEntityList);
+		return out;
 	}
 
 	public List<PrepayModel> getReason4Order(String orderStyle) {

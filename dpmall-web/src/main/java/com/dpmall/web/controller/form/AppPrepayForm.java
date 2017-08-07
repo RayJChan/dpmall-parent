@@ -49,4 +49,6 @@ public class AppPrepayForm extends RequestForm{
 	/**查询数据**/
 	public String search;
 	
+	/**电话号码**/
+	public String phone;
 }

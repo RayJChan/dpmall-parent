@@ -3,6 +3,7 @@ package com.dpmall.api.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -161,6 +162,9 @@ public class PrepayModel implements Serializable {
 	
 	/**发货备注*/
 	public String deliveryRemark;
+	
+	/**下单时间**/
+	public Date createds;
 	
 	/**订单详情**/
 	public List<Object> items=new ArrayList<Object>();
