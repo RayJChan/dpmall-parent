@@ -32,6 +32,15 @@ public interface PrePayDao {
     public PrePayEntity get4ConsignmentId(@Param("consignmentId")String consignmentId);
     
     /**
+     * 被动查询订单
+     * @param phone
+     * @param storeId
+     * @param acceptorId
+     * @return
+     */
+    public List<PrePayEntity> get4Search(@Param("phone")String phone, @Param("storeId")String storeId,@Param("acceptorId")String acceptorId);
+    
+    /**
 	 * 特权定金导购员状态列表
 	 * @param acceptorId 导购员Id
 	 * @param status 状态
