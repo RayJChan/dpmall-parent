@@ -45,8 +45,16 @@ public class PrepayServiceFacade implements IPrepayService {
 
 	public List<PrepayModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
 			Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',in:{distributorId:'"+distributorId+",status:"+status+",offset:"+offset+",pageSize:"+pageSize+"'}}");
+		}
+		List<PrepayModel> out = prepayService.getOnePage4Distribute(distributorId, status, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
+		}
+		
+		return out;
 	}
 
 	public Integer get2DistributeCount(String distributorId, String status) {
