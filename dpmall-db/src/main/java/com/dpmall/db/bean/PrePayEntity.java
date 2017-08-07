@@ -91,12 +91,6 @@ public class PrePayEntity {
 	/**客户姓名**/
 	public String buyerNick;
 	
-	/**商品编码**/
-	public String productCode;
-	
-	/**商品品类**/
-	public String productCategory;
-	
 	/**商品数量**/
 	public String productQuantity;
 	
@@ -146,7 +140,29 @@ public class PrePayEntity {
 	/**物流公司名称*/
 	public String name;
 	
-	/**orderEntry**/
-	public List<OrderItemEntity> items;
+	/**汇总金额*/
+	public BigDecimal totalSum;
+	
+	/**操作状态*/
+	public String operateStatus;
+	
+	/**返回状态*/
+	public String returnStatus;
+	
+	/**省*/
+	public String RegionName;
+
+	/**市*/
+	public String CityName;
+
+	/**区*/
+	public String DistrictName;
+	
+	/**发货备注*/
+	public String deliveryRemark;
+	
+	
+	/**PrePayEntry**/
+	public List<PrePayItemEntity> items;
 	
 }

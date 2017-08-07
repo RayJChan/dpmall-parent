@@ -40,7 +40,22 @@ public class PrepayController {
 	@RequestMapping(value="/getOnePage4Distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4Distribute(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::getOnePage4Distribute',in:"+JSON.toJSONString(form)+"}");
+		Response response = new Response();
+		if (StringUtils.isEmpty(form.distributorId) || StringUtils.isEmpty(form.status)) {
+    		response.resultCode = ErrorCode.INVALID_PARAM;
+    		response.message="参数错误";
+    	}else {
+    		try {
+				response.data = prepayService.getOnePage4Distribute(form.distributorId, form.status, form.startNum, form.pageSize);
+			} catch (Exception e) {
+				response.resultCode = ErrorCode.INTERNAL_ERR;
+				response.message = "未知错误";
+				LOG.error(e.getMessage(),e);
+			}
+    	}
+		LOG.info("{method:'PrepayController:getOnePage4Distribute',out:"+JSON.toJSONString(response)+"}");
+		return response;
     }
     
     /**
@@ -80,7 +95,22 @@ public class PrepayController {
     @RequestMapping(value="/getOnePage4StoreId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4StoreId(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::getOnePage4StoreId',in:"+JSON.toJSONString(form)+"}");
+		Response response = new Response();
+		if (StringUtils.isEmpty(form.storeId) || StringUtils.isEmpty(form.status)) {
+    		response.resultCode = ErrorCode.INVALID_PARAM;
+    		response.message="参数错误";
+    	}else {
+    		try {
+				response.data = prepayService.getOnePage4StoreId(form.storeId, form.status, form.startNum, form.pageSize);
+			} catch (Exception e) {
+				response.resultCode = ErrorCode.INTERNAL_ERR;
+				response.message = "未知错误";
+				LOG.error(e.getMessage(),e);
+			}
+    	}
+		LOG.info("{method:'PrepayController:getOnePage4StoreId',out:"+JSON.toJSONString(response)+"}");
+		return response;
     }
     
     /**
@@ -120,7 +150,18 @@ public class PrepayController {
     @RequestMapping(value="/getOnePage4AcceptorId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response getOnePage4AcceptorId(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::getOnePage4AcceptorId',in:" + JSON.toJSONString(form) + "}");
+     	
+     	Response res = new Response();
+         try{
+         	res.data = prepayService.getOnePage4AcceptorId(form.acceptorId, form.status, form.startNum, form.pageSize);
+         } catch(Throwable e){
+         	res.resultCode = ErrorCode.INTERNAL_ERR;
+         	LOG.error(e.getMessage(),e);
+     	}
+         
+ 		LOG.info("{method:'PrepayController::getOnePage4AcceptorId',out:{res'" + JSON.toJSONString(res) + "'}}");
+     	return res;
     }
     
     /**
@@ -155,7 +196,18 @@ public class PrepayController {
     @RequestMapping(value="/get4ConsignmentId",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get4ConsignmentId(@RequestBody AppPrepayForm form){
-    	return null;
+    	LOG.info("{method:'PrepayController::get4ConsignmentId',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.get4ConsignmentId(form.consignmentId);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::get4ConsignmentId',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     
@@ -218,7 +270,18 @@ public class PrepayController {
     @RequestMapping(value="/get4Search",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get4Search(@RequestBody AppPrepayForm form){
-    	return null;
+        LOG.info("{method:'PrepayController::get4Search',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.get4Search(form.phone, form.storeId, form.acceptorId);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::get4Search',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**

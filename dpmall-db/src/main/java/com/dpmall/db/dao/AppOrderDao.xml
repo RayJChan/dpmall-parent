@@ -41,7 +41,6 @@
 	    <result property="RegionName" column="RegionName"/>
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
-	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 	    	<id property="id" column="itemsId"/>
@@ -167,6 +166,10 @@
 		<result property="address" column="P_STREETNAME"/>
 		<result property="operateStatus" column="P_OPERATESTATUS"/>
 		<result property="deliveryPoint" column="P_DELIVERYPOINTOFSERVICE"/>
+		<result property="RegionName" column="RegionName"/>
+	    <result property="CityName" column="CityName"/>
+	    <result property="DistrictName" column="DistrictName"/>
+	    <result property="OrderStatus" column="OrderStatus"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
 			    <result property="splitOrderType" column="splitOrderType"/>
@@ -356,21 +359,18 @@
       		  OE.P_DELIVERYCOST as deliveryCost,
    		      
    		      T2.code AS P_STATUS,
+   		      T3.code AS P_DELIVERYMETHODS,
    		      
    		      O.P_BUYERNICK,
    		      A.P_PHONE1,
    		      A.P_FIRSTNAME,
    		      A.P_STREETNAME,
    		      
-   		     
-   		      
    		      OE.P_QUANTITY as quantity,
    		      OE.P_TMALLQUANTITY as tmallQuantity,
    		      
    		      OE.P_BASEPRICE as basePrice,
    		      OE.P_TOTALPRICE as totalPrice,
-   		      
-   		      LI.P_DELIVERYMETHODS,
    		      
    		      O2O.P_CUSCOMMET,
    		      O2O.P_SERVERCOMMENT,
@@ -385,9 +385,11 @@
    		      LC.P_NAME AS P_LOGISTICSCOMPANY,
    		      C.P_TRACKINGID,
       		  
-   		       O2O.P_ACCEPTEDBY,
+   		      AU.P_CNNAME AS P_ACCEPTEDBY,
 		      O2O.P_ACCEPTEDCOMMENT,
    		      O2O.P_DELIVERYPIC,
+   		      
+   		      PS.P_DISPLAYNAME as deliveryPoint,
    		      
    		      C.P_CATEGORY as category,
    		      R.P_NAME as RegionName,
@@ -407,12 +409,15 @@
           LEFT JOIN dpsizevarproductlp DP on OE.P_PRODUCT=DP.ITEMPK
    		  LEFT JOIN DPSIZEVARPRODUCT DPT ON OE.P_PRODUCT=DPT.PK
    		  LEFT JOIN LOGISTICSCOMPANY LC ON C.P_LOGISTICSCOMPANY = LC.PK 
+   		  LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
+   		  LEFT JOIN APPUSER AU ON O2O.P_ACCEPTEDBY=AU.PK
    		  
    		  LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
    		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
    		  LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
 		  LEFT JOIN languages L ON R.LANGPK = L.pk
 		  LEFT JOIN ENUMERATIONVALUES t2 ON t2.PK=C.P_STATUS
+		  LEFT JOIN ENUMERATIONVALUES t3 ON t3.PK= LI.P_DELIVERYMETHODS
 		  LEFT JOIN COMPOSEDTYPES t1 ON t2.TYPEPKSTRING = t1.PK
           
 		  AND CLP.LANGPK = L.pk
@@ -420,7 +425,7 @@
 		  WHERE 1=1 AND
 			L.p_ISOCODE = 'zh'
             AND DP.P_NAME is not null
-            AND t1.INTERNALCODe = 'ConsignmentStatus'  
+            AND t1.INTERNALCODe in( 'DeliveryMethods' ,'ConsignmentStatus')   
 		<if test="consignmentId != null">
 		   AND C.P_CODE= #{consignmentId}
 		</if>
@@ -430,20 +435,16 @@
 	<select id="getReturnRequestDetails"  resultMap="AppOrderResultMap">
 		select 
    		      C.PK,
-   		      C.P_STATUS,
+   		      T2.code AS P_STATUS,
    		      C.P_CODE AS P_CCODE,
    		      R.P_RETURNPOLICY as deliveryMode,
-   		      C.P_LOGISTICSCOMPANY,
    		      R.P_RETURNTRACKINGNUMBER as P_TRACKINGID,
-   		      C.P_LOGISTICSINFO,
-   		      P.P_CATEGORY AS P_CATEGORY,
-   		      P.P_CODE AS code,
+   		      T3.code AS P_LOGISTICSINFO,
    		      RE.P_RETURNNUMBER AS quantity,
    		      OE.P_BASEPRICE AS basePrice,
    		      RE.P_RETURNMONEY AS payAmount,
    		      R.P_REFUNDDELIVERYCOST as deliveryCost,
    		      OE.P_SERVICEAMOUNT as serviceAmount,
-   		      OE.P_INFO as P_ICODE,
    		      A.P_FIRSTNAME,
    		      A.P_PHONE1,
    		      A.P_STREETNAME as p_streetname,
@@ -451,16 +452,18 @@
    		      R.P_CHECKOPINION as P_ACCEPTEDREFUSECOMMENT,
    		      U.P_CODE AS unit,
    		      PS.P_DISPLAYNAME as deliveryPoint,
+   		      AU.P_CNNAME AS P_ACCEPTEDBY,
+   		      DPT.P_CATEGORY as productCategory,
+   		      DPT.P_CODE as productCode,
+   		      DP.P_NAME as productName,
    		      O2O.P_RETURNSTATUS,
-   		      O2O.P_ACCEPTEDBY,
 		      O2O.P_ACCEPTEDCOMMENT,
    		      O2O.P_DELIVERYPIC,
    		      O2O.P_AGENCYCOMMENT,
    		      RG.P_NAME as RegionName,
               CLP.P_NAME as CityName,
               DLP.P_NAME as DistrictName,
-              LI.P_DELIVERYMETHODS,
-   		      LI.P_NAME,
+   		      LI.P_NAME AS P_LOGISTICSCOMPANY,
    		      ROWNUM RN
    		  from RETURNENTRY RE
    		  LEFT JOIN RETURNREQUEST R ON RE.P_RETURNREQUEST=R.PK
@@ -474,15 +477,26 @@
    		  LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
    		  LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
    		  
+   		  LEFT JOIN dpsizevarproductlp DP on OE.P_PRODUCT=DP.ITEMPK
+   		  LEFT JOIN DPSIZEVARPRODUCT DPT ON OE.P_PRODUCT=DPT.PK
+		  LEFT JOIN APPUSER AU ON O2O.P_ACCEPTEDBY=AU.PK
    		  LEFT JOIN REGIONSLP RG ON A.P_REGION =RG.itempk
    		  LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
    		  LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
 		  LEFT JOIN languages L ON RG.LANGPK = L.pk
+
+          LEFT JOIN ENUMERATIONVALUES T2 ON T2.PK = C.P_STATUS
+          LEFT JOIN ENUMERATIONVALUES T3 ON T3.PK = LI.P_DELIVERYMETHODS
+		  LEFT JOIN COMPOSEDTYPES T1 ON T2.TYPEPKSTRING = T1.PK
 		  AND CLP.LANGPK = L.pk
 		  AND DLP.LANGPK = L.pk
-   		  WHERE 1=1 AND L.p_ISOCODE = 'zh'
+		 
+   		  WHERE 1=1
+		  AND L.p_ISOCODE = 'zh'
+   		  AND T1.INTERNALCODe in('DeliveryMethods','ConsignmentStatus')
+   		  AND DP.P_NAME is not null
 		<if test="consignmentId != null">
-			AND R.P_CONSIGNMENT= #{consignmentId}
+			AND C.P_CODE= #{consignmentId}
 		</if>
 	</select>
 	
@@ -536,7 +550,7 @@
 						OE.P_DELIVERYCOST AS deliveryCost,
 						OE.P_SERVICEAMOUNT AS serviceAmount,
 						OE.p_payamount AS payAmount,
-						c.P_STATUS,
+                        T2.code AS P_STATUS,
 						OE.pk AS itemsId,
 						OE.P_PAYAMOUNT,
 						OE.P_JUNTANPRICE as juntanPrice,
@@ -544,6 +558,11 @@
 						A .p_phone1,
 						A .P_STREETNAME,
 						U .P_CODE AS unit,
+						R.P_NAME as RegionName,
+                        CLP.P_NAME as CityName,
+                        DLP.P_NAME as DistrictName,
+                        PS.P_DISPLAYNAME as P_DELIVERYPOINTOFSERVICE,
+                        T3.code AS OrderStatus,
 						ROWNUM rn
 					FROM
 						CONSIGNMENTS c
@@ -552,9 +571,32 @@
 					LEFT JOIN ORDERENTRIES OE ON CE.P_ORDERENTRY = OE.pk
 					LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
 					LEFT JOIN UNITS U ON OE.P_UNIT = U .pk
+					LEFT JOIN ORDERS O ON C.P_ORDER=O.PK
+                    LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
+					LEFT JOIN REGIONSLP R ON A.P_REGION =R.itempk
+   		            LEFT JOIN citieslp CLP ON  CLP.itempk=A.P_CITY
+   		            LEFT JOIN districtslp DLP ON DLP.itempk=A.P_CITYDISTRICT
+		            LEFT JOIN languages L ON R.LANGPK = L.pk
+                    LEFT JOIN ENUMERATIONVALUES T2 ON T2.PK = C.P_STATUS
+                    LEFT JOIN ENUMERATIONVALUES T3 ON T3.PK = O.P_STATUS
+		            LEFT JOIN COMPOSEDTYPES T1 ON T2.TYPEPKSTRING = T1.PK
+		            AND CLP.LANGPK = L.pk
+		            AND DLP.LANGPK = L.pk	
+		            
 					WHERE
-						O2O.P_ACCEPTEDBY = #{acceptorId}
-					AND c.P_STATUS = #{status}
+					 1=1
+                    AND T1.INTERNALCODe in('ConsignmentStatus','OrderStatus')
+					AND O2O.P_ACCEPTEDBY = #{acceptorId}
+					<if test='status=="1"'>
+							AND t2.code ='STOREWAIT'
+					</if>
+					<if test='status=="2"'>
+							AND t2.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
+					</if>
+					<if test='status=="3"'>
+							AND t2.code ='COMPLETED'
+					</if>
+					AND L.p_ISOCODE = 'zh'
 					AND ROWNUM &lt; ${startNum}+${pageSize}+1
 				) p1 WHERE p1.rn&gt;${startNum}
 	</select>

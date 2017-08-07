@@ -3,6 +3,7 @@ package com.dpmall.api.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,12 +54,6 @@ public class PrepayModel implements Serializable {
 	
 	/**客户姓名**/
 	public String buyerNick;
-	
-	/**商品编码**/
-	public String productCode;
-	
-	/**商品品类**/
-	public String productCategory;
 	
 	/**商品数量**/
 	public String productQuantity;
@@ -126,6 +121,9 @@ public class PrepayModel implements Serializable {
 	/**客户退货备注**/
 	public String cusRefuseComment;
 	
+	/**门店接单人拒单备注**/
+	public String acceptedRefuseComment;
+	
 	/**门店接单人**/
 	public String acceptedBy;
 	
@@ -141,8 +139,32 @@ public class PrepayModel implements Serializable {
 	/**发货方式**/
 	public String deliveryMode;
 	
+	/**汇总金额*/
+	public BigDecimal totalSum;
+	
 	/**物流公司名称*/
 	public String logisticsCompany;
+	
+	/**操作状态*/
+	public String operateStatus;
+	
+	/**返回状态*/
+	public String returnStatus;
+	
+	/**省*/
+	public String RegionName;
+
+	/**市*/
+	public String CityName;
+
+	/**区*/
+	public String DistrictName;
+	
+	/**发货备注*/
+	public String deliveryRemark;
+	
+	/**下单时间**/
+	public Date createds;
 	
 	/**订单详情**/
 	public List<Object> items=new ArrayList<Object>();

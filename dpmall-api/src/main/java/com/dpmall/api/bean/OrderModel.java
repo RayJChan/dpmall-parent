@@ -119,6 +119,9 @@ public class OrderModel implements Serializable {
 	/**客户退货备注**/
 	public String cusRefuseComment;
 	
+	/**门店接单人拒单备注**/
+	public String acceptedRefuseComment;
+	
 	/**门店接单人**/
 	public String acceptedBy;
 	
@@ -157,6 +160,9 @@ public class OrderModel implements Serializable {
 	
 	/**发货备注*/
 	public String deliveryRemark;
+	
+	/**交易状态*/
+	public String OrderStatus;
 	
 	public List<Object> items=new ArrayList<Object>();
 }
