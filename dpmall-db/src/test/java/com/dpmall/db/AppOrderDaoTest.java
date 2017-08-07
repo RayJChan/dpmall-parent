@@ -42,7 +42,7 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Test
     public void testGetOnePage4Distribute(){
 		logger.info("=====================crown=========================");
-    	List<OrderEntity> result = appOrderDao.getOnePage4Distribute("310145", "2",null, 0, 5);
+    	List<OrderEntity> result = appOrderDao.getOnePage4Distribute("310145", "1",null, 0, 1);
     	logger.info(JSON.toJSONString(result));
     }
 	

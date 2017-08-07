@@ -49,7 +49,7 @@ public class UserController {
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
-    	
+   
 
     	return res;
     

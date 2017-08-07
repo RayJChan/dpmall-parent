@@ -218,10 +218,12 @@
 		LEFT JOIN citieslp ac ON ac.itempk = A .p_city
 		LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
 		LEFT JOIN languages l ON r.LANGPK = l.pk
-		AND ac.LANGPK = l.pk
-		AND ad.LANGPK = l.pk	
+		LEFT JOIN languages l2 ON ac.LANGPK = l2.pk
+		LEFT JOIN languages l3 ON  ad.LANGPK = l3.pk	
 			where
-			l.p_ISOCODE = 'zh'
+			NVL(l.p_ISOCODE, 'zh') = 'zh'
+			AND NVL(l2.p_ISOCODE, 'zh') = 'zh'
+			AND NVL(l3.p_ISOCODE, 'zh') = 'zh'
 			AND
 			c.PK IN (
 				SELECT
@@ -291,10 +293,12 @@
 		LEFT JOIN citieslp ac ON ac.itempk = A .p_city
 		LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
 		LEFT JOIN languages l ON r.LANGPK = l.pk
-		AND ac.LANGPK = l.pk
-		AND ad.LANGPK = l.pk	
+		LEFT JOIN languages l2 ON ac.LANGPK = l2.pk
+		LEFT JOIN languages l3 ON  ad.LANGPK = l3.pk	
 			where
-			l.p_ISOCODE = 'zh'
+			NVL(l.p_ISOCODE, 'zh') = 'zh'
+			AND NVL(l2.p_ISOCODE, 'zh') = 'zh'
+			AND NVL(l3.p_ISOCODE, 'zh') = 'zh'
 			AND		
 			c.PK IN (
 				SELECT
