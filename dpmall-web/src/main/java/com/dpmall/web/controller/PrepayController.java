@@ -240,7 +240,18 @@ public class PrepayController {
     @RequestMapping(value="/get4Search",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
     public Response get4Search(@RequestBody AppPrepayForm form){
-    	return null;
+        LOG.info("{method:'PrepayController::get4Search',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+        try{
+        	res.data = prepayService.get4Search(form.phone, form.storeId, form.acceptorId);
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::get4Search',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
     }
     
     /**

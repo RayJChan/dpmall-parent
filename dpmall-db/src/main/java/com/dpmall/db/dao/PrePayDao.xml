@@ -67,6 +67,7 @@
 			<result property="productName" column="productName"/>
 			<result property="productCategory" column="productCategory"/>
 			<result property="productCode" column="productCode"/>
+			<result property="createds" column="CREATEDTS"/>
 	    </collection>
 	    
 	</resultMap>
