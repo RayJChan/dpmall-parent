@@ -174,8 +174,13 @@ public class PrepayServiceImpl implements IPrepayService {
 	}
 
 	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		List<PrePayEntity> entities = prePayDao.getOnePage4StoreId(storeId, status, offset, pageSize);
+		if (entities.isEmpty() || entities == null) {
+			return null;
+		}
+		List<PrepayModel> models = new ArrayList<PrepayModel>(entities.size());
+		models = this.entitysaleModel(entities);
+	return models;
 	}
 
 	public Integer get2StoreCount(String storeId, String status) {

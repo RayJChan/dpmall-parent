@@ -407,74 +407,148 @@
 	</select>
 	
 	<select id="getOnePage4Distribute" resultMap = "prePayResultMap">
-	SELECT
-		p1.*
-	FROM
-		(
-			SELECT
-				C.P_CODE AS P_CODE,
-				C.pk,
-				C.P_STATUS,
-				DP.P_NAME AS productName,<!-- 特权定金名称 -->
-				P .p_name AS P_DELIVERYPOINTOFSERVICE,
-				R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
-				o.CREATEDTS AS CREATEDTS,
-				ADD_MONTHS (o.CREATEDTS, 1) AS limitedTime,
-				ROWNUM rn
-			FROM
-				CONSIGNMENTS c
-			LEFT JOIN CONSIGNMENTENTRIES c2 ON C2.P_CONSIGNMENT = c.PK
-			LEFT JOIN POINTOFSERVICE P ON P .PK = c.P_DELIVERYPOINTOFSERVICE
-			LEFT JOIN ORDERS o ON o.PK = c.P_ORDER
-			LEFT JOIN ORDERENTRIES oe ON oe.P_ORDER = o.pk
-			LEFT JOIN dpsizevarproductlp DP ON OE.P_PRODUCT = DP.ITEMPK
-			LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
-			LEFT JOIN REGIONSLP r ON r.itempk = A .p_region
-			LEFT JOIN CITIESLP ac ON ac.itempk = A .p_city
-			LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
-			LEFT JOIN languages l ON r.LANGPK = l.pk
-			AND ac.LANGPK = l.pk
-			AND ad.LANGPK = l.pk
-			WHERE
-				1 = 1
-			AND l.p_ISOCODE = 'zh'
-			AND o.CREATEDTS BETWEEN TO_DATE ('2016-11-11', 'yyyy-mm-dd') AND TO_DATE ('2017-11-11', 'yyyy-mm-dd')
-			AND DP.P_NAME IS NOT NULL
-			
-			AND C.P_STATUS IN (
+		SELECT
+			p1.*
+		FROM
+			(
 				SELECT
-					t2.pk
-				FROM
-					COMPOSEDTYPES t1,
-					ENUMERATIONVALUES t2
-				WHERE
-					t1.INTERNALCODe = 'ConsignmentStatus'
-				AND t2.TYPEPKSTRING = t1.PK
-				<if test='status=="1"'>
-					AND code ='DISTRIBUTED'
-				</if>
-				<if test='status=="2"'>
-					AND code in ('TOSTORE','NOTTRADED','RECEIVE' )
-				</if>
-				<if test='status=="3"'>
-					AND code ='COMPLETED'
-				</if>
-			)
-			
-			AND c.PK IN (
-				SELECT
-					c.pk
+					C.P_CODE AS P_CODE,
+					C.pk,
+					C.P_STATUS,
+					DP.P_NAME AS productName,<!-- 特权定金名称 -->
+					P .p_name AS P_DELIVERYPOINTOFSERVICE,
+					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
+					o.CREATEDTS AS CREATEDTS,
+					ADD_MONTHS (o.CREATEDTS, 1) AS limitedTime,
+					ROWNUM rn
 				FROM
 					CONSIGNMENTS c
+				LEFT JOIN CONSIGNMENTENTRIES c2 ON C2.P_CONSIGNMENT = c.PK
+				LEFT JOIN POINTOFSERVICE P ON P .PK = c.P_DELIVERYPOINTOFSERVICE
+				LEFT JOIN ORDERS o ON o.PK = c.P_ORDER
+				LEFT JOIN ORDERENTRIES oe ON oe.P_ORDER = o.pk
+				LEFT JOIN dpsizevarproductlp DP ON OE.P_PRODUCT = DP.ITEMPK
+				LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+				LEFT JOIN REGIONSLP r ON r.itempk = A .p_region
+				LEFT JOIN CITIESLP ac ON ac.itempk = A .p_city
+				LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
+				LEFT JOIN languages l ON r.LANGPK = l.pk
+				AND ac.LANGPK = l.pk
+				AND ad.LANGPK = l.pk
 				WHERE
 					1 = 1
-				AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
-			)
-			
-			AND ROWNUM &lt; ${startNum}+${pageSize}+1
-		) p1
-	WHERE
-		1 = 1
-	AND p1.rn &gt; ${startNum}
+				AND l.p_ISOCODE = 'zh'
+				AND o.CREATEDTS BETWEEN TO_DATE ('2016-11-11', 'yyyy-mm-dd') AND TO_DATE ('2017-11-11', 'yyyy-mm-dd')
+				AND DP.P_NAME IS NOT NULL
+				
+				AND C.P_STATUS IN (
+					SELECT
+						t2.pk
+					FROM
+						COMPOSEDTYPES t1,
+						ENUMERATIONVALUES t2
+					WHERE
+						t1.INTERNALCODe = 'ConsignmentStatus'
+					AND t2.TYPEPKSTRING = t1.PK
+					<if test='status=="1"'>
+						AND code ='DISTRIBUTED'
+					</if>
+					<if test='status=="2"'>
+						AND code in ('TOSTORE','NOTTRADED' )
+					</if>
+					<if test='status=="3"'>
+						AND code ='COMPLETED'
+					</if>
+				)
+				
+				AND c.PK IN (
+					SELECT
+						c.pk
+					FROM
+						CONSIGNMENTS c
+					WHERE
+						1 = 1
+					AND c.P_ALLOCATIONEMPLOYEECODE = #{distributorId}
+				)
+				
+				AND ROWNUM &lt; ${startNum}+${pageSize}+1
+			) p1
+		WHERE
+			1 = 1
+		AND p1.rn &gt; ${startNum}
 	</select>
+	
+	<select id="getOnePage4StoreId" resultMap = "prePayResultMap">
+		SELECT
+			p1.*
+		FROM
+			(
+				SELECT
+					C.P_CODE AS P_CODE,
+					C.pk,
+					C.P_STATUS,
+					DP.P_NAME AS productName,<!-- 特权定金名称 -->
+					P .p_name AS P_DELIVERYPOINTOFSERVICE,
+					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
+					o.CREATEDTS AS CREATEDTS,
+					ADD_MONTHS (o.CREATEDTS, 1) AS limitedTime,
+					ROWNUM rn
+				FROM
+					CONSIGNMENTS c
+				LEFT JOIN CONSIGNMENTENTRIES c2 ON C2.P_CONSIGNMENT = c.PK
+				LEFT JOIN POINTOFSERVICE P ON P .PK = c.P_DELIVERYPOINTOFSERVICE
+				LEFT JOIN ORDERS o ON o.PK = c.P_ORDER
+				LEFT JOIN ORDERENTRIES oe ON oe.P_ORDER = o.pk
+				LEFT JOIN dpsizevarproductlp DP ON OE.P_PRODUCT = DP.ITEMPK
+				LEFT JOIN ADDRESSES A ON c.P_SHIPPINGADDRESS = A .pk
+				LEFT JOIN REGIONSLP r ON r.itempk = A .p_region
+				LEFT JOIN CITIESLP ac ON ac.itempk = A .p_city
+				LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
+				LEFT JOIN languages l ON r.LANGPK = l.pk
+				AND ac.LANGPK = l.pk
+				AND ad.LANGPK = l.pk
+				WHERE
+					1 = 1
+				AND l.p_ISOCODE = 'zh'
+				AND o.CREATEDTS BETWEEN TO_DATE ('2016-11-11', 'yyyy-mm-dd') AND TO_DATE ('2017-11-11', 'yyyy-mm-dd')
+				AND DP.P_NAME IS NOT NULL
+				
+				AND C.P_STATUS IN (
+					SELECT
+						t2.pk
+					FROM
+						COMPOSEDTYPES t1,
+						ENUMERATIONVALUES t2
+					WHERE
+						t1.INTERNALCODe = 'ConsignmentStatus'
+					AND t2.TYPEPKSTRING = t1.PK
+					<if test='status=="1"'>
+						AND code ='DISTRIBUTED'
+					</if>
+					<if test='status=="2"'>
+						AND code in ('TOSTORE','NOTTRADED' )
+					</if>
+					<if test='status=="3"'>
+						AND code ='COMPLETED'
+					</if>
+				)
+				
+				AND c.PK IN (
+					SELECT
+						c.pk
+					FROM
+						CONSIGNMENTS c
+					WHERE
+						1 = 1
+					AND c.P_DELIVERYPOINTOFSERVICE = #{storeId}
+				)
+				
+				AND ROWNUM &lt; ${startNum}+${pageSize}+1
+			) p1
+		WHERE
+			1 = 1
+		AND p1.rn &gt; ${startNum}
+	</select>
+	
+	
 </mapper>

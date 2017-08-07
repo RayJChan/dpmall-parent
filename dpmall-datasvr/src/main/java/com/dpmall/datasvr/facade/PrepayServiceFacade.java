@@ -71,8 +71,16 @@ public class PrepayServiceFacade implements IPrepayService {
 	}
 
 	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',in:{storeId:'"+storeId+",status:"+status+",offset:"+offset+",pageSize:"+pageSize+"'}}");
+		}
+		List<PrepayModel> out = prepayService.getOnePage4StoreId(storeId, status, offset, pageSize);
+		
+		if(LOG.isDebugEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
+		}
+		
+		return out;
 	}
 
 	public Integer get2StoreCount(String storeId, String status) {
