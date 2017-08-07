@@ -365,4 +365,42 @@
 					AND ROWNUM &lt; ${startNum}+${pageSize}+1
 				) p1 WHERE p1.rn&gt;${startNum}
 	</select>
+	
+	<select id="get4Search"  resultMap="prePayResultMap">
+		select 
+   		      C.PK,
+   		      
+   		      C.P_SHIPPINGADDRESS,
+              
+              DP.P_NAME as productName,
+              C.CREATEDTS,
+              A.P_PHONE1,
+   		      A.P_FIRSTNAME,
+   		      PS.P_DISPLAYNAME as deliveryPoint,	
+   		      ROWNUM RN
+   		      from CONSIGNMENTS C 
+   		  LEFT JOIN ADDRESSES A ON C.P_SHIPPINGADDRESS=A.PK
+		
+   		  LEFT JOIN LOGISTICSINFO LI ON C.P_LOGISTICSINFO=LI.PK
+   		  LEFT JOIN O2OCONSIGNMENTITEMS O2O ON C.PK=O2O.P_CONSIGNMENT
+   		  LEFT JOIN ORDERS O ON C.P_ORDER=O.PK
+   		  LEFT JOIN ORDERENTRIES OE ON OE.P_ORDER=O.PK
+          LEFT JOIN dpsizevarproductlp DP on OE.P_PRODUCT=DP.ITEMPK
+   		  LEFT JOIN LOGISTICSCOMPANY LC ON C.P_LOGISTICSCOMPANY = LC.PK 
+   		  LEFT JOIN POINTOFSERVICE PS ON C.P_DELIVERYPOINTOFSERVICE=PS.PK
+   		  LEFT JOIN APPUSER AU ON O2O.P_ACCEPTEDBY=AU.PK
+   		  
+		  LEFT JOIN ENUMERATIONVALUES t2 ON t2.PK=C.P_STATUS
+		  LEFT JOIN COMPOSEDTYPES t1 ON t2.TYPEPKSTRING = t1.PK
+          
+		  WHERE 1=1
+            AND DP.P_NAME is not null
+            AND t1.INTERNALCODe = 'ConsignmentStatus'  
+		<if test="phone != null">
+		   AND A.P_PHONE1= #{phone}
+		</if>
+		<if test="acceptorId != null">
+		   AND O2O.P_ACCEPTEDBY= #{acceptorId}
+		</if>
+	</select>
 </mapper>
