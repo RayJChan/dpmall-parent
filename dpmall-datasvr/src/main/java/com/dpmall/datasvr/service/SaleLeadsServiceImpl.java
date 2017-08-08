@@ -12,16 +12,21 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.dpmall.api.ISaleLeadsService;
+import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.bean.SaleLeadsModel;
 import com.dpmall.api.common.TimeScope;
 import com.dpmall.api.param.SaleLeadStatisticParam;
 import com.dpmall.common.DateUtils;
 import com.dpmall.db.bean.SalesLeadsOperationEntity;
 import com.dpmall.db.bean.SalesLeadsOrderEntity;
+import com.dpmall.db.bean.SalesLeadsOrderItemEntity;
 import com.dpmall.db.dao.SalesLeadsOperationDao;
 import com.dpmall.db.dao.SalesLeadsOrderDao;
+import com.dpmall.db.dao.SalesLeadsOrderItemDao;
 
 public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	
@@ -32,6 +37,9 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	
 	@Autowired
 	private SalesLeadsOperationDao salesLeadsOperationDao;
+	
+	@Autowired
+	private  SalesLeadsOrderItemDao salesLeadsOrderItemDao; 
 	/**
 	 * 把entity转换成model
 	 * @param entity 需要转换的entity
@@ -63,7 +71,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		model.style=entity.style;
 		model.total=entity.total==null?null:entity.total.doubleValue();
 		model.orderCode=entity.orderCode;
+		model.acceptStore=entity.acceptStore;
 		model.storeAcceptorRemark=entity.storeAcceptorRemark;
+		model.agencyRemark=entity.agencyRemark;
+		model.storeAcceptor=entity.storeAcceptor;
+		model.brand=entity.brand;
+		model.arriveDate=entity.arriveDate;
 		return model;
 		
 	}
@@ -99,15 +112,24 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.style=model.style;
 		entity.total=model.total==null?null:new BigDecimal(model.total);
 		entity.orderCode=model.orderCode;
+		entity.acceptStore=model.acceptStore;
 		entity.storeAcceptorRemark=model.storeAcceptorRemark;
+		entity.agencyRemark=model.agencyRemark;
+		entity.storeAcceptor=model.storeAcceptor;
+		entity.brand=model.brand;
+		entity.arriveDate=model.arriveDate;
 		return entity;
 	}
 
 	public List<SaleLeadsModel> getOnePage4Distribute(String distributorId, Integer startNum, Integer pageSize) {
 		// TODO Auto-generated method stub
 		List<SaleLeadsModel> out = null;
-
-		List<SalesLeadsOrderEntity> outEntityList = salesLeadsOrderDao.getOnePage4Distribute(Long.valueOf(distributorId),startNum,pageSize);
+		List<SalesLeadsOrderEntity> outEntityList = null;
+		if(StringUtils.isEmpty(distributorId)){
+			outEntityList = salesLeadsOrderDao.getOnePage4Distribute(null,startNum,pageSize);
+		}else{
+			outEntityList = salesLeadsOrderDao.getOnePage4Distribute(Long.valueOf(distributorId),startNum,pageSize);
+		}
 		if(outEntityList == null || outEntityList.isEmpty()){
 			return null;
 		}
@@ -132,7 +154,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 
 	public Integer get2DistributeCount(String distributorId) {
 		// TODO Auto-generated method stub
-		Integer result = salesLeadsOrderDao.get2DistributeCount(Integer.valueOf(distributorId));
+		Integer result = salesLeadsOrderDao.get2DistributeCount(distributorId);
 		return result;
 	}
 
@@ -247,6 +269,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * @param model 传入的model
 	 * @return 1为更新成功， 0 为失败
 	 * **/
+	@Transactional
 	public int edit(SaleLeadsModel model) {
 		SalesLeadsOrderEntity entity = null;
 		try {
@@ -259,6 +282,14 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		operationEntity.operatorType="edit";
 		operationEntity.salesLeadsOrder=String.valueOf(model.id);
 		operationEntity.operatorBy="1111";
+		for(SaleLeadsGoodsModel goodsModel:model.orderItemList) {
+			SalesLeadsOrderItemEntity itemEntity = new SalesLeadsOrderItemEntity();
+			itemEntity.catetory=goodsModel.catetory;
+			itemEntity.dealPrice=new BigDecimal(goodsModel.dealPrice);
+			itemEntity.orderId=Long.parseLong(goodsModel.orderItemId);
+			itemEntity.quantity=goodsModel.itemNum;
+			salesLeadsOrderItemDao.insert(itemEntity);
+		}
 		salesLeadsOperationDao.insert(operationEntity);
 		int result=salesLeadsOrderDao.edit(entity);	
 		// TODO Auto-generated method stub

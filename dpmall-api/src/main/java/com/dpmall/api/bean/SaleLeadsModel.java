@@ -1,6 +1,8 @@
 package com.dpmall.api.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -106,9 +108,15 @@ public class SaleLeadsModel  implements Serializable {
 	
 	/**订单编码*/
 	public String orderCode;
+	
+	/**接单店铺*/
+	public String acceptStore;
+	
+	/**到店时间*/
+	public Date arriveDate;
 
 	
 	/**成交商品列表*/
-	public List<SaleLeadsGoodsModel> orderItemList;
+	public List<SaleLeadsGoodsModel> orderItemList=new ArrayList<SaleLeadsGoodsModel>();;
 	
 }

@@ -3,7 +3,7 @@ package com.dpmall.api.bean;
 import java.io.Serializable;
 
 /**
- * 订单明细
+ * 留资订单明细
  * @author river
  * @since 2017-07-10
  */
@@ -28,4 +28,13 @@ public class OrderItemModel implements Serializable {
 	
 	/**价格*/
 	public Double price;
+	
+	/**商品编码**/
+	public String productCode;
+	
+	/**商品品类**/
+	public String productCategory;
+	
+	/**商品名称**/
+	public String productName;
 }

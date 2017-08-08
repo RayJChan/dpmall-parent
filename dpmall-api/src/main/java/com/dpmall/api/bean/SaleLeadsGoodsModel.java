@@ -25,4 +25,7 @@ public class SaleLeadsGoodsModel implements Serializable {
 	
 	/**成交价格*/
 	public Double dealPrice;
+	
+	/**品类**/
+	public String catetory;
 }

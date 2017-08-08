@@ -3,6 +3,8 @@ package com.dpmall.db.bean;
 import java.util.Date;
 
 public class SalesLeadsOperationEntity {
+	
+	
 	/**操作记录ID*/
 	public int operateId;
 	

@@ -34,101 +34,110 @@
 		<result property="storeAcceptorName" column="P_ACCEPTORNAME"/>
 		<result property="storeAcceptorRemark" column="P_STOREACCEPTORREMARK"/>
 		<result property="orderCode" column="P_ORDERCODE"/>
+		<result property="acceptStore" column="P_ACCEPTSTORE"/>
+		<result property="arriveDate" column="P_ACTUALDATE"/>
 	</resultMap>
 	<select id="getOnePage4Distribute"  resultMap="SalesLeadsOrderEntity">
 		select 
-			PK,
-			P_SALESLEADS,
-			P_AGENCY,
-			P_SALESLEADSORDERSTATUS,
-			P_RESOLVED,
-			P_DISTRIBUTEDATE,
-			P_DISTRIBUTER,
-			P_AGENCYACCEPTDATE,
-			P_AGENCYACCEPT,
-			P_REFUSEDATE,
-			P_SUGGESTSTORE,
-			P_CUSADDRESS,
-			P_ACCEPTSTORE,
-			P_ACCEPTBY,
-			P_ACCEPTDATE,
-			P_APPOINTMENTDATE,
-			P_ACTUALDATE,
-			P_AMOUNT,
-			P_ORDERPICTURE,
-			P_TELEPHONE,
-			P_NAME,
-			P_FITMENTDATE,
-			P_STYLEPREFERENCE,
-			P_COMMENT,
-			P_BRANDPREFERENCE,
-			P_BUDGET,
-			P_HANDLER,
-			P_HANDLERCOMMENT,
-			P_CLOSEDATE,
-			P_CLOSEREASON,
-			P_REFUSEDATE,
-			P_REFUSETYPE,
-			P_REFUSEREASON,
-			P_SERVERADDRESS,
-			P_SERVERPURPOSE,
-			P_SERVICETITLE,
-			P_CALLSERVICETEL,
-			P_AGENCYOPERATEDATE,
-			P_STOREACCEPTORREMARK,
+			SO.PK,
+			SO.P_SALESLEADS,
+			SO.P_AGENCY,
+			SO.P_SALESLEADSORDERSTATUS,
+			SO.P_RESOLVED,
+			SO.P_DISTRIBUTEDATE,
+			SO.P_DISTRIBUTER,
+			SO.P_AGENCYACCEPTDATE,
+			A.P_NAME AS P_AGENCYACCEPT,
+			SO.P_REFUSEDATE,
+			SO.P_SUGGESTSTORE,
+			SO.P_CUSADDRESS,
+			SO.P_ACCEPTSTORE,
+			SO.P_ACCEPTBY,
+			SO.P_ACCEPTDATE,
+			SO.P_APPOINTMENTDATE,
+			SO.P_ACTUALDATE,
+			SO.P_AMOUNT,
+			SO.P_ORDERPICTURE,
+			SO.P_TELEPHONE,
+			SO.P_NAME,
+			SO.P_FITMENTDATE,
+			SO.P_STYLEPREFERENCE,
+			SO.P_COMMENT,
+			SO.P_BRANDPREFERENCE,
+			SO.P_BUDGET,
+			SO.P_HANDLER,
+			SO.P_HANDLERCOMMENT,
+			SO.P_CLOSEDATE,
+			SO.P_CLOSEREASON,
+			SO.P_REFUSEDATE,
+			SO.P_REFUSETYPE,
+			SO.P_REFUSEREASON,
+			SO.P_SERVERADDRESS,
+			SO.P_SERVERPURPOSE,
+			SO.P_SERVICETITLE,
+			SO.P_CALLSERVICETEL,
+			SO.P_AGENCYOPERATEDATE,
+			SO.P_STOREACCEPTORREMARK,
+			PS.P_DISPLAYNAME AS P_RECOMMENDSTORENAME,
 			ROWNUM RN
-		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS='0'
+		from SALESLEADSORDER SO
+		left join POINTOFSERVICE PS on PS.PK=SO.P_SUGGESTSTORE 
+		LEFT JOIN AGENCY A on A.PK=SO.P_AGENCY 
+		where 1= 1 AND SO.P_SALESLEADSORDERSTATUS='0'
 		<if test="agency != null">
-		    AND P_DISTRIBUTER = ${agency} 
+		    AND SO.P_DISTRIBUTER = ${agency} 
 		</if>
 		AND  ROWNUM between ${startNum} and ${pageSize}
 	</select>
 	
 	<select id="getOnePage4Followup"  resultMap="SalesLeadsOrderEntity">
 		select 
-			PK,
-			P_SALESLEADS,
-			P_AGENCY,
-			P_SALESLEADSORDERSTATUS,
-			P_RESOLVED,
-			P_DISTRIBUTEDATE,
-			P_DISTRIBUTER,
-			P_AGENCYACCEPTDATE,
-			P_AGENCYACCEPT,
-			P_REFUSEDATE,
-			P_SUGGESTSTORE,
-			P_CUSADDRESS,
-			P_ACCEPTSTORE,
-			P_ACCEPTBY,
-			P_ACCEPTDATE,
-			P_APPOINTMENTDATE,
-			P_ACTUALDATE,
-			P_AMOUNT,
-			P_ORDERPICTURE,
-			P_TELEPHONE,
-			P_NAME,
-			P_FITMENTDATE,
-			P_STYLEPREFERENCE,
-			P_COMMENT,
-			P_BRANDPREFERENCE,
-			P_BUDGET,
-			P_HANDLER,
-			P_HANDLERCOMMENT,
-			P_CLOSEDATE,
-			P_CLOSEREASON,
-			P_REFUSEDATE,
-			P_REFUSETYPE,
-			P_REFUSEREASON,
-			P_SERVERADDRESS,
-			P_SERVERPURPOSE,
-			P_SERVICETITLE,
-			P_CALLSERVICETEL,
-			P_AGENCYOPERATEDATE,
-			P_STOREACCEPTORREMARK,
+			SO.PK,
+			SO.P_SALESLEADS,
+			SO.P_AGENCY,
+			SO.P_SALESLEADSORDERSTATUS,
+			SO.P_RESOLVED,
+			SO.P_DISTRIBUTEDATE,
+			SO.P_DISTRIBUTER,
+			SO.P_AGENCYACCEPTDATE,
+			SO.P_AGENCYACCEPT,
+			SO.P_REFUSEDATE,
+			SO.P_SUGGESTSTORE,
+			SO.P_CUSADDRESS,
+			SO.P_ACCEPTSTORE,
+			SO.P_ACCEPTBY,
+			SO.P_ACCEPTDATE,
+			SO.P_APPOINTMENTDATE,
+			SO.P_ACTUALDATE,
+			SO.P_AMOUNT,
+			SO.P_ORDERPICTURE,
+			SO.P_TELEPHONE,
+			SO.P_NAME,
+			SO.P_FITMENTDATE,
+			SO.P_STYLEPREFERENCE,
+			SO.P_COMMENT,
+			SO.P_BRANDPREFERENCE,
+			SO.P_BUDGET,
+			SO.P_HANDLER,
+			SO.P_HANDLERCOMMENT,
+			SO.P_CLOSEDATE,
+			SO.P_CLOSEREASON,
+			SO.P_REFUSEDATE,
+			SO.P_REFUSETYPE,
+			SO.P_REFUSEREASON,
+			SO.P_SERVERADDRESS,
+			SO.P_SERVERPURPOSE,
+			SO.P_SERVICETITLE,
+			SO.P_CALLSERVICETEL,
+			SO.P_AGENCYOPERATEDATE,
+			SO.P_STOREACCEPTORREMARK,
+			PS.P_DISPLAYNAME AS P_RECOMMENDSTORENAME,
 			ROWNUM RN
-		from SALESLEADSORDER where 1= 1 AND P_SALESLEADSORDERSTATUS in ('10','15','20','23')
+		from SALESLEADSORDER SO 
+		left join POINTOFSERVICE PS on PS.PK=SO.P_SUGGESTSTORE
+		where 1= 1 AND SO.P_SALESLEADSORDERSTATUS in ('10','15','20','23')
 		<if test="distributorId != null">
-		    AND P_DISTRIBUTER = #{distributorId} 
+		    AND SO.P_DISTRIBUTER = #{distributorId}
 		</if>
 		AND  ROWNUM between ${startNum} and ${pageSize}
 	</select>
@@ -181,10 +190,14 @@
 			SO.P_CALLSERVICETEL,
 			SO.P_AGENCYOPERATEDATE,
 			SO.P_STOREACCEPTORREMARK,
+			SO.P_AGENCYREMARK,
+			SO.P_BRANDPREFERENCE,
 			PS.P_DISPLAYNAME AS P_RECOMMENDSTORENAME,
+			AU.P_CNNAME AS P_ACCEPTORNAME,
 			ROWNUM RN
 		from SALESLEADSORDER SO
-		left join POINTOFSERVICE PS on PS.PK=SO.P_SUGGESTSTORE where 1= 1 
+		left join POINTOFSERVICE PS on PS.PK=SO.P_SUGGESTSTORE
+		left join APPUSER AU on AU.P_AGENCY=SO.P_AGENCY where 1= 1 
 		<if test="saleLeadsId != null">
 		    AND SO.PK = ${saleLeadsId} 
 		</if>
@@ -295,6 +308,7 @@
 
 	<sql id="baseSql">
 		SELECT
+			S.P_STOREACCEPTORREMARK,
 			S.P_APPOINTMENTDATE,
 			S.P_BUDGET,
 			S.P_HANDLERCOMMENT,
@@ -437,6 +451,7 @@
 	<update id="distribute">
 	    update salesleadsorder set
 			p_suggeststore=${shopId},
+			p_acceptstore=${shopId},
 			p_distributedate=sysdate,
 			p_salesleadsorderstatus='10'
 		where pk=${saleLeadsId}					
@@ -508,6 +523,9 @@
 			<if test='entity.saleLeadsStatus=="23"'>
 				P_ACTUALDATE=sysdate,
 			</if>
+			<if test='entity.saleLeadsStatus=="25"'>
+				P_CLOSEDATE=sysdate,
+			</if>
 			<if test="entity.total!=null">
 				P_AMOUNT=${entity.total},
 			</if>	
@@ -522,7 +540,10 @@
 			</if>
 			<if test="entity.storeAcceptorRemark!=null">
 				P_STOREACCEPTORREMARK=#{entity.storeAcceptorRemark},
-			</if> 
+			</if>
+			<if test="entity.acceptStore!=null">
+				P_ACCEPTSTORE=#{entity.acceptStore},
+			</if>  
 		</set>
 			<if test="entity.id!=null">
 				where PK=${entity.id}
