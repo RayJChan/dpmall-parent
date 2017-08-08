@@ -64,7 +64,6 @@
 			<result property="payAmount" column="payAmount"/>
 			<result property="juntanPrice" column="juntanPrice"/>
 			<result property="serviceAmount" column="serviceAmount"/>
-			<result property="productName" column="productName"/>
 			<result property="productCategory" column="productCategory"/>
 			<result property="productCode" column="productCode"/>
 			<result property="createds" column="CREATEDTS"/>
@@ -299,7 +298,7 @@
               DLP.P_NAME as DistrictName,
               DPT.P_CODE as productCode,
               DPT.P_CATEGORY as productCategory,
-              DP.P_NAME as productName,
+              DP.P_NAME as name,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 
    		  LEFT JOIN ADDRESSES A ON C.P_SHIPPINGADDRESS=A.PK
@@ -401,7 +400,7 @@
    		      C.P_SHIPPINGADDRESS,
               
               DP.P_NAME as name,
-              C.CREATEDTS,
+              C.CREATEDTS as limitedTime,
               A.P_PHONE1,
    		      A.P_FIRSTNAME,
    		      PS.P_DISPLAYNAME as deliveryPoint,	
