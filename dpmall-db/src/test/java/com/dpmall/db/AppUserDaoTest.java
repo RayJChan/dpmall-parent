@@ -49,4 +49,9 @@ public class AppUserDaoTest extends SpringTestCase {
 		
 		LOG.info(JSON.toJSONString(appUserDao.getStoreAllUser(2L)));
 	}
+	@Test
+	public void getStoreAllUserTest4() {
+		
+		LOG.info(JSON.toJSONString(appUserDao.getStoreAllUser(2L)));
+	}
 }
