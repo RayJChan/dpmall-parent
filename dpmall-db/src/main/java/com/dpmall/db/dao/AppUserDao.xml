@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<select id="login" resultMap="AppUserResultMap" >
-		select * from APPUSER where P_USERNAME=#{username} and P_PASSSWD=#{passwd}
+		select * from APPUSER where PK=#{username} and P_PASSSWD=#{passwd}
 	</select>
 	
 	<insert id="createStoreUser">

@@ -15,9 +15,14 @@ public class UserServiceFacadeTest extends SpringTestCase {
 	
 	@Autowired
 	private IUserService userService;
-	@Autowired
+	
 	@Test
 	public void test() {
 		Logger.info(JSON.toJSONString(userService.getStoreAllUser(2L)));
+	}
+	
+	@Test
+	public void testLogin() {
+		System.out.println("result:"+userService.login("14", "123456")==null);
 	}
 }

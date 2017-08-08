@@ -7,9 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import com.dpmall.db.bean.AppUserEntity;
 
 public interface AppUserDao {
-	/*AppUserEntity login(@Param("username")String username, @Param("passwd")String passwd);
+	AppUserEntity login(@Param("username")String username, @Param("passwd")String passwd);
 	
-	 int createStoreUser(@Param("user")AppUserEntity user);
+	/** int createStoreUser(@Param("user")AppUserEntity user);
 	
 	 int updateUser(@Param("user")AppUserEntity user);*/
 	 

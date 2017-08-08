@@ -20,8 +20,14 @@ public class UserServiceFacade implements IUserService {
 	private IUserService userService;
 
 	public LoginResModel login(String username, String passwd) {
-		// TODO Auto-generated method stub
-		return null;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'UserServiceFacade::getStoreAllUser',in:{username:'" + username + "passwd:"+passwd+"'}}");
+		}
+		LoginResModel result = userService.login(username, passwd);
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'UserServiceFacade::getStoreAllUser',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 
 	public int createStoreUser(UserModel usr) {

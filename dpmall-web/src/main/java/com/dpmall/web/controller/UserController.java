@@ -1,5 +1,8 @@
 package com.dpmall.web.controller;
 
+import java.util.UUID;
+
+import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dpmall.api.IUserService;
+import com.dpmall.api.bean.LoginResModel;
 import com.dpmall.api.bean.UserModel;
 import com.dpmall.api.err.ErrorCode;
+import com.dpmall.utils.RedisUtils;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.controller.form.UserForm;
 import com.dpmall.web.mock.UserServiceMock;
+
+import redis.clients.jedis.Jedis;
 
 /**
  * <p>
@@ -29,6 +36,8 @@ public class UserController {
 	
 	private IUserService userServiceMock = new UserServiceMock();
 	
+	private Jedis jedis=RedisUtils.getClient();
+	
 	@Autowired
 	private IUserService userService;
 	
@@ -41,14 +50,27 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
 	@ResponseBody
-    public Response login(String username, String passwd){
+    public Response login(@RequestBody UserForm form){
     	Response res = new Response();
     
         try{
-        	res.data = userServiceMock.login(username, passwd);
+        	LoginResModel resModel = userService.login(form.username, form.password);
+        	if (resModel==null) {
+				res.resultCode=ErrorCode.LOGIN_ERR;
+				res.message="用户名或密码错误";				
+			} else {
+				String token=UUID.randomUUID().toString().replaceAll("-", "")+RandomUtils.nextInt(0, 100);;
+				resModel.token=token;
+				res.data=resModel;
+				res.resultCode=ErrorCode.SUCCESS;
+				jedis.set(token, String.valueOf(resModel.id));
+			}
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
+        finally {
+			jedis.close();
+		}
    
 
     	return res;

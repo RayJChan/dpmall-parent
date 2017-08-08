@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.common.SpringTestCase;
+import com.dpmall.db.bean.AppUserEntity;
 import com.dpmall.db.dao.AppUserDao;
 
 public class AppUserDaoTest extends SpringTestCase {
@@ -15,12 +16,12 @@ public class AppUserDaoTest extends SpringTestCase {
 	@Autowired
 	private AppUserDao appUserDao;
 	
-	/*@Test
+	@Test
 	public void testLogin() {
-		AppUserEntity entity =appUserDao.login("123", "123");
-		LOG.info(JSON.toJSONString(entity));
+		AppUserEntity entity =appUserDao.login("6", "123456");
+		System.out.println("result:"+String.valueOf(entity==null));
 	}
-	
+	/*
 	@Test
 	public void  createStoreUserTest() {
 		AppUserEntity entity=new AppUserEntity();

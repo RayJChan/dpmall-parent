@@ -26,10 +26,28 @@ public class UserServiceImpl implements IUserService {
 		model.username=entity.username;
 		return model;
 	}
+	
+	private LoginResModel entityToLoginModel(AppUserEntity entity) {
+		LoginResModel model=new LoginResModel();
+		model.id=entity.id;
+		model.agencyId=entity.agencyId;
+		model.cnName=entity.cnName;
+		model.roleCode=entity.roleCode;
+		model.storeId=entity.storeId;
+		model.username=entity.username;
+		return model;
+	}
 
 	public LoginResModel login(String username, String passwd) {
-		// TODO Auto-generated method stub
-		return null;
+		AppUserEntity entity= userDao.login(username, passwd);
+		if (entity==null) {
+			return null;
+		}
+		else {
+			LoginResModel result = entityToLoginModel(entity);
+			return result;
+		}
+		
 	}
 
 	public int createStoreUser(UserModel usr) {
