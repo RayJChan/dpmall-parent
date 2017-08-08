@@ -170,6 +170,7 @@
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="OrderStatus" column="OrderStatus"/>
+	    <result property="salesapplication" column="salesapplication"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
 			    <result property="splitOrderType" column="splitOrderType"/>
@@ -198,6 +199,7 @@
 		SELECT
 			c.p_code,
 			c.pk,
+			E2.code as salesapplication,
 			p.p_name as P_DELIVERYPOINTOFSERVICE,
 			o2.P_DELIVERYCOST AS deliveryCost,
 			o2.P_SERVICEAMOUNT AS serviceAmount,
@@ -222,7 +224,8 @@
 		LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
 		LEFT JOIN languages l ON r.LANGPK = l.pk
 		LEFT JOIN languages l2 ON ac.LANGPK = l2.pk
-		LEFT JOIN languages l3 ON  ad.LANGPK = l3.pk	
+		LEFT JOIN languages l3 ON  ad.LANGPK = l3.pk
+		LEFT JOIN ENUMERATIONVALUES E2 ON o.P_SALESAPPLICATION = E2 .PK
 			where
 			NVL(l.p_ISOCODE, 'zh') = 'zh'
 			AND NVL(l2.p_ISOCODE, 'zh') = 'zh'
@@ -275,6 +278,7 @@
 			c.pk,
 			p.p_name as P_DELIVERYPOINTOFSERVICE,
 			o2.P_DELIVERYCOST AS deliveryCost,
+			E2.code as salesapplication,
 			o2.P_SERVICEAMOUNT AS serviceAmount,
 			o2.p_payamount AS payAmount,
 			O.P_OPERATESTATUS as P_OPERATESTATUS,
@@ -297,7 +301,8 @@
 		LEFT JOIN districtslp ad ON ad.itempk = A .p_citydistrict
 		LEFT JOIN languages l ON r.LANGPK = l.pk
 		LEFT JOIN languages l2 ON ac.LANGPK = l2.pk
-		LEFT JOIN languages l3 ON  ad.LANGPK = l3.pk	
+		LEFT JOIN languages l3 ON  ad.LANGPK = l3.pk
+		LEFT JOIN ENUMERATIONVALUES E2 ON o.P_SALESAPPLICATION = E2 .PK	
 			where
 			NVL(l.p_ISOCODE, 'zh') = 'zh'
 			AND NVL(l2.p_ISOCODE, 'zh') = 'zh'

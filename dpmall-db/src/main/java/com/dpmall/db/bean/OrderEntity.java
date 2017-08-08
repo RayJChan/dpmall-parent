@@ -119,7 +119,7 @@ public class OrderEntity {
 	/**运费**/
 	public BigDecimal deliveryCost;
 	
-	/**站方*/
+	/**订单来源*/
 	public String salesApplication;
 	
 	/**均摊金额*/
@@ -166,5 +166,6 @@ public class OrderEntity {
 	
 	/**orderEntry**/
 	public List<OrderItemEntity> items;
+	
 	
 }

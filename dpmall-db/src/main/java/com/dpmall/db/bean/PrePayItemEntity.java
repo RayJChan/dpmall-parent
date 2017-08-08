@@ -77,14 +77,12 @@ public class PrePayItemEntity implements Serializable{
 	/**商品品类**/
 	public String productCategory;
 	
-	/**商品名称**/
-	public String productName;
 	
 	/**下单时间**/
 	public Date createds;
 	
 	
-	/**下单时间**/
+	/**限制时间**/
 	public Date limitedTime;
 
 }

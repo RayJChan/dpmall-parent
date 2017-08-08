@@ -82,7 +82,5 @@ public class OrderItemEntity implements Serializable{
 	/**商品品类**/
 	public String productCategory;
 	
-	/**商品名称**/
-	public String productName;
-
+	
 }

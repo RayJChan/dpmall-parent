@@ -92,7 +92,7 @@ public class OrderModel implements Serializable {
 	/**运费**/
 	public BigDecimal deliveryCost;
 	
-	/**站方*/
+	/**订单来源*/
 	public String salesApplication;
 	
 	/**均摊金额*/
@@ -165,4 +165,5 @@ public class OrderModel implements Serializable {
 	public String OrderStatus;
 	
 	public List<Object> items=new ArrayList<Object>();
+
 }
