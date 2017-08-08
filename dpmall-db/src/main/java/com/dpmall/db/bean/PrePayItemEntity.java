@@ -71,12 +71,6 @@ public class PrePayItemEntity implements Serializable{
 	/**服务费**/
 	public BigDecimal serviceAmount;
 	
-	/**商品编码**/
-	public String productCode;
-	
-	/**商品品类**/
-	public String productCategory;
-	
 	
 	/**下单时间**/
 	public Date createds;

@@ -340,7 +340,7 @@
 					SELECT
 						c.p_code,
 						c.pk,
-						DP.P_NAME as productName,
+						DP.P_NAME as name,
 						R.P_NAME as RegionName,
                         CLP.P_NAME as CityName,
                         DLP.P_NAME as DistrictName,
@@ -353,7 +353,7 @@
 						OE.P_DELIVERYCOST AS deliveryCost,
 						OE.P_SERVICEAMOUNT AS serviceAmount,
 						OE.P_payAmount AS payAmount,
-						PS.P_DISPLAYNAME as P_DELIVERYPOINTOFSERVICE,
+						PS.P_DISPLAYNAME as deliveryPoint,
                         T3.code AS OrderStatus,
 						ROWNUM rn
 					FROM
@@ -382,7 +382,7 @@
 					AND DP.P_NAME is not null
                     AND T1.INTERNALCODe in('ConsignmentStatus','OrderStatus')
 					AND O2O.P_ACCEPTEDBY = #{acceptorId}
-					AND     C.P_SPLITORDERTYPE = 'N2'
+					AND     C.P_SPLITORDERTYPE = 'M2'
 					<if test='status=="1"'>
 							AND t2.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
 					</if>
