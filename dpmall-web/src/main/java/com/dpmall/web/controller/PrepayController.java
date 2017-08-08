@@ -1,6 +1,8 @@
 package com.dpmall.web.controller;
 
 
+import java.util.List;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IPrepayService;
 import com.dpmall.api.err.ErrorCode;
+import com.dpmall.web.controller.form.AppOrderForm;
 import com.dpmall.web.controller.form.AppPrepayForm;
 import com.dpmall.web.controller.form.Response;
 
@@ -221,19 +224,50 @@ public class PrepayController {
      */
     @RequestMapping(value="/distribute",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distribute(@RequestBody AppPrepayForm form){
-        LOG.info("{method:'PrepayController::distribute',in:" + JSON.toJSONString(form) + "}");
+    public Response distribute(@RequestBody List<AppOrderForm> formList){
     	
-    	Response res = new Response();
-        try{
-        	res.data = prepayService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);
-        } catch(Throwable e){
-        	res.resultCode = ErrorCode.INTERNAL_ERR;
-        	LOG.error(e.getMessage(),e);
+    	Response response = new Response();
+    	StringBuffer buffer = new StringBuffer();  
+    	int successCount = 0;//记录"下派成功"的数量
+    	int errorCount = 0;//记录"下派失败"的数量
+    	//遍历formList
+    	for(int i=0;i<formList.size();i++) {//遍历formList
+    		AppOrderForm form = new AppOrderForm();
+    		form = formList.get(i);
+    		if (StringUtils.isEmpty(form.distributorId) || StringUtils.isEmpty(form.orderCode) ) {//参数为空
+    			int index = i+1;//记录第几条数据"参数错误"
+    			if (buffer.length() == 0) {
+					buffer.append(index+"参数错误");
+				}else {
+					buffer.append(","+index+"参数错误");
+				}
+				errorCount ++;
+        	}else {//参数不为空
+    			try {//成功
+    				int success = prepayService.distribute(form.distributorId, form.orderCode, form.storeId, form.remark);//调用下派方法
+    				successCount += success;
+    			} catch (Exception e) {//失败
+    				if (buffer.length() == 0) {
+    					buffer.append(form.orderCode);
+    				}else {
+    					buffer.append(","+form.orderCode);
+    				}
+    				errorCount ++;
+    			}
+    		}
     	}
-        
-		LOG.info("{method:'PrepayController::distribute',out:{res'" + JSON.toJSONString(res) + "'}}");
-    	return res;
+    	//输出结果Response
+    	if (errorCount == 0) {
+    		response.resultCode = ErrorCode.SUCCESS;
+    		response.message = "下派完成";
+    	}else {
+    		response.resultCode = ErrorCode.INTERNAL_ERR;
+    		response.message = buffer.toString();
+    	}
+    	response.data = successCount;//成功的数量
+    	
+    	return response;
+    	
     }
     
     /**
