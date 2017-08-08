@@ -296,8 +296,8 @@
    		      R.P_NAME as RegionName,
               CLP.P_NAME as CityName,
               DLP.P_NAME as DistrictName,
-              DPT.P_CODE as productCode,
-              DPT.P_CATEGORY as productCategory,
+              DPT.P_CODE as code,
+              DPT.P_CATEGORY as category,
               DP.P_NAME as name,
    		      ROWNUM RN
    		      from CONSIGNMENTS C 
