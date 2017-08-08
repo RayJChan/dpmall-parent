@@ -170,7 +170,7 @@
 	    <result property="CityName" column="CityName"/>
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="OrderStatus" column="OrderStatus"/>
-	    <result property="salesapplication" column="salesapplication"/>
+	    <result property="salesApplication" column="salesApplication"/>
 			<collection property="items" ofType="com.dpmall.db.bean.OrderItemEntity">
 				<id property="id" column="itemsId"/>
 			    <result property="splitOrderType" column="splitOrderType"/>
