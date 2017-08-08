@@ -441,7 +441,7 @@
 					C.P_CODE AS P_CODE,
 					C.pk,
 					C.P_STATUS,
-					DP.P_NAME AS productName,<!-- 特权定金名称 -->
+					DP.P_NAME AS name,<!-- 特权定金名称 -->
 					P .p_name AS P_DELIVERYPOINTOFSERVICE,
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
 					o.CREATEDTS AS CREATEDTS,
@@ -467,7 +467,7 @@
 				AND o.CREATEDTS BETWEEN TO_DATE ('2016-11-11', 'yyyy-mm-dd') AND TO_DATE ('2017-11-11', 'yyyy-mm-dd')
 				AND DP.P_NAME IS NOT NULL
 				
-				AND C.P_STATUS IN (
+				  AND C.P_STATUS IN (
 					SELECT
 						t2.pk
 					FROM
@@ -485,7 +485,7 @@
 					<if test='status=="3"'>
 						AND code ='COMPLETED'
 					</if>
-				)
+				) 
 				
 				AND c.PK IN (
 					SELECT
@@ -513,7 +513,7 @@
 					C.P_CODE AS P_CODE,
 					C.pk,
 					C.P_STATUS,
-					DP.P_NAME AS productName,<!-- 特权定金名称 -->
+					DP.P_NAME AS name,<!-- 特权定金名称 -->
 					P .p_name AS P_DELIVERYPOINTOFSERVICE,
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
 					o.CREATEDTS AS CREATEDTS,
