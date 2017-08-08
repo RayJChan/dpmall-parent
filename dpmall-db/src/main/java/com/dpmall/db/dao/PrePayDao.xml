@@ -400,7 +400,7 @@
    		      
    		      C.P_SHIPPINGADDRESS,
               
-              DP.P_NAME as productName,
+              DP.P_NAME as name,
               C.CREATEDTS,
               A.P_PHONE1,
    		      A.P_FIRSTNAME,
