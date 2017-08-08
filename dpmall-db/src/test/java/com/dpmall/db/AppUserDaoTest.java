@@ -18,8 +18,8 @@ public class AppUserDaoTest extends SpringTestCase {
 	
 	@Test
 	public void testLogin() {
-		AppUserEntity entity =appUserDao.login("6", "123456");
-		System.out.println("result:"+String.valueOf(entity==null));
+		AppUserEntity entity =appUserDao.login("8796093075041", "123456");
+		logger.info("result:"+JSON.toJSONString(entity));
 	}
 	/*
 	@Test

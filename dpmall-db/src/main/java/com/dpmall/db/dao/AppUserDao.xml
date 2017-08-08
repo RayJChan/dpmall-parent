@@ -6,13 +6,13 @@
 	    <result property="username" column="P_USERNAME" />
 	    <result property="password" column="P_PASSSWD" />
 	    <result property="cnName" column="P_CNNAME" />
-	    <result property="roleCode" column="P_ROLE" />
+	    <result property="roleCode" column="p_rolecode" />
 	    <result property="agencyId" column="P_AGENCY" />
 	    <result property="storeId" column="P_STORE" />
 	</resultMap>
 	
 	<select id="login" resultMap="AppUserResultMap" >
-		select * from APPUSER where PK=#{username} and P_PASSSWD=#{passwd}
+		select a.*,a2.p_rolecode from APPUSER a,approle a2  where a.p_role=a2.pk and  a.PK=#{username} and a.P_PASSSWD=#{passwd}
 	</select>
 	
 	<insert id="createStoreUser">
