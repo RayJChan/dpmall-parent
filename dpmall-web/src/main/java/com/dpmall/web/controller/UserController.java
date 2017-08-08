@@ -60,13 +60,18 @@ public class UserController {
 				res.message="用户名或密码错误";				
 			} else {
 				String token=UUID.randomUUID().toString().replaceAll("-", "")+RandomUtils.nextInt(0, 100);;
+				String oldToken=jedis.get(String.valueOf(resModel.id));
+				jedis.srem("tokens", oldToken==null?"":oldToken);
+				jedis.set(String.valueOf(resModel.id),token);
+				jedis.sadd("tokens", token);
 				resModel.token=token;
 				res.data=resModel;
 				res.resultCode=ErrorCode.SUCCESS;
-				jedis.set(token, String.valueOf(resModel.id));
 			}
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
+        	res.resultCode=ErrorCode.INTERNAL_ERR;
+        	res.message="系统错误";
     	}
         finally {
 			jedis.close();

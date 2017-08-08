@@ -117,7 +117,6 @@ public class OrderServiceImpl implements IOrderService {
 		model.cusRefuseComment=entity.cusRefuseComment;
 		model.acceptedRefuseComment=entity.acceptedRefuseComment;
 		model.OrderStatus=entity.OrderStatus;
-		model.salesApplication=entity.salesApplication;
 		for (OrderItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);

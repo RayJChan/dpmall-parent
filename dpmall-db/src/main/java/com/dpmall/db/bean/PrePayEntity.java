@@ -119,7 +119,7 @@ public class PrePayEntity {
 	/**运费**/
 	public BigDecimal deliveryCost;
 	
-	/**站方*/
+	/**订单来源*/
 	public String salesApplication;
 	
 	/**均摊金额*/
