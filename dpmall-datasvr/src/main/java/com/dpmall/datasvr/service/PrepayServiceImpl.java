@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dpmall.api.IPrepayService;
-import com.dpmall.api.bean.OrderModel;
 import com.dpmall.api.bean.PrepayModel;
 import com.dpmall.api.bean.SaleLeadsGoodsModel;
 import com.dpmall.api.common.TimeScope;
-import com.dpmall.db.bean.OrderEntity;
 import com.dpmall.db.bean.PrePayEntity;
 import com.dpmall.db.bean.PrePayItemEntity;
 import com.dpmall.db.dao.PrePayDao;
@@ -71,6 +69,8 @@ public class PrepayServiceImpl implements IPrepayService {
 		entity.deliveryRemark=model.deliveryRemark;
 		entity.cusRefuseComment=model.cusRefuseComment;
 		entity.acceptedRefuseComment=model.acceptedRefuseComment;
+		entity.discountPrice=model.discountPrice;
+		entity.writeoffCode=model.writeoffCode;
 		for(Object obj:model.items) {
 			entity.items.add((PrePayItemEntity) obj);
 		}
@@ -117,6 +117,8 @@ public class PrepayServiceImpl implements IPrepayService {
 		model.deliveryRemark=entity.deliveryRemark;
 		model.cusRefuseComment=entity.cusRefuseComment;
 		model.acceptedRefuseComment=entity.acceptedRefuseComment;
+		entity.discountPrice=model.discountPrice;
+		entity.writeoffCode=model.writeoffCode;
 		for (PrePayItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
@@ -173,8 +175,8 @@ public class PrepayServiceImpl implements IPrepayService {
 		return prePayDao.get2DistributeCount(distributorId, status);
 	}
 
-	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
-		List<PrePayEntity> entities = prePayDao.getOnePage4StoreId(storeId, status, offset, pageSize);
+	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, String search, Integer offset, Integer pageSize) {
+		List<PrePayEntity> entities = prePayDao.getOnePage4StoreId(storeId, status,search, offset, pageSize);
 		if (entities.isEmpty() || entities == null) {
 			return null;
 		}
@@ -188,10 +190,10 @@ public class PrepayServiceImpl implements IPrepayService {
 		return prePayDao.get2StoreCount(storeId, status);
 	}
 
-	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, Integer startNum, Integer pageSize) {
+	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, String search, Integer startNum, Integer pageSize) {
 		List<PrepayModel> out = null;
 
-		List<PrePayEntity> outEntityList = prePayDao.getOnePage4AcceptorId(acceptorId,status,startNum,pageSize);
+		List<PrePayEntity> outEntityList = prePayDao.getOnePage4AcceptorId(acceptorId,status,search,startNum,pageSize);
 		if(outEntityList == null || outEntityList.isEmpty()){
 			return null;
 		}

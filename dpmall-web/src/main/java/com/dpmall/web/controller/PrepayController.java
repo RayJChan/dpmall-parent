@@ -100,12 +100,12 @@ public class PrepayController {
     public Response getOnePage4StoreId(@RequestBody AppPrepayForm form){
     	LOG.info("{method:'PrepayController::getOnePage4StoreId',in:"+JSON.toJSONString(form)+"}");
 		Response response = new Response();
-		if (StringUtils.isEmpty(form.storeId) || StringUtils.isEmpty(form.status)) {
+		if (StringUtils.isEmpty(form.storeId) ) {
     		response.resultCode = ErrorCode.INVALID_PARAM;
     		response.message="参数错误";
     	}else {
     		try {
-				response.data = prepayService.getOnePage4StoreId(form.storeId, form.status, form.startNum, form.pageSize);
+				response.data = prepayService.getOnePage4StoreId(form.storeId, form.status,form.search, form.startNum, form.pageSize);
 			} catch (Exception e) {
 				response.resultCode = ErrorCode.INTERNAL_ERR;
 				response.message = "未知错误";
@@ -157,7 +157,7 @@ public class PrepayController {
      	
      	Response res = new Response();
          try{
-         	res.data = prepayService.getOnePage4AcceptorId(form.acceptorId, form.status, form.startNum, form.pageSize);
+         	res.data = prepayService.getOnePage4AcceptorId(form.acceptorId, form.status,form.search, form.startNum, form.pageSize);
          } catch(Throwable e){
          	res.resultCode = ErrorCode.INTERNAL_ERR;
          	LOG.error(e.getMessage(),e);

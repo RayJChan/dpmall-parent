@@ -13,7 +13,7 @@
 	    <result property="refuseType" column="P_REFUSETYPE"/>
 	    <result property="refuseComment" column="P_REFUSECOMMENT"/>
 	    <result property="acceptedRefuseComment" column="P_ACCEPTEDREFUSECOMMENT"/>
-	    <result property="deliverPic" column="P_DELIVERYPIC"/>
+	    <!-- <result property="deliverPic" column="P_DELIVERYPIC"/> -->
 	    <result property="status" column="P_STATUS"/>
 	    <result property="acceptedBy" column="P_ACCEPTEDBY"/>
 	    <result property="acceptedComment" column="P_ACCEPTEDCOMMENT"/>
@@ -43,6 +43,8 @@
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="deliveryRemark" column="deliveryRemark"/>
+	    <result property="discountPrice" column="discountPrice"/>
+	    <result property="writeoffCode" column="writeoffCode"/>
 	    
 	    <collection property="items" ofType="com.dpmall.db.bean.PrePayItemEntity">
 	    	<id property="id" column="itemsId"/>
@@ -291,7 +293,7 @@
       		  
    		      AU.P_CNNAME AS P_ACCEPTEDBY,
 		      O2O.P_ACCEPTEDCOMMENT,
-   		      O2O.P_DELIVERYPIC,
+   		     <!--  O2O.P_DELIVERYPIC, -->
    		      
    		      PS.P_DISPLAYNAME as deliveryPoint,
    		      
@@ -385,6 +387,7 @@
 					AND DP.P_NAME is not null
                     AND T1.INTERNALCODe in('ConsignmentStatus','OrderStatus')
 					AND O2O.P_ACCEPTEDBY = #{acceptorId}
+					AND (P_FIRSTNAME = #{search} OR A .p_phone1 = #{search})
 					AND     C.P_SPLITORDERTYPE = 'M2'
 					<if test='status=="1"'>
 							AND t2.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
@@ -524,6 +527,7 @@
 					DP.P_NAME AS name,<!-- 特权定金名称 -->
 					P .p_name AS deliveryPoint,
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
+					 A.P_PHONE1,
 					o.CREATEDTS AS CREATEDTS,
 					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
 					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
@@ -546,7 +550,7 @@
 					1 = 1
 				AND l.p_ISOCODE = 'zh'
 				AND DP.P_NAME IS NOT NULL
-				
+				and A .P_PHONE1 =  #{search}
 				AND C.P_STATUS IN (
 					SELECT
 						t2.pk

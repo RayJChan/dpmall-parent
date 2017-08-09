@@ -48,7 +48,7 @@ public interface PrePayDao {
 	 * @param pageSize 页的大小
 	 * @return 特权定金导购员状态列表
 	 */
-    public List<PrePayEntity> getOnePage4AcceptorId(@Param("acceptorId")String acceptorId,@Param("status")String status,@Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
+    public List<PrePayEntity> getOnePage4AcceptorId(@Param("acceptorId")String acceptorId,@Param("status")String status,@Param("search")String search, @Param("startNum")Integer startNum, @Param("pageSize")Integer pageSize);
    
     /**
 	 * 特权定金销商商订单状态列表
@@ -68,6 +68,6 @@ public interface PrePayDao {
 	 * @param pageSize 页的大小
 	 * @return 特权定金销商商订单状态列表
 	 */
-    public List<PrePayEntity> getOnePage4StoreId (@Param("storeId") String storeId,@Param("status") String status,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
+    public List<PrePayEntity> getOnePage4StoreId (@Param("storeId") String storeId,@Param("status") String status,@Param("search") String search ,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
    
 }

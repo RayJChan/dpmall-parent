@@ -38,7 +38,7 @@ public class PrePayEntity {
 	public String acceptedRefuseComment;
 	
 	/**发货凭证**/
-	public String deliverPic;
+	public List<String> deliverPic;
 	
 	/**订单状态**/
 	public String status;
@@ -162,7 +162,11 @@ public class PrePayEntity {
 	public String deliveryRemark;
 	
 	
+	/**折扣金额**/
+	public String discountPrice;
 	
+	/**核销码**/
+	public String writeoffCode;
 	
 	/**PrePayEntry**/
 	public List<PrePayItemEntity> items;

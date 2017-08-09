@@ -73,7 +73,7 @@ public interface IPrepayService {
 	 * @param pageSize 页的大小
 	 * @return 特权定金门店订单状态列表
 	 */
-    public List<PrepayModel> getOnePage4StoreId(String storeId,String status,Integer offset, Integer pageSize);
+    public List<PrepayModel> getOnePage4StoreId(String storeId,String status, String search,Integer offset, Integer pageSize);
     
     /**
      * 特权定金门店订单状态条数
@@ -91,7 +91,7 @@ public interface IPrepayService {
 	 * @param pageSize 页的大小
 	 * @return 特权定金导购员状态列表
 	 */
-    public List<PrepayModel> getOnePage4AcceptorId(String acceptorId,String status,Integer offset, Integer pageSize);
+    public List<PrepayModel> getOnePage4AcceptorId(String acceptorId,String status,  String search,Integer offset, Integer pageSize);
     
     /**
      * 特权定金导购员状态条数
