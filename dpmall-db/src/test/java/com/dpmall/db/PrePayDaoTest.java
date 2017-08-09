@@ -57,7 +57,7 @@ public class PrePayDaoTest extends SpringTestCase {
 	@Test
 	public void testGetOnePage4Distribute() {
 		logger.info("=================testGetOnePage4Distribute====================");
-		List<PrePayEntity> entitieList = prePayDao.getOnePage4Distribute("1060-BA", "2", 1, 999);
+		List<PrePayEntity> entitieList = prePayDao.getOnePage4Distribute("310145", "3", "天" ,1, 999);
 		logger.info(JSON.toJSONString(entitieList));
 	}
 	

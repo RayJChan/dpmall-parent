@@ -50,7 +50,7 @@ public class PrepayController {
     		response.message="参数错误";
     	}else {
     		try {
-				response.data = prepayService.getOnePage4Distribute(form.distributorId, form.status, form.startNum, form.pageSize);
+				response.data = prepayService.getOnePage4Distribute(form.distributorId, form.status,form.search, form.startNum, form.pageSize);
 			} catch (Exception e) {
 				response.resultCode = ErrorCode.INTERNAL_ERR;
 				response.message = "未知错误";

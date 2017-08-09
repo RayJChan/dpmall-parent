@@ -58,7 +58,7 @@ public interface PrePayDao {
 	 * @param pageSize 页的大小
 	 * @return 特权定金销商商订单状态列表
 	 */
-    public List<PrePayEntity> getOnePage4Distribute (@Param("distributorId") String distributorId,@Param("status") String status,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
+    public List<PrePayEntity> getOnePage4Distribute (@Param("distributorId") String distributorId,@Param("status") String status, @Param("search")String search  ,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
    
     /**
 	 * 特权定金销商商订单状态列表

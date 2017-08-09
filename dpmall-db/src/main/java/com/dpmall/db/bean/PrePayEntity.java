@@ -137,7 +137,7 @@ public class PrePayEntity {
 	/**物流公司名称*/
 	public String logisticsCompany;
 	
-	/**物流公司名称*/
+	/**产品名称*/
 	public String name;
 	
 	/**汇总金额*/
@@ -160,6 +160,8 @@ public class PrePayEntity {
 	
 	/**发货备注*/
 	public String deliveryRemark;
+	
+	
 	
 	
 	/**PrePayEntry**/
