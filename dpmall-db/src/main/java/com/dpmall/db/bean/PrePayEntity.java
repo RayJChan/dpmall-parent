@@ -162,7 +162,11 @@ public class PrePayEntity {
 	public String deliveryRemark;
 	
 	
+	/**折扣金额**/
+	public String discountPrice;
 	
+	/**核销码**/
+	public String writeoffCode;
 	
 	/**PrePayEntry**/
 	public List<PrePayItemEntity> items;
