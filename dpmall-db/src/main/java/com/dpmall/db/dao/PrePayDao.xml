@@ -524,6 +524,7 @@
 					DP.P_NAME AS name,<!-- 特权定金名称 -->
 					P .p_name AS deliveryPoint,
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
+					 A.P_PHONE1,
 					o.CREATEDTS AS CREATEDTS,
 					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
 					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
@@ -546,7 +547,7 @@
 					1 = 1
 				AND l.p_ISOCODE = 'zh'
 				AND DP.P_NAME IS NOT NULL
-				
+				and A .P_PHONE1 =  #{search}
 				AND C.P_STATUS IN (
 					SELECT
 						t2.pk

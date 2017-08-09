@@ -79,7 +79,7 @@ public class PrePayFacadeTest extends SpringTestCase{
 	@Test
 	public void testGetOnePage4StoreId() {
 		logger.info("===================testGetOnePage4StoreId=================");
-		List<PrepayModel> result = prepayService.getOnePage4StoreId("8796129527800", "2", 1, 999);
+		List<PrepayModel> result = prepayService.getOnePage4StoreId("8796129527800", "2", "15218365660" ,1, 999);
 		logger.info(JSON.toJSONString(result));
 	}
 }
