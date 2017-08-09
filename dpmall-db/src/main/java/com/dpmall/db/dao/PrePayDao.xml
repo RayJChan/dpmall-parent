@@ -43,6 +43,7 @@
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="deliveryRemark" column="deliveryRemark"/>
+	    
 	    <collection property="items" ofType="com.dpmall.db.bean.PrePayItemEntity">
 	    	<id property="id" column="itemsId"/>
 		    <result property="splitOrderType" column="splitOrderType"/>
@@ -348,7 +349,8 @@
                         A .P_FIRSTNAME,
 						A .p_phone1,
 						o.CREATEDTS as P_ACCEPTEDTIME,
-                        ADD_MONTHS (o.CREATEDTS, 1) AS limitedTime,
+                         TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
+						TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
 						OE.P_DELIVERYCOST AS deliveryCost,
 						OE.P_SERVICEAMOUNT AS serviceAmount,
 						OE.P_payAmount AS payAmount,
@@ -400,7 +402,9 @@
    		      C.P_SHIPPINGADDRESS,
               
               DP.P_NAME as name,
-              C.CREATEDTS as limitedTime,
+              C.CREATEDTS as CREATEDTS,
+              TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
+			 TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
               A.P_PHONE1,
    		      A.P_FIRSTNAME,
    		      PS.P_DISPLAYNAME as deliveryPoint,	
@@ -441,10 +445,11 @@
 					C.pk,
 					C.P_STATUS,
 					DP.P_NAME AS name,<!-- 特权定金名称 -->
-					P .p_name AS P_DELIVERYPOINTOFSERVICE,
+					P .p_name AS deliveryPoint,
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
 					o.CREATEDTS AS CREATEDTS,
-					ADD_MONTHS (o.CREATEDTS, 1) AS limitedTime,
+					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
+					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
 					ROWNUM rn
 				FROM
 					CONSIGNMENTS c
@@ -463,9 +468,8 @@
 				WHERE
 					1 = 1
 				AND l.p_ISOCODE = 'zh'
-				AND o.CREATEDTS BETWEEN TO_DATE ('2016-11-11', 'yyyy-mm-dd') AND TO_DATE ('2017-11-11', 'yyyy-mm-dd')
 				AND DP.P_NAME IS NOT NULL
-				
+				AND P .p_name IS NOT NULL
 				  AND C.P_STATUS IN (
 					SELECT
 						t2.pk
@@ -483,6 +487,9 @@
 					</if>
 					<if test='status=="3"'>
 						AND code ='COMPLETED'
+						<if test="search != null">
+							AND P.p_name LIKE '%${search}%'
+						</if>
 					</if>
 				) 
 				
@@ -513,10 +520,11 @@
 					C.pk,
 					C.P_STATUS,
 					DP.P_NAME AS name,<!-- 特权定金名称 -->
-					P .p_name AS P_DELIVERYPOINTOFSERVICE,
+					P .p_name AS deliveryPoint,
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
 					o.CREATEDTS AS CREATEDTS,
-					ADD_MONTHS (o.CREATEDTS, 1) AS limitedTime,
+					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
+					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
 					ROWNUM rn
 				FROM
 					CONSIGNMENTS c
@@ -535,7 +543,6 @@
 				WHERE
 					1 = 1
 				AND l.p_ISOCODE = 'zh'
-				AND o.CREATEDTS BETWEEN TO_DATE ('2016-11-11', 'yyyy-mm-dd') AND TO_DATE ('2017-11-11', 'yyyy-mm-dd')
 				AND DP.P_NAME IS NOT NULL
 				
 				AND C.P_STATUS IN (
@@ -547,15 +554,7 @@
 					WHERE
 						t1.INTERNALCODe = 'ConsignmentStatus'
 					AND t2.TYPEPKSTRING = t1.PK
-					<if test='status=="1"'>
-						AND code ='DISTRIBUTED'
-					</if>
-					<if test='status=="2"'>
-						AND code in ('TOSTORE','NOTTRADED' )
-					</if>
-					<if test='status=="3"'>
-						AND code ='COMPLETED'
-					</if>
+					AND code = 'STOREWAIT'<!-- 门店待接单 -->
 				)
 				
 				AND c.PK IN (

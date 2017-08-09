@@ -162,6 +162,8 @@ public class PrePayEntity {
 	public String deliveryRemark;
 	
 	
+	
+	
 	/**PrePayEntry**/
 	public List<PrePayItemEntity> items;
 	
