@@ -115,6 +115,7 @@
 			WHERE
 				c.P_STATUS = E .PK
 			AND E .TYPEPKSTRING = c2.PK
+			AND c.P_SPLITORDERTYPE ='M2'
 			<if test='status=="1"'>
 				AND E.code ='DISTRIBUTED'
 			</if>
@@ -139,6 +140,7 @@
 			WHERE
 				c.P_STATUS = E .PK
 			AND E .TYPEPKSTRING = c2.PK
+			AND c.P_SPLITORDERTYPE ='M2'
 			<if test='status=="1"'>
 				AND E.code in ('DISTRIBUTED','STOREWAIT')
 			</if>

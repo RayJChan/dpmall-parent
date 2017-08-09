@@ -51,9 +51,15 @@ public class UserServiceFacade implements IUserService {
 		return result;
 	}
 
-	public Integer updatePasswd(String username, String passwd) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer updatePasswd(String username, String passwd,String oldPasswd) {
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'UserServiceFacade::updatePasswd',in:{username:'" + username + "passwd"+passwd+"oldPasswd:"+oldPasswd+"'}}");
+		}
+		Integer result = userService.updatePasswd(username, passwd, oldPasswd);
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'UserServiceFacade::updatePasswd',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
 	}
 
 }

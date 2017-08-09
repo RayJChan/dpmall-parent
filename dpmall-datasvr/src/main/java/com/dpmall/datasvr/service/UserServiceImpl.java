@@ -69,9 +69,9 @@ public class UserServiceImpl implements IUserService {
 		return result;
 	}
 
-	public Integer updatePasswd(String username, String passwd) {
+	public Integer updatePasswd(String username, String passwd,String oldPasswd) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.changePassword(username, passwd, oldPasswd);
 	}
 
 }

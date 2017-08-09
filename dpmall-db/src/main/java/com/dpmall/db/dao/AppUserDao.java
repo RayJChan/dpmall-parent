@@ -14,4 +14,6 @@ public interface AppUserDao {
 	 int updateUser(@Param("user")AppUserEntity user);*/
 	 
 	 List<AppUserEntity> getStoreAllUser(@Param("storeId")Long storeId);
+	 
+	 Integer changePassword(@Param("id")String id,@Param("password")String password,@Param("oldPassword")String oldPassword);
 }

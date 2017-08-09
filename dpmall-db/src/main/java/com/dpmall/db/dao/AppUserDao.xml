@@ -4,7 +4,7 @@
 	<resultMap id="AppUserResultMap" type="com.dpmall.db.bean.AppUserEntity">
 	    <id property="id" column="PK" />
 	    <result property="username" column="P_USERNAME" />
-	    <result property="password" column="P_PASSSWD" />
+	    <result property="password" column="P_PASSWD" />
 	    <result property="cnName" column="P_CNNAME" />
 	    <result property="roleCode" column="p_rolecode" />
 	    <result property="agencyId" column="P_AGENCY" />
@@ -12,18 +12,18 @@
 	</resultMap>
 	
 	<select id="login" resultMap="AppUserResultMap" >
-		select a.*,a2.p_rolecode from APPUSER a,approle a2  where a.p_role=a2.pk and  a.PK=#{username} and a.P_PASSSWD=#{passwd}
+		select a.*,a2.p_rolecode from APPUSER a,approle a2  where a.p_role=a2.pk and  a.PK=#{username} and a.P_PASSWD=#{passwd}
 	</select>
 	
 	<insert id="createStoreUser">
-		insert into APPUSER (PK,P_USERNAME,P_PASSSWD,P_CNNAME,P_ROLE,P_AGENCY,P_STORE) values(${user.id},#{user.username},#{user.password},#{user.cnName},${user.roleCode},${user.agencyId},${user.storeId})
+		insert into APPUSER (PK,P_USERNAME,P_PASSWD,P_CNNAME,P_ROLE,P_AGENCY,P_STORE) values(${user.id},#{user.username},#{user.password},#{user.cnName},${user.roleCode},${user.agencyId},${user.storeId})
 	</insert>
 	
 	<update id="updateUser">
 		update APPUSER 
 		<set>
 			<if test="user.password!=null">
-				P_PASSSWD=#{user.password},
+				P_PASSWD=#{user.password},
 			</if>
 			<if test="user.cnName!=null">
 				P_CNNAME=#{user.cnName},
@@ -44,4 +44,8 @@
 	<select id="getStoreAllUser" resultMap="AppUserResultMap">
 		select * from APPUSER where p_store=${storeId}
 	</select>
+	
+	<update id="changePassword">
+		update appuser set p_passwd=#{password} where pk=#{id} and p_passwd=#{oldPassword}
+	</update>
 </mapper>

@@ -50,7 +50,7 @@ public interface IUserService {
 	 * @param passwd 密码
 	 * @return 成功返回200
 	 */
-    public Integer updatePasswd(String username, String passwd);
+    public Integer updatePasswd(String username, String passwd,String oldPasswd);
     
     
 }

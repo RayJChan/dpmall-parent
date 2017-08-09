@@ -3,6 +3,7 @@ package com.dpmall.web.controller;
 import java.util.UUID;
 
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IUserService;
 import com.dpmall.api.bean.LoginResModel;
 import com.dpmall.api.bean.UserModel;
 import com.dpmall.api.err.ErrorCode;
+import com.dpmall.common.MD5Utils;
 import com.dpmall.utils.RedisUtils;
 import com.dpmall.web.controller.form.Response;
 import com.dpmall.web.controller.form.UserForm;
@@ -52,32 +55,34 @@ public class UserController {
 	@ResponseBody
     public Response login(@RequestBody UserForm form){
     	Response res = new Response();
-    
-        try{
-        	LoginResModel resModel = userService.login(form.username, form.password);
-        	if (resModel==null) {
-				res.resultCode=ErrorCode.LOGIN_ERR;
-				res.message="用户名或密码错误";				
-			} else {
-				String token=UUID.randomUUID().toString().replaceAll("-", "")+RandomUtils.nextInt(0, 100);;
-				String oldToken=jedis.get(String.valueOf(resModel.id));
-				jedis.srem("tokens", oldToken==null?"":oldToken);
-				jedis.set(String.valueOf(resModel.id),token);
-				jedis.sadd("tokens", token);
-				resModel.token=token;
-				res.data=resModel;
-				res.resultCode=ErrorCode.SUCCESS;
-			}
-        } catch(Throwable e){
-        	LOG.error(e.getMessage(),e);
-        	res.resultCode=ErrorCode.INTERNAL_ERR;
-        	res.message="系统错误";
-    	}
-        finally {
-			jedis.close();
+    	if (StringUtils.isEmpty(form.username)||StringUtils.isEmpty(form.password)) {
+			res.resultCode=ErrorCode.INVALID_PARAM;
+			res.message="用户名或者密码不能为空";
 		}
-   
-
+    	else {
+    		try{
+            	LoginResModel resModel = userService.login(form.username, MD5Utils.MD5Encode(form.password));
+            	System.out.println("+++++++++++++++++++++++++++++"+JSON.toJSONString(resModel));
+            	if (resModel==null) {
+    				res.resultCode=ErrorCode.LOGIN_ERR;
+    				res.message="用户名或密码错误";				
+    			} else {
+    				String token=UUID.randomUUID().toString().replaceAll("-", "")+RandomUtils.nextInt(0, 100);
+    				jedis.set(String.valueOf(resModel.id),token);
+    				jedis.sadd("tokens", token);
+    				resModel.token=token;
+    				res.data=resModel;
+    				res.resultCode=ErrorCode.SUCCESS;
+    			}
+            } catch(Throwable e){
+            	LOG.error(e.getMessage(),e);
+            	res.resultCode=ErrorCode.INTERNAL_ERR;
+            	res.message="系统错误";
+        	}
+            finally {
+    			jedis.close();
+    		}
+		}
     	return res;
     
 	}
@@ -141,7 +146,34 @@ public class UserController {
 		}
 		return res;
 	}
-
-    	
+	
+	@RequestMapping(value="/updatePasswd",method= {RequestMethod.GET,RequestMethod.POST},produces = "application/json")
+	@ResponseBody
+    public Response updatePasswd(@RequestBody UserForm form) {
+    	Response res = new Response();
+    	if (StringUtils.isEmpty(form.username)||StringUtils.isEmpty(form.password)||StringUtils.isEmpty(form.oldPasswd)) {
+			res.resultCode=ErrorCode.INVALID_PARAM;
+			res.message="参数错误";
+		}
+    	else {
+    		try {
+    			Integer result = userService.updatePasswd(form.username, MD5Utils.MD5Encode(form.password), MD5Utils.MD5Encode(form.oldPasswd));
+    			res.data=result;
+    			if (result<1) {
+					res.resultCode=ErrorCode.TOKEN_ERR;
+					res.message="密码错误";
+				}
+    			else {				
+    				res.resultCode=ErrorCode.SUCCESS;
+    				jedis.del(form.username);
+    			}			
+			
+			} catch (Exception e) {
+				res.resultCode=ErrorCode.INTERNAL_ERR;
+				res.message="系统错误";
+			}
+    	}
+    	return res;
+    }	
 
 }
