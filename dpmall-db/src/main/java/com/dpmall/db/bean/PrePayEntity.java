@@ -169,7 +169,7 @@ public class PrePayEntity {
 	public String writeoffCode;
 	
 	/**限制时间**/
-	public String limitedTime;
+	public String LimitedTime;
 	
 	/**PrePayEntry**/
 	public List<PrePayItemEntity> items;
