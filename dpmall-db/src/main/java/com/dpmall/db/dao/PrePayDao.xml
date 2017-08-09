@@ -13,7 +13,7 @@
 	    <result property="refuseType" column="P_REFUSETYPE"/>
 	    <result property="refuseComment" column="P_REFUSECOMMENT"/>
 	    <result property="acceptedRefuseComment" column="P_ACCEPTEDREFUSECOMMENT"/>
-	    <result property="deliverPic" column="P_DELIVERYPIC"/>
+	    <!-- <result property="deliverPic" column="P_DELIVERYPIC"/> -->
 	    <result property="status" column="P_STATUS"/>
 	    <result property="acceptedBy" column="P_ACCEPTEDBY"/>
 	    <result property="acceptedComment" column="P_ACCEPTEDCOMMENT"/>
@@ -293,7 +293,7 @@
       		  
    		      AU.P_CNNAME AS P_ACCEPTEDBY,
 		      O2O.P_ACCEPTEDCOMMENT,
-   		      O2O.P_DELIVERYPIC,
+   		     <!--  O2O.P_DELIVERYPIC, -->
    		      
    		      PS.P_DISPLAYNAME as deliveryPoint,
    		      
