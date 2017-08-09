@@ -36,7 +36,7 @@ public class PrePayDaoTest extends SpringTestCase {
 	@Test
     public void testGetOnePage4AcceptorId(){
 		logger.info("=====================getOnePage4AcceptorId=======================");
-		List<PrePayEntity> result = prePayDao.getOnePage4AcceptorId("1", "8796105637979", 0, 20);
+		List<PrePayEntity> result = prePayDao.getOnePage4AcceptorId("1", "8796105637979", "1" ,0, 20);
     	logger.info(JSON.toJSONString(result));
     }
 	@Test
