@@ -173,7 +173,7 @@ public class PrepayModel implements Serializable {
 	public String writeoffCode;
 	
 	/**限制时间**/
-	public String limitedTime;
+	public String LimitedTime2;
 	
 	/**订单详情**/
 	public List<Object> items=new ArrayList<Object>();
