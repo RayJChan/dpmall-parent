@@ -38,7 +38,7 @@ public class PrePayEntity {
 	public String acceptedRefuseComment;
 	
 	/**发货凭证**/
-	public String deliverPic;
+	public List<String> deliverPic;
 	
 	/**订单状态**/
 	public String status;

@@ -128,7 +128,7 @@ public class PrepayModel implements Serializable {
 	public String acceptedBy;
 	
 	/**发货凭证**/
-	public String deliverPic;
+	public List<String> deliverPic;
 	
 	/**经销商备注**/
 	public String agencyComment;
