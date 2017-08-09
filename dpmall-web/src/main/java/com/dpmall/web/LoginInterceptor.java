@@ -27,15 +27,10 @@ public class LoginInterceptor implements HandlerInterceptor{
 		}
 		Response res = new Response();
 		try {
+			 String id = request.getHeader("id");
 			 String token = request.getHeader("token");
-			 if (token==null) {
-				res.resultCode=ErrorCode.TOKEN_ERR;
-				res.message="请先登录";
-				response.getWriter().append(JSON.toJSONString(res));
-				return false;
-			}
-			 Boolean excited = jedis.sismember("tokens", token);
-			 if (!excited) {
+			 String checkToken=jedis.get(id);
+			 if (token==null||!token.equals(checkToken)) {
 				res.resultCode=ErrorCode.TOKEN_ERR;
 				res.message="请先登录";
 				response.getWriter().append(JSON.toJSONString(res));

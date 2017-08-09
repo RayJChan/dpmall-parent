@@ -10,6 +10,9 @@ public class UserForm extends RequestForm{
     /**密码**/
     public String password;
     
+    /**旧密码**/
+    public String oldPasswd;
+    
     /**中文名*/
     public String cnName;
     

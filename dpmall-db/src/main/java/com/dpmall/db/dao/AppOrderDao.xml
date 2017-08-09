@@ -250,6 +250,7 @@
 							P_ALLOCATIONEMPLOYEECODE = #{distributorId} and
 							c3.INTERNALCODE = 'ConsignmentStatus' and
 							c.P_SHIPPINGADDRESS = A .pk
+							AND c.P_SPLITORDERTYPE IN ('A1','A2','B1','B2','C1','C2','D1','D2','E1','E2','F1','F2')
 						<if test="search!=null">
 							AND (c.p_code=#{search} OR a.P_FIRSTNAME=#{search} OR a.P_PHONE1=#{search})
 						</if>
@@ -328,7 +329,8 @@
 							c3.pk=E.TYPEPKSTRING and 
 							p_deliverypointofservice = #{storeId} and
 							c.P_SHIPPINGADDRESS = A .pk       and
-							c3.INTERNALCODE = 'ConsignmentStatus' 
+							c3.INTERNALCODE = 'ConsignmentStatus'
+							AND c.P_SPLITORDERTYPE IN ('A1','A2','B1','B2','C1','C2','D1','D2','E1','E2','F1','F2') 
 						<if test="search!=null">
 							AND (c.p_code=#{search} OR a.P_FIRSTNAME=#{search} OR a.P_PHONE1=#{search})
 						</if>

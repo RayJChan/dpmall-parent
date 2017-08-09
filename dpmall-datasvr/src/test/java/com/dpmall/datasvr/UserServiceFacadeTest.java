@@ -23,6 +23,6 @@ public class UserServiceFacadeTest extends SpringTestCase {
 	
 	@Test
 	public void testLogin() {
-		System.out.println("result:"+userService.login("14", "123456")==null);
+		System.out.println("result:"+userService.login("6", "e10adc3949ba59abbe56e057f20f883e")==null);
 	}
 }
