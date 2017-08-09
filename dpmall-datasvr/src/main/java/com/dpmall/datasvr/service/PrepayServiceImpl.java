@@ -71,7 +71,7 @@ public class PrepayServiceImpl implements IPrepayService {
 		entity.acceptedRefuseComment=model.acceptedRefuseComment;
 		entity.discountPrice=model.discountPrice;
 		entity.writeoffCode=model.writeoffCode;
-		entity.limitedTime = model.limitedTime;
+		entity.LimitedTime = model.LimitedTime;
 		for(Object obj:model.items) {
 			entity.items.add((PrePayItemEntity) obj);
 		}
@@ -120,7 +120,7 @@ public class PrepayServiceImpl implements IPrepayService {
 		model.acceptedRefuseComment=entity.acceptedRefuseComment;
 		entity.discountPrice=model.discountPrice;
 		entity.writeoffCode=model.writeoffCode;
-		model.limitedTime = entity.limitedTime;
+		model.LimitedTime = entity.LimitedTime;
 		for (PrePayItemEntity item:entity.items) {
 			model.orderTotal=model.orderTotal.add(item.deliveryCost==null?BigDecimal.ZERO:item.deliveryCost).add(item.payAmount==null?BigDecimal.ZERO:item.payAmount).add(item.serviceAmount==null?BigDecimal.ZERO:item.serviceAmount);
 			model.items.add(item);
