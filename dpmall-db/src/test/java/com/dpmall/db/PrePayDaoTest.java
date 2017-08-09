@@ -72,7 +72,7 @@ public class PrePayDaoTest extends SpringTestCase {
 	@Test
 	public void testGetOnePage4StoreId() {
 		logger.info("=================testGetOnePage4StoreId====================");
-		List<PrePayEntity> entitieList = prePayDao.getOnePage4StoreId("8796129527800", "2", 1, 999);
+		List<PrePayEntity> entitieList = prePayDao.getOnePage4StoreId("8796129527800", "2", "15218365660",1, 999);
 		logger.info(JSON.toJSONString(entitieList));
 	}
 	

@@ -70,11 +70,11 @@ public class PrepayServiceFacade implements IPrepayService {
 		return out;
 	}
 
-	public List<PrepayModel> getOnePage4StoreId(String storeId, String status, Integer offset, Integer pageSize) {
+	public List<PrepayModel> getOnePage4StoreId(String storeId, String status,  String search,Integer offset, Integer pageSize) {
 		if (LOG.isInfoEnabled()) {
-			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',in:{storeId:'"+storeId+",status:"+status+",offset:"+offset+",pageSize:"+pageSize+"'}}");
+			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',in:{storeId:'"+storeId+",status:"+status+",search:"+search+",offset:"+offset+",pageSize:"+pageSize+"'}}");
 		}
-		List<PrepayModel> out = prepayService.getOnePage4StoreId(storeId, status, offset, pageSize);
+		List<PrepayModel> out = prepayService.getOnePage4StoreId(storeId, status, search,offset, pageSize);
 		
 		if(LOG.isDebugEnabled()) {
 			LOG.info("{method:'PrepayServiceFacade::getOnePage4Distribute',out:"+JSON.toJSONString(out)+"}");
