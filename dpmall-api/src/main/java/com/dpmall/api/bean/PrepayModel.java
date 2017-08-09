@@ -109,7 +109,7 @@ public class PrepayModel implements Serializable {
 	/**送货方式*/
 	public String deliveryMethods;
 	
-	/**物流公司名称*/
+	/**产品名称*/
 	public String name;
 	
 	/**客户备注**/
