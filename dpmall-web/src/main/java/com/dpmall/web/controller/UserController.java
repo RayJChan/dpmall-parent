@@ -2,6 +2,8 @@ package com.dpmall.web.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IUserService;
 import com.dpmall.api.bean.LoginResModel;
 import com.dpmall.api.bean.UserModel;
@@ -62,7 +63,6 @@ public class UserController {
     	else {
     		try{
             	LoginResModel resModel = userService.login(form.username, MD5Utils.MD5Encode(form.password));
-            	System.out.println("+++++++++++++++++++++++++++++"+JSON.toJSONString(resModel));
             	if (resModel==null) {
     				res.resultCode=ErrorCode.LOGIN_ERR;
     				res.message="用户名或密码错误";				
