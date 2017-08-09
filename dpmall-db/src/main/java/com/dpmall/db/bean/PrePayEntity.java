@@ -168,6 +168,9 @@ public class PrePayEntity {
 	/**核销码**/
 	public String writeoffCode;
 	
+	/**限制时间**/
+	public String limitedTime;
+	
 	/**PrePayEntry**/
 	public List<PrePayItemEntity> items;
 	
