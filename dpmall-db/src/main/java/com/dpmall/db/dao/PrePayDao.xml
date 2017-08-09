@@ -43,6 +43,8 @@
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="DistrictName" column="DistrictName"/>
 	    <result property="deliveryRemark" column="deliveryRemark"/>
+	    <result property="discountPrice" column="discountPrice"/>
+	    <result property="writeoffCode" column="writeoffCode"/>
 	    
 	    <collection property="items" ofType="com.dpmall.db.bean.PrePayItemEntity">
 	    	<id property="id" column="itemsId"/>

@@ -166,6 +166,12 @@ public class PrepayModel implements Serializable {
 	/**下单时间**/
 	public Date createds;
 	
+	/**折扣金额**/
+	public String discountPrice;
+	
+	/**核销码**/
+	public String writeoffCode;
+	
 	/**订单详情**/
 	public List<Object> items=new ArrayList<Object>();
 }
