@@ -45,7 +45,7 @@
 	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <result property="discountPrice" column="discountPrice"/>
 	    <result property="writeoffCode" column="writeoffCode"/>
-	    <result property="LimitedTime" column="P_LIMITEDTIME"/>
+	    <result property="limitedTime" column="P_LIMITEDTIME"/>
 	    
 	    <collection property="items" ofType="com.dpmall.db.bean.PrePayItemEntity">
 	    	<id property="id" column="itemsId"/>
@@ -459,8 +459,7 @@
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
 					o.CREATEDTS AS CREATEDTS,
 					
-					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
-					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
+					
 					
 					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
 					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS P_LIMITEDTIME,
@@ -570,8 +569,7 @@
 					R.p_name || ac.p_name || ad.p_name || A .p_streetname AS  P_SHIPPINGADDRESS,
 					o.CREATEDTS AS CREATEDTS,
 					
-					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
-					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
+					
 					
 					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
 					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS P_LIMITEDTIME,
