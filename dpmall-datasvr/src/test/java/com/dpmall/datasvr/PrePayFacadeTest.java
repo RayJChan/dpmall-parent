@@ -65,7 +65,7 @@ public class PrePayFacadeTest extends SpringTestCase{
 	@Test
 	public void testGetOnePage4AcceptorId() {
 		logger.info("===================getOnePage4AcceptorId=================");
-		List<PrepayModel> result = prepayService.getOnePage4AcceptorId("123456", "8796105637979", 0, 20);
+		List<PrepayModel> result = prepayService.getOnePage4AcceptorId("123456", "8796105637979", "cao", 0, 20);
 		logger.info(JSON.toJSONString(result));
 	}
 	

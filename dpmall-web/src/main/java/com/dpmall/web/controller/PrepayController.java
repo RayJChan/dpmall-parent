@@ -157,7 +157,7 @@ public class PrepayController {
      	
      	Response res = new Response();
          try{
-         	res.data = prepayService.getOnePage4AcceptorId(form.acceptorId, form.status, form.startNum, form.pageSize);
+         	res.data = prepayService.getOnePage4AcceptorId(form.acceptorId, form.status,form.search, form.startNum, form.pageSize);
          } catch(Throwable e){
          	res.resultCode = ErrorCode.INTERNAL_ERR;
          	LOG.error(e.getMessage(),e);

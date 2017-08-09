@@ -96,13 +96,13 @@ public class PrepayServiceFacade implements IPrepayService {
 		return out;
 	}
 
-	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status, Integer startNum, Integer pageSize) {
+	public List<PrepayModel> getOnePage4AcceptorId(String acceptorId, String status,  String search,Integer startNum, Integer pageSize) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'PrepayServiceFacade::getOnePage4AcceptorId',in:{acceptorId:'" + acceptorId +"'status:'"+status+ "',startNum:'"
 					+ startNum + "',pageSize:'" + pageSize +"'}}");
 		}
 		
-		List<PrepayModel> out = prepayService.getOnePage4AcceptorId(acceptorId, status, startNum, pageSize);
+		List<PrepayModel> out = prepayService.getOnePage4AcceptorId(acceptorId, status,search, startNum, pageSize);
 		
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'PrepayServiceFacade::getOnePage4AcceptorId',out:"+JSON.toJSONString(out)+"}");

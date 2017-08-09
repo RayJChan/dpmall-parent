@@ -387,6 +387,7 @@
 					AND DP.P_NAME is not null
                     AND T1.INTERNALCODe in('ConsignmentStatus','OrderStatus')
 					AND O2O.P_ACCEPTEDBY = #{acceptorId}
+					AND (P_FIRSTNAME = #{search} OR A .p_phone1 = #{search})
 					AND     C.P_SPLITORDERTYPE = 'M2'
 					<if test='status=="1"'>
 							AND t2.code in ('ALLOCATED','BOOKED','SHIPPED','DPRECEIVE')
