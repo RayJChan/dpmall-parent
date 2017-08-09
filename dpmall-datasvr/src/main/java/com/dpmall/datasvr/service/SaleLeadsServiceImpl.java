@@ -394,6 +394,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param saleLeadsId2shopId 经销商ID=>shopId
      * @return 分配的店铺数
      */
+	@Transactional
 	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
 		int result=0;
 		for(Entry<String, String> entity : saleLeadsId2shopId.entrySet()) {

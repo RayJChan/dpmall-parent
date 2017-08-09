@@ -2,16 +2,16 @@ package com.dpmall.utils;
 
 import redis.clients.jedis.Jedis;
 
+
+
 public class RedisUtils {
-	private static Jedis jedis = null; 
 	
-	private static final String HOST = "localhost";
+	private static Jedis jedis;
 	
-	private static final Integer PORT = 6379;
 	
 	public static Jedis getClient() {
 		if (jedis==null) {
-			return new Jedis(HOST, PORT);
+			return new Jedis("localhost",6379);
 		}
 		else {
 			return jedis;
