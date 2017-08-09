@@ -156,10 +156,10 @@ public class PrepayServiceImpl implements IPrepayService {
 		return null;
 	}
 
-	public List<PrepayModel> getOnePage4Distribute(String distributorId, String status, Integer offset,
+	public List<PrepayModel> getOnePage4Distribute(String distributorId, String status, String search,Integer offset,
 			Integer pageSize) {
 		
-			List<PrePayEntity> entities = prePayDao.getOnePage4Distribute(distributorId, status, offset, pageSize);
+			List<PrePayEntity> entities = prePayDao.getOnePage4Distribute(distributorId, status,search, offset, pageSize);
 			if (entities.isEmpty() || entities == null) {
 				return null;
 			}

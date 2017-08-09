@@ -75,8 +75,9 @@ public class PrePayItemEntity implements Serializable{
 	/**下单时间**/
 	public Date createds;
 	
-	
 	/**限制时间**/
-	public Date limitedTime;
+	public String limitedTime;
+	
+	
 
 }
