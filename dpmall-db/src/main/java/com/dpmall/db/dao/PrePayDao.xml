@@ -13,7 +13,7 @@
 	    <result property="refuseType" column="P_REFUSETYPE"/>
 	    <result property="refuseComment" column="P_REFUSECOMMENT"/>
 	    <result property="acceptedRefuseComment" column="P_ACCEPTEDREFUSECOMMENT"/>
-	    <!-- <result property="deliverPic" column="P_DELIVERYPIC"/> -->
+	    <!--  <result property="deliverPic" column="P_DELIVERYPIC"/> -->
 	    <result property="status" column="P_STATUS"/>
 	    <result property="acceptedBy" column="P_ACCEPTEDBY"/>
 	    <result property="acceptedComment" column="P_ACCEPTEDCOMMENT"/>
@@ -45,7 +45,7 @@
 	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <result property="discountPrice" column="discountPrice"/>
 	    <result property="writeoffCode" column="writeoffCode"/>
-	    <result property="LimitedTime2" column="P_LIMITEDTIME"/>
+	    <result property="limitedTime" column="P_LIMITEDTIME"/>
 	    
 	    <collection property="items" ofType="com.dpmall.db.bean.PrePayItemEntity">
 	    	<id property="id" column="itemsId"/>
@@ -276,7 +276,7 @@
 			  U.P_CODE AS unit,
 			  OE.P_QUANTITY AS quantity,
 			  O2O.P_SERVERCOMMENT,
-			  O2O.P_DELIVERYPIC,
+			   O2O.P_DELIVERYPIC, 
 			  DPT.P_CODE as writeoffCode,
    		      
    		      ROWNUM RN
