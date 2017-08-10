@@ -45,7 +45,7 @@
 	    <result property="deliveryRemark" column="deliveryRemark"/>
 	    <result property="discountPrice" column="discountPrice"/>
 	    <result property="writeoffCode" column="writeoffCode"/>
-	    <result property="limitedTime" column="P_LIMITEDTIME"/>
+	    <result property="LimitedTime" column="P_LIMITEDTIME"/>
 	    
 	    <collection property="items" ofType="com.dpmall.db.bean.PrePayItemEntity">
 	    	<id property="id" column="itemsId"/>
@@ -435,7 +435,8 @@
 					o.CREATEDTS AS CREATEDTS,
 					
 					
-					
+					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
+					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
 					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
 					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS P_LIMITEDTIME,
 					
@@ -545,7 +546,8 @@
 					o.CREATEDTS AS CREATEDTS,
 					
 					
-					
+					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
+					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS limitedTime,
 					TO_CHAR(o.CREATEDTS,'yyyy-mm-dd')|| ' 至 '||
 					TO_CHAR(ADD_MONTHS (o.CREATEDTS, 1),'yyyy-mm-dd') AS P_LIMITEDTIME,
 					
@@ -592,7 +594,11 @@
 					1 = 1
 				AND l.p_ISOCODE = 'zh'
 				AND DP.P_NAME IS NOT NULL
-				and A .P_PHONE1 =  #{search}
+				<if test ="search != null">
+					<if test ="search != ''">
+					and A .P_PHONE1 =  #{search}
+					</if>	
+				</if>
 				AND C.P_STATUS IN (
 					SELECT
 						t2.pk
