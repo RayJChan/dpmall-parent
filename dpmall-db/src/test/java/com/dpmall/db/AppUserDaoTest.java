@@ -27,6 +27,18 @@ public class AppUserDaoTest extends SpringTestCase {
 		Integer result =appUserDao.changePassword("1", "xiecong2","xiecong");
 		logger.info("result:"+JSON.toJSONString(result));
 	}
+	
+	@Test
+	public void testGetAgencyUserInfo() {
+		AppUserEntity result=appUserDao.getAgencyUserInfo("6");
+		logger.info("result:"+JSON.toJSONString(result));
+	}
+	
+	@Test
+	public void testGetStoreUserInfo() {
+		AppUserEntity result=appUserDao.getStoreUserInfo("6");
+		logger.info("result:"+JSON.toJSONString(result));
+	}
 	/*
 	@Test
 	public void  createStoreUserTest() {

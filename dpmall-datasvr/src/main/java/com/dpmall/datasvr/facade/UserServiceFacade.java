@@ -62,4 +62,15 @@ public class UserServiceFacade implements IUserService {
 		return result;
 	}
 
+	public UserModel getUserInfo(String role, String id) {
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'UserServiceFacade::getUserInfo',in:{role:'" + role + "id"+id+"'}}");
+		}
+		UserModel result = userService.getUserInfo(role, id);
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'UserServiceFacade::getUserInfo',out:"+JSON.toJSONString(result)+"}");
+		}
+		return result;
+	}
+
 }

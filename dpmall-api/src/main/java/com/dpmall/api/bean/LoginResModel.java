@@ -33,6 +33,15 @@ public class LoginResModel implements Serializable {
     /**登录token*/
     public String token;
     
+    /**手机号码**/
+    public String telePhone;
+    
+    /**店铺名称**/
+    public String storeName;
+    
+    /**店铺（经销商）地址**/
+    public String storeAddress;
+    
     /**功能列表*/
     public Set<String> funcList;
 }

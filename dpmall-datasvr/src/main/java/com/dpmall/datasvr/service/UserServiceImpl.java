@@ -24,6 +24,9 @@ public class UserServiceImpl implements IUserService {
 		model.roleCode=entity.roleCode;
 		model.storeId=entity.storeId;
 		model.username=entity.username;
+		model.telePhone=entity.telePhone;
+		model.storeName=entity.storeName;
+		model.storeAddress=entity.storeAddress;
 		return model;
 	}
 	
@@ -45,6 +48,16 @@ public class UserServiceImpl implements IUserService {
 		}
 		else {
 			LoginResModel result = entityToLoginModel(entity);
+			if (result.roleCode.equals("agency")) {
+				AppUserEntity infoEntity=userDao.getAgencyUserInfo(String.valueOf(result.id));
+				result.storeName=infoEntity.storeName;
+				result.storeAddress=infoEntity.storeAddress;
+			}
+			else {
+				AppUserEntity infoEntity=userDao.getStoreUserInfo(String.valueOf(result.id));
+				result.storeName=infoEntity.storeName;
+				result.storeAddress=infoEntity.storeAddress;
+			}
 			return result;
 		}
 		
@@ -73,5 +86,21 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		return userDao.changePassword(username, passwd, oldPasswd);
 	}
+
+	public UserModel getUserInfo(String role, String id) {
+		UserModel model =new UserModel(); 
+		if (role.equals("1")) {
+			model=entityToModel(userDao.getAgencyUserInfo(id));
+		}
+		else if (role.equals("2")) {
+			model=entityToModel(userDao.getStoreUserInfo(id));
+		}
+		else {
+			model=null;
+		}
+		return model;
+	}
+	
+	
 
 }

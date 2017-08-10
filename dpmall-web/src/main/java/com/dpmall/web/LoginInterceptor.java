@@ -3,6 +3,7 @@ package com.dpmall.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,12 @@ public class LoginInterceptor implements HandlerInterceptor{
 		try {
 			 String id = request.getHeader("id");
 			 String token = request.getHeader("token");
+			 if (StringUtils.isEmpty(id)||StringUtils.isEmpty(token)) {
+				res.resultCode=ErrorCode.TOKEN_ERR;
+				res.message="请先登录";
+				response.getWriter().append(JSON.toJSONString(res));
+				return false;
+			}
 			 String checkToken=jedis.get(id);
 			 if (token==null||!token.equals(checkToken)) {
 				res.resultCode=ErrorCode.TOKEN_ERR;

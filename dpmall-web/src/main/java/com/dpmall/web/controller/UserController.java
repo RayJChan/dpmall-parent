@@ -2,8 +2,6 @@ package com.dpmall.web.controller;
 
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -174,6 +172,8 @@ public class UserController {
 			}
     	}
     	return res;
-    }	
+    }
+	
+
 
 }

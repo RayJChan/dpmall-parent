@@ -9,10 +9,13 @@
 	    <result property="roleCode" column="p_rolecode" />
 	    <result property="agencyId" column="P_AGENCY" />
 	    <result property="storeId" column="P_STORE" />
+	    <result property="storeName" column="storeName"/>
+	    <result property="storeAddress" column="storeAddress"/>
+	    <result property="telePhone" column="P_TELEPHONE"/>
 	</resultMap>
 	
 	<select id="login" resultMap="AppUserResultMap" >
-		select a.*,a2.p_rolecode from APPUSER a,approle a2  where a.p_role=a2.pk and  a.PK=#{username} and a.P_PASSWD=#{passwd}
+		select a.*,a2.p_rolecode from APPUSER a,approle a2  where a.p_role=a2.pk and  a.p_username=#{username} and a.P_PASSWD=#{passwd}
 	</select>
 	
 	<insert id="createStoreUser">
@@ -37,7 +40,7 @@
 			<if test="user.storeId!=null">
 				P_STORE=${user.storeId},
 			</if>
-			where pk=${user.id}
+			where p_username=${user.id}
 		</set>
 	</update>
 	
@@ -48,4 +51,35 @@
 	<update id="changePassword">
 		update appuser set p_passwd=#{password} where pk=#{id} and p_passwd=#{oldPassword}
 	</update>
+	<select id="getAgencyUserInfo" resultMap="AppUserResultMap">
+		SELECT
+			A .pk,
+			A .P_CNNAME,
+			A .P_TELEPHONE,
+			a2.P_NAME AS storeName,
+			A3.P_STREETNAME AS storeAddress
+		FROM
+			APPUSER A,
+			AGENCY a2,
+			ADDRESSES a3
+		WHERE
+			A .P_AGENCY = a2.PK
+		AND a2.PK = A3.OWNERPKSTRING
+		AND A .PK = #{id}
+		AND ROWNUM = 1
+	</select>
+	<select id="getStoreUserInfo" resultMap="AppUserResultMap">
+		SELECT
+			A .PK,
+			A .P_CNNAME,
+			A .P_TELEPHONE,
+			p.P_DISPLAYNAME as storeName,
+			P_FORMATADDRESS AS storeAddress
+		FROM
+			APPUSER A,
+			POINTOFSERVICE P
+		WHERE
+			A .P_STORE = P .PK
+			AND A .PK = #{id}
+	</select>
 </mapper>

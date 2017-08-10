@@ -52,5 +52,7 @@ public interface IUserService {
 	 */
     public Integer updatePasswd(String username, String passwd,String oldPasswd);
     
+    public UserModel getUserInfo(String role,String id);
+    
     
 }

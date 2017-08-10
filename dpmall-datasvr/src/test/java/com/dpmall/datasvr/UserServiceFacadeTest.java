@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
 import com.dpmall.api.IUserService;
+import com.dpmall.api.bean.UserModel;
 import com.dpmall.common.SpringTestCase;
 
 public class UserServiceFacadeTest extends SpringTestCase {
@@ -23,6 +24,13 @@ public class UserServiceFacadeTest extends SpringTestCase {
 	
 	@Test
 	public void testLogin() {
-		System.out.println("result:"+userService.login("6", "e10adc3949ba59abbe56e057f20f883e")==null);
+		logger.info("result:"+JSON.toJSONString(userService.login("310597", "14e1b600b1fd579f47433b88e8d85291")));
 	}
+	
+	@Test
+	public void testGetUserInfo() {
+		UserModel result=userService.getUserInfo("2", "6");
+		logger.info("result:"+JSON.toJSONString(result));
+	}
+	
 }

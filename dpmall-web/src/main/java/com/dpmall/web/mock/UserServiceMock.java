@@ -61,4 +61,11 @@ public class UserServiceMock implements IUserService {
 	}
 
 
+	@Override
+	public UserModel getUserInfo(String role, String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

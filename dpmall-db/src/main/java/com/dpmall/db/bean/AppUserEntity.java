@@ -25,4 +25,13 @@ public class AppUserEntity {
     
     /**门店ID*/
     public Long storeId;
+    
+    /**手机号码**/
+    public String telePhone;
+    
+    /**店铺名称**/
+    public String storeName;
+    
+    /**店铺（经销商）地址**/
+    public String storeAddress;
 }
