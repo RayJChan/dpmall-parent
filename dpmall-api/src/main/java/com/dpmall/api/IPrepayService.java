@@ -145,4 +145,11 @@ public interface IPrepayService {
      * @return 特权定金获取拒单原因
      */
     public List<PrepayModel> getReason4Order(String orderStyle);
+    
+    /**
+     * 核销码获取单据明细
+     * @param priDepositCode 核销码
+     * @return 特权定金获取单据明细
+     */
+    public PrepayModel get4priDepositCode(String priDepositCode);
 }

@@ -259,4 +259,9 @@ public class PrepayServiceImpl implements IPrepayService {
 		return null;
 	}
 
+	public PrepayModel get4priDepositCode(String priDepositCode) {
+		PrepayModel model = entityToModel(prePayDao.get4priDepositCode(priDepositCode));
+		return model;
+	}
+
 }

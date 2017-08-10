@@ -329,7 +329,33 @@ public class PrepayController {
     	return null;
     }
     
-
+    /**
+     * 核销码获取单据明细
+     * @param priDepositCode 核销码
+     * @return 特权定金获取单据明细
+     */
+    @RequestMapping(value="/get4priDepositCode",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
+    @ResponseBody
+    public Response get4priDepositCode(@RequestBody AppPrepayForm form){
+    	LOG.info("{method:'PrepayController::get4priDepositCode',in:" + JSON.toJSONString(form) + "}");
+    	
+    	Response res = new Response();
+    	if (StringUtils.isEmpty(form.priDepositCode)) {
+			res.resultCode=ErrorCode.INVALID_PARAM;
+			res.message="参数错误";
+			return res;
+		}
+        try{
+        	res.data = prepayService.get4priDepositCode(form.priDepositCode);
+        	res.resultCode=ErrorCode.SUCCESS;
+        } catch(Throwable e){
+        	res.resultCode = ErrorCode.INTERNAL_ERR;
+        	LOG.error(e.getMessage(),e);
+    	}
+        
+		LOG.info("{method:'PrepayController::get4priDepositCode',out:{res'" + JSON.toJSONString(res) + "'}}");
+    	return res;
+    }
     
 
 }

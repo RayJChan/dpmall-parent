@@ -69,5 +69,12 @@ public interface PrePayDao {
 	 * @return 特权定金销商商订单状态列表
 	 */
     public List<PrePayEntity> getOnePage4StoreId (@Param("storeId") String storeId,@Param("status") String status,@Param("search") String search ,@Param("startNum") Integer startNum, @Param("pageSize")Integer pageSize);
+    
+    /**
+     * 核销码获取单据明细
+     * @param priDepositCode 核销码
+     * @return 特权定金获取单据明细
+     */
+    public PrePayEntity get4priDepositCode(@Param("priDepositCode")String priDepositCode);
    
 }

@@ -51,4 +51,7 @@ public class AppPrepayForm extends RequestForm{
 	
 	/**电话号码**/
 	public String phone;
+	
+	/**核销码**/
+	public String priDepositCode;
 }

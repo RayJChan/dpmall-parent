@@ -178,4 +178,17 @@ public class PrepayServiceFacade implements IPrepayService {
 		return null;
 	}
 
+	public PrepayModel get4priDepositCode(String priDepositCode) {
+		if (LOG.isInfoEnabled()) {
+			LOG.info("{method:'PrepayServiceFacade::get4priDepositCode',in:{priDepositCode:'" + priDepositCode + "'}}");
+		}
+		
+		PrepayModel out = prepayService.get4priDepositCode(priDepositCode);
+		
+		if(LOG.isDebugEnabled()){
+			LOG.info("{method:'PrepayServiceFacade::get4priDepositCode',out:"+JSON.toJSONString(out)+"}");
+		}
+		return out;
+	}
+
 }

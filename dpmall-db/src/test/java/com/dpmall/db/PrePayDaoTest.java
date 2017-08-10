@@ -30,7 +30,7 @@ public class PrePayDaoTest extends SpringTestCase {
 	@Test
 	public void testGet4ConsignmentId() {
 		logger.info("=====================testGet4ConsignmentId=======================");
-		PrePayEntity result = prePayDao.get4ConsignmentId("aSITB100572001");
+		PrePayEntity result = prePayDao.get4ConsignmentId("aSITB100535372");
     	logger.info(JSON.toJSONString(result));
 	}
 	@Test
@@ -74,6 +74,13 @@ public class PrePayDaoTest extends SpringTestCase {
 		logger.info("=================testGetOnePage4StoreId====================");
 		List<PrePayEntity> entitieList = prePayDao.getOnePage4StoreId("8796129527800", "2", "15218365660",1, 999);
 		logger.info(JSON.toJSONString(entitieList));
+	}
+	
+	@Test
+	public void testGet4priDepositCode() {
+		logger.info("=====================testGet4ConsignmentId=======================");
+		PrePayEntity result = prePayDao.get4priDepositCode("1882419599143265878");
+    	logger.info(JSON.toJSONString(result));
 	}
 	
 }
