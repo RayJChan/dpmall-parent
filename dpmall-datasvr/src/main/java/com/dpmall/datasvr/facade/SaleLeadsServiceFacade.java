@@ -73,13 +73,13 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @param rejectRemark 拒单备注
      * @return
      */
-	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
+	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String operatorBy) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::reject',in:{saleLeadsId:'" + saleLeadsId + "',rejectType:'"
 					+ rejectType + "',rejectRemark:'" + rejectRemark +"'}}");
 		}
 		
-		Integer reject = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+		Integer reject = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark,operatorBy);
 		
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'SaleLeadsServiceFacade::reject',out:"+reject+"}");
@@ -166,7 +166,7 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	 * accept方法
 	 * saleLeadsId
 	 */
-	public int accept(String acceptorId, String saleLeadsId) {
+	public int accept(String acceptorId, String saleLeadsId,String operatorBy) {
 		// TODO Auto-generated method stub
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'accept',in:{acceptorId:'" + acceptorId  +"'}}");
@@ -174,7 +174,7 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'::accept',out:{acceptorId:'" + acceptorId  +"'}}");
 		}
-		int result = saleLeadsService.accept(acceptorId, saleLeadsId);
+		int result = saleLeadsService.accept(acceptorId, saleLeadsId,operatorBy);
 		
 		return result;
 	}
@@ -183,13 +183,13 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 	 * @param model 传入的model
 	 * @return 1为更新成功， 0 为失败
 	 * **/
-	public int edit(SaleLeadsModel model) {
+	public int edit(SaleLeadsModel model,String operatorBy) {
 		int result=0;
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::edit',in:{model:'" + JSON.toJSONString(model) + "'}}");
 		}
 		try {
-			result = saleLeadsService.edit(model);
+			result = saleLeadsService.edit(model,operatorBy);
 		} catch (Throwable e) {
 			LOG.error(e.getMessage(),e);
 		}
@@ -271,13 +271,13 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @param saleLeadsId2shopId 经销商ID=>shopId
      * @return 分配的店铺数
      */
-	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId,String operatorBy) {
 		int result=0;
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::distributeBatch',in:{distributorId:'" + distributorId + "',saleLeadsId2shopId:'"
 					+ JSON.toJSONString(saleLeadsId2shopId) +"}}");
 		}
-		result=saleLeadsService.distributeBatch(distributorId, saleLeadsId2shopId);
+		result=saleLeadsService.distributeBatch(distributorId, saleLeadsId2shopId,operatorBy);
 		if (LOG.isDebugEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::distributeBatch',out:"+JSON.toJSONString(result)+"}");
 		}
@@ -291,14 +291,14 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
      * @param rejectRemark 拒单备注
      * @return
      */
-	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
+	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark,String operatorBy) {
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'SaleLeadsServiceFacade::reject',in:{saleLeadsIdList:'" + saleLeadsIdList + "',rejectType:'"
 					+ rejectType + "',rejectRemark:'" + rejectRemark +"'}}");
 		}
 		Integer temp = 1;
 		for (String saleLeadsId : saleLeadsIdList) {
-			Integer result = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+			Integer result = saleLeadsService.reject(distributorId, saleLeadsId, rejectType, rejectRemark,operatorBy);
 			if(result!=1){
 				temp=0;
 			}
@@ -309,7 +309,7 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		return temp;
 	}
 
-	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
+	public int acceptBatch(String acceptorId, List<String> saleLeadsId,String operatorBy) {
 		// TODO Auto-generated method stub
 		if (LOG.isInfoEnabled()) {
 			LOG.info("{method:'accept',in:{acceptorId:'" + acceptorId  +"'}}");
@@ -317,7 +317,7 @@ public class SaleLeadsServiceFacade implements ISaleLeadsService {
 		if(LOG.isDebugEnabled()){
 			LOG.info("{method:'::accept',out:{saleLeadsId:'" + saleLeadsId  +"'}}");
 		}
-		int result = saleLeadsService.acceptBatch(acceptorId, saleLeadsId);
+		int result = saleLeadsService.acceptBatch(acceptorId, saleLeadsId,operatorBy);
 		
 		return result;
 	}

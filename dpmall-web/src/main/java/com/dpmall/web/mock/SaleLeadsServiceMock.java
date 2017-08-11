@@ -65,7 +65,7 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
+	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String operatorBy) {
 		return ErrorCode.SUCCESS;
 	}
 
@@ -200,12 +200,12 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public int accept(String acceptorId, String saleLeadsId) {
+	public int accept(String acceptorId, String saleLeadsId,String operatorBy) {
 		return ErrorCode.SUCCESS;
 	}
 
 	@Override
-	public int edit(SaleLeadsModel model) {
+	public int edit(SaleLeadsModel model,String operatorBy) {
 		return ErrorCode.SUCCESS;
 	}
 
@@ -345,17 +345,17 @@ public class SaleLeadsServiceMock implements ISaleLeadsService {
 	}
 
 	@Override
-	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId,String operatorBy) {
 		return ErrorCode.SUCCESS;
 	}
 
 	@Override
-	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
+	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark,String operatorBy) {
 		return ErrorCode.SUCCESS;
 	}
 
 	@Override
-	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
+	public int acceptBatch(String acceptorId, List<String> saleLeadsId,String operatorBy) {
 		return ErrorCode.SUCCESS;
 	}
 

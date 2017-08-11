@@ -149,13 +149,13 @@ public class UserController {
 	@ResponseBody
     public Response updatePasswd(@RequestBody UserForm form) {
     	Response res = new Response();
-    	if (StringUtils.isEmpty(form.username)||StringUtils.isEmpty(form.password)||StringUtils.isEmpty(form.oldPasswd)) {
+    	if (form.id==null||StringUtils.isEmpty(form.password)||StringUtils.isEmpty(form.oldPasswd)) {
 			res.resultCode=ErrorCode.INVALID_PARAM;
 			res.message="参数错误";
 		}
     	else {
     		try {
-    			Integer result = userService.updatePasswd(form.username, MD5Utils.MD5Encode(form.password), MD5Utils.MD5Encode(form.oldPasswd));
+    			Integer result = userService.updatePasswd(String.valueOf(form.id), MD5Utils.MD5Encode(form.password), MD5Utils.MD5Encode(form.oldPasswd));
     			res.data=result;
     			if (result<1) {
 					res.resultCode=ErrorCode.TOKEN_ERR;
@@ -163,10 +163,11 @@ public class UserController {
 				}
     			else {				
     				res.resultCode=ErrorCode.SUCCESS;
-    				jedis.del(form.username);
+    				jedis.del(String.valueOf(form.id));
     			}			
 			
 			} catch (Exception e) {
+				e.printStackTrace();
 				res.resultCode=ErrorCode.INTERNAL_ERR;
 				res.message="系统错误";
 			}

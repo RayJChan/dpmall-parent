@@ -172,7 +172,8 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param rejectRemark 拒单备注
      * @return
      */
-	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark) {
+	@Transactional
+	public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String operatorBy) {
 		Date date = new Date();
 		SalesLeadsOrderEntity entity = new SalesLeadsOrderEntity();
 		entity.id = Long.valueOf(saleLeadsId);
@@ -181,6 +182,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 		entity.rejectType = Integer.valueOf(rejectType);
 		entity.rejectRemark=rejectRemark;
 		entity.saleLeadsStatus="5";
+		SalesLeadsOperationEntity operationEntity = new SalesLeadsOperationEntity();
+		operationEntity.operatorDesc="经销商拒单";
+		operationEntity.operatorType="SaleLeadsServiceImpl：reject";
+		operationEntity.salesLeadsOrder=saleLeadsId;
+		operationEntity.operatorBy=operatorBy;
+		salesLeadsOperationDao.insert(operationEntity);
 		return salesLeadsOrderDao.edit(entity);
 	}
 
@@ -253,13 +260,20 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * accept方法
 	 * saleLeadsId
 	 */
-	public int accept(String acceptorId, String saleLeadsId) {
+	@Transactional
+	public int accept(String acceptorId, String saleLeadsId,String operatorBy) {
 
 		SalesLeadsOrderEntity outEntityList = salesLeadsOrderDao.getSaleLeads(saleLeadsId);
 		
 		outEntityList.saleLeadsStatus = "15";
 		outEntityList.storeAcceptTime = new Date();
 		outEntityList.storeAcceptor = acceptorId;
+		SalesLeadsOperationEntity operationEntity = new SalesLeadsOperationEntity();
+		operationEntity.operatorDesc="经销商接单";
+		operationEntity.operatorType="SaleLeadsServiceImpl：accept";
+		operationEntity.salesLeadsOrder=saleLeadsId;
+		operationEntity.operatorBy=operatorBy;
+		salesLeadsOperationDao.insert(operationEntity);
 		int result=salesLeadsOrderDao.edit(outEntityList);
 
 		return result;
@@ -270,7 +284,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * @return 1为更新成功， 0 为失败
 	 * **/
 	@Transactional
-	public int edit(SaleLeadsModel model) {
+	public int edit(SaleLeadsModel model,String operatorBy) {
 		SalesLeadsOrderEntity entity = null;
 		try {
 			entity = modelToEntity(model);
@@ -278,10 +292,10 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			LOG.error(e.getMessage(),e);
 		}
 		SalesLeadsOperationEntity operationEntity = new SalesLeadsOperationEntity();
-		operationEntity.operatorDesc="编辑SaleLeads订单";
-		operationEntity.operatorType="edit";
+		operationEntity.operatorDesc="编辑留资订单";
+		operationEntity.operatorType="SaleLeadsServiceImpl：edit";
 		operationEntity.salesLeadsOrder=String.valueOf(model.id);
-		operationEntity.operatorBy="1111";
+		operationEntity.operatorBy=operatorBy;
 		for(SaleLeadsGoodsModel goodsModel:model.orderItemList) {
 			SalesLeadsOrderItemEntity itemEntity = new SalesLeadsOrderItemEntity();
 			itemEntity.catetory=goodsModel.catetory;
@@ -395,16 +409,15 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @return 分配的店铺数
      */
 	@Transactional
-	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId) {
+	public int distributeBatch(String distributorId, Map<String, String> saleLeadsId2shopId,String operatorBy) {
 		int result=0;
 		for(Entry<String, String> entity : saleLeadsId2shopId.entrySet()) {
 			salesLeadsOrderDao.distribute(entity.getKey(), entity.getValue());
 			SalesLeadsOperationEntity operationEntity=new SalesLeadsOperationEntity();
-			operationEntity.operatorDesc="经销商分配店铺";
+			operationEntity.operatorDesc="经销商分配留资订单给店铺";
 			operationEntity.salesLeadsOrder=entity.getKey();
 			operationEntity.operatorType="distributeBatch";
-			operationEntity.operatorBy="1111";
-			//todo
+			operationEntity.operatorBy=operatorBy;
 			salesLeadsOperationDao.insert(operationEntity);
 			result++;
 		}
@@ -420,7 +433,8 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
      * @param rejectRemark 拒单备注
      * @return
      */
-	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark) {
+	@Transactional
+	public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark,String operatorBy) {
 		Integer temp = 1;
 		for (String saleLeadsId : saleLeadsIdList) {
 			Date date = new Date();
@@ -431,6 +445,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			entity.rejectType = Integer.valueOf(rejectType);
 			entity.rejectRemark=rejectRemark;
 			entity.saleLeadsStatus="5";
+			SalesLeadsOperationEntity operationEntity=new SalesLeadsOperationEntity();
+			operationEntity.operatorDesc="经销商拒单";
+			operationEntity.operatorType="SaleLeadsServiceImpl：rejectBatch";
+			operationEntity.salesLeadsOrder=saleLeadsId;
+			operationEntity.operatorBy=operatorBy;
+			salesLeadsOperationDao.insert(operationEntity);
 			Integer result = salesLeadsOrderDao.edit(entity);
 			LOG.info(result.toString());
 			if(result!=1){
@@ -445,7 +465,7 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 	 * 导购员批量接单
 	 * saleLeadsId
 	 */
-	public int acceptBatch(String acceptorId, List<String> saleLeadsId) {
+	public int acceptBatch(String acceptorId, List<String> saleLeadsId,String operatorBy) {
 
 		Boolean a = true;
 		int b = 0;
@@ -456,6 +476,12 @@ public class SaleLeadsServiceImpl implements ISaleLeadsService {
 			outEntityList.saleLeadsStatus = "15";
 			outEntityList.storeAcceptTime = new Date();
 			outEntityList.storeAcceptor = acceptorId;
+			SalesLeadsOperationEntity operationEntity=new SalesLeadsOperationEntity();
+			operationEntity.operatorDesc="经销商接单";
+			operationEntity.operatorType="SaleLeadsServiceImpl：acceptBatch";
+			operationEntity.salesLeadsOrder=id;
+			operationEntity.operatorBy=operatorBy;
+			salesLeadsOperationDao.insert(operationEntity);
 			int result=salesLeadsOrderDao.edit(outEntityList);
 			if(result==0){
 				a = false;

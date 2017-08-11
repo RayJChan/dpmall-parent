@@ -103,7 +103,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("1", "1111111");
     	map.put("2", "22222222");
-    	LOG.info("result:"+saleLeadsService.distributeBatch("", map));
+    	LOG.info("result:"+saleLeadsService.distributeBatch("", map,""));
     }
     @Test
     public void testGetOnePageClosedSaleLeads() throws ParseException{
@@ -121,7 +121,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
 	 */
     @Test
     public void testAccept(){
-    	int result = saleLeadsService.accept("14", "1");
+    	int result = saleLeadsService.accept("14", "1","");
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
@@ -136,7 +136,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	saleLeadsId.add("1");
     	saleLeadsId.add("2");
     	saleLeadsId.add("3");
-    	int result = saleLeadsService.acceptBatch("14", saleLeadsId);
+    	int result = saleLeadsService.acceptBatch("14", saleLeadsId,"");
     	LOG.info("=======================开始执行=======================");
         LOG.info("\n\nresult:" + JSON.toJSONString(result)+"\n\n");
     }
@@ -150,7 +150,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
      */
     @Test
     public void testReject(){
-    	Integer reject = saleLeadsService.reject(null,"1","10","11sssssss");
+    	Integer reject = saleLeadsService.reject(null,"1","10","11sssssss","");
     	LOG.info("=======================拒单更新状态======================="+reject);
     }
     /**
@@ -166,7 +166,7 @@ public class SaleLeadsServiceFacadeTestCase extends SpringTestCase {
     	List<String> saleLeadsIdList = new ArrayList<String>();
     	saleLeadsIdList.add("1");
     	saleLeadsIdList.add("2");
-    	Integer reject = saleLeadsService.rejectBatch(null,saleLeadsIdList,"19","21ssaaaassss1111ssss");
+    	Integer reject = saleLeadsService.rejectBatch(null,saleLeadsIdList,"19","21ssaaaassss1111ssss","");
     	LOG.info("=======================拒单更新状态======================="+reject);
     }
     /**

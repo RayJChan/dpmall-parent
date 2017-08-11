@@ -53,7 +53,7 @@ public interface ISaleLeadsService {
      * @param saleLeadsId2shopId 线索ID=>shopId
      * @return
      */
-    public int distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId);
+    public int distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String operatorBy);
     
     /**
      * 经销商拒单
@@ -63,7 +63,7 @@ public interface ISaleLeadsService {
      * @param rejectRemark 拒单备注
      * @return
      */
-    public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark);
+    public int reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String operatorBy);
     
     /**
      * 经销商拒单
@@ -73,7 +73,7 @@ public interface ISaleLeadsService {
      * @param rejectRemark 拒单备注
      * @return
      */
-    public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark);
+    public int rejectBatch(String distributorId, List<String> saleLeadsIdList, String rejectType, String rejectRemark,String operatorBy);
     
     
     /**
@@ -126,7 +126,7 @@ public interface ISaleLeadsService {
      * @param saleLeadsId 线索ID
      * @return
      */
-    public int accept(String acceptorId, String saleLeadsId);
+    public int accept(String acceptorId, String saleLeadsId,String operatorBy);
     
     /**
      * 导购员批量接单
@@ -134,14 +134,14 @@ public interface ISaleLeadsService {
      * @param saleLeadsId 线索ID
      * @return
      */
-    public int acceptBatch(String acceptorId, List<String> saleLeadsId);
+    public int acceptBatch(String acceptorId, List<String> saleLeadsId,String operatorBy);
     
     /**
      * 编辑销售线索订单信息
      * @param model
      * @return
      */
-    public int edit(SaleLeadsModel model);
+    public int edit(SaleLeadsModel model,String operatorBy);
  
     
     /**

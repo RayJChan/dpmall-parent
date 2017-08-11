@@ -244,7 +244,7 @@ public class SaleLeadsController {
     	
     	Response res = new Response();
         try{
-        	res.data = saleLeadsService.accept(form.acceptorId, form.saleLeadsId);
+        	res.data = saleLeadsService.accept(form.acceptorId, form.saleLeadsId,form.operatorBy);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);
@@ -267,7 +267,7 @@ public class SaleLeadsController {
     	Response res = new Response();
     	try{
     		SaleLeadsModel saleLeadsModel = this.convert(form);       
-        	res.data = saleLeadsService.edit(saleLeadsModel);
+        	res.data = saleLeadsService.edit(saleLeadsModel,form.operatorBy);
         	res.resultCode=ErrorCode.SUCCESS;
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
@@ -465,7 +465,7 @@ public class SaleLeadsController {
 		}
 
 		try{
-        	res.data = saleLeadsService.distributeBatch(form.distributorId, form.saleLeadsId2shopId);
+        	res.data = saleLeadsService.distributeBatch(form.distributorId, form.saleLeadsId2shopId,form.operatorBy);
         	res.resultCode=ErrorCode.SUCCESS;
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
@@ -490,7 +490,7 @@ public class SaleLeadsController {
 	
     	Response res = new Response();
         try{
-        	res.data = saleLeadsService.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark);
+        	res.data = saleLeadsService.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark,form.operatorBy);
         	res.resultCode = ErrorCode.SUCCESS;
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
@@ -513,7 +513,7 @@ public class SaleLeadsController {
     	
     	LOG.info("{method:'SaleLeadsController::acceptBatch',in:" + JSON.toJSONString(form) + "}");
         try{
-        	res.data = saleLeadsService.acceptBatch(form.acceptorId, form.saleLeadsId);
+        	res.data = saleLeadsService.acceptBatch(form.acceptorId, form.saleLeadsId,form.operatorBy);
         } catch(Throwable e){
         	res.resultCode = ErrorCode.INTERNAL_ERR;
         	LOG.error(e.getMessage(),e);

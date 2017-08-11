@@ -106,10 +106,10 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/reject",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String token){
+    public Response reject(String distributorId, String saleLeadsId, String rejectType, String rejectRemark,String token,String operatorBy){
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.reject(distributorId, saleLeadsId, rejectType, rejectRemark);
+        	res.resultCode = saleLeadsServiceMock.reject(distributorId, saleLeadsId, rejectType, rejectRemark, operatorBy);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -227,11 +227,11 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/accept",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response accept(String acceptorId, String saleLeadsId,String token){
+    public Response accept(String acceptorId, String saleLeadsId,String token,String operatorBy){
 
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.accept(acceptorId, saleLeadsId);
+        	res.resultCode = saleLeadsServiceMock.accept(acceptorId, saleLeadsId, operatorBy);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -246,10 +246,10 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/edit",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response edit(SaleLeadsModel model,String token){
+    public Response edit(SaleLeadsModel model,String token,String operatorBy){
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.edit(model);
+        	res.resultCode = saleLeadsServiceMock.edit(model, operatorBy);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -359,10 +359,10 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/distributeBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token){
+    public Response distributeBatch(String distributorId, Map<String,String> saleLeadsId2shopId,String token,String operatorBy){
     	Response res = new Response();
         try{
-        	res.resultCode = saleLeadsServiceMock.distributeBatch(distributorId, saleLeadsId2shopId);
+        	res.resultCode = saleLeadsServiceMock.distributeBatch(distributorId, saleLeadsId2shopId, operatorBy);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -381,11 +381,11 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/rejectBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response rejectBatch(RejectBatchForm form,String token){
+    public Response rejectBatch(RejectBatchForm form,String token,String operatorBy){
     	Response res = new Response();
     	
         try{
-        	res.resultCode = saleLeadsServiceMock.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark);
+        	res.resultCode = saleLeadsServiceMock.rejectBatch(form.distributorId, form.saleLeadsIdList, form.rejectType, form.rejectRemark, operatorBy);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}
@@ -401,11 +401,11 @@ public class SaleLeadsMockController {
      */
     @RequestMapping(value="/acceptBatch",method = {RequestMethod.GET,RequestMethod.POST},produces = "application/json") 
     @ResponseBody
-    public Response acceptBatch(AcceptBatchForm form,String token){
+    public Response acceptBatch(AcceptBatchForm form,String token,String operatorBy){
     	Response res = new Response();
     	
         try{
-        	res.resultCode = saleLeadsServiceMock.acceptBatch(form.acceptorId, form.saleLeadsId);
+        	res.resultCode = saleLeadsServiceMock.acceptBatch(form.acceptorId, form.saleLeadsId, operatorBy);
         } catch(Throwable e){
         	LOG.error(e.getMessage(),e);
     	}

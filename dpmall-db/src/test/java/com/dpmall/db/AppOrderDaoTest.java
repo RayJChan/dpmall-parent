@@ -1,8 +1,5 @@
 package com.dpmall.db;
 
-import java.util.Date;
-import java.util.List;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +17,7 @@ public class AppOrderDaoTest extends SpringTestCase{
 	@Autowired
 	private AppOrderDao appOrderDao;
 
-	@Test
+	/*@Test
 	public void getOnePage4DistributeTest() {
 //		logger.info(JSON.toJSONString(appOrderDao.get2DistributeCount("8796294532666")));
 	}
@@ -35,10 +32,10 @@ public class AppOrderDaoTest extends SpringTestCase{
 //		logger.info("result:"+JSON.toJSONString(appOrderDao.distribute("1", "10086")));
 	}
 	
-	/**
+	*//**
 	 * author:crown
 	 * getOnePage4Distribute
-	 */
+	 *//*
 	@Test
     public void testGetOnePage4Distribute(){
 		logger.info("=====================crown=========================");
@@ -52,36 +49,16 @@ public class AppOrderDaoTest extends SpringTestCase{
     	List<OrderEntity> result = appOrderDao.getOnePage4StoreId("8796129429496", "1", null, null, 0, 5);
     	logger.info(JSON.toJSONString(result));
     }
-	/**
+	*//**
 	 * author:crown
 	 * getOnePage4Distribute
-	 */
-	@Test
-    public void testGetOnePage4Followup(){
-		logger.info("=====================crown==123=======================");
-    	List<OrderEntity> result = appOrderDao.getOnePage4Followup("310145", 0,20);
-    	logger.info(JSON.toJSONString(result));
-    }
+	 *//*
 	
-	/**
-	 * 店铺获取待接单的实物订单
-	 * @param storeId 店铺ID
-	 * @param offset 上一次加载的位移
-	 * @param pageSize 页的大小
-	 * @return 店铺获取待接单的实物订单列表
-	 */
-	@Test
-    public void testGetOnePage4Accept(){
-		logger.info("=====================getOnePage4Accept=======================");
-    	List<OrderEntity> result = appOrderDao.getOnePage4Accept("10086", 0,20);
-    	logger.info(JSON.toJSONString(result));
-    }
-	
-	/**
+	*//**
 	 * 编辑实物订单信息
 	 * @param entity
 	 * @return 1为成功，0为失败
-	 */
+	 *//*
 	@Test 
 	public void testEdit() {
 		logger.info("=====================edit=======================");
@@ -96,28 +73,11 @@ public class AppOrderDaoTest extends SpringTestCase{
 //		logger.info(Integer.toString(count));
 	}
 	
-	/**
-	 * author : cwj 
-	 * 确认发货，更新B2C发货单模型发货状态
-	 * @param entity
-	 * @return 1为成功，0为失败
-	 */	
-	@Test
-	public void testDeliver4Consignments() {
-		logger.info("=====================deliver4Consignments=======================");
-		OrderEntity  entity = new OrderEntity();
-		Date date = new Date();
-		entity.orderCode = "aSIT100020032";
-		entity.deliveryTime = date;
-		int count = appOrderDao.deliver4Consignments(entity);
-		System.out.println(count+"=======testDeliver4Consignments======");
-		logger.info(Integer.toString(count));
-	}
 	
-	/**
+	*//**
 	 * author:crown
 	 * getOnePage4Distribute
-	 */
+	 *//*
 	@Test
     public void testAccept(){
 		logger.info("=====================1Crown=======================");
@@ -125,20 +85,20 @@ public class AppOrderDaoTest extends SpringTestCase{
 //    	logger.info(JSON.toJSONString(result));
     }
 	
-	/**
+	*//**
      * 经销商下派到店铺
      * @param orderCode 订单编码
      * @param storeId 店铺ID
      * @param remark 备注
-     */
+     *//*
 	@Test
 	public void testDistributes() {
 		logger.info("==============testDistributes==============");
-		int result1 = appOrderDao.distribute4O2o("ddddd", "1111", "Test备注");
+		int result1 = appOrderDao.distribute4O2o("1", "1111", "Test备注");
 		//int result2 = appOrderDao.distribute4Consignment("ddddd", "2222");
 		logger.info(Integer.toString(result1));
 		
-	}
+	}*/
 	
 	/**
 	 * author:crown
@@ -156,7 +116,7 @@ public class AppOrderDaoTest extends SpringTestCase{
      * @param distributorId 经销商ID
      * @param status 状态
      * @return 经销商待分配的实物订单数
-     */
+     *//*
 	@Test
     public void testGet2DistributeCount(){
 		logger.info("=====================testGet2DistributeCount=======================");
@@ -164,12 +124,12 @@ public class AppOrderDaoTest extends SpringTestCase{
     	logger.info(JSON.toJSONString(result));
     }
 	
-	/**
+	*//**
      * 实物类导购员订单状态条数
      * @param acceptorId 导购员ID
      * @param status 状态
      * @return 实物类导购员订单状态条数
-     */
+     *//*
 	@Test
 	public void testGet2AcceptorCount() {
 		logger.info("=================testGet2AcceptorCount====================");
@@ -177,12 +137,12 @@ public class AppOrderDaoTest extends SpringTestCase{
 		logger.info(JSON.toJSONString(count));
 	}
 	
-	/**
+	*//**
      * 实物类经销商订单状态条数
      * @param distributorId 经销商ID
      * @param status 状态
      * @return 经销商待分配的实物订单数
-     */
+     *//*
 	@Test
     public void testGetOnePage4AcceptorId(){
 		logger.info("=====================getOnePage4AcceptorId=======================");
@@ -190,12 +150,12 @@ public class AppOrderDaoTest extends SpringTestCase{
     	logger.info(JSON.toJSONString(result));
     }
 	
-	/**
+	*//**
      * 实物类门店订单状态条数
      * @param storeId 经销商ID
      * @param status 状态
      * @return 经销商待分配的实物订单数
-     */
+     *//*
 	@Test
 	public void testGet2StoreCount() {
 		logger.info("=================testGet2StoreCount====================");
@@ -203,15 +163,15 @@ public class AppOrderDaoTest extends SpringTestCase{
 		logger.info(JSON.toJSONString(count));
 	}
 	
-	/**
+	*//**
      * 实物类获取退货单据明细
      * @param consignmentId 发货单ID
      * @return 订单详情
-     */
+     *//*
 	@Test
     public void TestGetReturnRequestDetails(){
 		logger.info("=====================getReturnRequestDetails=======================");
 		OrderEntity result = appOrderDao.getReturnRequestDetails("8797174532051");
     	logger.info(JSON.toJSONString(result));
-    }
+    }*/
 }
